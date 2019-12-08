@@ -43,6 +43,21 @@ print(x)
 pca = PCA(n_components=2)
 x_r = pca.fit(x).transform(x)
 
+file_zero = open("resPCA.csv","w")
+file_zero.write("X,Y\n")
+file_zero.close()
+
+file = open("resPCA.csv","a")
+
+for i in x_r :
+    x0 = str(i[0])
+    x1 = str(i[1])
+    
+    file.write(x0 + "," + x1 + "\n")
+
+file.close()
+
+
 #Affiches le pourcentage d'importance des deux axes finaux
 print('explained variance ratio (first two components): %s'
       % str(pca.explained_variance_ratio_))
@@ -50,24 +65,4 @@ print('explained variance ratio (first two components): %s'
 #plot les points
 plt.title('PCA')
 plt.scatter(x_r[:,0],x_r[:,1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+plt.show()

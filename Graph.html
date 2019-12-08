@@ -5,8 +5,94 @@
     <title>Test Graph PCA</title>
   </head>
     <body>
+		  <!-- Load d3.js -->
+		  <script src="https://d3js.org/d3.v5.js"></script>
+
+		  <svg id="zone_graph"></svg>  <!-- crée l'emplacement 'svg' ou le dessin va aller-->
+		
+		  <script>
+
+        var largeur = 460;
+        var hauteur = 400;
+
+        //dimensions et marges du graph
+        var marge = {haut: 10, droite: 30, bas: 30, gauche: 60},
+          width = largeur - marge.gauche - marge.droite,
+          height = hauteur - marge.haut - marge.bas;
+
+        //gestion de la taille de l'emplacement 'svg'
+        var svg = d3.select("#zone_graph") //variable pour appeller l'objet svg
+            .attr("width", largeur)
+            .attr("height", hauteur)
+          .append("g")
+            .attr("transform","translate(" + marge.gauche + "," + marge.haut + ")");
+
+        //Récupérations des données
+        d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/resPCA.csv", function(data) {
         
+          console.log(data)
+/*
+        //ajout des axes
+        var x = d3.scaleLinear()
+          .domain([4, 8])  //Les limites de l'axes (valeur)
+          .range([0, width]); //Les limites spaciales de l'axes (coordonnées)
+        svg.append("g") //Ajout de l'axe au svg
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+        var y = d3.scaleLinear()
+          .domain([0, 9])
+          .range([ height, 0]);
+        svg.append("g")
+          .call(d3.axisLeft(y));
+
+        //Ajout des points
+        var vals = svg.append("g")
+          .selectAll("circle")
+          .data(data)
+          .enter()
+          .append("circle")
+            .attr("cx", function (d) { return x(d.X); } )
+            .attr("cy", function (d) { return y(d.Y); } )
+            .attr("r", 8)
+            .style("fill", "#440154ff" )
+            .style("opacity", 0.5)
 
 
+
+        // Zone de Sélection
+        d3.select("#zone_graph")
+              .call( d3.brush()                     // Ajout de la fonction d3.brush fonction de sélection
+                .extent( [ [0,0], [largeur,hauteur] ] )       // Initialise la zone possible de sélection
+              ) // Possibilité de bouger la zone de sélection
+*/
+        });
+
+        //Créer un rectangle et un cercle
+
+        /*
+        var rect = d3.select("#zone_graph")
+          .append("svg")
+          .append("rect")
+          .attr("x",50)
+          .attr("y",20)
+          .attr("width",500)
+          .attr("height",200)
+          .attr("fill","red")
+          .attr("stroke","black")
+          .attr("stroke-width","5")
+          
+        // Draw a circle
+        var myCircle = d3.select("#zone_graph")
+          .append("svg")
+          .append("circle")
+          .attr("cx", 100)
+          .attr("cy", 100)
+          .attr("r", 40)
+          .attr("fill", "#69a3b2")
+          .attr("stroke", "#2A2ECF")
+          .attr("stroke-width","3")
+        */
+      </script>
     </body>
 </html>
