@@ -9,7 +9,7 @@
 		  <script src="https://d3js.org/d3.v5.js"></script>
 
 		  <svg id="zone_graph"></svg>  <!-- crée l'emplacement 'svg' ou le dessin va aller-->
-		
+
 		  <script>
 
         var largeur = 460;
@@ -29,7 +29,7 @@
 
         //Récupérations des données
         d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/resPCA.csv", function(data) {
-
+            //test pour la zoz
         //ajout des axes
         var x = d3.scaleLinear()
           .domain([-5, 10])  //Les limites de l'axes (valeur)
@@ -50,9 +50,9 @@
               {"position":3, "country":"États-Unis", "population":315664478},
               {"position":4, "country":"Indonésie", "population":237641326},
               {"position":5, "country":"Brésil", "population":193946886},
-              {"position":6, "country":"Pakistan", "population":182614855},	
+              {"position":6, "country":"Pakistan", "population":182614855},
               {"position":7, "country":"Nigeria", "population":174507539},
-              {"position":8, "country":"Bangladesh", "population":152518015},	
+              {"position":8, "country":"Bangladesh", "population":152518015},
               {"position":9, "country":"Russie", "population":143056383},
               {"position":10, "country":"Japon", "population":127650000}
           ];
@@ -91,7 +91,7 @@
           .attr("fill","red")
           .attr("stroke","black")
           .attr("stroke-width","5")
-          
+
         // Draw a circle
         var myCircle = d3.select("#zone_graph")
           .append("svg")
