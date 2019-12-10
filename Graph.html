@@ -29,45 +29,33 @@
 
         //Récupérations des données
         d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/resPCA.csv", function(data) {
-            //test pour la zoz
+            
         //ajout des axes
-        var x = d3.scaleLinear()
+        var xAxis = d3.scaleLinear()
           .domain([-5, 10])  //Les limites de l'axes (valeur)
           .range([0, width]); //Les limites spaciales de l'axes (coordonnées)
         svg.append("g") //Ajout de l'axe au svg
           .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x));
+          .call(d3.axisBottom(xAxis));
 
-        var y = d3.scaleLinear()
+        var yAxis = d3.scaleLinear()
           .domain([-10, 10])
           .range([ height, 0]);
         svg.append("g")
-          .call(d3.axisLeft(y));
+          .call(d3.axisLeft(yAxis));
 
-          const datao = [
-              {"position":1, "country":"Chine", "population":1355045511},
-              {"position":2, "country":"Inde", "population":1210193422},
-              {"position":3, "country":"États-Unis", "population":315664478},
-              {"position":4, "country":"Indonésie", "population":237641326},
-              {"position":5, "country":"Brésil", "population":193946886},
-              {"position":6, "country":"Pakistan", "population":182614855},
-              {"position":7, "country":"Nigeria", "population":174507539},
-              {"position":8, "country":"Bangladesh", "population":152518015},
-              {"position":9, "country":"Russie", "population":143056383},
-              {"position":10, "country":"Japon", "population":127650000}
-          ];
 
         //Ajout des points
         var myCircle = svg.append("g")
-          .selectAll(".circle")
-          .data(datao)
+          .selectAll("circle")
+          .data(data)
           .enter()
-            .append("circle")
-            .attr("cx", function(d) { return x(d.position); })
-            .attr("cy", function(d) { return y(d.population / 100000000); })
-            //.attr("cx", function (data) { return x(data.X); } )
-            //.attr("cy", function (data) { return y(data.Y); } )
+          .append("circle")
+            .attr("cx", function (d) { return x(d.X); } )
+            .attr("cy", function (d) { return y(d.Y); } )
             .attr("r", 8)
+            .style("fill","red")
+            .style("opacity", 0.5)
 
 
         // Zone de Sélection

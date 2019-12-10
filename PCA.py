@@ -44,7 +44,7 @@ pca = PCA(n_components=2)
 x_r = pca.fit(x).transform(x)
 
 file_zero = open("resPCA.csv","w")
-file_zero.write("X,Y\n")
+file_zero.write("Axe_X,Axe_Y\n")
 file_zero.close()
 
 file = open("resPCA.csv","a")
