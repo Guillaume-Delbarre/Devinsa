@@ -4,93 +4,96 @@
     <meta charset="UTF-8">
     <title>Test Graph PCA</title>
   </head>
+    
     <body>
-		  <!-- Load d3.js -->
-		  <script src="https://d3js.org/d3.v5.js"></script>
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.js"></script>
 
-		  <svg id="zone_graph"></svg>  <!-- crée l'emplacement 'svg' ou le dessin va aller-->
+        <!-- crée l'emplacement 'svg' ou le dessin va aller-->
+        <div id="zone_graphique"></div> 
 
-		  <script>
+        <!-- style des points sélectionnés -->
+        <style>
+            .selected {
+            opacity: 1 !important;
+            stroke: black;
+            stroke-width: 1px;
+            }
+        </style>
 
-        var largeur = 460;
-        var hauteur = 400;
+        <script>
 
-        //dimensions et marges du graph
-        var marge = {haut: 10, droite: 30, bas: 30, gauche: 60},
-          width = largeur - marge.gauche - marge.droite,
-          height = hauteur - marge.haut - marge.bas;
+            var largeur = 760;
+            var hauteur = 700;
 
-        //gestion de la taille de l'emplacement 'svg'
-        var svg = d3.select("#zone_graph") //variable pour appeller l'objet svg
-            .attr("width", largeur)
-            .attr("height", hauteur)
-          .append("g")
-            .attr("transform","translate(" + marge.gauche + "," + marge.haut + ")");
+            // dimensions et marges du graph
+            var marge = {haut: 10, droite: 30, bas: 30, gauche: 60},
+                width = largeur - marge.gauche - marge.droite,
+                height = hauteur - marge.haut - marge.bas;
 
-        //Récupérations des données
-        d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/resPCA.csv", function(data) {
-            
-        //ajout des axes
-        var xAxis = d3.scaleLinear()
-          .domain([-5, 10])  //Les limites de l'axes (valeur)
-          .range([0, width]); //Les limites spaciales de l'axes (coordonnées)
-        svg.append("g") //Ajout de l'axe au svg
-          .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(xAxis));
+            // gestion de la taille de l'emplacement 'svg'
+            var svg = d3.select("#zone_graphique") //variable pour appeller l'objet svg
+            .append("svg")
+                .attr("width", largeur)
+                .attr("height", hauteur)
+            .append("g")
+                .attr("transform", "translate(" + marge.gauche + "," + marge.haut + ")"); // déplacement du graph pour laisser une marge en haut et à gauche
 
-        var yAxis = d3.scaleLinear()
-          .domain([-10, 10])
-          .range([ height, 0]);
-        svg.append("g")
-          .call(d3.axisLeft(yAxis));
+            //Récupération des données
+            d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/resPCA.csv", function(data) {
 
+            // Ajout des axes
+            var x = d3.scaleLinear()
+                .domain([-8, 17]) //Les limites de l'axes (valeur)
+                .range([ 0, width ]); //Les limites spaciales de l'axes (coordonnées)
+            svg.append("g") //Ajout de l'axe au svg
+                .attr("transform", "translate(0," + height + ")") //Décalage de l'axe des X vers le bas
+                .call(d3.axisBottom(x));
 
-        //Ajout des points
-        var myCircle = svg.append("g")
-          .selectAll("circle")
-          .data(data)
-          .enter()
-          .append("circle")
-            .attr("cx", function (d) { return x(d.X); } )
-            .attr("cy", function (d) { return y(d.Y); } )
-            .attr("r", 8)
-            .style("fill","red")
-            .style("opacity", 0.5)
+            var y = d3.scaleLinear()
+                .domain([-12, 14])
+                .range([ height, 0]);
+            svg.append("g")
+                .call(d3.axisLeft(y));
 
 
-        // Zone de Sélection
-        d3.select("#zone_graph")
-              .call( d3.brush()                     // Ajout de la fonction d3.brush fonction de sélection
-                .extent( [ [0,0], [largeur,hauteur] ] )       // Initialise la zone possible de sélection
-              ) // Possibilité de bouger la zone de sélection
+            // Ajout des points
+            var myCircle = svg.append('g')
+                .selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) { return x(d.Axe_X); } )
+                .attr("cy", function (d) { return y(d.Axe_Y); } )
+                .attr("r", 8)
+                .style("fill", "#440154ff" )
+                .style("opacity", 0.5)
 
-        });
+            // Zone de Sélection
+            svg
+                .call( d3.brush()                 // Ajout de la fonction d3.brush fonction de sélection
+                .extent( [ [0,0], [width,height] ] ) // Initialise la zone possible de sélection
+                .on("start brush", updateChart) // Déclanche la fonction 'updateChart' à chaque fois que la sélection change
+                ) // Possibilité de bouger la zone de sélection
 
-        //Créer un rectangle et un cercle
+            // Fonction appélé par la sélection
+            function updateChart() {
+                extent = d3.event.selection
+                myCircle.classed("selected", function(d){ return isBrushed(extent, x(d.Axe_X), y(d.Axe_Y) ) } )
+            }
 
-        /*
-        var rect = d3.select("#zone_graph")
-          .append("svg")
-          .append("rect")
-          .attr("x",50)
-          .attr("y",20)
-          .attr("width",500)
-          .attr("height",200)
-          .attr("fill","red")
-          .attr("stroke","black")
-          .attr("stroke-width","5")
+            // Fonction qui retourne True si le point est dans la sélection
+            function isBrushed(brush_coords, cx, cy) {
+                var x0 = brush_coords[0][0],
+                    x1 = brush_coords[1][0],
+                    y0 = brush_coords[0][1],
+                    y1 = brush_coords[1][1];
+                return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; 
+            }
 
-        // Draw a circle
-        var myCircle = d3.select("#zone_graph")
-          .append("svg")
-          .append("circle")
-          .attr("cx", 100)
-          .attr("cy", 100)
-          .attr("r", 40)
-          .attr("fill", "#69a3b2")
-          .attr("stroke", "#2A2ECF")
-          .attr("stroke-width","3")
-        */
-      </script>
+            })
+
+            </script>
+
     </body>
 </html>
