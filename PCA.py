@@ -45,7 +45,6 @@ pca = PCA(n_components=2)
 x_r = pca.fit(x).transform(x)
 print(x_r)
 
-"""
 file_zero = open("resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name\n")
 file_zero.close()
@@ -61,7 +60,7 @@ for i in range(len(x_r)) :
 
 file.close()
 
-"""
+
 #Affiches le pourcentage d'importance des deux axes finaux
 print('explained variance ratio (first two components): %s'
       % str(pca.explained_variance_ratio_))
