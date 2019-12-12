@@ -31,6 +31,9 @@ var y = d3.scaleLinear()
 svg.append("g")
     .call(d3.axisLeft(y));
 
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
 
 // Ajout des points
 var myCircle = svg.append('g')
@@ -43,8 +46,22 @@ var myCircle = svg.append('g')
     .attr("r", 8)
     .style("fill", "#440154ff" )
     .style("opacity", 0.5)
+    .on("mouseover", function(d) {
+        div.transition()
+            .duration(200)
+            .style("opacity", .9);
+        div.html("Nom : " + d.Name)
+            .style("left", (d3.event.pageX + 30) + "px")
+            .style("top", (d3.event.pageY - 30) + "px")
+    })
+    .on("mouseout", function(d) {
+        div.style("opacity", 0);
+        div.html("")
+            .style("left", "-500px")
+            .style("top", "-500px");
+    });
 
-
+/*
 // Zone de Sélection
 svg
     .call( d3.brush()                 // Ajout de la fonction d3.brush fonction de sélection
@@ -66,5 +83,5 @@ function isBrushed(brush_coords, cx, cy) {
         y1 = brush_coords[1][1];
     return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
 }
-
+*/
 })
