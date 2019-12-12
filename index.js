@@ -8,10 +8,10 @@ var marge = {haut: 10, droite: 30, bas: 30, gauche: 60},
 
 // gestion de la taille de l'emplacement 'svg'
 var svg = d3.select("#zone_graphique") //variable pour appeller l'objet svg
-.append("svg")
+    .append("svg")
     .attr("width", largeur)
     .attr("height", hauteur)
-.append("g")
+    .append("g")
     .attr("transform", "translate(" + marge.gauche + "," + marge.haut + ")"); // déplacement du graph pour laisser une marge en haut et à gauche
 
 //Récupération des données
@@ -31,8 +31,8 @@ var y = d3.scaleLinear()
 svg.append("g")
     .call(d3.axisLeft(y));
 
-var div = d3.select("body").append("div")   
-    .attr("class", "tooltip")               
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
     .style("opacity", 0);
 
 // Ajout des points
