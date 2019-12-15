@@ -43,7 +43,7 @@ var scatter = svg.append("g")
     .attr("clip-path", "url(#clip)")
 
 // Ajout des points
-//var myCircle = 
+//var myCircle =
 scatter //svg.append('g')
     .selectAll("circle")
     .data(data)
@@ -92,7 +92,7 @@ svg.append("rect")
     .call(zoom);
 
 function updateChart() {
-    
+
     var newX = d3.event.transform.rescaleX(x);
     var newY = d3.event.transform.rescaleY(y);
 
