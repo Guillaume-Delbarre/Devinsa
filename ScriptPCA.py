@@ -16,7 +16,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
 #Prendre les titres des questions
-file_question = open("Personnages.csv","r")
+file_question = open("Personnages2.csv","r")
 first = file_question.readline()
 file_question.close()
 listTitres = first.split(';')
@@ -26,9 +26,8 @@ del listTitres[0]
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
-
-#Affiche la dataFrame 
+df = pd.read_csv("Personnages2.csv", sep = ';' , header = 0, encoding='latin-1')
+df = df.fillna(0)
 #print(df)
 
 y = df.loc[:,'Noms'].values
@@ -71,3 +70,4 @@ plt.title('PCA')
 plt.scatter(x_r[:,0],x_r[:,1])
 plt.show()
 """
+
