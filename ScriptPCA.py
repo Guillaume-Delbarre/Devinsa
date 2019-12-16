@@ -16,7 +16,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
 #Prendre les titres des questions
-file_question = open("Personnages2.csv","r")
+file_question = open("Personnages.csv","r")
 first = file_question.readline()
 file_question.close()
 listTitres = first.split(';')
