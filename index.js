@@ -60,6 +60,7 @@ var textBox = scatter
     .data(data)
     .enter()
     .append("rect")
+        .attr("class","Display_Noms")
         .attr("width", 150)
         .attr("height", 75)
         .attr("x", function (d) { return x(d.Axe_X) + 16} )
@@ -71,6 +72,7 @@ scatter
     .data(data)
     .enter()
     .append("text")
+    .attr("class","Display_Noms")
         .attr("x", function (d) { return x(d.Axe_X) + 16; } )
         .attr("y", function (d) { return y(d.Axe_Y) + 6; } )
         .text(function (d) { return d.Name } )
@@ -90,6 +92,24 @@ svg.append("rect")
     .style("pointer-events", "all")
     .attr("transform", "translate(" + marge.gauche + "," + marge.haut + ")")
     .call(zoom);
+
+
+function updateNom(){
+
+    d3.selectAll(".checkbox").each(function(d){
+        
+        cb = d3.select(this);
+        grp = property("value")
+
+        if(cb.property("checked")){
+            svg.selectAll(".Display_Noms").transition().duration(1000).style("opacity", 1)      
+        }else{
+            svg.selectAll(".Display_Noms").transition().duration(1000).style("opacity", 1)
+        }
+    })
+}
+
+d3.selectAll(".checkbox").on("change",updateNom);
 
 function updateChart() {
 
