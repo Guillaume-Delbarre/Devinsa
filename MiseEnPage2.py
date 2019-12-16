@@ -5,7 +5,6 @@ global listeNoms
 global listeQuestions
 
 file = open("Personnages2.csv","w")
-
 file.close()
 
 listeParNom = []
@@ -51,7 +50,7 @@ def manip(s) :
             premier = premier + new[i]
         
         new = [premier,penultieme,dernier]
-    
+
     if(not (new[0] in listeNoms)) :
         
         if (len(listeNoms) > 0) :
@@ -63,15 +62,27 @@ def manip(s) :
             
         listeNoms.append(new[0])
         listeParNom.append(new[0])
+
+        if(new[1] == ""):
+            new[1] = "0"
+        listeParNom.append(new[1])
+        
+        clean = new[2].replace('\n','')
+        if(clean == ""):
+            clean = "0"
+        listeParNom.append(clean)
             
         #print(listeNoms)
         
     else :
         
-        
+        if(new[1] == ""):
+            new[1] = "0"
         listeParNom.append(new[1])
         
         clean = new[2].replace('\n','')
+        if(clean == ""):
+            clean = "0"
         listeParNom.append(clean)
         
         #print(listeParNom)
@@ -90,6 +101,7 @@ listeQ = file_question.readlines()
 file_question.close()
 for q in listeQ :
     q = q.replace('\n',"")
+    q = q.replace('"',"")
     listeQuestions.append(q)
 print(listeQuestions)
 
@@ -104,10 +116,9 @@ ecritStringFichier(listetitre)
 
 file_res = open("Vecteur.csv","r")
 f1 = file_res.readlines()
-file_res.close() 
-
+file_res.close()
+del f1[0]
 for x in f1 :
-        
         y = x.replace('\\N','0')
         manip(y)
         

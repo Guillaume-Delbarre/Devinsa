@@ -48,13 +48,13 @@ file_zero = open("resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name\n")
 file_zero.close()
 
-file = open("resPCA.csv","a")
+file = open("resPCA.csv","a",encoding="utf-8")
 
 
 for i in range(len(x_r)) :
     x0 = str(x_r[i,0])
     x1 = str(x_r[i,1])
-    
+    print(x0)
     file.write(x0 + "," + x1 + "," + str(y[i]) + "\n")
 
 file.close()
