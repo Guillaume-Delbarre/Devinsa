@@ -2,13 +2,14 @@ import os
 
 global listeParNom
 global listeNoms
+global listeQuestions
 
 file = open("Personnages.csv","w")
-
 file.close()
 
 listeParNom = []
 listeNoms = []
+listeQuestions = []
 
 def ecritStringFichier(list) :
     file_ecrit = open("Personnages.csv","a")
@@ -49,7 +50,7 @@ def manip(s) :
             premier = premier + new[i]
         
         new = [premier,penultieme,dernier]
-    
+
     if(not (new[0] in listeNoms)) :
         
         if (len(listeNoms) > 0) :
@@ -61,51 +62,66 @@ def manip(s) :
             
         listeNoms.append(new[0])
         listeParNom.append(new[0])
+
+        if(new[1] == ""):
+            new[1] = "0"
+        listeParNom.append(new[1])
+        
+        clean = new[2].replace('\n','')
+        if(clean == ""):
+            clean = "0"
+        listeParNom.append(clean)
             
         #print(listeNoms)
         
     else :
         
-        
+        if(new[1] == ""):
+            new[1] = "0"
         listeParNom.append(new[1])
         
         clean = new[2].replace('\n','')
+        if(clean == ""):
+            clean = "0"
         listeParNom.append(clean)
         
         #print(listeParNom)
     
-def compteNBQuestion() :
+def questionIntoList() :
     
-    file_question = open("resquestion.txt","r")
-    compt = 0
+    file_question = open("QuestionsLigne.txt","r")
     f_line = file_question.readlines()
     
-    for li in f_line :
-        compt = compt + 1
-    
-    return compt
+    return f_line
 
-
+listeQ =[]
 listetitre = ["Noms"]
-nbQuestion = compteNBQuestion()
+file_question = open("QuestionsLigne.txt","r")
+listeQ = file_question.readlines()
+file_question.close()
+for q in listeQ :
+    q = q.replace('\n',"")
+    q = q.replace('"',"")
+    listeQuestions.append(q)
+print(listeQuestions)
 
-for i in range(0,nbQuestion-1) :
-    listetitre.append("Oui" + str(i))
-    listetitre.append("Non" + str(i))
+for i in range(len(listeQuestions)) :
+    listetitre.append("Oui " + listeQuestions[i])
+    listetitre.append("Non " + listeQuestions[i])
 
 ecritStringFichier(listetitre)
 
 
 
-file_res = open("resdatatot.txt","r")
 
-
+file_res = open("Vecteur.csv","r")
 f1 = file_res.readlines()
-
+file_res.close()
+del f1[0]
 for x in f1 :
-        
         y = x.replace('\\N','0')
         manip(y)
         
-file_res.close() 
+
+        
 
