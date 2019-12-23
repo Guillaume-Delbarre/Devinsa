@@ -8,6 +8,9 @@
   
   const render = data => {
     
+    const button = svg.append('button')
+    	.attr('class', 'button')
+    
     const title = 'Graph PCA';
     
     const xValue = d => d.Axe_X;
@@ -18,7 +21,7 @@
     
     const circleRadius = 8;
     
-    const margin = { top: 60, right: 40, bottom: 88, left: 150 };
+    const margin = { top: 60, right: 40, bottom: 88, left: 100 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     
@@ -93,8 +96,17 @@
     	.append('title')
     		.text(d => d.Name);
     
+    var circleTitle = g.selectAll('text').data(data)
+      .enter().append('text')
+      	.attr('clip-path', 'url(#rect-clip)')
+      	.attr('class', 'circleTitle')
+        .attr('opacity', 0)
+      	.attr('x', d => xScale(xValue(d)))
+      	.attr('y', d => yScale(yValue(d)) + circleRadius + 12)
+    		.text(d => d.Name)
+    
     g.append('text')
-        .attr('class', 'title')
+        .attr('class', 'titleGraph')
     		.attr('x', 100)
         .attr('y', -10)
         .text(title);
@@ -118,6 +130,21 @@
       g.selectAll('circle')
         .attr("cx", function(d) {return newX(d.Axe_X)})
         .attr("cy", function(d) {return newY(d.Axe_Y)});
+      
+      circleTitle
+      	.attr('x', d => newX(xValue(d)))
+      	.attr('y', d => newY(yValue(d)) + circleRadius + 12)
+      	
+    }
+    
+    d3.selectAll('.toggle').on('change', function(d){
+      var opa = +this.value
+      afficheNoms(opa);
+    });
+    
+    function afficheNoms(opacity) {
+      circleTitle
+      	.attr('opacity', opacity);
     }
   
   };
