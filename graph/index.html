@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Devinsa Radio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://d3js.org/d3.v5.js"></script>
+  </head>
+  
+  <body>
+    
+    <p>
+      <p> Afficher tous les noms ? </p>
+      <input id="toggle-on" class="toggle toggle-left" name="toggle" value="0.5" type="radio" >
+      <label for="toggle-on" class="btn">Oui</label>
+      <input id="toggle-off" class="toggle toggle-right" name="toggle" value="0" type="radio" checked>
+      <label for="toggle-off" class="btn">Non</label>
+    </p>
+    
+    
+    <div>
+    	<svg width="720" height="480"></svg>
+    </div>
+    
+    <script src="graph.js"></script>
+    
+  </body>
+  
+</html>
