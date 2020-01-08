@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from sklearn import datasets
-from sklearn.decomposition import PCA
+from sklearn.decomposition import KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
@@ -26,7 +26,7 @@ del listTitres[0]
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("Personnages2.csv", sep = ';' , header = 0, encoding='latin-1')
+df = pd.read_csv("Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
 df = df.fillna(0)
 #print(df)
 
@@ -40,7 +40,7 @@ x = df.loc[:, listTitres].values
 #print(x)
 
 
-pca = PCA(n_components=2)
+pca = KernelPCA(n_components=2, kernel="rbf")
 x_r = pca.fit(x).transform(x)
 print(x_r)
 
@@ -61,8 +61,8 @@ file.close()
 
 
 #Affiches le pourcentage d'importance des deux axes finaux
-print('explained variance ratio (first two components): %s'
-      % str(pca.explained_variance_ratio_))
+#print('explained variance ratio (first two components): %s'
+#      % str(pca.explained_variance_ratio_))
 
 """
 #plot les points
