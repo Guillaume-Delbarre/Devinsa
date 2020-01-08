@@ -49,7 +49,7 @@ file_zero = open("resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name\n")
 file_zero.close()
 
-file = open("resPCA.csv","a")
+file = open("resPCA.csv","a",encoding="utf-8")
 
 
 for i in range(len(x_r)) :
