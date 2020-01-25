@@ -50,7 +50,7 @@
     
     yAxisG.append('text')
         .attr('class', 'axis-label')
-        .attr('y', -65)
+        .attr('y', -75)
         .attr('x', -innerHeight / 2)
         .attr('fill', 'black')
         .attr('transform', `rotate(-90)`)

@@ -81,7 +81,7 @@ input[type="radio"].toggle:checked + label:after {
 .circleTitle {
   text-anchor: middle;
   font-size: 0.8em;
-  fill: #8E8883;
+  fill: rgb(71, 69, 66);
 }
 
 .tick text {

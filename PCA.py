@@ -13,7 +13,11 @@ from sklearn import datasets
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
+from random import *
 
+def couleur_alea() :
+    noms = ["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10",]
+    return noms[randint(0,9)]
 
 #Prendre les titres des questions
 file_question = open("Personnages.csv","r")
@@ -41,12 +45,12 @@ x = df.loc[:, listTitres].values
 #print(x)
 
 
-pca = PCA(n_components=2)
+pca = PCA(n_components=4)
 x_r = pca.fit(x).transform(x)
 print(x_r)
 
 file_zero = open("resPCA.csv","w")
-file_zero.write("Axe_X,Axe_Y,Name\n")
+file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
 file_zero.close()
 
 file = open("resPCA.csv","a",encoding="utf-8")
@@ -56,7 +60,7 @@ for i in range(len(x_r)) :
     x0 = str(x_r[i,0])
     x1 = str(x_r[i,1])
     
-    file.write(x0 + "," + x1 + "," + str(y[i]) + "\n")
+    file.write(x0 + "," + x1 + "," + str(y[i]) + "," + couleur_alea() + "\n")
 
 file.close()
 
