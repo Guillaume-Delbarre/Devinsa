@@ -92,7 +92,7 @@
     		.attr('class', 'myCircle')
         .attr('cy', d => yScale(yValue(d)))
         .attr('cx', d => xScale(xValue(d)))
-        .attr('fill', d => color(d.Cluster))
+        .attr('fill', d => d3.schemeCategory10(d.Cluster))
         .attr('r', circleRadius)
     	.append('title')
     		.text(d => d.Name);
