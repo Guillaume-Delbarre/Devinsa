@@ -1,3 +1,7 @@
+//ExecutionPython
+var PythonShell = require('python-shell');
+
+
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -11,7 +15,7 @@ var app = require('express')();
 var server = app.listen(8080);
 var session = require('express-session');
 
-//Jsp
+//Jsp truc bizarre
 var bodyParser = require('body-parser');
 var path = require('path');
 
@@ -48,7 +52,7 @@ app.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		// Chargement du fichier index.html affiché au client
 		console.log('index.html')
-		response.sendFile('index.html', {
+		response.sendFile('dialogueServeur.html', {
         root: path.join(__dirname, './')
 		})
 	} else {
@@ -83,14 +87,19 @@ io.sockets.on('connection', function (socket) {
 	socket.on('message', ({message}) => {
 		console.log(message);
 	});
-	socket.on('requetesql', function() {
+	socket.on('ecrirevecteursql', function() {
 		demande();
+		faitpca();
 	});
 	
 	// EVENEMENT UPDATE SQL
 	
 	socket.on('updatesql', ({name,qname,value,param}) => {
 		update(name,qname,value,param);
+	});
+	
+	socket.on('montrerquestionssql', ({name,persos,nb}) => {
+		montrequestion(name,persos,nb);
 	});
 		
 	// ON ENVOIE LES LISTES DE PERSONNAGES ET QUESTIONS
@@ -128,6 +137,18 @@ io.sockets.on('connection', function (socket) {
 		console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
 	}
 	
+	// Montre les questions similaires SUREMENT PRB GUILLEMET
+	
+	function montrequestion(name,persos,nb){
+		let rqt = "select * from (select title, avg(yes_count), avg(no_count) from (select * from (select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where name != ? and name in ?) ) as a1 inner join app_question on app_question.id = a1.question_id) as a2 group by question_id order by sum(yes_count) desc limit ? ) as f1 select * from (select title, avg(yes_count), avg(no_count) from (select * from (	select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where id != ? and name in ?)) as a1 inner join app_question on app_question.id = a1.question_id) as a2 group by question_id order by sum(no_count) desc limit ? ) as f2;";
+		connection.query(rqt,[name,persos,nb,name,persos,nb],function (err,result) {
+		if (err) throw err;
+			console.log(result.affectedRows + " record(s) extracted");
+			// Pas affectedRows je pense
+			socket.emit("message","Questions Done " + result.affectedRows);
+		});
+	}
+	
 	// Fonction Lecture Base / Ecriture fichier
 
 	function demande(){
@@ -144,7 +165,13 @@ io.sockets.on('connection', function (socket) {
 			console.log("Write to Vecteur.csv successfully!");
 			})
 			.pipe(ws);
-		});	
+			socket.emit("message","Fichier ecrit");
+		});
+	}
+	
+	function faitpca(){
+		var arrangedonnees = new PythonShell('MiseEnPage.py');
+		var faitpca = new PythonShell('ScriptPCA.py');
 	}
 	
 });
