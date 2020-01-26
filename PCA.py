@@ -16,7 +16,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from random import *
 
 def couleur_alea() :
-    noms = ["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10",]
+    noms = ["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10"]
     return noms[randint(0,9)]
 
 #Prendre les titres des questions
@@ -45,7 +45,7 @@ x = df.loc[:, listTitres].values
 #print(x)
 
 
-pca = PCA(n_components=4)
+pca = PCA(n_components=600)
 x_r = pca.fit(x).transform(x)
 print(x_r)
 
@@ -68,6 +68,16 @@ file.close()
 #Affiches le pourcentage d'importance des deux axes finaux
 print('explained variance ratio (first two components): %s'
       % str(pca.explained_variance_ratio_))
+
+yes = str(pca.explained_variance_ratio_).split()
+
+file = open("variance.csv","w",encoding="utf-8")
+
+for i in range(len(yes)) :
+
+    file.write(yes[i] + "\n")
+
+file.close()
 
 """
 #plot les points

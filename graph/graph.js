@@ -84,7 +84,10 @@
     	.attr('id', 'rect-clip')
     .append('rect')
     	.attr('width', innerWidth)
-    	.attr('height', innerHeight);
+      .attr('height', innerHeight);
+      
+      var couleur = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain(["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10"])
     
     g.selectAll('circle').data(data)
       .enter().append('circle')
@@ -92,7 +95,7 @@
     		.attr('class', 'myCircle')
         .attr('cy', d => yScale(yValue(d)))
         .attr('cx', d => xScale(xValue(d)))
-        .attr('fill', d => d3.schemeCategory10(d.Cluster))
+        .attr('fill', d => couleur(d.Cluster))
         .attr('r', circleRadius)
     	.append('title')
     		.text(d => d.Name);
