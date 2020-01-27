@@ -23,21 +23,25 @@ def couleur_alea() :
 file_question = open("Personnages.csv","r")
 first = file_question.readline()
 file_question.close()
+
 listTitres = first.split(';')
 listTitres[len(listTitres)-1] = listTitres[len(listTitres)-1].replace("\n","")
 del listTitres[0]
+del listTitres[len(listTitres)-1]
 #print(listTitres)
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
+df = pd.read_csv("kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
 
 #Affiche la dataFrame 
-#print(df)
+print(df)
 
 y = df.loc[:,'Noms'].values
 
 x = df.loc[:, listTitres].values
+
+cluster = df.loc[:,'Clusters '].values
 
 #Affiche la dataframe des noms des personnages
 #print(y)
@@ -60,7 +64,7 @@ for i in range(len(x_r)) :
     x0 = str(x_r[i,0])
     x1 = str(x_r[i,1])
     
-    file.write(x0 + "," + x1 + "," + str(y[i]) + "," + couleur_alea() + "\n")
+    file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "\n")
 
 file.close()
 
