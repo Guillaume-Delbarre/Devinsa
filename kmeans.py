@@ -14,7 +14,7 @@ from sklearn.cluster import KMeans
 
 df = pd.read_csv("Personnages.csv", sep = ";", header=1, encoding = 'latin1')
 x = df.iloc[:, 1:].values
-kmeans15 = KMeans(n_clusters=15)
+kmeans15 = KMeans(n_clusters=10)
 y_kmeans15 = kmeans15.fit_predict(x)
 
 #Ecrire le cluster
