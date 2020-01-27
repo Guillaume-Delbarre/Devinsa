@@ -1,0 +1,38 @@
+L'arbre n'utilise pas les coef mais juste les proportions des réponses oui/non
+La recherche est pas que pour les perso de la feuille mais pour tout les persos
+
+Arbre --> juste a trouvé les questions a poser, pas les personnages
+
+
+On ne modifie pas les coef mais le nombres de réponses
+On veut remplir la ou y'a des trous
+
+TsNE (pour dimention reduction)
+
+Algorithme de cluster --> puis 
+
+Réseau auto encodeur --> 
+entree = input(shape( ,602))
+inter = dense(100, acrivation=relu)
+enc = dense(2, activation ='linéaire ')
+Dense 100
+Et dense de 602 (linéaire)
+Et avoir la plus faible erreur entre entree et sortie (MSE) 
+
+On peut en garder par ex 50 au milieu
+
+Code après le enc:
+toto= dense(300, activation = ' relu')(enc)
+Out = dense(602, act = linear)(toto)
+Autoenc = model(input =entree, outputs=out)
+autoenc.compile(loss='mse',optimizer='adam')
+enc = model(inputs=entree output=enc)
+Enc.compile(loss='mse', optimizer adam)
+Autoenc.fit(X,X,...)
+X<-- en.prefict(X)
+
+Changer les couleurs en fonction des clusters
+
+
+
+Trouver des clustering sur scikit learn
