@@ -26,9 +26,9 @@ import tensorflow as tf
 
 
 def main():
-    df = pd.read_csv("Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
-    
-    
+    df = pd.read_csv("C:/Users/pjzoe/Documents/3INFO/Etudes pratiques/GitHub/Données/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+    df = df.to_numpy()
+    print(df.shape)
     entree = Input(shape=(902,))
     inter = Dense(units=100, activation='relu')(entree)
     enc = Dense(units=2, activation ='linear')(inter)
@@ -36,11 +36,15 @@ def main():
     sortie = Dense(units=902, activation ='linear')(inter)
     
     autoEnc = Model(inputs=entree,outputs=sortie)
-    autoEnc.compile(loss='mse',optimizer='adam',metrics=['accuracy'])
+    autoEnc.compile(loss='mse',optimizer='adam',metrics=['mae'])
 
     enc = Model(inputs=entree,outputs=enc)
-    enc.compile(loss='mse',optimizer='adam',metrics=['accuracy'])
-
- 
+    enc.compile(loss='mse',optimizer='adam',metrics=['mae'])
+    autoEnc.summary()
+    x_train = df
+    print('x_train.shape=',x_train.shape)
+    #x_train=x_train.reshape(1430,902)
+    autoEnc.fit(x_train,x_train,epochs=20,batch_size=4)
+    res = enc.predict(x_train)
 if __name__ == "__main__":
 	main()
