@@ -13,14 +13,11 @@ from sklearn.cluster import KMeans
 # Faire le clustering
 
 df = pd.read_csv("Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+kmeans10 = KMeans(n_clusters=10)
+y_kmeans10 = kmeans10.fit_predict(df)
 
-kmeans15 = KMeans(n_clusters=15)
-y_kmeans15 = kmeans15.fit_predict(df)
-
-df = pd.read_csv("Personnages.csv", sep = ";", header=1, encoding = 'latin1')
-x = df.iloc[:, 1:].values
-kmeans15 = KMeans(n_clusters=10)
-y_kmeans15 = kmeans15.fit_predict(x)
+print(df)
+print(y_kmeans10)
 
 
 #Ecrire le cluster
@@ -32,7 +29,7 @@ for line in fileentree:
         if (i<0):
             filesortie.write(line.replace("\n","") + ";Clusters \n")
         else:
-            filesortie.write(line.replace("\n","") + ";" + str(y_kmeans15[i]) + "\n")
+            filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + "\n")
     i += 1
 
 fileentree.close()
