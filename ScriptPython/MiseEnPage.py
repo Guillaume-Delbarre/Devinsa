@@ -4,7 +4,7 @@ global listeParNom
 global listeNoms
 global listeQuestions
 
-file = open("Personnages.csv","w")
+file = open("../Donnees/Personnages.csv","w")
 file.close()
 
 listeParNom = []
@@ -12,9 +12,9 @@ listeNoms = []
 listeQuestions = []
 
 def ecritStringFichier(list) :
-    file_ecrit = open("Personnages.csv","a")
+    file_ecrit = open("../Donnees/Personnages.csv","a")
     
-    os.chmod("Personnages.csv", 0o777)
+    os.chmod("../Donnees/Personnages.csv", 0o777)
     
     string = regroupList(list)
     
@@ -89,14 +89,14 @@ def manip(s) :
     
 def questionIntoList() :
     
-    file_question = open("QuestionsLigne.txt","r")
+    file_question = open("../Donnees/QuestionsLigne.txt","r")
     f_line = file_question.readlines()
     
     return f_line
 
 listeQ =[]
 listetitre = ["Noms"]
-file_question = open("QuestionsLigne.txt","r")
+file_question = open("../Donnees/QuestionsLigne.txt","r")
 listeQ = file_question.readlines()
 file_question.close()
 for q in listeQ :
@@ -114,7 +114,7 @@ ecritStringFichier(listetitre)
 
 
 
-file_res = open("Vecteur.csv","r")
+file_res = open("../Donnees/Vecteur.csv","r")
 f1 = file_res.readlines()
 file_res.close()
 del f1[0]

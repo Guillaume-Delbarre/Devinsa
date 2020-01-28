@@ -49,6 +49,6 @@ def ecrirejstree(resultat, filesortie):
 
 # Main       
 
-resultat = createBinarytree("tree.txt")
+resultat = createBinarytree("../Donnees/tree.txt")
 print(resultat)
-ecrirejstree(resultat,"resultat.txt")
+ecrirejstree(resultat,"../Donnees/resultat.txt")

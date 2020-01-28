@@ -58,7 +58,7 @@ file_zero = open("../Donnees/resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
 file_zero.close()
 
-file = open("resPCA.csv","a",encoding="utf-8")
+file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
 
 
 for i in range(len(x_r)) :
