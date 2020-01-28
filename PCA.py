@@ -20,7 +20,7 @@ def couleur_alea() :
     return noms[randint(0,9)]
 
 #Prendre les titres des questions
-file_question = open("Personnages.csv","r")
+file_question = open("kmeans.csv","r")
 first = file_question.readline()
 file_question.close()
 
@@ -35,7 +35,7 @@ del listTitres[len(listTitres)-1]
 df = pd.read_csv("kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
 
 #Affiche la dataFrame 
-print(df)
+#print(df)
 
 y = df.loc[:,'Noms'].values
 
