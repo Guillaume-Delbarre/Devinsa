@@ -26,7 +26,7 @@ import tensorflow as tf
 
 
 def main():
-    df = pd.read_csv("Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
     
     
     entree = Input(shape=(902,))

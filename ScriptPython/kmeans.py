@@ -11,17 +11,18 @@ from sklearn.cluster import KMeans
 
 
 # Faire le clustering
-df = pd.read_csv("Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
 kmeans10 = KMeans(n_clusters=10)
 y_kmeans10 = kmeans10.fit_predict(df)
+x = df.iloc[:, 1:].values
 
-print(df)
+print(df.shape)
 print(y_kmeans10)
 
 
 #Ecrire le cluster
-fileentree = open("Personnages.csv","r")
-filesortie = open("kmeans.csv","w")
+fileentree = open("../Donnees/Personnages.csv","r")
+filesortie = open("../Donnees/kmeans.csv","w")
 i=-1
 for line in fileentree:
     if (i<1429):
