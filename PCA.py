@@ -51,7 +51,7 @@ cluster = df.loc[:,'Clusters '].values
 
 
 pca = TSNE(n_components=2)
-x_r = pca.fit_transform(x)
+x_r = pca.fit(x).transform(x)
 print(x_r)
 
 file_zero = open("resPCA.csv","w")
@@ -71,18 +71,18 @@ file.close()
 
 
 #Affiches le pourcentage d'importance des deux axes finaux
-#print('explained variance ratio (first two components): %s'
- #     % str(pca.explained_variance_ratio_))
+print('explained variance ratio (first two components): %s'
+      % str(pca.explained_variance_ratio_))
 
-#yes = str(pca.explained_variance_ratio_).split()
+yes = str(pca.explained_variance_ratio_).split()
 
-#file = open("variance.csv","w",encoding="utf-8")
+file = open("variance.csv","w",encoding="utf-8")
 
-#for i in range(len(yes)) :
+for i in range(len(yes)) :
 
- #   file.write(yes[i] + "\n")
+    file.write(yes[i] + "\n")
 
-#file.close()
+file.close()
 
 """
 #plot les points
