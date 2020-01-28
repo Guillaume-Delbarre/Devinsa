@@ -1,8 +1,0 @@
-- Afficher libellé des personnages sur le graphe
-- Pouvoir zoomer sur le graphe
-- Cliquer sur un personnage et le comparer à un groupe de personnage
-	Comparer par rapport aux questions définissant ce groupe
-	Pouvoir répondre à ces questions pour ce personnage
-- Afficher l'arbre des questions dans une page web
-	Avoir l'information des feuilles
-	Pouvoir définir un "personnage type" pour chaque feuille
