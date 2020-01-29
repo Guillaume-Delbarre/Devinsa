@@ -1,0 +1,92 @@
+TABLE `app_answer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `yes_count` int(11) NOT NULL,
+  `no_count` int(11) NOT NULL,
+  `pass_count` int(11) NOT NULL,
+  `yes_tfidf` double NOT NULL,
+  `no_tfidf` double NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `question_id` (`question_id`,`item_id`),
+  KEY `app_answer_1f92e550` (`question_id`),
+  KEY `app_answer_67b70d25` (`item_id`),
+  CONSTRAINT `item_id_refs_id_17f3f568` FOREIGN KEY (`item_id`) REFERENCES `app_item` (`id`),
+  CONSTRAINT `question_id_refs_id_5f8922b1` FOREIGN KEY (`question_id`) REFERENCES `app_question` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=194749 DEFAULT CHARSET=latin1;
+
+TABLE `app_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `games` int(11) NOT NULL,
+  `wins` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7537 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+TABLE `app_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=148650 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+TABLE `app_tree` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `choice` varchar(1) NOT NULL,
+  `depth` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `app_tree_1f92e550` (`question_id`),
+  KEY `app_tree_63f17a16` (`parent_id`),
+  CONSTRAINT `parent_id_refs_id_7bbc9d8b` FOREIGN KEY (`parent_id`) REFERENCES `app_tree` (`id`),
+  CONSTRAINT `question_id_refs_id_7851c46b` FOREIGN KEY (`question_id`) REFERENCES `app_question` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2370860 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `last_login` datetime NOT NULL,
+  `date_joined` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`group_id`),
+  KEY `auth_user_groups_403f60f` (`user_id`),
+  KEY `auth_user_groups_425ae3c4` (`group_id`),
+  CONSTRAINT `group_id_refs_id_f116770` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `user_id_refs_id_7ceef80f` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permissions_403f60f` (`user_id`),
+  KEY `auth_user_user_permissions_1e014c8f` (`permission_id`),
+  CONSTRAINT `permission_id_refs_id_67e79cb` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `user_id_refs_id_dfbab7d` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;

@@ -6,16 +6,20 @@ Created on Sat Jan 25 20:58:52 2020
 """
 
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-
+import numpy as np
+from sklearn.metrics import pairwise_distances_argmin_min
 
 # Faire le clustering
 df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
-kmeans10 = KMeans(n_clusters=10)
-y_kmeans10 = kmeans10.fit_predict(df)
 x = df.iloc[:, 1:].values
+kmeans10 = KMeans(n_clusters=10)
+centers = np.array(kmeans10.cluster_centers_)
+y_kmeans10 = kmeans10.fit_predict(df)
+m_clusters = kmeans10.fit(df).labels_.tolist()
 
+
+"""
 print(df.shape)
 print(y_kmeans10)
 
@@ -34,7 +38,7 @@ for line in fileentree:
 
 fileentree.close()
 filesortie.close()
-
+"""
 
 
 #Trouver le nombre optimal de clusters

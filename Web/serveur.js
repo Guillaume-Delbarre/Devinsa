@@ -5,7 +5,7 @@ var PythonShell = require('python-shell');
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
-const ws = fs.createWriteStream("Vecteur.csv");
+const ws = fs.createWriteStream("../donnees/Vecteur.csv");
 
 //Dialogue Base
 var mysql = require('mysql');

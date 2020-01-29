@@ -1,0 +1,121 @@
+Ton personnage est-il réel ?,r,235,1,\N,1
+Ton personnage est-il français ?,o,380,2,1,2
+Ton personnage est-il un personnage de jeu vidéo ?,n,148568,782121,1,2
+Ton personnage est-il français ?,p,380,1573699,1,2
+Ton personnage est-il décédé ?,o,685,3,2,3
+Ton personnage est-il américain ?,n,356,259552,2,3
+Ton personnage est-il décédé ?,p,685,518057,2,3
+Ton personnage porte-t-il des chaussures ?,o,259,782122,782121,3
+Ton personnage a-t-il des cheveux ?,n,410,1044104,782121,3
+Ton personnage porte-t-il des chaussures ?,p,259,1309263,782121,3
+Ton personnage a-t-il un prénom hors du commun ?,o,22372,1573700,1573699,3
+Ton personnage est-il un personnage de jeu vidéo ?,n,148568,1839420,1573699,3
+Ton personnage est-il décédé ?,p,685,2105140,1573699,3
+Ton personnage est-il un écrivain ?,o,5235,4,3,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,n,379,85898,3,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,p,379,171009,3,4
+Ton personnage est-il acteur/actrice ?,o,365,259553,259552,4
+Ton personnage est-il anglais ?,n,3523,344112,259552,4
+Ton personnage est-il décédé ?,p,685,430864,259552,4
+Ton personnage a-t-il été roi ?,o,19831,518058,518057,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,n,379,605110,518057,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,p,379,693548,518057,4
+Ton personnage possède-t-il des armes ?,o,258,782123,782122,4
+Ton personnage est-il méchant ? ,n,514,869940,782122,4
+Ton personnage possède-t-il des armes ?,p,258,955561,782122,4
+Ton personnage est-il un personnage de série télévisée ?,o,520,1044105,1044104,4
+Ton personnage est-il méchant ? ,n,514,1132315,1044104,4
+Ton personnage porte-t-il des chaussures ?,p,259,1220726,1044104,4
+Ton personnage est-il un personnage de série télévisée ?,o,520,1309264,1309263,4
+Ton personnage est-il méchant ? ,n,514,1397579,1309263,4
+Ton personnage a-t-il des cheveux ?,p,410,1485126,1309263,4
+Ton personnage porte-t-il des chaussures ?,o,259,1573701,1573700,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,n,379,1662274,1573700,4
+Ton personnage est-il un personnage de jeu vidéo ?,p,148568,1750847,1573700,4
+Ton personnage est-il américain ?,o,356,1839421,1839420,4
+Ton personnage est-il américain ?,n,356,1927994,1839420,4
+Ton personnage a-t-il des cheveux ?,p,410,2016567,1839420,4
+Ton personnage est-il un personnage de jeu vidéo ?,o,148568,2105141,2105140,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,n,379,2193714,2105140,4
+Ton personnage a-t-il un rapport avec le milieu du sport ?,p,379,2282287,2105140,4
+Ton personnage a-t-il un prénom hors du commun ?,o,22372,5,4,5
+Ton personnage fait-il de la politique ?,n,930,27267,4,5
+Ton personnage fait-il de la politique ?,p,930,56653,4,5
+Ton personnage est-il un footballeur ?,o,381,85899,85898,5
+Ton personnage est-il devenu connu grâce à Internet ?,n,1129,112048,85898,5
+Ton personnage est-il devenu connu grâce à Internet ?,p,1129,141485,85898,5
+Ton personnage est-il un footballeur ?,o,381,171010,171009,5
+Ton personnage est-il devenu connu grâce à Internet ?,n,1129,200504,171009,5
+Ton personnage est-il devenu connu grâce à Internet ?,p,1129,230028,171009,5
+Ton personnage a-t-il plus de 35 ans ?,o,363,259554,259553,5
+Ton personnage est-il musicien ?,n,148580,286441,259553,5
+Ton personnage est-il musicien ?,p,148580,314615,259553,5
+Ton personnage est-il acteur/actrice ?,o,365,344113,344112,5
+La célébrité de ton personnage est-elle en rapport avec le monde du football ?,n,1061,372089,344112,5
+Ton personnage est-il décédé ?,p,685,401613,344112,5
+Ton personnage est-il anglais ?,o,3523,430865,430864,5
+Ton personnage est-il acteur/actrice ?,n,365,460011,430864,5
+Ton personnage est-il acteur/actrice ?,p,365,488581,430864,5
+Ton personnage est-il anglais ?,o,3523,518059,518058,5
+Ton personnage est-il dans le domaine de la musique ?,n,352,546593,518058,5
+Ton personnage est-il dans le domaine de la musique ?,p,352,575733,518058,5
+La célébrité de ton personnage est-elle en rapport avec le monde du football ?,o,1061,605111,605110,5
+Ton personnage est-il acteur/actrice ?,n,365,634635,605110,5
+Ton personnage est-il acteur/actrice ?,p,365,664159,605110,5
+La célébrité de ton personnage est-elle en rapport avec le monde du football ?,o,1061,693549,693548,5
+Ton personnage est-il dans le domaine de la musique ?,n,352,723073,693548,5
+Ton personnage est-il américain ?,p,356,752597,693548,5
+Ton personnage est-il masculin ?,o,335,782124,782123,5
+Ton personnage a-t-il la peau blanche ?,n,501,811648,782123,5
+Ton personnage est-il un personnage de série télévisée ?,p,520,841118,782123,5
+Ton personnage a-t-il la peau blanche ?,o,501,869941,869940,5
+Est-ce que ton personnage est un animal ?,n,250,897020,869940,5
+Est-ce que ton personnage est un animal ?,p,250,926193,869940,5
+Ton personnage est-il méchant ? ,o,514,955562,955561,5
+Ton personnage est-il méchant ? ,n,514,985086,955561,5
+Ton personnage a-t-il des cheveux ?,p,410,1014583,955561,5
+Ton personnage est-il policier ou détective ?,o,1886,1044106,1044105,5
+Ton personnage possède-t-il des armes ?,n,258,1073435,1044105,5
+Ton personnage fait-il des combats ?,p,547,1102791,1044105,5
+Est-ce que ton personnage est un animal ?,o,250,1132316,1132315,5
+Ton personnage porte-t-il des chaussures ?,n,259,1161678,1132315,5
+Est-ce que ton personnage est un animal ?,p,250,1191202,1132315,5
+Ton personnage fait-il des combats ?,o,547,1220727,1220726,5
+Est-ce que ton personnage est un animal ?,n,250,1250251,1220726,5
+Ton personnage fait-il des combats ?,p,547,1279739,1220726,5
+Ton personnage est-il policier ou détective ?,o,1886,1309265,1309264,5
+Ton personnage possède-t-il des armes ?,n,258,1338531,1309264,5
+Ton personnage fait-il des combats ?,p,547,1368055,1309264,5
+Est-ce que ton personnage est un animal ?,o,250,1397580,1397579,5
+Ton personnage possède-t-il des armes ?,n,258,1426087,1397579,5
+Ton personnage a-t-il des cheveux ?,p,410,1455611,1397579,5
+Ton personnage est-il masculin ?,o,335,1485127,1485126,5
+Ton personnage est-il méchant ? ,n,514,1514651,1485126,5
+Ton personnage fait-il des combats ?,p,547,1544175,1485126,5
+Ton personnage est-il un personnage de jeu vidéo ?,o,148568,1573702,1573701,5
+Ton personnage est-il méchant ? ,n,514,1603226,1573701,5
+Ton personnage a-t-il des cheveux ?,p,410,1632750,1573701,5
+Ton personnage est-il un footballeur ?,o,381,1662275,1662274,5
+Ton personnage a-t-il la peau blanche ?,n,501,1691799,1662274,5
+Ton personnage est-il décédé ?,p,685,1721323,1662274,5
+Ton personnage est-il décédé ?,o,685,1750848,1750847,5
+Ton personnage est-il devenu connu grâce à Internet ?,n,1129,1780372,1750847,5
+Ton personnage porte-t-il des chaussures ?,p,259,1809896,1750847,5
+Ton personnage porte-t-il des chaussures ?,o,259,1839422,1839421,5
+Ton personnage porte-t-il des chaussures ?,n,259,1868946,1839421,5
+Ton personnage est-il décédé ?,p,685,1898470,1839421,5
+Ton personnage a-t-il des cheveux ?,o,410,1927995,1927994,5
+Ton personnage a-t-il des cheveux ?,n,410,1957519,1927994,5
+Ton personnage a-t-il des cheveux ?,p,410,1987043,1927994,5
+Ton personnage est-il américain ?,o,356,2016568,2016567,5
+Ton personnage est-il américain ?,n,356,2046092,2016567,5
+Ton personnage porte-t-il des chaussures ?,p,259,2075616,2016567,5
+Ton personnage a-t-il été roi ?,o,19831,2105142,2105141,5
+Ton personnage est-il un personnage de série télévisée ?,n,520,2134666,2105141,5
+Ton personnage est-il un personnage de série télévisée ?,p,520,2164190,2105141,5
+Ton personnage est-il un footballeur ?,o,381,2193715,2193714,5
+Ton personnage est-il un personnage de jeu vidéo ?,n,148568,2223239,2193714,5
+Ton personnage est-il un personnage de jeu vidéo ?,p,148568,2252763,2193714,5
+Ton personnage est-il un personnage de jeu vidéo ?,o,148568,2282288,2282287,5
+Ton personnage a-t-il un prénom hors du commun ?,n,22372,2311812,2282287,5
+Ton personnage a-t-il un prénom hors du commun ?,p,22372,2341336,2282287,5
