@@ -21,7 +21,7 @@ def couleur_alea() :
     return noms[randint(0,9)]
 
 #Prendre les titres des questions
-file_question = open("kmeans.csv","r")
+file_question = open("../Donnees/kmeans.csv","r")
 first = file_question.readline()
 file_question.close()
 
@@ -33,7 +33,7 @@ del listTitres[len(listTitres)-1]
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
+df = pd.read_csv("../Donnees/kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
 
 #Affiche la dataFrame 
 #print(df)
@@ -54,11 +54,11 @@ pca = TSNE(n_components=2)
 x_r = pca.fit_transform(x)
 print(x_r)
 
-file_zero = open("resPCA.csv","w")
+file_zero = open("../Donnees/resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
 file_zero.close()
 
-file = open("resPCA.csv","a",encoding="utf-8")
+file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
 
 
 for i in range(len(x_r)) :

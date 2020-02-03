@@ -1,0 +1,106 @@
+﻿rcC:\Program Files\MySQL\MySQL Server 8.0\bin                                        PATH
+
+mysql -h localhost -u root -p                                                      CONNEXION                       
+
+mysql -p -u root --enable-local-infile                                             POUR LIRE UN FICHIER
+
+mysql nom_base < chemin_fichier_de_sauvegarde.sql                                  RECREER LA BASE
+
+mysqldump -u user -p --opt nom_de_la_base > sauvegarde.sql                         SAUVER LA BASE
+
+CREATE USER 'student'@'localhost' IDENTIFIED BY 'mot_de_passe';
+GRANT ALL PRIVILEGES ON elevage.* TO 'student'@'localhost';
+
+CREATE DATABASE nom_base;
+
+USE database;
+
+SET GLOBAL local_infile = 1;
+
+SELECTIONNER LES N premiers personnages
+
+SELECT name,yes_tfidf,no_tfidf
+FROM (
+	SELECT name,title,id,id1 FROM (   	
+					SELECT id AS id1, name
+			   		FROM app_item
+					WHERE games>0
+	) 
+	AS item
+	CROSS JOIN app_question
+)
+AS t1
+LEFT JOIN 
+(select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a
+ON t1.id=a.question_id AND t1.id1=a.item_id
+ORDER BY name,title
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/resdatatot3.txt'
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\n';
+
+SELECT name,yes_tfidf,no_tfidf
+FROM (
+	SELECT name,title,id,idg FROM (   	
+					SELECT id AS idg, name
+			   		FROM app_item
+					where id in
+							(Select distinct item_id from app_answer)
+	) 
+	AS item
+	CROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0
+)
+AS t1
+LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a
+ON t1.id=a.question_id AND t1.idg=a.item_id
+ORDER BY name,title
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Questions.txt'
+FIELDS TERMINATED BY ','
+ENCLOSED BY """"
+LINES TERMINATED BY ',';
+
+PRENDRE LES TITRES DES QUESTIONS
+
+select title from app_question
+order by title
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/NomsQuestions.txt'
+FIELDS TERMINATED BY ','
+ENCLOSED BY """"
+LINES TERMINATED BY ',';
+
+PRENDRE LES N PREMIERS PERSONNAGES
+
+select * from (
+select name from app_item
+limit 10
+) as t1
+order by name
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/tree.txt'
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\n';
+
+Select id from app_answer 
+where question_id = (select id from app_question where title = 'Ton personnage est-il réel ?') 
+and item_id = (select id from app_item where name = 'batman')
+
+select title,question_id,parent_id,depth from app_tree inner join app_question on question_id = app_question.id where depth < 6 order by depth ;
+
+Prendre les plus grosses questions
+
+select * from (
+select title, avg(yes_count), avg(no_count) from (
+	select * from (
+		select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where name != ? and name in ?) 
+		) as a1 inner join app_question on app_question.id = a1.question_id) as a2
+group by question_id order by sum(yes_count) desc limit ?
+) as f1
+Union
+select * from (
+select title, avg(yes_count), avg(no_count) from (
+	select * from (
+		select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where id != ? and name in ?) 
+		) as a1 inner join app_question on app_question.id = a1.question_id) as a2
+group by question_id order by sum(no_count) desc limit ?
+) as f2;
+
