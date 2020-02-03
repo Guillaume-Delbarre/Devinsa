@@ -12,6 +12,7 @@ import pandas as pd
 from sklearn import datasets
 from sklearn.decomposition import KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
 import reseauxNeurones
 
 
@@ -22,27 +23,20 @@ file_question.close()
 listTitres = first.split(';')
 listTitres[len(listTitres)-1] = listTitres[len(listTitres)-1].replace("\n","")
 del listTitres[0]
-#print(listTitres)
 
 
 #Charge le dataFrame avec toutes les infos du fichier
 df = pd.read_csv("../Donnees/Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
 df = df.fillna(0)
-#print(df)
 
 y = df.loc[:,'Noms'].values
 
 x = df.loc[:, listTitres].values
 
-#Affiche la dataframe des noms des personnages
-#print(y)
-#Affiche les valeurs des personnages
-#print(x)
-
-
-pca = reseauxNeurones.autoencoder2D()
-x_r = pca
+#appelle de la fct autoencoder2D du fichier reseauxNeurones
+x_r = reseauxNeurones.autoencoder2D()
 print(x_r)
+
 
 file_zero = open("../Donnees/resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name\n")
@@ -59,10 +53,6 @@ for i in range(len(x_r)) :
 
 file.close()
 
-
-#Affiches le pourcentage d'importance des deux axes finaux
-#print('explained variance ratio (first two components): %s'
-#      % str(pca.explained_variance_ratio_))
 
 """
 #plot les points
