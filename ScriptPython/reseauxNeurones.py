@@ -10,9 +10,7 @@ from keras.models import Model
 
 
 def autoencoder2D():
-    df = pd.read_csv("C:/Users/pjzoe/Documents/3INFO/Etudes pratiques/GitHub/Données/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
-    df = df.to_numpy()
-    print(df.shape)
+    
     df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
     
    

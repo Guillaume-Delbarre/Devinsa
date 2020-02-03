@@ -12,7 +12,7 @@ import pandas as pd
 from sklearn import datasets
 from sklearn.decomposition import KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-
+import reseauxNeurones
 
 
 #Prendre les titres des questions
@@ -40,8 +40,8 @@ x = df.loc[:, listTitres].values
 #print(x)
 
 
-pca = KernelPCA(n_components=2, kernel="rbf")
-x_r = pca.fit(x).transform(x)
+pca = reseauxNeurones.autoencoder2D()
+x_r = pca
 print(x_r)
 
 file_zero = open("../Donnees/resPCA.csv","w")
