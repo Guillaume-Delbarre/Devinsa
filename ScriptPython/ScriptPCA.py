@@ -26,12 +26,14 @@ del listTitres[0]
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("../Donnees/Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
+df = pd.read_csv("../Donnees/kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
 df = df.fillna(0)
 
 y = df.loc[:,'Noms'].values
 
 x = df.loc[:, listTitres].values
+
+cluster = df.loc[:,'Clusters '].values
 
 #appelle de la fct autoencoder2D du fichier reseauxNeurones
 x_r = reseauxNeurones.autoencoder2D()
@@ -39,7 +41,7 @@ print(x_r)
 
 
 file_zero = open("../Donnees/resPCA.csv","w")
-file_zero.write("Axe_X,Axe_Y,Name\n")
+file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
 file_zero.close()
 
 file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
@@ -49,10 +51,9 @@ for i in range(len(x_r)) :
     x0 = str(x_r[i,0])
     x1 = str(x_r[i,1])
     print(x0)
-    file.write(x0 + "," + x1 + "," + str(y[i]) + "\n")
+    file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "\n")
 
 file.close()
-
 
 """
 #plot les points
