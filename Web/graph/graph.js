@@ -138,7 +138,7 @@
       circleTitle
       	.attr('x', d => newX(xValue(d)))
       	.attr('y', d => newY(yValue(d)) + circleRadius + 12)
-      	
+    
     }
     
     d3.selectAll('.toggle').on('change', function(d){
