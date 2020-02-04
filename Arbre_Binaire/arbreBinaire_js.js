@@ -1,55 +1,10 @@
-function readTextFile(file) {
-    var reponse;
-    var rawFile = new XMLHttpRequest(); // XMLHttpRequest (often abbreviated as XHR) is a browser object accessible in JavaScript that provides data in XML, JSON, but also HTML format, or even a simple text using HTTP requests.
-    rawFile.open("GET", file, false); // open with method GET the file with the link file ,  false (synchronous)
-    rawFile.onreadystatechange = function ()
-
-    {
-        if(rawFile.readyState === 4) // readyState = 4: request finished and response is ready
-        {
-            if(rawFile.status === 200) // status 200: "OK"
-            {
-                reponse = rawFile.responseText
-                //  Returns the response data as a string
-            }
-        }
-    }
-    rawFile.send(null);
-    return reponse;
-}
-
-function createArrayLine(text){
-    var ArrayLigne = [];
-    var compteur = 0;
-    ArrayLigne[0] = "";
-    for (let i =0; i<text.length; i++){
-        ArrayLigne[compteur] = ArrayLigne[compteur] + ArrayLigne[i];
-        if(text[i]==";"){
-            compteur = compteur + 1;
-            ArrayLigne[compteur] = "";
-
-        }
-    }
-
-    return ArrayLigne;
-
-}
-
-var Text;
-var Tree;
-
-config = {container: '#tree-simple', connectors: {
-        type: 'step'
-    },
-    node: {
-        HTMLclass: 'nodeExample1'
-    }};
-questionid_1 = {text: { name: 'Ton personnage est-il réel ?' }};
-questionid_2 = {parent: questionid_1,text: { name: 'Choix : Oui || Titre : Ton personnage est-il français ?' }};
-questionid_782121 = {parent: questionid_1,text: { name: 'Choix : Non || Titre : Ton personnage est-il un personnage de jeu vidéo ?' }};
-questionid_3 = {parent: questionid_2,text: { name: 'Choix : Oui || Titre : Ton personnage est-il décédé ?' }};
-questionid_259552 = {parent: questionid_2,text: { name: 'Choix : Non || Titre : Ton personnage est-il américain ?' }};
-questionid_782122 = {parent: questionid_782121,text: { name: 'Choix : Oui || Titre : Ton personnage porte-t-il des chaussures ?' }};
+/*
+questionid_1 = {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true};
+questionid_2 = {parent: questionid_1,text: { name: "Choix : Oui", desc : " Titre : Ton personnage est-il français ?" }, collapsed : true};
+questionid_782121 = {parent: questionid_1,text: { name: 'Choix : Non || Titre : Ton personnage est-il un personnage de jeu vidéo ?' }, collapsed : true};
+questionid_3 = {parent: questionid_2,text: { name: 'Choix : Oui || Titre : Ton personnage est-il décédé ?' }, collapsed : true};
+questionid_259552 = {parent: questionid_2,text: { name: 'Choix : Non || Titre : Ton personnage est-il américain ?' }, collapsed : true};
+questionid_782122 = {parent: questionid_782121,text: { name: 'Choix : Oui || Titre : Ton personnage porte-t-il des chaussures ?' }, collapsed : true};
 questionid_1044104 = {parent: questionid_782121,text: { name: 'Choix : Non || Titre : Ton personnage a-t-il des cheveux ?' }};
 questionid_4 = {parent: questionid_3,text: { name: 'Choix : Oui || Titre : Ton personnage est-il un écrivain ?' }};
 questionid_85898 = {parent: questionid_3,text: { name: 'Choix : Non || Titre : Ton personnage a-t-il un rapport avec le milieu du sport ?' }};
@@ -77,7 +32,21 @@ questionid_1132316 = {parent: questionid_1132315,text: { name: 'Choix : Oui || T
 questionid_1161678 = {parent: questionid_1132315,text: { name: 'Choix : Non || Titre : Ton personnage porte-t-il des chaussures ?' }};
 
 chart_config = [
-    config,
+    {container: '#basic-example', connectors: {
+            type: 'step'
+        },
+        node: {
+            HTMLclass: 'nodeExample1'
+        },
+
+        animation: {
+            nodeAnimation: "easeOutBounce",
+            nodeSpeed: 700,
+            connectorsAnimation: "bounce",
+            connectorsSpeed: 700
+        }
+
+    },
     questionid_1,
     questionid_2,
     questionid_782121,
@@ -87,8 +56,5 @@ chart_config = [
     questionid_1044104
 ];
 
-
-Text = readTextFile("TreeJs.txt"); //<= Call function ===== don't need "file:///..." just the path
-Tree = createArrayLine(Text);
-
+ */
 

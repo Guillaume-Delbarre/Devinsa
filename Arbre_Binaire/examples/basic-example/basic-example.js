@@ -56,4 +56,3 @@ chart_config = [
     questionid_1044104
 ];
 
-console.log("coucou salo");
