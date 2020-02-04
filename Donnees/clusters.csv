@@ -1,11 +1,11 @@
-Cluster;Personage M‚doid;Principale Question
-Groupe 1;Jean Lassale;Est-il dans la chambre de benjam ?
-Groupe 2;Moi;Vas-t-il bien ?
-Groupe 3;Tintin;Connait-t-il Milou ?
-Groupe 4;;
-Groupe 5;;
-Groupe 6;;
-Groupe 7;;
-Groupe 8;;
-Groupe 9;;
-Groupe 10;;
+Cluster,Personage M‚doid,Principale Question
+Groupe 1,Jean Lassale,Est-il dans la chambre de benjam ?
+Groupe 2,Moi,Vas-t-il bien ?
+Groupe 3,Tintin,Connait-t-il Milou ?
+Groupe 4,,
+Groupe 5,,
+Groupe 6,,
+Groupe 7,,
+Groupe 8,,
+Groupe 9,,
+Groupe 10,,
