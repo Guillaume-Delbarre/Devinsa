@@ -41,7 +41,7 @@ x = df.loc[:, listTitres].values
 
 
 pca = KernelPCA(n_components=2, kernel="rbf")
-x_r = pca.fit(x).transform(x)
+x_r = pca.fit_transform(x)
 print(x_r)
 
 file_zero = open("../Donnees/resPCA.csv","w")
