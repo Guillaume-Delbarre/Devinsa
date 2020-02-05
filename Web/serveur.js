@@ -89,7 +89,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('ecrirevecteursql', function() {
-		tot();
+		demande(script)
 	});
 	
 	// EVENEMENT UPDATE SQL
@@ -151,7 +151,7 @@ io.sockets.on('connection', function (socket) {
 	
 	// Fonction Lecture Base / Ecriture fichier
 
-	function demande(continuer = 0){
+	function demande(callback){
 	// ON DEMANDE LES DONNEES A LA BASE
 		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS itemCROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		connection.query(rqt, function(error, data, fields) {
@@ -164,7 +164,7 @@ io.sockets.on('connection', function (socket) {
 			fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				socket.emit("message","Fichier ecrit");
-				if (continuer == 1) script();
+				callback();
 			});
 		});
 	}
@@ -172,12 +172,10 @@ io.sockets.on('connection', function (socket) {
 	function script(){
 		PythonShell.run("../ScriptPython/MiseEnPage.py", null, function (err) {
 			if (err) throw err;
-			console.log('finished MISE EN PAGE');
-			return 0;
+			console.log('MISE EN PAGE FAITE');
 			PythonShell.run("../ScriptPython/ScriptPCA.py", null, function (err) {
 			if (err) throw err;
 			console.log('finished PCA');
-			return 0;
 			});
 		});
 	}

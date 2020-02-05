@@ -39,12 +39,15 @@ cluster = df.loc[:,'Clusters '].values
 
 pca = KernelPCA(n_components=2, kernel="rbf")
 x_r = pca.fit_transform(x)
+
 =======
+
 #appelle de la fct autoencoder2D du fichier reseauxNeurones
 x_r = reseauxNeurones.autoencoder2D()
->>>>>>> 66015d9872aa1db676df0ee504876cb6896faece
-print(x_r)
 
+>>>>>>> 66015d9872aa1db676df0ee504876cb6896faece
+
+print(x_r)
 
 file_zero = open("../Donnees/resPCA.csv","w")
 file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
