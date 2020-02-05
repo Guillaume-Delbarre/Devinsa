@@ -13,6 +13,7 @@ from sklearn import datasets
 from sklearn.decomposition import KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
+import reseauxNeurones
 
 
 #Prendre les titres des questions
@@ -22,30 +23,31 @@ file_question.close()
 listTitres = first.split(';')
 listTitres[len(listTitres)-1] = listTitres[len(listTitres)-1].replace("\n","")
 del listTitres[0]
-#print(listTitres)
 
 
 #Charge le dataFrame avec toutes les infos du fichier
-df = pd.read_csv("../Donnees/Personnages.csv", sep = ';' , header = 0, encoding='latin-1')
+df = pd.read_csv("../Donnees/kmeans.csv", sep = ';' , header = 0, encoding='latin-1')
 df = df.fillna(0)
-#print(df)
 
 y = df.loc[:,'Noms'].values
 
 x = df.loc[:, listTitres].values
 
-#Affiche la dataframe des noms des personnages
-#print(y)
-#Affiche les valeurs des personnages
-#print(x)
+cluster = df.loc[:,'Clusters '].values
 
+<<<<<<< HEAD
 
 pca = KernelPCA(n_components=2, kernel="rbf")
 x_r = pca.fit_transform(x)
+=======
+#appelle de la fct autoencoder2D du fichier reseauxNeurones
+x_r = reseauxNeurones.autoencoder2D()
+>>>>>>> 66015d9872aa1db676df0ee504876cb6896faece
 print(x_r)
 
+
 file_zero = open("../Donnees/resPCA.csv","w")
-file_zero.write("Axe_X,Axe_Y,Name\n")
+file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
 file_zero.close()
 
 file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
@@ -55,14 +57,9 @@ for i in range(len(x_r)) :
     x0 = str(x_r[i,0])
     x1 = str(x_r[i,1])
     print(x0)
-    file.write(x0 + "," + x1 + "," + str(y[i]) + "\n")
+    file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "\n")
 
 file.close()
-
-
-#Affiches le pourcentage d'importance des deux axes finaux
-#print('explained variance ratio (first two components): %s'
-#      % str(pca.explained_variance_ratio_))
 
 """
 #plot les points

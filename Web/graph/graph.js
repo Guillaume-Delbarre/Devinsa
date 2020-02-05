@@ -138,7 +138,7 @@
       circleTitle
       	.attr('x', d => newX(xValue(d)))
       	.attr('y', d => newY(yValue(d)) + circleRadius + 12)
-      	
+    
     }
     
     d3.selectAll('.toggle').on('change', function(d){
@@ -153,7 +153,7 @@
   
   };
   
-  d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/ScriptPython/resPCA.csv')
+  d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv')
   	.then(data => {
     	data.forEach(d => {
         d.Axe_X = +d.Axe_X;
