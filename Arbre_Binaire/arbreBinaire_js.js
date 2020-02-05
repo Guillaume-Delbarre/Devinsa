@@ -1,4 +1,4 @@
-/*
+console.log(1);
 questionid_1 = {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true};
 questionid_2 = {parent: questionid_1,text: { name: "Choix : Oui", desc : " Titre : Ton personnage est-il français ?" }, collapsed : true};
 questionid_782121 = {parent: questionid_1,text: { name: 'Choix : Non || Titre : Ton personnage est-il un personnage de jeu vidéo ?' }, collapsed : true};
@@ -56,5 +56,40 @@ chart_config = [
     questionid_1044104
 ];
 
- */
 
+/*
+function readTextFile(file)
+{
+    var allText;
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                allText = rawFile.responseText;
+
+            }
+        }
+    }
+    rawFile.send(null);
+    return allText;
+}
+
+function makingArray(str){
+    var reponse = [];
+    var i = 0;
+    reponse[i] = ""
+    for(var j = 0;j<=str.length;j++){
+        reponse[i] = reponse[i] + str[j]
+        if (str[j]==";"){
+            i = i + 1;
+        }
+    }
+    return reponse
+}
+
+a = makingArray(readTextFile("TreeJs.txt"));
+*/

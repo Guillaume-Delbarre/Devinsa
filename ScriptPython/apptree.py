@@ -30,12 +30,12 @@ def createBinarytree(file):
     return resultat
 
 def ecrirejstree(resultat, filesortie):
-    ecriture = open(filesortie,"w")
-    ecriture.write("config = {container: '#tree-simple'};\n")
-    ecriture.write("questionid_1 = {text: { name: '"+resultat[0][0]+"' }};\n") 
+    ecriture = open(filesortie,"w",encoding="utf-8")
+    ecriture.write("questionid_1 = {text: { name: '"+resultat[0][0]+"' }, collapsed : true};\n")
+    chart_config = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
     for questions in resultat:   
         parentid = questions[2]
-        touslesfils = getfils(resultat, parentid)
+        touslesfils = getfils(resultat, parentid)        
         #print(touslesfils)
         for fils in touslesfils:            
             if fils[0] == 'o' :
@@ -44,7 +44,11 @@ def ecrirejstree(resultat, filesortie):
                 choix = "Non"
             titre = fils[1]
             #print(fils)
-            ecriture.write("questionid_"+fils[2]+" = {parent: questionid_"+parentid+",text: { name: 'Choix : "+choix+" || Titre : "+titre+"' }};\n")
+            chart_config += "questionid_"+fils[2]+",\n"
+            ecriture.write("questionid_"+fils[2]+" = {parent: questionid_"+parentid+",text: { name: 'Choix : "+choix+"', desc : 'Titre : "+titre+"' }, collapsed : true};\n")
+    chart_config = chart_config[0:len(chart_config)-2]
+    chart_config += "];"
+    ecriture.write(chart_config)
     ecriture.close
 
 # Main       
@@ -52,3 +56,4 @@ def ecrirejstree(resultat, filesortie):
 resultat = createBinarytree("../Donnees/tree.txt")
 #print(resultat)
 ecrirejstree(resultat,"../Donnees/TreeJS.js")
+ecrirejstree(resultat,"../Arbre_Binaire/Tree.js")
