@@ -5,7 +5,7 @@ Created on Wed Nov 20 21:52:42 2019
 @author: Guillaume
 """
 
-import matplotlib.pyplot as plt
+
 
 import pandas as pd
 
