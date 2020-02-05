@@ -56,4 +56,4 @@ def ecrirejstree(resultat, filesortie):
 resultat = createBinarytree("../Donnees/tree.txt")
 #print(resultat)
 ecrirejstree(resultat,"../Donnees/TreeJS.js")
-ecrirejstree(resultat,"../Arbre_Binaire/Tree.js")
+ecrirejstree(resultat,"../Arbre_Binaire/Treejavascript.js")
