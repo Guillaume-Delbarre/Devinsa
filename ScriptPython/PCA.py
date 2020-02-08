@@ -6,7 +6,7 @@ Created on Wed Nov 20 21:52:42 2019
 """
 
 
-
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from sklearn.manifold import TSNE
@@ -84,9 +84,8 @@ file.close()
 
 #file.close()
 
-"""
+
 #plot les points
 plt.title('PCA')
 plt.scatter(x_r[:,0],x_r[:,1])
 plt.show()
-"""

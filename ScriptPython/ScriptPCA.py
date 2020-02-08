@@ -13,8 +13,6 @@ from sklearn import datasets
 from sklearn.decomposition import KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
-import reseauxNeurones
-
 
 #Prendre les titres des questions
 file_question = open("../Donnees/Personnages.csv","r")
@@ -35,17 +33,10 @@ x = df.loc[:, listTitres].values
 
 cluster = df.loc[:,'Clusters '].values
 
-<<<<<<< HEAD
 
 pca = KernelPCA(n_components=2, kernel="rbf")
 x_r = pca.fit_transform(x)
 
-=======
-
-#appelle de la fct autoencoder2D du fichier reseauxNeurones
-x_r = reseauxNeurones.autoencoder2D()
-
->>>>>>> 66015d9872aa1db676df0ee504876cb6896faece
 
 print(x_r)
 
@@ -64,10 +55,10 @@ for i in range(len(x_r)) :
 
 file.close()
 
-"""
+
 #plot les points
 plt.title('PCA')
 plt.scatter(x_r[:,0],x_r[:,1])
 plt.show()
-"""
+
 
