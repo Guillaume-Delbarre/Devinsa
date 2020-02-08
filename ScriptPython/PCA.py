@@ -84,8 +84,9 @@ file.close()
 
 #file.close()
 
-
+"""
 #plot les points
 plt.title('PCA')
 plt.scatter(x_r[:,0],x_r[:,1])
 plt.show()
+"""

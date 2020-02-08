@@ -62,7 +62,7 @@ def getmin(matrice,clusters, numclust):
 if __name__ == '__main__':
     # Faire le clustering
     df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
-    kmeans10 = KMeans(n_clusters=5)
+    kmeans10 = KMeans(n_clusters=6)
     
     #Clusters par item
     y_kmeans10 = kmeans10.fit_predict(df)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     #Matrice distance au centre ?
     matrice = kmeans10.fit_transform(df)
     
-    #ecritcluster()
+    ecritcluster()
     print(y_kmeans10)
     listemedoid = medoid(matrice, y_kmeans10)
     print(listemedoid)
