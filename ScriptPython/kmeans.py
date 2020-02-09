@@ -27,6 +27,7 @@ def trouveroptimal():
     plt.show()
 
 def ecritcluster():
+    global y_kmeans10
     fileentree = open("../Donnees/Personnages.csv","r")
     filesortie = open("../Donnees/kmeans.csv","w")
     i=-1
@@ -59,11 +60,12 @@ def getmin(matrice,clusters, numclust):
             curr = val 
     return medoid
 
-if __name__ == '__main__':
+def kmeansAlgo(n=6):
+    
+    global y_kmeans10
     # Faire le clustering
     df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
-    kmeans10 = KMeans(n_clusters=6)
-    
+    kmeans10 = KMeans(n_clusters=n)
     #Clusters par item
     y_kmeans10 = kmeans10.fit_predict(df)
     
@@ -71,9 +73,12 @@ if __name__ == '__main__':
     matrice = kmeans10.fit_transform(df)
     
     ecritcluster()
-    print(y_kmeans10)
+    #print(y_kmeans10)
     listemedoid = medoid(matrice, y_kmeans10)
-    print(listemedoid)
+    #print(listemedoid)
+
+if __name__ == '__main__':
+    kmeansAlgo()
     
 
 """
