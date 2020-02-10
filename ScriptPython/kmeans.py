@@ -62,7 +62,7 @@ def nomPerso(n, list) :
     i=-1
     for line in fileentree :
         if i == n :
-            x = line.split(',')
+            x = line.split(';')
             return x[0]
         i += 1
     
