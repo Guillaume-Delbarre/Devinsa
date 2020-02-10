@@ -6,6 +6,7 @@ let {PythonShell} = require('python-shell');
 var fs = require('fs');
 const fastcsv = require("fast-csv");
 const ws = fs.createWriteStream("../donnees/Vecteur.csv");
+const as = fs.createWriteStream("../donnees/Arbre.csv");
 
 //Dialogue Base
 var mysql = require('mysql');
@@ -89,7 +90,11 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('ecrirevecteursql', function() {
-		demande(script)
+		demande(scriptpca)
+	});
+	
+	socket.on('ecrirearbre', ({profondeur}) => {
+		creerarbre(scriptarbre, profondeur);
 	});
 	
 	// EVENEMENT UPDATE SQL
@@ -164,12 +169,43 @@ io.sockets.on('connection', function (socket) {
 			fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				socket.emit("message","Fichier ecrit");
+				console.log("Ecriture Fait faite");
 				callback();
 			});
 		});
 	}
 	
-	function script(){
+	function creerarbre(callback = null, profondeur){
+	// ON DEMANDE L'ARBRE A LA BASE
+		var rqt = "Select title, choice, question_id,parent_id,depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
+		connection.query(rqt, [profondeur], function(error, data, fields) {
+			if (error) throw error
+			console.log(data)
+			const jsonData = JSON.parse(JSON.stringify(data));
+	// ECRITURE FICHIER
+			console.log("Ecriture Arbre en cours");
+			socket.emit("message","Ecriture Arbre en cours");
+			var a = 
+			fastcsv.write(jsonData, { headers: true }).pipe(as);
+			a.on('finish', function () {
+				socket.emit("message","Arbre ecrit");
+				console.log("Ecriture Arbre faite");
+				if (callback != null){
+				callback();
+				}
+			});
+			
+		});
+	}
+	
+	function scriptarbre(){
+		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
+			if (err) throw err;
+			console.log('Fichier JS Ecrit');
+		});
+	}
+	
+	function scriptpca(){
 		PythonShell.run("../ScriptPython/MiseEnPage.py", null, function (err) {
 			if (err) throw err;
 			console.log('MISE EN PAGE FAITE');
@@ -179,4 +215,7 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	}
+	
+	// Main temporaire
+	creerarbre(scriptarbre, 10);
 });

@@ -17,16 +17,19 @@ def createBinarytree(file):
     resultat = []
     temp = []
     exclus = []
+    i = 0
     for line in file:
-        temp = line.split(",")
-        if (temp[1] == 'p' or temp[4] in exclus):
-            exclus.append(temp[3])
-        else:
-            i=0
-            for item in temp:
-                temp[i] = item.replace('\n','').replace('\\N','')
-                i+=1
-            resultat.append([temp[0],temp[1],temp[3],temp[4]])
+        if (i>0):
+            temp = line.split(",")
+            if (temp[1] == 'p' or temp[4] in exclus):
+                exclus.append(temp[3])
+            else:
+                i=0
+                for item in temp:
+                    temp[i] = item.replace('\n','').replace('\\N','')
+                    i+=1
+                resultat.append([temp[0],temp[1],temp[3],temp[4]])
+        i +=1
     return resultat
 
 def ecrirejstree(resultat, filesortie):
@@ -53,7 +56,7 @@ def ecrirejstree(resultat, filesortie):
 
 # Main       
 
-resultat = createBinarytree("../Donnees/tree.txt")
+resultat = createBinarytree("../Donnees/Arbre.csv")
 #print(resultat)
 ecrirejstree(resultat,"../Donnees/TreeJS.js")
 ecrirejstree(resultat,"../Arbre_Binaire/Treejavascript.js")
