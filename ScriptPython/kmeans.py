@@ -61,7 +61,7 @@ def nomPerso(n, list) :
     fileentree = open("../Donnees/Personnages.csv","r")
     i=-1
     for line in fileentree :
-        if i == n :
+        if i == list[n] :
             x = line.split(';')
             return x[0]
         i += 1
