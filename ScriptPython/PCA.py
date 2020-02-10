@@ -55,7 +55,7 @@ def to2D():
         x0 = str(x_r[i,0])
         x1 = str(x_r[i,1])
         
-        file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "," + med[i] + "\n")
+        file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "," + str(med[i]) + "\n")
     
     file.close()
 
