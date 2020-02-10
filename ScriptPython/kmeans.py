@@ -87,7 +87,7 @@ def getmin(matrice,clusters, numclust):
             curr = val 
     return medoid
 
-def kmeansAlgo(n=10):
+def kmeansAlgo(n):
     
     global y_kmeans10
     # Faire le clustering
