@@ -35,6 +35,7 @@ def ecritcluster():
         if (i<1429):
             if (i<0):
                 filesortie.write(line.replace("\n","") + ";Clusters \n")
+                
             else:
                 filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + "\n")
         i += 1
@@ -42,12 +43,10 @@ def ecritcluster():
     fileentree.close()
     filesortie.close()
     
-def medoid(matrice, clusters):
-    i=0
-    medoids = [0]*10
+def medoid(matrice, clusters,n):
+    medoids = [0]*n
     for j in range(0,len(matrice[0])):
         medoids[j] = getmin(matrice,clusters,j)
-        i+=1
     return medoids
 
 def getmin(matrice,clusters, numclust):
@@ -60,7 +59,7 @@ def getmin(matrice,clusters, numclust):
             curr = val 
     return medoid
 
-def kmeansAlgo(n=6):
+def kmeansAlgo(n=10):
     
     global y_kmeans10
     # Faire le clustering
@@ -74,9 +73,9 @@ def kmeansAlgo(n=6):
     
     ecritcluster()
     #print(y_kmeans10)
-    listemedoid = medoid(matrice, y_kmeans10)
-    #print(listemedoid)
+    listemedoid = medoid(matrice, y_kmeans10,n)
 
+    
 if __name__ == '__main__':
     kmeansAlgo()
     
