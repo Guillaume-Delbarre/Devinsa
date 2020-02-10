@@ -39,6 +39,7 @@ def ecritcluster(listMedoid):
             else:
                 if i == listMedoid[j] :
                     filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";1\n")
+                    j += 1
                 else :
                     filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";0\n")
 
