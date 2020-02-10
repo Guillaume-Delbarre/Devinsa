@@ -37,7 +37,7 @@ def to2D():
     
     x = df.loc[:, listTitres].values
     
-    cluster = df.loc[:,'Clusters '].values
+    cluster = df.loc[:,'Clusters'].values
     
     
     pca = TSNE(n_components=2)

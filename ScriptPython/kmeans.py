@@ -26,25 +26,51 @@ def trouveroptimal():
     plt.ylabel('Error')
     plt.show()
 
-def ecritcluster():
+def ecritcluster(listMedoid):
     global y_kmeans10
     fileentree = open("../Donnees/Personnages.csv","r")
     filesortie = open("../Donnees/kmeans.csv","w")
     i=-1
+    j=0
     for line in fileentree:
         if (i<1429):
             if (i<0):
-                filesortie.write(line.replace("\n","") + ";Clusters \n")
+                filesortie.write(line.replace("\n","") + ";Clusters;Medoid\n")
             else:
-                filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + "\n")
+                if i == listMedoid[j] :
+                    filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";oui\n")
+                else :
+                    filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";non\n")
+
         i += 1
     
     fileentree.close()
     filesortie.close()
+
+def ecritTableMed(nbCluster, listMedoid) :
+    file = open("../Donnees/clusters.csv","w")
+    file.write("Cluster,Personage Médoid,Principale Question\n")
+
+    for i in range(0,nbCluster) :
+        nom = nomPerso(i, listMedoid)
+        file.write("Groupe " + str(i) + "," + nom + ",\n")
     
-def medoid(matrice, clusters):
+    file.close
+
+def nomPerso(n, list) :
+    fileentree = open("../Donnees/Personnages.csv","r")
+    i=-1
+    for line in fileentree :
+        if i == n :
+            x = line.split(',')
+            return x[0]
+        i += 1
+    
+    fileentree.close
+
+def medoid(matrice, clusters, nbCluster):
     i=0
-    medoids = [0]*10
+    medoids = [0]*nbCluster
     for j in range(0,len(matrice[0])):
         medoids[j] = getmin(matrice,clusters,j)
         i+=1
@@ -72,10 +98,13 @@ def kmeansAlgo(n=6):
     #Matrice distance au centre ?
     matrice = kmeans10.fit_transform(df)
     
-    ecritcluster()
     #print(y_kmeans10)
-    listemedoid = medoid(matrice, y_kmeans10)
-    #print(listemedoid)
+    listemedoid = medoid(matrice, y_kmeans10, n)
+    print(listemedoid)
+
+    ecritcluster(listemedoid)
+
+    ecritTableMed(n, listemedoid)
 
 if __name__ == '__main__':
     kmeansAlgo()

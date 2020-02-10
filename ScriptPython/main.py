@@ -9,7 +9,7 @@ from kmeans import kmeansAlgo
 from PCA import to2D
 from ScriptPCA import PCA
 
-def main(numberOfClusters=6, visualisation="TSNE"):
+def main(numberOfClusters=4, visualisation="TSNE"):
     miseEnPage()
     kmeansAlgo(numberOfClusters)
     if visualisation == "TSNE":
