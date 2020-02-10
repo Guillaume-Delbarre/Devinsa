@@ -49,7 +49,7 @@ def ecritcluster(listMedoid):
 
 def ecritTableMed(nbCluster, listMedoid) :
     file = open("../Donnees/clusters.csv","w")
-    file.write("Cluster,Personage Médoid,Principale Question\n")
+    file.write("Cluster     ,Personage Médoid       ,Principale Question\n")
 
     for i in range(0,nbCluster) :
         nom = nomPerso(i, listMedoid)

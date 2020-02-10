@@ -159,6 +159,7 @@
     	data.forEach(d => {
         d.Axe_X = +d.Axe_X;
         d.Axe_Y = +d.Axe_Y;
+        d.Medoid = +d.Medoid;
       });
     	render(data);
   });
