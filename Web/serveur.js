@@ -177,10 +177,9 @@ io.sockets.on('connection', function (socket) {
 	
 	function creerarbre(callback = null, profondeur){
 	// ON DEMANDE L'ARBRE A LA BASE
-		var rqt = "Select title, choice, question_id,parent_id,depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
+		var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
 		connection.query(rqt, [profondeur], function(error, data, fields) {
 			if (error) throw error
-			console.log(data)
 			const jsonData = JSON.parse(JSON.stringify(data));
 	// ECRITURE FICHIER
 			console.log("Ecriture Arbre en cours");
