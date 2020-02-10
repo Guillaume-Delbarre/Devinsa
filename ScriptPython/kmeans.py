@@ -71,9 +71,10 @@ def nomPerso(n, list) :
 def medoid(matrice, clusters, nbCluster):
     i=0
     medoids = [0]*nbCluster
+def medoid(matrice, clusters,n):
+    medoids = [0]*n
     for j in range(0,len(matrice[0])):
         medoids[j] = getmin(matrice,clusters,j)
-        i+=1
     return medoids
 
 def getmin(matrice,clusters, numclust):
@@ -86,7 +87,7 @@ def getmin(matrice,clusters, numclust):
             curr = val 
     return medoid
 
-def kmeansAlgo(n=6):
+def kmeansAlgo(n=10):
     
     global y_kmeans10
     # Faire le clustering
@@ -106,6 +107,7 @@ def kmeansAlgo(n=6):
 
     ecritTableMed(n, listemedoid)
 
+    
 if __name__ == '__main__':
     kmeansAlgo()
     
