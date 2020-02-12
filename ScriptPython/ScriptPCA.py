@@ -12,7 +12,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 def PCA():
     #Prendre les titres des questions
-    file_question = open("../Donnees/Personnages.csv","r")
+    file_question = open("../Donnees/kmeans.csv","r")
     first = file_question.readline()
     file_question.close()
     listTitres = first.split(';')

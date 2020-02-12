@@ -9,6 +9,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 import numpy as np
 import matplotlib.pyplot as plt
+global y_kmeans10
 
 def trouveroptimal():
     #Trouver le nombre optimal de clusters
