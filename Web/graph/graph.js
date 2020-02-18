@@ -105,6 +105,7 @@
       	.attr('clip-path', 'url(#rect-clip)')
       	.attr('class', 'circleTitle')
         .attr('opacity', 0)
+        .attr('stroke', 'black')
         .attr('stroke-width', d => 1.5*d.Medoid)
       	.attr('x', d => xScale(xValue(d)))
       	.attr('y', d => yScale(yValue(d)) + circleRadius + 12)
