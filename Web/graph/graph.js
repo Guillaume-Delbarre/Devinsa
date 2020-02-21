@@ -119,28 +119,30 @@
     
     function updateZoom() {
 
-      var newX = d3.event.transform.rescaleX(xScale);
-      var newY = d3.event.transform.rescaleY(yScale);
-      
-      var newXAxis = d3.axisBottom(newX)
-      	.tickSize(-innerHeight)
-      	.tickPadding(15);
-      
-      const newYAxis = d3.axisLeft(newY)
-      	.tickSize(-innerWidth)
-      	.tickPadding(10);
-			
-      xAxisG.call(newXAxis);
-      yAxisG.call(newYAxis);
+      if (document.getElementById("Zoom").checked) {
 
-      g.selectAll('circle')
-        .attr("cx", function(d) {return newX(d.Axe_X)})
-        .attr("cy", function(d) {return newY(d.Axe_Y)});
-      
-      circleTitle
-      	.attr('x', d => newX(xValue(d)))
-      	.attr('y', d => newY(yValue(d)) + circleRadius + 12)
-    
+        var newX = d3.event.transform.rescaleX(xScale);
+        var newY = d3.event.transform.rescaleY(yScale);
+        
+        var newXAxis = d3.axisBottom(newX)
+          .tickSize(-innerHeight)
+          .tickPadding(15);
+        
+        const newYAxis = d3.axisLeft(newY)
+          .tickSize(-innerWidth)
+          .tickPadding(10);
+        
+        xAxisG.call(newXAxis);
+        yAxisG.call(newYAxis);
+
+        g.selectAll('circle')
+          .attr("cx", function(d) {return newX(d.Axe_X)})
+          .attr("cy", function(d) {return newY(d.Axe_Y)});
+        
+        circleTitle
+          .attr('x', d => newX(xValue(d)))
+          .attr('y', d => newY(yValue(d)) + circleRadius + 12)
+      }
     }
     
     d3.selectAll('.toggle').on('change', function(d){
