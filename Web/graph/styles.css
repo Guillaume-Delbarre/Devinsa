@@ -78,8 +78,13 @@ input[type="radio"].toggle:checked + label:after {
 }
 
 .myCircle:hover {
-  fill: blue;
+  fill: rgb(247, 0, 255);
   opacity: 1;
+  stroke-width: 1;
+}
+
+#cercles .active {
+  fill: orange;
 }
 
 .circleTitle {

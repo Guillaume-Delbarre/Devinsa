@@ -7,7 +7,7 @@
   const height = +svg.attr('height');
   
   const render = data => {
-    
+
     const button = svg.append('button')
     	.attr('class', 'button')
     
@@ -20,6 +20,8 @@
     const yAxisLabel = 'Axe 2';
     
     const circleRadius = 8;
+
+    var clicked;
     
     const margin = { top: 60, right: 40, bottom: 88, left: 100 };
     const innerWidth = width - margin.left - margin.right;
@@ -91,12 +93,16 @@
     
     g.selectAll('circle').data(data)
       .enter().append('circle')
+        .attr('id', 'cercles')
     		.attr('clip-path', 'url(#rect-clip)')
     		.attr('class', 'myCircle')
         .attr('cy', d => yScale(yValue(d)))
         .attr('cx', d => xScale(xValue(d)))
         .attr('fill', d => couleur(d.Cluster))
         .attr('r', circleRadius)
+        .attr('stroke', 'black')
+        .attr('stroke-width', 0)
+        .on("click", clicked )
     	.append('title')
     		.text(d => d.Name);
     
@@ -117,6 +123,19 @@
         .attr('y', -10)
         .text(title);
     
+    function clicked(d) {
+      
+      if(d && clicked !== d) {
+        clicked = d;
+      } else {
+        clicked = null
+      }
+
+      g.selectAll('circle')
+        .classed('active', clicked && function(d) { return d === clicked } )
+
+    }
+
     function updateZoom() {
 
       if (document.getElementById("Zoom").checked) {
