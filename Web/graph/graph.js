@@ -11,7 +11,7 @@
     const button = svg.append('button')
     	.attr('class', 'button')
     
-    const title = 'Graph PCA';
+    const title = 'Graph';
     
     const xValue = d => d.Axe_X;
     const xAxisLabel = 'Axe 1';

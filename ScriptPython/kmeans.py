@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 import numpy as np
 import matplotlib.pyplot as plt
-global y_kmeans10
+y_kmeans10 = None 
 
 def trouveroptimal():
     #Trouver le nombre optimal de clusters
@@ -88,7 +88,7 @@ def getmin(matrice,clusters, numclust):
             curr = val 
     return medoid
 
-def kmeansAlgo(n):
+def kmeansAlgo(n=6):
     
     global y_kmeans10
     # Faire le clustering
@@ -99,10 +99,10 @@ def kmeansAlgo(n):
     
     #Matrice distance au centre ?
     matrice = kmeans10.fit_transform(df)
-    
+    print(matrice)
     #print(y_kmeans10)
     listemedoid = medoid(matrice, y_kmeans10, n)
-    print(listemedoid)
+    #print(listemedoid)
 
     ecritcluster(listemedoid)
 
@@ -110,7 +110,7 @@ def kmeansAlgo(n):
 
     
 if __name__ == '__main__':
-    kmeansAlgo()
+    kmeansAlgo(6)
     
 
 """
