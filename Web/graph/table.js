@@ -15,7 +15,7 @@
 
     };
 
-    d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/clusters.csv')
+    d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv')
         .then(data => {
             data.forEach(d => {
 

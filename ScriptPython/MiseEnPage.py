@@ -1,13 +1,14 @@
 import os
 
+listeParNom = []
+listeNoms = []
+
 def miseEnPage(): 
     
     file = open("../Donnees/Personnages.csv","w")
     file.close()
     global listeParNom
     global listeNoms
-    listeParNom = []
-    listeNoms = []
     listeQuestions = []
     listeQ =[]
     listetitre = ["Noms"]

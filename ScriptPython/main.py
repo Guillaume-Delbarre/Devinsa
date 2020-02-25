@@ -8,14 +8,13 @@ from MiseEnPage import miseEnPage
 from kmeans import kmeansAlgo
 from PCA import to2D
 from ScriptPCA import PCA
+from questionsCaracteristiques import getQCarac
 
-def main(numberOfClusters=6, visualisation="TSNE"):
+def main(numberOfClusters=6):
     miseEnPage()
     kmeansAlgo(numberOfClusters)
-    if visualisation == "TSNE":
-        to2D()
-    elif visualisation=="PCA":
-        PCA()
+    getQCarac(numberOfClusters)
+    to2D()
         
 if __name__ == '__main__':
     main()

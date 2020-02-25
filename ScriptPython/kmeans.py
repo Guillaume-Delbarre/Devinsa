@@ -40,14 +40,14 @@ def ecritcluster(listMedoid):
             else:
                 if i in listMedoid :
                     filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";1\n")
-                    print(i)
+                    #print(i)
                 else :
                     filesortie.write(line.replace("\n","") + ";" + str(y_kmeans10[i]) + ";0\n")
         i += 1
     
     fileentree.close()
     filesortie.close()
-
+"""
 def ecritTableMed(nbCluster, listMedoid) :
     file = open("../Donnees/clusters.csv","w")
     file.write("Cluster     ,Personage Médoid       ,Principale Question\n")
@@ -57,7 +57,7 @@ def ecritTableMed(nbCluster, listMedoid) :
         file.write("Groupe " + str(i) + "," + nom + ",\n")
     
     file.close
-
+"""
 def nomPerso(n, list) :
     fileentree = open("../Donnees/Personnages.csv","r")
     i=-1
@@ -99,14 +99,13 @@ def kmeansAlgo(n=6):
     
     #Matrice distance au centre ?
     matrice = kmeans10.fit_transform(df)
-    print(matrice)
     #print(y_kmeans10)
     listemedoid = medoid(matrice, y_kmeans10, n)
     #print(listemedoid)
 
     ecritcluster(listemedoid)
 
-    ecritTableMed(n, listemedoid)
+    #ecritTableMed(n, listemedoid)
 
     
 if __name__ == '__main__':
