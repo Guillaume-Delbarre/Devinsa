@@ -7,20 +7,20 @@ medoids = None
 
 def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
-    file.write("Cluster;Medoid;")
+    file.write("Cluster,Medoid,")
     for i in range(nbQuestion-1):
-        file.write("Q"+str(i)+";")
+        file.write("Q"+str(i)+",")
     file.write("Q"+str(nbQuestion-1)+"\n")
 
     for i in range(nbCluster):
         agg_sorted = agg.sort_values(by=i, axis=1, ascending=False)
-        file.write(str(i)+";"+medoids[i]+";")
+        file.write(str(i)+","+medoids[i]+",")
         j=0
         for column in agg_sorted.columns:
             if j>=nbQuestion:
                 break
             else: 
-                file.write(column+";")
+                file.write(column+",")
             j=j+1
         file.write("\n")
 
