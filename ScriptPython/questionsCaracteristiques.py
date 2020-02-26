@@ -6,7 +6,7 @@ medoids = None
 
 
 def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
-    file = open("../Donnees/infoClusters.csv","w")
+    file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
     file.write("Cluster;Medoid;")
     for i in range(nbQuestion-1):
         file.write("Q"+str(i)+";")
@@ -26,7 +26,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
 
 def getQCarac(nbCluster=6, nbQuestion=5):
     global medoids
-    df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+    df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     df.sort_values(by='Clusters', inplace=True)
     medoids = df.loc[df['Medoid']==1].index.values
     del df['Medoid']

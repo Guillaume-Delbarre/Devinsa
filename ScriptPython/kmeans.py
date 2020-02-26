@@ -13,7 +13,7 @@ y_kmeans10 = None
 
 def trouveroptimal():
     #Trouver le nombre optimal de clusters
-    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     x = df.iloc[:, 1:].values
     Error =[]
     for i in range(1, 31):
@@ -29,8 +29,8 @@ def trouveroptimal():
 
 def ecritcluster(listMedoid):
     global y_kmeans10
-    fileentree = open("../Donnees/Personnages.csv","r")
-    filesortie = open("../Donnees/kmeans.csv","w")
+    fileentree = open("../Donnees/Personnages.csv","r",encoding='utf-8')
+    filesortie = open("../Donnees/kmeans.csv","w",encoding='utf-8')
     i=-1
     j=0
     for line in fileentree:
@@ -59,7 +59,7 @@ def ecritTableMed(nbCluster, listMedoid) :
     file.close
 """
 def nomPerso(n, list) :
-    fileentree = open("../Donnees/Personnages.csv","r")
+    fileentree = open("../Donnees/Personnages.csv","r",encoding='utf-8')
     i=-1
     for line in fileentree :
         if i == list[n] :
@@ -92,7 +92,7 @@ def kmeansAlgo(n=6):
     
     global y_kmeans10
     # Faire le clustering
-    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'latin1')
+    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     kmeans10 = KMeans(n_clusters=n)
     #Clusters par item
     y_kmeans10 = kmeans10.fit_predict(df)

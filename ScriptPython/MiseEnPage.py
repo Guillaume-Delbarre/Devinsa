@@ -6,7 +6,7 @@ listeNoms = []
 
 def miseEnPage(): 
     
-    file = open("../Donnees/Personnages.csv","w")
+    file = open("../Donnees/Personnages.csv","w", encoding='utf-8')
     file.close()
     global listeParNom
     global listeNoms
@@ -15,7 +15,7 @@ def miseEnPage():
     listetitre = ["Noms"]
     
     #Mettre les questions du fichier dans listeQuestions
-    file_question = open("../Donnees/QuestionsLigne.txt","r")
+    file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
     listeQ = file_question.readlines()
     file_question.close()
     for q in listeQ :
@@ -31,7 +31,7 @@ def miseEnPage():
     #ecriture de listetitre dans fichier csv
     ecritStringFichier(listetitre)
     
-    file_res = open("../Donnees/Vecteur.csv","r")
+    file_res = open("../Donnees/Vecteur.csv","r", encoding='utf-8')
     f1 = file_res.readlines()
     file_res.close()
     
@@ -41,8 +41,7 @@ def miseEnPage():
             manip(y)
 
 def ecritStringFichier(list) :
-        file_ecrit = open("../Donnees/Personnages.csv","a")
-        os.chmod("../Donnees/Personnages.csv", 0o777)
+        file_ecrit = open("../Donnees/Personnages.csv","a",encoding='utf-8')
         string = regroupList(list)
         file_ecrit.write(string)
         file_ecrit.close()
