@@ -11,7 +11,8 @@
         var td = tr.selectAll("td")
             .data(function(d, i) { return Object.values(d); })
             .enter().append("td")
-                .text(function(d) { return d; });
+                .text(function(d) { return d; })
+                    .attr('color',color);
 
     };
 

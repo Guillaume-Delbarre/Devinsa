@@ -91,8 +91,10 @@
       var couleur = d3.scaleOrdinal(d3.schemeCategory10)
         .domain(["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10"])
     
-    g.selectAll('circle').data(data)
-      .enter().append('circle')
+    var cercle = g.selectAll('circle').data(data)
+                  .enter()
+    cercle
+      .append('circle')
         .attr('id', 'cercles')
     		.attr('clip-path', 'url(#rect-clip)')
     		.attr('class', 'myCircle')
@@ -102,7 +104,7 @@
         .attr('r', circleRadius)
         .attr('stroke', 'black')
         .attr('stroke-width', 0)
-        .on("click", clicked )
+        .on("click", clicked)
     	.append('title')
     		.text(d => d.Name);
     
@@ -126,13 +128,16 @@
     function clicked(d) {
       
       if(d && clicked !== d) {
+        d3.selectAll('.active')
+          .attr('class', 'myCircle');
         clicked = d;
+        d3.select(this)
+          .attr('class', 'active')
       } else {
+        d3.selectAll('.active')
+          .attr('class', 'myCircle');
         clicked = null
       }
-
-      g.selectAll('circle')
-        .classed('active', clicked && function(d) { return d === clicked } )
 
     }
 

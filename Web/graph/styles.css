@@ -83,8 +83,10 @@ input[type="radio"].toggle:checked + label:after {
   stroke-width: 1;
 }
 
-#cercles .active {
+.active {
   fill: orange;
+  opacity: 1;
+  stroke-width: 1;
 }
 
 .circleTitle {
