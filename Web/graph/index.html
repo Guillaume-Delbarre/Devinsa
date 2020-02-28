@@ -26,26 +26,26 @@
         <input id="toggle-off" class="toggle toggle-right" name="toggle" value="0" type="radio" checked>
         <label for="toggle-off" class="btn">Non</label>
     </div>
+
     <div class="container">
-      <p>Quel mode d'action ?</p>
-      <div>
-        <input id="Zoom" name="mode" id="zoom" value="zoom" type="radio" checked>
-        <label for="Zoom">Zoom and Move</label>
-      </div>
-      <div>
-        <input id="Select" name="mode" id="select" value="selection" type="radio">
-        <label for="Select">Select</label>
-      </div>  
-    <div>
-    
-    	<svg width="1000" height="650"></svg>
+      <svg width="1000" height="650"></svg>
+      
+      <table class="tableSelect">
+        <thead>
+        <tr><th>Nom du Cluster</th><th>Personnage sélectionné</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    </div>
+
       <table class="objecttable">
         <thead>
         <tr><th>Cluster</th><th>Medoid</th><th>Question</th></tr>
         </thead>
         <tbody></tbody>
       </table>
-    </div>
+
     
     <script src="graph.js"></script>
     <script src="table.js"></script>

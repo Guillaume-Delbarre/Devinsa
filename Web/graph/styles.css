@@ -84,7 +84,12 @@ input[type="radio"].toggle:checked + label:after {
 }
 
 .active {
-  fill: orange;
+  fill: rgb(21, 255, 0);
+  opacity: 1;
+  stroke-width: 1;
+}
+
+.activeCluster {
   opacity: 1;
   stroke-width: 1;
 }

@@ -128,6 +128,17 @@
     
     function clicked(d) {
 
+      var tr = d3.select(".tableSelect tbody")
+            .selectAll("tr")
+            .data(data)
+            .enter().append("tr")
+
+        var td = tr.selectAll("td")
+            .data(function(d, i) { return Object.values(d); })
+            .enter().append("td")
+                .text(function(d) { return d; })
+                    .attr('fontcolor', d => couleur("Groupe " + d.Cluster));
+
       if ( d3.event.button == 0) {
 
         if(d && clicked !== d) {
