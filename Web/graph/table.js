@@ -3,6 +3,9 @@
 
     const render = data => {
 
+        var couleur = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain(["Groupe 0","Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9"])
+
         var tr = d3.select(".objecttable tbody")
             .selectAll("tr")
             .data(data)
@@ -12,7 +15,7 @@
             .data(function(d, i) { return Object.values(d); })
             .enter().append("td")
                 .text(function(d) { return d; })
-                    .attr('color',color);
+                    .attr('fontcolor', d => couleur("Groupe " + d.Cluster));
 
     };
 

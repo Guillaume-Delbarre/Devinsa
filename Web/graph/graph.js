@@ -22,6 +22,7 @@
     const circleRadius = 8;
 
     var clicked;
+    var clickedCluster;
     
     const margin = { top: 60, right: 40, bottom: 88, left: 100 };
     const innerWidth = width - margin.left - margin.right;
@@ -89,13 +90,13 @@
       .attr('height', innerHeight);
       
       var couleur = d3.scaleOrdinal(d3.schemeCategory10)
-        .domain(["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10"])
+        .domain(["Groupe 0","Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9"])
     
     var cercle = g.selectAll('circle').data(data)
                   .enter()
     cercle
       .append('circle')
-        .attr('id', 'cercles')
+        .attr('id', d => (d.Cluster).replace('Groupe ', ''))
     		.attr('clip-path', 'url(#rect-clip)')
     		.attr('class', 'myCircle')
         .attr('cy', d => yScale(yValue(d)))
@@ -104,7 +105,7 @@
         .attr('r', circleRadius)
         .attr('stroke', 'black')
         .attr('stroke-width', 0)
-        .on("click", clicked)
+        .on("mousedown", clicked)
     	.append('title')
     		.text(d => d.Name);
     
@@ -126,17 +127,37 @@
         .text(title);
     
     function clicked(d) {
-      
-      if(d && clicked !== d) {
-        d3.selectAll('.active')
-          .attr('class', 'myCircle');
-        clicked = d;
-        d3.select(this)
-          .attr('class', 'active')
-      } else {
-        d3.selectAll('.active')
-          .attr('class', 'myCircle');
-        clicked = null
+
+      if ( d3.event.button == 0) {
+
+        if(d && clicked !== d) {
+          d3.selectAll('.active')
+            .attr('class', 'myCircle');
+          clicked = d;
+          d3.select(this)
+            .attr('class', 'active')
+        } else {
+          d3.selectAll('.active')
+            .attr('class', 'myCircle');
+          clicked = null
+        }
+
+      } else if( d3.event.button == 2){
+
+        if (clickedCluster !== d.Cluster) {
+          d3.selectAll('.activeCluster')
+            .attr('class', 'myCircle');
+          
+            clickedCluster = d.Cluster;
+
+            d3.selectAll('#\\3'+ (d.Cluster).replace('Groupe ', ''))
+              .attr('class', 'activeCluster')
+        } else {
+          d3.selectAll('.activeCluster')
+            .attr('class', 'myCircle');
+          clickedCluster = null
+        }
+
       }
 
     }
