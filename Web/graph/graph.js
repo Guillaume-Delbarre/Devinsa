@@ -128,23 +128,12 @@
     
     function clicked(d) {
 
-      var tr = d3.select(".tableSelect tbody")
-            .selectAll("tr")
-            .data(data)
-            .enter().append("tr")
-
-        var td = tr.selectAll("td")
-            .data(function(d, i) { return Object.values(d); })
-            .enter().append("td")
-                .text(function(d) { return d; })
-                    .attr('fontcolor', d => couleur("Groupe " + d.Cluster));
-
       if ( d3.event.button == 0) {
 
-        if(d && clicked !== d) {
+        if(clicked !== d.Name) {
           d3.selectAll('.active')
             .attr('class', 'myCircle');
-          clicked = d;
+          clicked = d.Name;
           d3.select(this)
             .attr('class', 'active')
         } else {
@@ -152,6 +141,9 @@
             .attr('class', 'myCircle');
           clicked = null
         }
+
+        var myTable = document.getElementById('tableSelect');
+        myTable.rows[1].cells[1].innerHTML = clicked;
 
       } else if( d3.event.button == 2){
 
@@ -167,15 +159,17 @@
           d3.selectAll('.activeCluster')
             .attr('class', 'myCircle');
           clickedCluster = null
+
         }
+
+        var myTable = document.getElementById('tableSelect');
+        myTable.rows[1].cells[0].innerHTML = clickedCluster;
 
       }
 
     }
 
     function updateZoom() {
-
-      if (document.getElementById("Zoom").checked) {
 
         var newX = d3.event.transform.rescaleX(xScale);
         var newY = d3.event.transform.rescaleY(yScale);
@@ -198,7 +192,7 @@
         circleTitle
           .attr('x', d => newX(xValue(d)))
           .attr('y', d => newY(yValue(d)) + circleRadius + 12)
-      }
+     
     }
     
     d3.selectAll('.toggle').on('change', function(d){
