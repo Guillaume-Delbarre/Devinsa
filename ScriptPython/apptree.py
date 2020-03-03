@@ -2,35 +2,10 @@
 """
 Created on Mon Jan  6 14:32:09 2020
 
-@author: nathl
+@author: nathl and OUGO
 """
 
-def getfils(resultat, parentid):
-    res = []
-    for questions in resultat:
-        if (questions[3]== str(parentid)):
-            res.append([questions[1],questions[0],questions[2]])
-    return res
-            
-def createBinarytree(file):  
-    file = open(file,"r")
-    resultat = []
-    temp = []
-    exclus = []
-    i = 0
-    for line in file:
-        if (i>0):
-            temp = line.split(",")
-            if (temp[1] == 'p' or temp[3] in exclus):
-                exclus.append(temp[2])
-            else:
-                i=0
-                for item in temp:
-                    temp[i] = item.replace('\n','').replace('\\N','')
-                    i+=1
-                resultat.append([temp[0],temp[1],temp[2],temp[3]])
-        i +=1
-    return resultat
+from InfoArbre import *
 
 def ecrirejstree(resultat, filesortie):
     ecriture = open(filesortie,"w",encoding="utf-8")
@@ -54,10 +29,38 @@ def ecrirejstree(resultat, filesortie):
     ecriture.write(chart_config)
     ecriture.close
 
-# Main       
+def persoRestant(idquestion,elagage):
+    for i in range(len(elagage)):
+        if(idquestion==elagage[i][0]):
+            return elagage[i][1]
+    return -1
 
-resultat = createBinarytree("../Donnees/Arbre.csv")
-print(resultat)
+def ecrirejstreeV2(resultat,perso,filesortie):
+    ecriture = open(filesortie,"w",encoding="utf-8")
+    elagage = elagagePerso(resultat[0],resultat,perso,[])
+    ecriture.write("questionid_1 = {text: { name: '"+resultat[0][0]+"', desc : 'Personnages restants : "+str(elagage[0][1])+"' }, collapsed : true};\n")
+    chart_config = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
+    for questions in resultat:   
+        parentid = questions[2]
+        touslesfils = getfils(resultat, parentid)        
+        #print(touslesfils)
+        for fils in touslesfils:            
+            if fils[0] == 'o' :
+                choix = "Oui"
+            else :
+                choix = "Non"
+            titre = fils[1]
+            chart_config += "questionid_"+fils[2]+",\n"
+            rest = persoRestant(fils[2],elagage)
+            ecriture.write("questionid_"+fils[2]+" = {parent: questionid_"+parentid+",text: { name: 'Choix : "+choix+"', desc : 'Titre : "+titre+" Personnages restants : "+str(rest)+"' }, collapsed : true};\n")
+    chart_config = chart_config[0:len(chart_config)-2]
+    chart_config += "];"
+    ecriture.write(chart_config)
+    ecriture.close
+
+# Main       
+arbre = createBinarytree("../Donnees/Arbre.csv")
+perso = extraitMatricePersonnage("../Donnees/Personnages.csv")
 #print(resultat)
-ecrirejstree(resultat,"../Donnees/TreeJS.js")
-ecrirejstree(resultat,"../Arbre_Binaire/Treejavascript.js")
+ecrirejstreeV2(arbre,perso,"../Donnees/TreeJS.js")
+ecrirejstreeV2(arbre,perso,"../Arbre_Binaire/Treejavascript.js")
