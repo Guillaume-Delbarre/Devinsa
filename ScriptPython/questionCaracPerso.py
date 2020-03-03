@@ -11,16 +11,19 @@ def questionCaracPerso(perso):
     del df['Clusters']
     questionPerso = df.loc[[perso]].sort_values(by=perso,axis=1,ascending=False)
     
-    questionPerso['Cluster']=cluster
     if(medoid):
-        questionPerso['Medoid']='Oui'
+        questionPerso.insert(0,'Medoid','Oui')
     else:
-        questionPerso['Medoid']='Non'
+        questionPerso.insert(0,'Medoid','Non')
+
+    questionPerso.insert(0,'Cluster',cluster)
     
     return questionPerso
     
+    #print(questionPerso)
+
     
-    
+
 
 if __name__ == '__main__':
     questionCaracPerso("Abel Jabri")
