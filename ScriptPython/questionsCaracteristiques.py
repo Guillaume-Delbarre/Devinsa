@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import numpy as np
 
 medoids = None
 
@@ -28,6 +29,7 @@ def getQCarac(nbCluster=6, nbQuestion=5):
     global medoids
     df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     df.sort_values(by='Clusters', inplace=True)
+    df.replace(0,np.nan)
     medoids = df.loc[df['Medoid']==1].index.values
     del df['Medoid']
     agg = df.groupby(['Clusters']).agg("mean")
