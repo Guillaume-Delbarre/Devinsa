@@ -1,7 +1,6 @@
 //ExecutionPython
 let {PythonShell} = require('python-shell');
 
-
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -12,7 +11,8 @@ const as = fs.createWriteStream("../donnees/Arbre.csv");
 var mysql = require('mysql');
 
 //Dialogue Site web
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = app.listen(8080);
 var session = require('express-session');
 
@@ -22,6 +22,7 @@ var path = require('path');
 
 // CHARGEMENT DE SOCKET.IO
 var io = require('socket.io').listen(server);
+console.log("Serveur lancé")
 
 // Connexion à la base
 const connection = mysql.createConnection({
@@ -42,6 +43,8 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+app.use(express.static(__dirname + '/graph'));	
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
@@ -51,7 +54,6 @@ app.get('/', function(request, response) {
 	}else{
 		response.sendFile(path.join(__dirname + '/login.html'));
 	}
-	response.sendFile(path.join(__dirname + '/login.html'));
 });
 
 app.get('/home', function(request, response) {
@@ -61,13 +63,6 @@ app.get('/home', function(request, response) {
 	} else {
 		// On retourne au login
 		response.sendFile(path.join(__dirname + '/login.html'));
-		// Chargement du fichier index.html affiché au client
-		console.log('index.html')
-		response.sendFile('dialogueServeur.html', {
-        root: path.join(__dirname, './')
-		})
-	} else {
-		response.send('Please login to view this page!');
 	}
 });
 
