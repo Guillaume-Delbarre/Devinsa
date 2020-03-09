@@ -49,26 +49,27 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 app.get('/', function(request, response) {
-	console.log("ahoui")
-	response.sendFile(path.join(__dirname + '/login.html'));
-	console.log(request.session.username);
-	
+	if (request.session.loggedin){
+		response.redirect('/home');
+	}else{
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
 });
 
 app.get('/home', function(request, response) {
-	console.log("ahouiaaaaaaa")
 	if (request.session.loggedin) {
-		// Chargement du fichier index.html affiché au client
+		// Chargement du fichier acceuil.html affiché au client
 		response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
 	} else {
+		// On retourne au login
 		response.sendFile(path.join(__dirname + '/login.html'));
 	}
 });
 
 app.post('/auth', function(request, response) {
-	console.log("ahouiaaaaaaa")
 	var username = request.body.username;
 	var password = request.body.password;
+	// On confirme les informations
 	if (username && password) {
 		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
@@ -88,7 +89,6 @@ app.post('/auth', function(request, response) {
 
 io.sockets.on('connection', function (socket) {
 	console.log("Connecté \n")
-		
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
 		console.log(message);
