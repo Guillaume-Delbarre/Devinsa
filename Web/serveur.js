@@ -1,7 +1,6 @@
 //ExecutionPython
 let {PythonShell} = require('python-shell');
 
-
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -12,7 +11,8 @@ const as = fs.createWriteStream("../donnees/Arbre.csv");
 var mysql = require('mysql');
 
 //Dialogue Site web
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = app.listen(8080);
 var session = require('express-session');
 
@@ -22,6 +22,7 @@ var path = require('path');
 
 // CHARGEMENT DE SOCKET.IO
 var io = require('socket.io').listen(server);
+console.log("Serveur lancé")
 
 // Connexion à la base
 const connection = mysql.createConnection({
@@ -42,28 +43,33 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+app.use(express.static(__dirname + '/graph'));	
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
+	if (request.session.loggedin){
+		response.redirect('/home');
+	}else{
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
 });
 
 app.get('/home', function(request, response) {
 	if (request.session.loggedin) {
-		// Chargement du fichier index.html affiché au client
-		console.log('index.html')
-		response.sendFile('dialogueServeur.html', {
-        root: path.join(__dirname, './')
-		})
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
 	} else {
-		response.send('Please login to view this page!');
+		// On retourne au login
+		response.sendFile(path.join(__dirname + '/login.html'));
 	}
 });
 
 app.post('/auth', function(request, response) {
 	var username = request.body.username;
 	var password = request.body.password;
+	// On confirme les informations
 	if (username && password) {
 		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
@@ -83,7 +89,6 @@ app.post('/auth', function(request, response) {
 
 io.sockets.on('connection', function (socket) {
 	console.log("Connecté \n")
-		
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
 		console.log(message);

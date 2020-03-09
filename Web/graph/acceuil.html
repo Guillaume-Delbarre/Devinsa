@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph Devinsa Radio</title>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://d3js.org/d3.v5.js"></script>
+  </head>
+  
+  <body>
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html">Graph</a></li>
+        <li><a href="../../Arbre_binaire/Treeweb.html">Arbre</a></li>
+        <li><a href="../dialogueServeur.html">Dialogue Serveur</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+        <p> Afficher tous les noms ?</p>
+        <input id="toggle-on" class="toggle toggle-left" name="toggle" value="0.5" type="radio" >
+        <label for="toggle-on" class="btn">Oui</label>
+        <input id="toggle-off" class="toggle toggle-right" name="toggle" value="0" type="radio" checked>
+        <label for="toggle-off" class="btn">Non</label>
+    </div>
+
+    <div class="container">
+      <svg width="1000" height="650"></svg>
+      
+      <table id='tableSelect'>
+        <thead>
+        <tr><th>Nom du Cluster</th><th>Personnage sélectionné</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+      <table class="objecttable">
+        <thead>
+        <tr><th>Cluster</th><th>Medoid</th><th>Question</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    
+    <script src="graph.js"></script>
+    <script src="table.js"></script>
+    
+  </body>
+  
+</html>
