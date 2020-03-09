@@ -13,9 +13,9 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
         file.write("Q"+str(i)+",")
     file.write("Q"+str(nbQuestion-1)+"\n")
 
-    for i in range(nbCluster):
+    for i in range(1,nbCluster+1):
         agg_sorted = agg.sort_values(by=i, axis=1, ascending=False)
-        file.write(str(i)+","+medoids[i]+",")
+        file.write(str(i)+","+medoids[i-1]+",")
         j=0
         for column in agg_sorted.columns:
             if j>=nbQuestion:
@@ -29,10 +29,12 @@ def getQCarac(nbCluster=6, nbQuestion=5):
     global medoids
     df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     df.sort_values(by='Clusters', inplace=True)
-    df.replace(0,np.nan)
     medoids = df.loc[df['Medoid']==1].index.values
+    
     del df['Medoid']
-    agg = df.groupby(['Clusters']).agg("mean")
+    df['Clusters'].replace(0,nbCluster,inplace=True)
+    df = df.replace(0,np.nan)
+    agg = df.groupby(['Clusters']).mean()
     ecritQuestionCarac(df,agg,nbCluster,nbQuestion)
     
     
