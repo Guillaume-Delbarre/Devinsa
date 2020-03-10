@@ -18,7 +18,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     for i in range(1,nbCluster+1):
         #Pour un cluster donné, on ordonne inversement les question en fonction du score TF-IDF
         agg_sorted = agg.sort_values(by=i, axis=1, ascending=False)
-        file.write(str(i)+","+medoids[i-1]+",")
+        file.write(str(i-1)+","+medoids[i-1]+",")
         j=0
         for column in agg_sorted.columns:
             if j>=nbQuestion:
@@ -41,7 +41,6 @@ def getQCarac(nbCluster=6, nbQuestion=5):
         df['Clusters'].replace(k-1,k, inplace=True)
     #On remplace les 0 (absence de donnees) par NaN
     df = df.replace(0,np.nan)
-    print(df)
     #On fait la moyenne des TF-IDF pour chaque question par cluster (en ignorant les NaN)
     agg = df.groupby(['Clusters']).mean()
     #print(cdist(agg[agg.index==1],df[df['Clusters']==1].iloc[0:82,0:902])) Probleme avec les NaN
