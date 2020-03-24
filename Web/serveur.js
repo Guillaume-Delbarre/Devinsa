@@ -1,6 +1,12 @@
 //ExecutionPython
 let {PythonShell} = require('python-shell');
 
+//Dialogue Site web
+var express = require('express');
+var session = require('express-session');
+var app = express();
+var server = app.listen(8080);
+
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -31,11 +37,6 @@ connection.connect(function(err) {
 var bodyParser = require('body-parser');
 var path = require('path');
 
-//Dialogue Site web
-var express = require('express');
-var session = require('express-session');
-var app = express();
-var server = app.listen(8080);
 
 // On importe le fichier chemins.js qui permet de router les demandes clients
 var Chemins = require('./Chemins');
@@ -100,17 +101,36 @@ io.sockets.on('connection', function (socket) {
 
 	function update(name,question,value,param){
 		let rqt = "";
-		if (param == 0) {
-			rqt = "UPDATE app_answer SET no_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
-		} else {
-			rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+		let insert = "";
+		if (name != null && question != null && value != null && param != null){
+			if (param == 0) {
+				rqt = "UPDATE app_answer SET no_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+				insert = "INSERT INTO app_answer (question_id, item_id, yes_count,  no_count, pass_count, yes_tfidf, no_tfidf) VALUES ( ?, ?, 0, ?, 0, 0, 0)";
+			} else {
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+				insert = "INSERT INTO app_answer (question_id, item_id, yes_count,  no_count, pass_count, yes_tfidf, no_tfidf) VALUES ( ?, ?, ?, 0, 0, 0, 0)";
+			}
+			connection.query(rqt,[value,question,name],function (err,result) {
+				if (err) throw err;
+				if (result.affectedRows != 0){ 
+					console.log(result.affectedRows + " record(s) updated");
+					socket.emit("message","Update Done " + result.affectedRows);
+				}else{
+					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[question,name],function (error,res) {
+						if (error) throw error;
+						let questionid = res[0].id;
+						let itemid = res[1].id;
+						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
+							if (errors) throw errors;
+							socket.emit("message","Resultat inséré ");
+						});
+					});
+				}
+			});
+			console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
+		}else{
+			socket.emit("message","parametres incorrects");
 		}
-		connection.query(rqt,[value,question,name],function (err,result) {
-		if (err) throw err;
-			console.log(result.affectedRows + " record(s) updated");
-			socket.emit("message","Update Done " + result.affectedRows);
-		});
-		console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
 	}
 	
 	// Montre les questions similaires SUREMENT PRB GUILLEMET
