@@ -5,7 +5,8 @@ let {PythonShell} = require('python-shell');
 var express = require('express');
 var session = require('express-session');
 var app = express();
-var server = app.listen(8080);
+var server = require('http').createServer(app);
+server.listen(8080, "192.168.1.43");
 
 //Ecriture fichier
 var fs = require('fs');
@@ -14,7 +15,7 @@ const ws = fs.createWriteStream("../donnees/Vecteur.csv");
 const as = fs.createWriteStream("../donnees/Arbre.csv");
 
 // CHARGEMENT DE SOCKET.IO
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 console.log("Serveur lancé");
 
 //Dialogue Base
@@ -37,7 +38,6 @@ connection.connect(function(err) {
 var bodyParser = require('body-parser');
 var path = require('path');
 
-
 // On importe le fichier chemins.js qui permet de router les demandes clients
 var Chemins = require('./Chemins');
 app.use('/', Chemins);
@@ -55,7 +55,6 @@ function fileattente(tab){
 }
 	
 io.sockets.on('connection', function (socket) {
-	console.log("Connecté \n")
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
 		console.log(message);
@@ -168,17 +167,19 @@ io.sockets.on('connection', function (socket) {
 	
 	function creerarbre(profondeur,fonctions = null){
 	// ON DEMANDE L'ARBRE A LA BASE
+		if (!Number.isInteger(profondeur) || profondeur < 0 || profondeur >20){
+			socket.emit("message","Paramètre non valable");
+			return 0;
+		}
 		var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
 		connection.query(rqt, [profondeur], function(error, data, fields) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
 			// ECRITURE FICHIER
-			console.log("Ecriture Arbre en cours");
-			socket.emit("message","Ecriture Arbre en cours");
 			var a = 
 			fastcsv.write(jsonData, { headers: true }).pipe(as);
 			a.on('finish', function () {
-				socket.emit("message","Arbre ecrit");
+				socket.emit("message","Arbre écrit");
 				console.log("Ecriture Arbre faite");
 				if (fonctions != null){
 				fileattente(fonctions);
