@@ -87,6 +87,18 @@ app.post('/auth', function(request, response) {
 	}
 });
 
+function fileattente(tab){
+	route = "../ScriptPython/";
+	chemin = route.concat(tab[0]);
+	PythonShell.run(chemin, null, function (err) {
+		if (err) throw err;
+		console.log('Fichier JS Ecrit');
+		if (tab.length > 1){
+			fileattente(tab.slice(1));
+		}
+	});
+}
+	
 io.sockets.on('connection', function (socket) {
 	console.log("Connecté \n")
 	// EVENEMENT REQUETE SQL
@@ -96,10 +108,6 @@ io.sockets.on('connection', function (socket) {
 	
 	socket.on('ecrirevecteursql', function() {
 		demande(scriptpca);
-	});
-	
-	socket.on('ecrirearbre', ({profondeur}) => {
-		creerarbre(scriptarbre, profondeur);
 	});
 	
 	// EVENEMENT UPDATE SQL
@@ -113,7 +121,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('creerarbre', ({profondeur}) => {
-		creerarbre(profondeur, fileattente(["apptree.py"]));
+		creerarbre(profondeur,["apptree.py"]);
 	});
 		
 	// ON ENVOIE LES LISTES DE PERSONNAGES ET QUESTIONS
@@ -179,18 +187,18 @@ io.sockets.on('connection', function (socket) {
 			a.on('finish', function () {
 				socket.emit("message","Fichier ecrit");
 				console.log("Ecriture faite");
-				callback();
+				//callback();
 			});
 		});
 	}
 	
-	function creerarbre(profondeur, callback = null){
+	function creerarbre(profondeur,fonctions = null){
 	// ON DEMANDE L'ARBRE A LA BASE
 		var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
 		connection.query(rqt, [profondeur], function(error, data, fields) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
-	// ECRITURE FICHIER
+			// ECRITURE FICHIER
 			console.log("Ecriture Arbre en cours");
 			socket.emit("message","Ecriture Arbre en cours");
 			var a = 
@@ -198,23 +206,14 @@ io.sockets.on('connection', function (socket) {
 			a.on('finish', function () {
 				socket.emit("message","Arbre ecrit");
 				console.log("Ecriture Arbre faite");
-				if (callback != null){
-				callback();
+				if (fonctions != null){
+				fileattente(fonctions);
 				}
 			});
 		});
 	}
 	
-	function fileattente(tab){
-		route = "../ScriptPython/";
-		PythonShell.run(route.concat(tab[0]), null, function (err) {
-			if (err) throw err;
-			console.log('Fichier JS Ecrit');
-			if (tab.length != 0){
-				fileattente(tab.slice(1));
-			}
-		});
-	}
+
 	
 	function scriptarbre(){
 		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
