@@ -95,7 +95,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('ecrirevecteursql', function() {
-		demande(scriptpca)
+		demande(scriptpca);
 	});
 	
 	socket.on('ecrirearbre', ({profondeur}) => {
@@ -110,6 +110,10 @@ io.sockets.on('connection', function (socket) {
 	
 	socket.on('montrerquestionssql', ({name,persos,nb}) => {
 		montrequestion(name,persos,nb);
+	});
+	
+	socket.on('creerarbre', ({profondeur}) => {
+		creerarbre(profondeur, fileattente(["apptree.py"]));
 	});
 		
 	// ON ENVOIE LES LISTES DE PERSONNAGES ET QUESTIONS
@@ -174,13 +178,13 @@ io.sockets.on('connection', function (socket) {
 			fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				socket.emit("message","Fichier ecrit");
-				console.log("Ecriture Fait faite");
+				console.log("Ecriture faite");
 				callback();
 			});
 		});
 	}
 	
-	function creerarbre(callback = null, profondeur){
+	function creerarbre(profondeur, callback = null){
 	// ON DEMANDE L'ARBRE A LA BASE
 		var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
 		connection.query(rqt, [profondeur], function(error, data, fields) {
@@ -198,7 +202,17 @@ io.sockets.on('connection', function (socket) {
 				callback();
 				}
 			});
-			
+		});
+	}
+	
+	function fileattente(tab){
+		route = "../ScriptPython/";
+		PythonShell.run(route.concat(tab[0]), null, function (err) {
+			if (err) throw err;
+			console.log('Fichier JS Ecrit');
+			if (tab.length != 0){
+				fileattente(tab.slice(1));
+			}
 		});
 	}
 	
@@ -221,5 +235,5 @@ io.sockets.on('connection', function (socket) {
 	}
 	
 	// Main temporaire
-	creerarbre(scriptarbre, 10);
+	//creerarbre(scriptarbre, 10);
 });
