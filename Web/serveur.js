@@ -7,22 +7,12 @@ const fastcsv = require("fast-csv");
 const ws = fs.createWriteStream("../donnees/Vecteur.csv");
 const as = fs.createWriteStream("../donnees/Arbre.csv");
 
-//Dialogue Base
-var mysql = require('mysql');
-
-//Dialogue Site web
-var express = require('express');
-var app = express();
-var server = app.listen(8080);
-var session = require('express-session');
-
-//Jsp truc bizarre
-var bodyParser = require('body-parser');
-var path = require('path');
-
 // CHARGEMENT DE SOCKET.IO
 var io = require('socket.io').listen(server);
-console.log("Serveur lancé")
+console.log("Serveur lancé");
+
+//Dialogue Base
+var mysql = require('mysql');
 
 // Connexion à la base
 const connection = mysql.createConnection({
@@ -37,55 +27,19 @@ connection.connect(function(err) {
 	if (err) throw err;
 });
 
+//Jsp truc bizarre
+var bodyParser = require('body-parser');
+var path = require('path');
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
+//Dialogue Site web
+var express = require('express');
+var session = require('express-session');
+var app = express();
+var server = app.listen(8080);
 
-app.use(express.static(__dirname + '/graph'));	
-app.use(bodyParser.urlencoded({extended : true}));
-app.use(bodyParser.json());
-
-app.get('/', function(request, response) {
-	if (request.session.loggedin){
-		response.redirect('/home');
-	}else{
-		response.sendFile(path.join(__dirname + '/login.html'));
-	}
-});
-
-app.get('/home', function(request, response) {
-	if (request.session.loggedin) {
-		// Chargement du fichier acceuil.html affiché au client
-		response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
-	} else {
-		// On retourne au login
-		response.sendFile(path.join(__dirname + '/login.html'));
-	}
-});
-
-app.post('/auth', function(request, response) {
-	var username = request.body.username;
-	var password = request.body.password;
-	// On confirme les informations
-	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-				request.session.loggedin = true;
-				request.session.username = username;
-				response.redirect('/home');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
+// On importe le fichier chemins.js qui permet de router les demandes clients
+var Chemins = require('./Chemins');
+app.use('/', Chemins);
 
 function fileattente(tab){
 	route = "../ScriptPython/";
@@ -212,9 +166,7 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	}
-	
 
-	
 	function scriptarbre(){
 		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
 			if (err) throw err;
@@ -232,7 +184,4 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	}
-	
-	// Main temporaire
-	//creerarbre(scriptarbre, 10);
 });

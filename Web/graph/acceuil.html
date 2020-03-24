@@ -2,21 +2,30 @@
 <html>
   <head>
     <title>Graph Devinsa Radio</title>
-    
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script src="https://d3js.org/d3.v5.js"></script>
+	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
-  
   <body>
+  		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
+  		<p><input type="button" value="Ecrire le fichier de vecteurs" id="vctsql" /></p>
+		<p><input type="button" value="Update la base" id="updatesql" /></p>		
+		<div class="ui-widget">
+			<label for="tags">Personnages : </label> 
+			<input id="tags">
+		</div>
+		<div class="ui-widget">
+			<label for="tags1">Questions : </label> 
+			<input id="tags1">
+		</div>	
     <nav>
       <ul class="menu">
-        <li><a href="index.html">Graph</a></li>
-        <li><a href="../../Arbre_binaire/Treeweb.html">Arbre</a></li>
-        <li><a href="../dialogueServeur.html">Dialogue Serveur</a></li>
+		<form action="Arbre" method="POST">
+			<input type="submit" value="Aller à l'Arbre">
+		</form>		  
       </ul>
     </nav>
     <div class="container">
@@ -51,7 +60,7 @@
         <tbody></tbody>
       </table>
 
-    
+    <script src="com.js"></script>
     <script src="graph.js"></script>
     <script src="table.js"></script>
     
