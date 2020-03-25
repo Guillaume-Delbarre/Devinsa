@@ -35,22 +35,23 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     #Nouvelle manière :
 
     #écriture de l'entête
-    for i in range(1,nbCluster+1) :
+    for i in range(nbCluster-1) :
         file.write(str(i) + ',')
-    #file.write(nbCluster+1 + '\n')
+    file.write(str(nbCluster-1) + '\n')
 
     #écriture des médoids
-    for i in range(nbCluster):
-        file.write(medoid[i])
-    #file.write(medoid[nbCluster])
+    for i in range(nbCluster-1):
+        file.write(medoids[i])
+    file.write(medoids[nbCluster-1])
 
     #écriture des questions caract
     agg_tab=[]
     for i in range(1,nbCluster+1):
-        agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False))
+        agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
     
     for j in range(nbQuestion):
         for i in range(nbCluster):
+            #print(agg_tab[i])
             file.write(agg_tab[i][j]+',')
         file.write('\n')
 
