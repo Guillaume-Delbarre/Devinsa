@@ -8,7 +8,7 @@ medoids = None
 
 
 def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
-    file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
+    file = open("Donnees/infoClusters.csv","w",encoding='utf-8')
     
     #Changement de sens pour le tableau donc pour le csv aussi
     """
@@ -36,7 +36,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
 
     #écriture de l'entête
     for i in range(1,nbCluster+1) :
-        file.write(i + ',')
+        file.write(str(i) + ',')
     #file.write(nbCluster+1 + '\n')
 
     #écriture des médoids
@@ -57,7 +57,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
 
 def getQCarac(nbCluster=6, nbQuestion=5):
     global medoids
-    df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+    df = pd.read_csv("Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     df.sort_values(by='Clusters', inplace=True)
     #On récupère les médoides dans un tableau
     medoids = df.loc[df['Medoid']==1].index.values

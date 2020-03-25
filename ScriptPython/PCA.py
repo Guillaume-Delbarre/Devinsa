@@ -19,7 +19,7 @@ def couleur_alea() :
 
 def to2D():
     #Prendre les titres des questions
-    file_question = open("../Donnees/kmeans.csv","r",encoding='utf-8')
+    file_question = open("Donnees/kmeans.csv","r",encoding='utf-8')
     first = file_question.readline()
     file_question.close()
     
@@ -30,7 +30,7 @@ def to2D():
     
     
     #Charge le dataFrame avec toutes les infos du fichier
-    df = pd.read_csv("../Donnees/kmeans.csv", sep = ';' , header = 0, encoding='utf-8')
+    df = pd.read_csv("Donnees/kmeans.csv", sep = ';' , header = 0, encoding='utf-8')
     
     
     y = df.loc[:,'Noms'].values
@@ -43,11 +43,11 @@ def to2D():
     pca = TSNE(n_components=2)
     x_r = pca.fit_transform(x)
     
-    file_zero = open("../Donnees/resPCA.csv","w",encoding='utf-8')
+    file_zero = open("Donnees/resPCA.csv","w",encoding='utf-8')
     file_zero.write("Axe_X,Axe_Y,Name,Cluster,Medoid\n")
     file_zero.close()
     
-    file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
+    file = open("Donnees/resPCA.csv","a",encoding="utf-8")
     
     
     for i in range(len(x_r)) :
