@@ -34,9 +34,12 @@
     d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv')
         .then(data => {
             
-            tabulate(data,Object.keys(data))
+            var col = Object.keys(data)
+            
+
+            tabulate(data,col)
             console.log(data)
-            console.log(Object.keys(data))
+            console.log(col)
             console.log(Object.values(data))
         });
 }(d3));
