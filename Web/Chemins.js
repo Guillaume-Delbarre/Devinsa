@@ -20,7 +20,7 @@ router.use(session({
 }));
 
 router.use(express.static(__dirname + '/graph'));
-router.use(express.static(__dirname + '/../Arbre_Binaire'));
+router.use(express.static(__dirname + '/Arbre_Binaire'));
 
 router.use(bodyParser.urlencoded({extended : true}));
 router.use(bodyParser.json());
@@ -45,7 +45,7 @@ router.get('/home', function(request, response) {
 
 router.post('/Arbre', function(request, response) {
 	if (request.session.loggedin){
-		response.sendFile(path.join(__dirname + '/../Arbre_Binaire/Treeweb.html'));
+		response.sendFile(path.join(__dirname + '/Arbre_Binaire/Treeweb.html'));
 	}else{
 		response.sendFile(path.join(__dirname + '/login.html'));
 	}
