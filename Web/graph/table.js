@@ -34,7 +34,7 @@
     d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv')
         .then(data => {
             
-            tabulate(data,['0','1','2','3'])
+            tabulate(data,Object.keys(data))
             console.log(data)
             console.log(Object.keys(data))
             console.log(Object.values(data))

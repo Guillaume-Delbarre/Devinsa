@@ -36,7 +36,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
 
     #écriture de l'entête
     for i in range(nbCluster-1) :
-        file.write(str(i) + ',')
+        file.write("Groupe " + str(i) + ',')
     file.write(str(nbCluster-1) + '\n')
 
     #écriture des médoids
@@ -56,7 +56,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
         file.write(agg_tab[nbCluster-1][j] + '\n')
 
 
-def getQCarac(nbCluster=6, nbQuestion=5):
+def getQCarac(nbCluster=6, nbQuestion=20):
     global medoids
     df = pd.read_csv("Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     df.sort_values(by='Clusters', inplace=True)
