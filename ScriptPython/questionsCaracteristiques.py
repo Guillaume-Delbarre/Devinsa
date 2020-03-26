@@ -42,7 +42,7 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     #écriture des médoids
     for i in range(nbCluster-1):
         file.write(medoids[i])
-    file.write(medoids[nbCluster-1])
+    file.write(medoids[nbCluster-1] + '\n')
 
     #écriture des questions caract
     agg_tab=[]
