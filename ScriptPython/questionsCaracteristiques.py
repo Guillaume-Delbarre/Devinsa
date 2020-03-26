@@ -37,12 +37,12 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     #écriture de l'entête
     for i in range(nbCluster-1) :
         file.write(str(i) + ',')
-    file.write(str(nbCluster-1) + ',' + '\n')
+    file.write(str(nbCluster-1) + '\n')
 
     #écriture des médoids
     for i in range(nbCluster-1):
-        file.write(medoids[i])
-    file.write(medoids[nbCluster-1] + ',' + '\n')
+        file.write(medoids[i] + ',')
+    file.write(medoids[nbCluster-1] + '\n')
 
     #écriture des questions caract
     agg_tab=[]
@@ -50,10 +50,10 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
         agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
     
     for j in range(nbQuestion):
-        for i in range(nbCluster):
+        for i in range(nbCluster-1):
             #print(agg_tab[i])
             file.write(agg_tab[i][j]+',')
-        file.write('\n')
+        file.write(agg_tab[nbCluster-1][j] + '\n')
 
 
 def getQCarac(nbCluster=6, nbQuestion=5):
