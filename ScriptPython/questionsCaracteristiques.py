@@ -37,12 +37,12 @@ def ecritQuestionCarac(df,agg,nbCluster,nbQuestion):
     #écriture de l'entête
     for i in range(nbCluster-1) :
         file.write(str(i) + ',')
-    file.write(str(nbCluster-1) + '\n')
+    file.write(str(nbCluster-1) + ',' + '\n')
 
     #écriture des médoids
     for i in range(nbCluster-1):
         file.write(medoids[i])
-    file.write(medoids[nbCluster-1] + '\n')
+    file.write(medoids[nbCluster-1] + ',' + '\n')
 
     #écriture des questions caract
     agg_tab=[]
