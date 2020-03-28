@@ -9,9 +9,4 @@ curseur.execute("SELECT yes_count FROM app_answer WHERE question_id = 235 AND id
 for x in curseur:
     print x
 
-curseur.execute("SELECT Name and id FROM app_item LIMIT 5")
-
-for x in curseur:
-    print x
-
 print "\nend"
