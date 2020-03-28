@@ -11,4 +11,5 @@ for x in curseur:
 
 curseur.execute("SELECT question_id FROM app_answer LIMIT 1")
 
-
+for x in curseur:
+    print x
