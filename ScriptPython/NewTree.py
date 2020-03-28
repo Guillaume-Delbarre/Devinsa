@@ -6,4 +6,5 @@ curseur = base.cursor()
 
 curseur.execute("DESCRIBE app_item")
 for (table_name,) in curseur:
-    print (table_name)
+    for x in (table_name):
+        print x
