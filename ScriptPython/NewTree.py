@@ -9,4 +9,11 @@ curseur.execute("SELECT yes_count FROM app_answer WHERE question_id = 235 AND id
 for x in curseur:
     print x
 
+print "\n."
+
+curseur.execute("SELECT id FROM app_item WHERE name = Onyx")
+
+for x in curseur:
+    print x
+
 print "\nend"
