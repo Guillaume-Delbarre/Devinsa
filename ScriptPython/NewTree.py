@@ -11,7 +11,7 @@ for x in curseur:
 
 print "\n."
 
-curseur.execute("SELECT title FROM app_question LIMIT 5")
+curseur.execute("SELECT question_id FROM app_question LIMIT 5")
 
 for x in curseur:
     print x
