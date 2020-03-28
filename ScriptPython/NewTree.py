@@ -6,4 +6,4 @@ curseur = base.cursor()
 
 curseur.execute("SHOW TABLES")
 for (table_nam,) in curseur:
-    print (table_name)
+    print (table_name,)
