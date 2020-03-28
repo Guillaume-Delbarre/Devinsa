@@ -4,6 +4,6 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SELECT Name FROM app_answer LIMIT 5")
+curseur.execute("SELECT question_id FROM app_answer LIMIT 5")
 for (table_name,) in curseur:
     print (table_name)
