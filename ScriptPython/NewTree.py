@@ -9,5 +9,8 @@ curseur.execute("SELECT yes_count FROM app_answer WHERE item_id = 7336 and quest
 for x in curseur:
     print x
 
-print "\nend"
+curseur.execute("SELECT question_id FROM app_answer LIMIT 1")
+
+for (x,) in curseur:
+    curseur.execute("SELECT title from app_question WHERE id = %s",x)
 
