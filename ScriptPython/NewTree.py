@@ -1,3 +1,3 @@
 import mysql.connector
 
-mysql.connector.connect(host='10.133.33.20',database='devinsa',user='ro',password='devinsa!')
+mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
