@@ -11,7 +11,7 @@ for x in curseur:
 
 print "\n."
 
-curseur.execute("SELECT id FROM app_item WHERE name = Onyx")
+curseur.execute("SELECT id FROM app_item WHERE name = 123")
 
 for x in curseur:
     print x
