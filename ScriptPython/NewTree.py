@@ -4,6 +4,7 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-a = curseur.execute("SELECT yes_count FROM app_answer WHERE question_id = 235 AND id = 12 LIMIT 5")
+curseur.execute("SELECT yes_count FROM app_answer WHERE question_id = 235 AND id = 12 LIMIT 5")
 
-print a
+for x in my curseur:
+    print x
