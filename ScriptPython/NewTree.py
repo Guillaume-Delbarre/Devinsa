@@ -5,5 +5,5 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 curseur = base.cursor()
 
 curseur.execute("SHOW DATABASES")
-for x in mycursor:
+for x in curseur:
     print x
