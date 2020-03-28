@@ -4,6 +4,6 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SELECT Oui A t il un rapport avec l'espace ? 1 FROM app_item WHERE Noms = Onyx")
+curseur.execute("SELECT Noms FROM app_item")
 for (table_name,) in curseur:
     print (table_name)
