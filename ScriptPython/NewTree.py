@@ -4,6 +4,6 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SELECT * FROM customers LIMIT 5")
+curseur.execute("SELECT * FROM devinsa LIMIT 5")
 for x in curseur:
     print x
