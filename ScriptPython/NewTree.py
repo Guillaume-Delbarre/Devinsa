@@ -6,5 +6,5 @@ curseur = base.cursor()
 
 curseur.execute("SELECT yes_count FROM app_answer WHERE question_id = 235 AND id = 12 LIMIT 5")
 
-for x in my curseur:
+for x in curseur:
     print x
