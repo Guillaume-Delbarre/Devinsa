@@ -5,5 +5,5 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 curseur = base.cursor()
 
 curseur.execute("SHOW TABLES")
-for (table_nam,) in curseur:
-    print (table_name,)
+for (table_name,) in curseur:
+    print (table_name)
