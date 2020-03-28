@@ -4,6 +4,6 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SHOW COLUMNS FROM app_item LIMIT 5")
+curseur.execute("DESCRIBE app_item")
 for (table_name,) in curseur:
     print (table_name)
