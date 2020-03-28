@@ -4,7 +4,6 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SELECT * FROM app_item LIMIT 1")
+curseur.execute("SELECT TOP 1 * FROM app_item")
 for (table_name,) in curseur:
-    for x in (table_name):
-        print x
+    print (table_name)
