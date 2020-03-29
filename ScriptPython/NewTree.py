@@ -53,10 +53,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-curseur.execute("SELECT choice FROM app_tree WHERE choice = 'r' LIMIT 10")
-for (x,) in curseur:
-    print x
-    print str(x)=="r"
+print getfils(curseur,1)
 
 
     
