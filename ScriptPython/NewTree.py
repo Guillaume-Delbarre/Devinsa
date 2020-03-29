@@ -13,10 +13,10 @@ def extrait_itemID(cursor):
 
 def getfils(cursor,parent_id):
     res = []
-    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" AND choice = o")
+    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" and choice = o ")
     for (x,) in cursor:
         res.append(x)
-    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" AND choice = n")
+    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" and choice = n ")
     for (x,) in cursor:
         res.append(x)
     return res
@@ -53,10 +53,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-curseur.execute("SELECT choice FROM app_tree LIMIT 10")
-for (x,) in curseur:
-    print x
-    print type(x)
+print getfils(curseur,1)
 
 
     
