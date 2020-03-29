@@ -10,10 +10,10 @@ from PCA import to2D
 from ScriptPCA import PCA
 from questionsCaracteristiques import printQuestionCarac
 
-def main(numberOfClusters=6):
+def main(numberOfClusters=6, nbQuestion=15):
     miseEnPage()
     kmeansAlgo(numberOfClusters)
-    printQuestionCarac(numberOfClusters)
+    printQuestionCarac(numberOfClusters,nbQuestion)
     to2D()
         
 if __name__ == '__main__':
