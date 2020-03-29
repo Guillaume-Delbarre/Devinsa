@@ -59,12 +59,30 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-def median(liste_item_id,liste_question_id):
+def median(cursor,liste_item_id,liste_question_id):
     med = []
-    summ = 0
+    summ_yes = 0
+    summ_no = 0
+    for question in range(len(liste_question_id)):
+        for item in range(len(liste_item_id)):
+            cursor.execute("SELECT yes_tfidf FROM app_answer WHERE item_id = "+str(liste_item_id[item])+" and question_id = "+str(liste_question_id[question]))
+            for (x,) in cursor:
+                summ_yes += x
+            cursor.execute("SELECT no_tfidf FROM app_answer WHERE item_id = "+str(liste_item_id[item])+" and question_id = "+str(liste_question_id[question]))
+            for (x,) in cursor:
+                summ_no += x
+        summ_yes = summ_yes/(len(liste_item_id))
+        med.append(summ_yes)
+        summ_no = summ_no/(len(liste_item_id))
+        med.append(summ_no)
+        summ_yes = 0
+        summ_no = 0
+    return med
+        
+            
     
 
-print extrait_questionID(curseur)
+print median(curseur,extrait_itemID(curseur),extrait_questionID(curseur))
 
     
     
