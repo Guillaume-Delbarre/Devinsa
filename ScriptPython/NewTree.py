@@ -25,7 +25,10 @@ def compterPerso(cursor,liste_item_id,app_tree_id,choice):
     yes_count = 0
     no_count = 0
     rapport = 1
+    COUNT = 0
     for i in range(len(liste_item_id)):
+        COUNT += 1
+        print COUNT
         cursor.execute("SELECT yes_count FROM app_answer WHERE item_id ="+str(liste_item_id[i])+" and question_id = (SELECT question_id FROM app_tree WHERE id ="+str(app_tree_id)+"")
         for (x,) in cursor:
             yes_count = x
