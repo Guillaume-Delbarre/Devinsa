@@ -29,7 +29,7 @@ def compterPerso(cursor,liste_item_id,app_tree_id,choice):
         cursor.execute("SELECT yes_count FROM app_answer WHERE item_id = "+liste_item_id[i]+" and question_id = (SELECT question_id FROM app_tree WHERE id = "+app_tree_id)
         for (x,) in cursor:
             yes_count = x
-        cursor.execute("SELECT no_count FROM app_answer WHERE item_id ="+liste_item_id[i]+" and question_id = (SELECT question_id FROM app_tree WHERE id ="app_tree_id)
+        cursor.execute("SELECT no_count FROM app_answer WHERE item_id ="+liste_item_id[i]+" and question_id = (SELECT question_id FROM app_tree WHERE id ="+app_tree_id)
         for (x,) in cursor:
             no_count = x
         if choice == "o":
