@@ -18,7 +18,7 @@ def getfils(cursor,parent_id):
         res.append(x)
     return res
 
-curseur.execute("SELECT yes_count FROM app_answer WHERE item_id = 235 and question_id = 149235")
+curseur.execute("SELECT yes_count FROM app_answer WHERE item_id = 65 and question_id = 149235")
 
 for (x,) in curseur:
     print x
