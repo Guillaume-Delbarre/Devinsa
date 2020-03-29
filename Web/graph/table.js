@@ -1,6 +1,9 @@
 (function (d3) {
     'use strict';
 
+    var couleur = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain(["Groupe 0","Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9"])
+
     var tabulate = function (data,columns) {
         var table = d3.select('body').append('table')
           var thead = table.append('thead')
@@ -11,6 +14,7 @@
               .data(columns)
               .enter()
             .append('th')
+              .style('color', function(d) {return couleur(d)})
               .text(function (d) { return d })
       
           var rows = tbody.selectAll('tr')
@@ -34,12 +38,7 @@
     d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv')
         .then(data => {
             
-            var col = Object.keys(data)
+            tabulate(data,data.columns)
             
-
-            tabulate(data,col)
-            console.log(data)
-            console.log(col)
-            console.log(Object.values(data))
         });
 }(d3));
