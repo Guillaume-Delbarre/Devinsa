@@ -46,7 +46,7 @@ def recopierTableau(tableau):
     res = []
     for i in range(len(tableau)):
         res.append(tableau[i])
-    return i
+    return res
 
 print compterPerso(curseur,extrait_itemID(curseur),1,"o")
 
