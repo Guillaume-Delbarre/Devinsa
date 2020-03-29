@@ -56,7 +56,7 @@ def recopierTableau(tableau):
 curseur.execute("SELECT choice FROM app_tree WHERE choice = 'r' LIMIT 10")
 for (x,) in curseur:
     print x
-    print str(x)="r"
+    print str(x)=="r"
 
 
     
