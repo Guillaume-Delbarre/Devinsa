@@ -48,7 +48,9 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return i
 
-print compterPerso(curseur,extrait_itemID(curseur),1,"o")
+cursor.execute("SELECT yes_count FROM app_answer WHERE item_id = 65 and question_id = (SELECT question_id FROM app_tree WHERE id = 1")
+for (x,) in cursor:
+    print x
 
 
     
