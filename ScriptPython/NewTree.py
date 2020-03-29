@@ -18,5 +18,5 @@ def getfils(cursor,parent_id):
         res.append(x)
     return res
 
-print getfils(curseur,"149235")
+print getfils(curseur,"0")
     
