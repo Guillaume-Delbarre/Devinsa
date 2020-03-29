@@ -4,7 +4,7 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-curseur.execute("SELECT question_id FROM app_answer LIMIT 1")
+curseur.execute("SELECT id FROM app_answer WHERE question_id ="+str(x)+" LIMIT 1")
 
 for (x,) in curseur:
     print x
