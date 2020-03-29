@@ -13,7 +13,7 @@ def extrait_itemID(cursor):
 
 def getfils(cursor,parent_id):
     res = []
-    cursor.execute("SELECT question_id FROM app_tree WHERE parent_id ="+parent_id)
+    cursor.execute("SELECT question_id FROM app_tree WHERE parent_id ="+str(parent_id))
     for (x,) in cursor:
         res.append(x)
     return res
@@ -50,7 +50,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-print len(compterPerso(curseur,extrait_itemID(curseur),1,"n"))
+print getfils(curseur,1)
 
 
     
