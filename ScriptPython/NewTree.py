@@ -39,7 +39,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return i
 
-curseur.execute("SELECT choice FROM app_tree LIMIT 1")
+curseur.execute("SELECT choice FROM app_tree LIMIT 5")
 
 for (x,) in curseur:
         print x
