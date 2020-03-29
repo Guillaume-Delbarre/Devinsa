@@ -32,9 +32,9 @@ def compterPerso(cursor,liste_item_id,app_tree_id,choice):
         cursor.execute("SELECT no_count FROM app_answer WHERE item_id ="+str(liste_item_id[i])+" and question_id = (SELECT question_id FROM app_tree WHERE id ="+str(app_tree_id))
         for (x,) in cursor:
             no_count = x
-        if choice = "o":
+        if choice == "o":
             rapport = yes_count/no_count
-        if choice = "n":
+        if choice == "n":
             rapport = no_count/yes_count
         if rapport<0.75:
             res.remove(liste_item_id[i])
