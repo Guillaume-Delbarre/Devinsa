@@ -137,11 +137,13 @@
           d3.select(this)
             .attr('class', 'active');
             document.getElementById('tags').value = clicked;
+          namepers = clicked;
         } else {
           d3.selectAll('.active')
             .attr('class', 'myCircle');
           clicked = null
           document.getElementById('tags').value = "";
+          namepers = "";
         }
 
         var myTable = document.getElementById('tableSelect');
