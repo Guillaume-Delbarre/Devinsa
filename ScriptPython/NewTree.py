@@ -13,7 +13,10 @@ def extrait_itemID(cursor):
 
 def getfils(cursor,parent_id):
     res = []
-    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id))
+    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" and choice = o")
+    for (x,) in cursor:
+        res.append(x)
+    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" and choice = n")
     for (x,) in cursor:
         res.append(x)
     return res
