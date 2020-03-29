@@ -65,12 +65,10 @@ def median(cursor,liste_item_id,liste_question_id):
     summ_no = 0
     for question in range(len(liste_question_id)):
         for item in range(len(liste_item_id)):
-            cursor.execute("SELECT yes_tfidf FROM app_answer WHERE item_id = "+str(liste_item_id[item])+" and question_id = "+str(liste_question_id[question]))
-            for (x,) in cursor:
+            cursor.execute("SELECT yes_tfidf,no_tfidf FROM app_answer WHERE item_id = "+str(liste_item_id[item])+" and question_id = "+str(liste_question_id[question]))
+            for (x,y) in cursor:
                 summ_yes += x
-            cursor.execute("SELECT no_tfidf FROM app_answer WHERE item_id = "+str(liste_item_id[item])+" and question_id = "+str(liste_question_id[question]))
-            for (x,) in cursor:
-                summ_no += x
+                summ_no += y
         summ_yes = summ_yes/(len(liste_item_id))
         med.append(summ_yes)
         summ_no = summ_no/(len(liste_item_id))
@@ -82,9 +80,7 @@ def median(cursor,liste_item_id,liste_question_id):
             
     
 
-curseur.execute("SELECT yes_tfidf,no_tfidf FROM app_answer LIMIT 10")
-for x in curseur:
-    print x
+print median(curseur,extrait_itemID(curseur),extrait_questionID(curseur))
 
     
     
