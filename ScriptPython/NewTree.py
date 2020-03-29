@@ -8,7 +8,7 @@ def extrait_itemID(base):
     curseur = base.cursor()
     curseur.execute("SELECT id FROM app_item")
     for (x,) in curseur:
-        res.add(x)
+        res.append(x)
     return res
 
 print extrait_itemID(base)
