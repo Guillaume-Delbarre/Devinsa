@@ -48,8 +48,8 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return i
 
-cursor.execute("SELECT yes_count FROM app_answer WHERE item_id = 65 and question_id = (SELECT question_id FROM app_tree WHERE id = 1")
-for (x,) in cursor:
+curseur.execute("SELECT yes_count FROM app_answer WHERE item_id = 65 and question_id = (SELECT question_id FROM app_tree WHERE id = 1")
+for (x,) in curseur:
     print x
 
 
