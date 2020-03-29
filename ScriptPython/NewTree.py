@@ -13,10 +13,14 @@ def extrait_itemID(cursor):
 
 def getfils(cursor,parent_id):
     res = []
-    cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+parent_id)
+    cursor.execute("SELECT question_id FROM app_tree WHERE parent_id ="+parent_id)
     for (x,) in cursor:
         res.append(x)
     return res
 
-print getfils(curseur,"0")
+curseur.execute("SELECT yes_count FROM app_answer WHERE item_id = 235 and question_id = 149235")
+
+for (x,) in curseur:
+    print x
+    
     
