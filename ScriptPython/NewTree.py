@@ -11,5 +11,5 @@ def extrait_itemID(curseur):
         res.append(x)
     return res
 
-    
+print extrait_itemID(curseur)
     
