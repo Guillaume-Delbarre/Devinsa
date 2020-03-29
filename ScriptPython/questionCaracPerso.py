@@ -48,16 +48,18 @@ def differenceFromCluster(perso):
     moy.fillna(0, inplace=True)
     del questionPerso['Cluster']
     del questionPerso['Medoid']
-    print(moy.head)
-    print(questionPerso.head)
-    res = pairwise_distances(moy,questionPerso, metric='cosine')
+    res = pd.DataFrame(np.absolute(np.array(moy) - np.array(questionPerso)))
     print(res)
+    res.sort_values(by=0, axis=1,ascending=False, inplace=True)
+    res=res.T
+    questionPerso=questionPerso.T 
+    listeQuestions = []
+    for index, row in res.iterrows():
+        listeQuestions.append(questionPerso.iloc[[index]].index[0]) 
+    print(listeQuestions)
+    
 
-<<<<<<< Updated upstream
 def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
-=======
-def persoDistants(numCluster, metric='cosine'):
->>>>>>> Stashed changes
     # On recupere le tableau des moyennes par question et par cluster
     moy = moyennesClusters()
     moy.fillna(0, inplace=True)
@@ -71,7 +73,6 @@ def persoDistants(numCluster, metric='cosine'):
     listePerso = []
     for index, row in res.iterrows():
         listePerso.append(persoCluster.iloc[[index]].index[0])
-    print(listePerso)
     return listePerso
     
 
@@ -80,6 +81,6 @@ def persoDistants(numCluster, metric='cosine'):
 
 if __name__ == '__main__':
     questionCaracPerso("Abel Jabri",sort=True)
-    #differenceFromCluster("Abel Jabri")
+    differenceFromCluster("Abel Jabri")
     persoDistants(0)
 
