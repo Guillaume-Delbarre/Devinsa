@@ -8,12 +8,12 @@ from MiseEnPage import miseEnPage
 from kmeans import kmeansAlgo
 from PCA import to2D
 from ScriptPCA import PCA
-from questionsCaracteristiques import getQCarac
+from questionsCaracteristiques import printQuestionCarac
 
 def main(numberOfClusters=6):
     miseEnPage()
     kmeansAlgo(numberOfClusters)
-    getQCarac(numberOfClusters)
+    printQuestionCarac(numberOfClusters)
     to2D()
         
 if __name__ == '__main__':

@@ -2,9 +2,12 @@
 
 import pandas as pd
 import numpy as np
+from questionsCaracteristiques import moyennesClusters
+
+df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 def questionCaracPerso(perso):
-    df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+    global df
     cluster = df.loc[perso,'Clusters']
     medoid = df.loc[perso,'Medoid']
     del df['Medoid']
@@ -22,6 +25,9 @@ def questionCaracPerso(perso):
     
     #print(questionPerso)
 
+
+def difference(dfPerso):
+    moy = moyennesClusters()
     
 
 
