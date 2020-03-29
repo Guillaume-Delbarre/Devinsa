@@ -11,6 +11,13 @@ def extrait_itemID(cursor):
         res.append(x)
     return res
 
+def extrait_questionID(cursor):
+    res = []
+    cursor.execute("SELECT question_id FROM app_answer")
+    for (x,) in cursor:
+        res.append(x)
+    return res
+
 def getfils(cursor,parent_id):
     res = []
     cursor.execute("SELECT id FROM app_tree WHERE parent_id ="+str(parent_id)+" and choice = 'o' ")
@@ -46,15 +53,18 @@ def compterPerso(cursor,liste_item_id,app_tree_id,choice):
     return res
                 
         
-
 def recopierTableau(tableau):
     res = []
     for i in range(len(tableau)):
         res.append(tableau[i])
     return res
 
-print getfils(curseur,1)
+def median(liste_item_id,liste_question_id):
+    med = []
+    summ = 0
+    
 
+print extrait_questionID(curseur)
 
     
     
