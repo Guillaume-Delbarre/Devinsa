@@ -41,7 +41,7 @@ def recopierTableau(tableau):
 
 curseur.execute("SELECT choice FROM app_tree LIMIT 1")
 
-for (x,) in cursor:
+for (x,) in curseur:
         print x
         print type(x)
 
