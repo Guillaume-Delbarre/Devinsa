@@ -50,7 +50,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-print getfils(curseur,1)
+print getfils(curseur,380)
 
 
     
