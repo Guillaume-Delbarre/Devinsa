@@ -83,7 +83,7 @@ def median(cursor,liste_item_id,liste_question_id):
     
 
 curseur.execute("SELECT yes_tfidf,no_tfidf FROM app_answer LIMIT 10")
-for x in cursor:
+for x in curseur:
     print x
 
     
