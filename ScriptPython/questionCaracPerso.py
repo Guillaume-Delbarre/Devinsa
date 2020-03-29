@@ -38,7 +38,6 @@ def questionCaracPerso(perso, sort=False):
 def differenceFromCluster(perso):
     # On recupere le tableau des moyennes par question et par cluster
     moy = moyennesClusters()
-    
     # On recupere les valeur pour le personnage donné
     questionPerso = questionCaracPerso(perso, sort=False)
     # On recupere le numero de cluster du personnage
@@ -54,9 +53,9 @@ def differenceFromCluster(perso):
     res=res.T
     questionPerso=questionPerso.T 
     listeQuestions = []
-    for index, row in res.iterrows():
+    for index, row in res.iterrows(): 
         listeQuestions.append(questionPerso.iloc[[index]].index[0]) 
-    print(listeQuestions)
+    return listeQuestions
     
 
 def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
@@ -64,7 +63,6 @@ def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personna
     moy = moyennesClusters()
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
-    #print(moy)
     persoCluster = df.copy()
     persoCluster = persoCluster[persoCluster['Clusters']==numCluster]
     res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:902], metric))
