@@ -53,7 +53,11 @@ def differenceFromCluster(perso):
     res = pairwise_distances(moy,questionPerso, metric='cosine')
     print(res)
 
+<<<<<<< Updated upstream
 def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
+=======
+def persoDistants(numCluster, metric='cosine'):
+>>>>>>> Stashed changes
     # On recupere le tableau des moyennes par question et par cluster
     moy = moyennesClusters()
     moy.fillna(0, inplace=True)
