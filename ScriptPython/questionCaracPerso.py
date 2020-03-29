@@ -3,36 +3,53 @@
 import pandas as pd
 import numpy as np
 from questionsCaracteristiques import moyennesClusters
+from scipy.spatial.distance import pdist, cdist
+from sklearn.metrics import pairwise_distances
 
 df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 def questionCaracPerso(perso, sort=False):
     global df
-    cluster = df.loc[perso,'Clusters']
-    medoid = df.loc[perso,'Medoid']
-    del df['Medoid']
-    del df['Clusters']
-    if(sort):
-        questionPerso = df.loc[[perso]].sort_values(by=perso,axis=1,ascending=False)
-    else:
-        questionPerso = pd.DataFrame(df.loc[[perso]])
+    questionPerso = df.copy(deep=False)
+
+    # On recupere le num cluster et l'info sur le medoid avant de supprimer pour le tri, pour pouvoir rajouter les infos au début
+    cluster = questionPerso.loc[perso,'Clusters']
+    medoid = questionPerso.loc[perso,'Medoid']
+    del questionPerso['Medoid']
+    del questionPerso['Clusters']
     
+    # On recupere la ligne correspondant au personnage et on trie selon les questions les plus caracteristiques (TF-IDF plus élevé)
+    if(sort):
+        questionPerso = questionPerso.loc[[perso]].sort_values(by=perso,axis=1,ascending=False)
+    else:
+        questionPerso = questionPerso.loc[[perso]]
+    
+    # On rajoute les infos sur cluster et medoid
     if(medoid):
         questionPerso.insert(0,'Medoid','Oui')
     else:
         questionPerso.insert(0,'Medoid','Non')
-
     questionPerso.insert(0,'Cluster',cluster)
-    print(questionPerso)
-
+    
     return questionPerso
     
 
 
-def difference(perso):
+def differenceFromCluster(perso):
+    # On recupere le tableau des moyennes par question et par cluster
     moy = moyennesClusters()
+    moy.fillna(0)
+    # On recupere les valeur pour le personnage donné
     questionPerso = questionCaracPerso(perso, sort=False)
-    
+    # On recupere le numero de cluster du personnage
+    numCluster = questionPerso["Cluster"].values[0]
+    # On garde les moyennes par question du cluster correspondant
+    moy = moy[moy.index==numCluster]
+    del questionPerso['Cluster']
+    del questionPerso['Medoid']
+    res = pairwise_distances(moy,questionPerso, metric='cosine')
+    print(res)
+
 
 
 
@@ -40,4 +57,5 @@ def difference(perso):
 
 if __name__ == '__main__':
     questionCaracPerso("Abel Jabri",sort=True)
+    differenceFromCluster("Abel Jabri")
 
