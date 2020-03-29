@@ -44,7 +44,6 @@ def printQuestionCarac(nbCluster=6,nbQuestion=15):
     for i in range(nbCluster-1) :
         file.write("Groupe " + str(i) + ',')
     file.write("Groupe " + str(nbCluster-1) + '\n')
-    print(medoids)
     #écriture des médoids
     for i in range(nbCluster-1):
         file.write(medoids[i] + ',')
@@ -76,7 +75,6 @@ def moyennesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moye
     #On fait la moyenne des TF-IDF pour chaque question par cluster (en ignorant les NaN)
     moy = pd.DataFrame(moy.groupby(['Clusters'],as_index=False).mean())
     del moy["Clusters"]
-    print(moy)
     return moy
 
     

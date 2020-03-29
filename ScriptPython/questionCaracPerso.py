@@ -32,6 +32,7 @@ def questionCaracPerso(perso, sort=False):
 def difference(perso):
     moy = moyennesClusters()
     questionPerso = questionCaracPerso(perso, sort=False)
+    
 
 
 
