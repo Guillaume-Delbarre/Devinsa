@@ -50,7 +50,7 @@ def recopierTableau(tableau):
         res.append(tableau[i])
     return res
 
-print compterPerso(curseur,extrait_itemID(curseur),1,"o")
+print len(compterPerso(curseur,extrait_itemID(curseur),1,"o"))
 
 
     
