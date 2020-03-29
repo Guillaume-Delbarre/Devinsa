@@ -43,6 +43,8 @@ curseur.execute("SELECT choice FROM app_tree LIMIT 5")
 
 for (x,) in curseur:
         print x
+        if x == 'o':
+            print "yes"
         print type(x)
 
 
