@@ -55,11 +55,13 @@ def compterPerso(app_item,app_answer,question_id,choice):
     yes_count = 0
     no_count = 0
     rapport = 1
+    COUNT = 0
     for i in range(len(app_item)):
         for j in range(len(app_answer)):
             if app_item[i][1]==app_answer[j][1] and app_answer[j][0]==question_id:
                 yes_count = app_answer[j][2]
                 no_count = app_answer[j][3]
+                COUNT += 1
         if choice == "o" and no_count !=0:
             rapport = yes_count/no_count
         elif choice == "n" and yes_count!=0:
@@ -68,7 +70,7 @@ def compterPerso(app_item,app_answer,question_id,choice):
             rapport = 1
         if rapport<0.75:
             res.remove(app_item[i])
-    return res
+    return COUNT
                 
         
 def recopierMatrice(matrice):
@@ -95,7 +97,7 @@ def median(app_item,app_answer):
     return med
         
 
-print len(compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),235,"n"))
+print compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),235,"n")
 
 
     
