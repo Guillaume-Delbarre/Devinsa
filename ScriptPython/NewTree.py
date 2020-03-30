@@ -95,11 +95,7 @@ def median(app_item,app_answer):
     return med
         
 
-a = extrait_app_answer(curseur)
-print a[0][0]
-print type(a[0][0])
-
-print "end\n"
+print len(compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),235,"n"))
 
 
     
