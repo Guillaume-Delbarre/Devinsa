@@ -61,7 +61,6 @@ def compterPerso(app_item,app_answer,question_id,choice):
             if app_item[i][0]==app_answer[j][1] and app_answer[j][0]==question_id:
                 yes_count = app_answer[j][2]
                 no_count = app_answer[j][3]
-                COUNT += 1
         if choice == "o" and no_count !=0:
             rapport = yes_count/no_count
         elif choice == "n" and yes_count!=0:
@@ -70,7 +69,7 @@ def compterPerso(app_item,app_answer,question_id,choice):
             rapport = 1
         if rapport<0.75:
             res.remove(app_item[i])
-    return COUNT
+    return res
                 
         
 def recopierMatrice(matrice):
