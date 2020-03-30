@@ -96,7 +96,7 @@ def median(app_item,app_answer):
     return med
         
 
-print len extrait_app_item(curseur)
+print len(extrait_app_item(curseur))
 
 
 
