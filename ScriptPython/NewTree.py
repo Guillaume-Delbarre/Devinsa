@@ -97,8 +97,11 @@ def median(app_item,app_answer):
 
 a = extrait_app_tree(curseur)
 b = extrait_app_question(curseur)
-print a[0][3]
-print type(b[0][0])
+for j in range(len(b)):
+        if a[0][3]==b[j][0]:
+            print b[j][1]
+
+print "end\n"
 
 
     
