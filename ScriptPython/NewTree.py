@@ -74,8 +74,7 @@ def compterPerso(app_item,app_answer,question_id,choice):
 def recopierMatrice(matrice):
     res = []
     for i in range(len(matrice)):
-        for j in range(len(matrice[0])):
-            res.append(matrice[i][j])
+        res.append(matrice[i])
     return res
 
 def median(app_item,app_answer):
