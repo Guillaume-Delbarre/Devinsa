@@ -77,24 +77,24 @@ def recopierMatrice(matrice):
         res.append(matrice[i])
     return res
 
-def median(app_item,app_answer,app_question):
-    med = []
-    summ_yes = 0
-    summ_no = 0
-    k = 0
-    mod = 0
-    for question in range(len(app_question)):
+def median(app_item,app_answer,app_question,med,compteur):
+    if compteur==len(app_question):
+        return med
+    else:
+        next_app_answer = recopieMatrice(app_answer)
+        summ_yes = 0
+        summ_no = 0
         for k in range(len(app_answer)):
             for item in range(len(app_item)):
-                if app_answer[k][1]==app_item[item][0] and app_answer[k][0]==app_question[question][0]:
+                if app_answer[k][1]==app_item[item][0] and app_answer[k][0]==app_question[compteur][0]:
                     summ_yes += app_answer[question][4] 
                     summ_no += app_answer[question][5]
+                    next_app_answer.remove(app_answer[k])
         summ_yes = summ_yes/(len(app_item))
         summ_no = summ_no/(len(app_item))
         med.append([summ_yes,summ_no,app_answer[0]])
-        summ_yes = 0
-        summ_no = 0
-    return med
+        compteur += 1
+        return median(app_item,next_app_answer,app_question,med,compteur)
         
 def carre(x):
     return (x)*(x)
@@ -126,6 +126,11 @@ app_question = extrait_app_question(curseur)
 app_item = extrait_app_item(curseur)
 app_answer = extrait_app_answer(curseur)
 
-print len(median(app_item,app_answer,app_question))
+a = compterPerso(app_item,app_answer,235,"o")
+print median(app_item,app_answer,app_question,[],0)
+                                           
+
+
+
     
     
