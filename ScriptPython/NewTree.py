@@ -122,11 +122,8 @@ def proxi(med,app_item,app_answer):
 app_item = extrait_app_item(curseur)
 app_answer = extrait_app_answer(curseur)
 med = median(app_item,app_answer)
+a = compterPerso(app_item,app_answer,235,"n")
 
-a = True
-for i in range(len(app_answer)):
-    k = i%len(med)
-    if(app_answer[i][0]!=med[k][0]):
-        print False
+print proxi(med,a,app_answer)
     
     
