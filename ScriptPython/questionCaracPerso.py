@@ -43,7 +43,6 @@ def differenceFromCluster(perso):
     del questionPerso['Cluster']
     del questionPerso['Medoid']
     res = pd.DataFrame(np.absolute(np.array(moy) - np.array(questionPerso)))
-    print(res)
     res.sort_values(by=0, axis=1,ascending=False, inplace=True)
     res=res.T
     questionPerso=questionPerso.T 
@@ -51,6 +50,26 @@ def differenceFromCluster(perso):
     for index, row in res.iterrows(): 
         listeQuestions.append(questionPerso.iloc[[index]].index[0]) 
     return listeQuestions
+
+
+def printQuestionDiffCluster(nbQuestion=10):
+    global df
+    file = open("../Donnees/questionDiffCluster.csv","w",encoding='utf-8')
+    """
+    name= df.iloc[[0]].index[0]
+    file.write(name+',')
+    questionPerso = differenceFromCluster(name)
+    file.write(questionPerso[0]+'\n')
+    file.write(questionPerso[1]+'\n')
+    """
+    for i in range(len(df.index)):
+        name = df.iloc[[i]].index[0]
+        file.write(name+',')
+        questionPerso = differenceFromCluster(name)
+        for j in range(nbQuestion):
+            file.write(questionPerso[j]+',')
+        file.write(questionPerso[nbQuestion]+'\n')
+    
     
 
 def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
@@ -67,6 +86,8 @@ def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personna
         listePerso.append(persoCluster.iloc[[index]].index[0])
     print(listePerso)
     return listePerso
+
+
     
 def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
     global df
@@ -86,4 +107,4 @@ def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
 
 if __name__ == '__main__':
     #printPersoDistants()
-    persoDistants(1)
+    printQuestionDiffCluster()
