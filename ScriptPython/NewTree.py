@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def extrait_app_item(cursor):
     res = []
-    cursor.execute("SELECT name,id FROM app_item")
+    cursor.execute("SELECT id FROM app_item")
     for (x,y) in curseur:
         res.append([x,y])
     return res
