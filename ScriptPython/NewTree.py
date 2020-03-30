@@ -95,7 +95,7 @@ def median(app_item,app_answer):
     return med
         
 
-print len(recopierMatrice(extrait_app_item(curseur)))
+print len(compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),285,"o")
 
 
 
