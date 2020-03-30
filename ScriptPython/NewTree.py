@@ -98,8 +98,8 @@ def median(app_item,app_answer):
         
 a= extrait_app_item(curseur)
 b = extrait_app_answer(curseur)
-print a[1][1]
-print type(a[1][1])
+print a[1][0]
+print type(a[1][0])
 print b[0][1]
 print type(b[0][1])
 
