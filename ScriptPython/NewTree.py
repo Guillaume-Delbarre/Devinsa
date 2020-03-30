@@ -91,7 +91,10 @@ def median(cursor,liste_item_id,liste_question_id):
         summ_no = 0
     return med
         
-print extrait_tree(curseur)
+a = extrait_tree(curseur)
+print a[0][2]
+print type(a[0][2])
+print a[0][2]=="u'o'"
 
     
     
