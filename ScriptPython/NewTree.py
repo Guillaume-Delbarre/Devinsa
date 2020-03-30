@@ -55,7 +55,6 @@ def compterPerso(app_item,app_answer,question_id,choice):
     yes_count = 0
     no_count = 0
     rapport = 1
-    COUNT = 0
     for i in range(len(app_item)):
         for j in range(len(app_answer)):
             if app_item[i][0]==app_answer[j][1] and app_answer[j][0]==question_id:
@@ -84,19 +83,47 @@ def median(app_item,app_answer):
     summ_no = 0
     for question in range(len(app_answer)):
         for item in range(len(app_item)):
-            if app_answer[question][1]==app_item[item][1]:
+            if app_answer[question][1]==app_item[item][0]:
                 summ_yes += app_answer[question][4] 
                 summ_no += app_answer[question][5]
         summ_yes = summ_yes/(len(app_item))
-        med.append(summ_yes)
         summ_no = summ_no/(len(app_item))
-        med.append(summ_no)
+        med.append([summ_yes,summ_no,app_answer[0]])
         summ_yes = 0
         summ_no = 0
     return med
         
-print len(compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),235,"o"))
+def carre(x):
+    return (x)*(x)
 
 
+def proxi(med,app_item,app_answer):
+    dist_aux = 0
+    for i in range(len(app_answer)):
+        for j in range(len(med)):
+            if app_item[0][0] == app_answer[i][1] and app_answer[i][0] == med[j][2]:
+                dist_aux += carre(app_answer[i][2]-med[j][0])
+                dist_aux += carre(app_answer[i][3]-med[j][1])
+    res = app_item[0]
+    dist = dist_aux
+    dist_aux = 0
+    for k in range(len(app_item)):
+        for j in range(len(med)):
+            for i in range(len(app_answer)):
+                if app_item[k][0] == app_answer[i][1] and app_answer[i][0] == med[j][2]:
+                    dist_aux += carre(app_answer[i][2]-med[j][0])
+                    dist_aux += carre(app_answer[i][3]-med[j][1])
+        if(dist_aux<dist):
+            dist = dist_aux
+            res = app_item[k]
+        dist_aux = 0
+    return res
+                
+app_item = extrait_app_item(curseur)
+app_answer = extrait_app_answer(curseur)
+
+a = compterPerso(app_item,app_answer,235,"o")
+med = median(a,app_answer)
+print proxi(med,a,app_answer)
     
     
