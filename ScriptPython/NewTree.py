@@ -5,7 +5,9 @@ import mysql.connector
 #APP_ANSWER
 #[question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf]
 #APP_TREE
-#
+#[id,parent_id,choice,question_id]
+#app_question
+#[id,title]
 
 base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
 
@@ -30,6 +32,13 @@ def extrait_tree(cursor):
     cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
+    return res
+
+def extrait_question(curseur):
+    res = []
+    curseur.execute("SELECT id,title FROM app_question")
+    for (a,b) in curseur:
+        res.append([a,b])
     return res
 
 def getfils(cursor,parent_id):
@@ -91,9 +100,8 @@ def median(cursor,liste_item_id,liste_question_id):
         summ_no = 0
     return med
         
-a = extrait_tree(curseur)
-print a[1][2]
-print a[1][2]=="o"
+a = extrait_question(curseur)
+print a
 
 
     
