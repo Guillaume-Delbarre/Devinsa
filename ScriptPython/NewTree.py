@@ -95,8 +95,7 @@ def median(app_item,app_answer):
     return med
         
 
-a = extrait_app_tree(curseur)
-print a[0][3]
+print len(compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur,),235,"o"))
 
 
 
