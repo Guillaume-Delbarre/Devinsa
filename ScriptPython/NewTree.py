@@ -83,14 +83,12 @@ def median(app_item,app_answer,app_question):
     summ_no = 0
     k = 0
     mod = 0
-    for question in range(len(app_answer)):
-        for item in range(len(app_item)):
-            if app_answer[question][1]==app_item[item][0] and app_answer[question][0]==app_question[mod][0]:
-                summ_yes += app_answer[question][4] 
-                summ_no += app_answer[question][5]
-                k += 1
-        mod += k%len(app_item)
-        k = 0
+    for question in range(len(app_question)):
+        for k in range(len(app_answer)):
+            for item in range(len(app_item)):
+                if app_answer[k][1]==app_item[item][0] and app_answer[k][0]==app_question[question][0]:
+                    summ_yes += app_answer[question][4] 
+                    summ_no += app_answer[question][5]
         summ_yes = summ_yes/(len(app_item))
         summ_no = summ_no/(len(app_item))
         med.append([summ_yes,summ_no,app_answer[0]])
