@@ -93,7 +93,7 @@ def median(cursor,liste_item_id,liste_question_id):
         
 a = extrait_tree(curseur)
 print a[1][2]
-print a[1][2]=="'o'"
+print a[1][2]=="o"
 
 
     
