@@ -50,14 +50,14 @@ def getfils(parent_id,app_tree):
 
 
 
-def compterPerso(app_item,app_answer,choice):
-    res = recopierTableau(liste_item_id)
+def compterPerso(app_item,app_answer,question_id,choice):
+    res = recopierMatrice(app_item)
     yes_count = 0
     no_count = 0
     rapport = 1
     for i in range(len(app_item)):
         for j in range(len(app_answer)):
-            if app_item[i][1]==app_answer[j][1]:
+            if app_item[i][1]==app_answer[j][1] and app_answer[j][0]==question_id:
                 yes_count = app_answer[j][2]
                 no_count = app_answer[j][3]
         if choice == "o" and no_count !=0:
@@ -71,10 +71,11 @@ def compterPerso(app_item,app_answer,choice):
     return res
                 
         
-def recopierTableau(tableau):
+def recopierMatrice(matrice):
     res = []
-    for i in range(len(tableau)):
-        res.append(tableau[i])
+    for i in range(len(matrice)):
+        for j in range(len(matrice[0]))
+        res.append(tableau[i][j])
     return res
 
 def median(app_item,app_answer):
@@ -94,8 +95,10 @@ def median(app_item,app_answer):
         summ_no = 0
     return med
         
-a = median(extrait_app_item(curseur),extrait_app_answer(curseur))
-print a
+
+print compterPerso(extrait_app_item(curseur),extrait_app_answer(curseur),1,"o")
+
+
 
 
     
