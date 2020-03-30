@@ -122,6 +122,7 @@ io.sockets.on('connection', function (socket) {
 						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
 							if (errors) throw errors;
 							socket.emit("message","Resultat inséré ");
+							console.log("Résultat inséré");
 						});
 					});
 				}
