@@ -81,7 +81,7 @@ def median(app_item,app_answer,app_question,med,compteur):
     if compteur==len(app_question):
         return med
     else:
-        next_app_answer = recopieMatrice(app_answer)
+        next_app_answer = recopierMatrice(app_answer)
         summ_yes = 0
         summ_no = 0
         for k in range(len(app_answer)):
