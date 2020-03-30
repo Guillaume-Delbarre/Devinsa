@@ -11,34 +11,29 @@ df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, enco
 def questionCaracPerso(perso, sort=False):
     global df
     questionPerso = df.copy(deep=False)
-
     # On recupere le num cluster et l'info sur le medoid avant de supprimer pour le tri, pour pouvoir rajouter les infos au début
     cluster = questionPerso.loc[perso,'Clusters']
     medoid = questionPerso.loc[perso,'Medoid']
     del questionPerso['Medoid']
     del questionPerso['Clusters']
-    
     # On recupere la ligne correspondant au personnage et on trie selon les questions les plus caracteristiques (TF-IDF plus élevé)
     if(sort):
         questionPerso = questionPerso.loc[[perso]].sort_values(by=perso,axis=1,ascending=False)
     else:
         questionPerso = questionPerso.loc[[perso]]
-    
     # On rajoute les infos sur cluster et medoid
     if(medoid):
         questionPerso.insert(0,'Medoid','Oui')
     else:
         questionPerso.insert(0,'Medoid','Non')
     questionPerso.insert(0,'Cluster',cluster)
-    
     return questionPerso
     
 
 
 def differenceFromCluster(perso):
-    # On recupere le tableau des moyennes par question et par cluster
+    # On recupere le tableau des moyennes par question et par cluster et le tableau du perso
     moy = moyennesClusters()
-    # On recupere les valeur pour le personnage donné
     questionPerso = questionCaracPerso(perso, sort=False)
     # On recupere le numero de cluster du personnage
     numCluster = questionPerso["Cluster"].values[0]
@@ -59,7 +54,6 @@ def differenceFromCluster(perso):
     
 
 def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
-    # On recupere le tableau des moyennes par question et par cluster
     moy = moyennesClusters()
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
@@ -71,14 +65,25 @@ def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personna
     listePerso = []
     for index, row in res.iterrows():
         listePerso.append(persoCluster.iloc[[index]].index[0])
+    print(listePerso)
     return listePerso
     
+def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
+    global df
+    file = open("../Donnees/persoDistants.csv","w",encoding='utf-8')
+    for i in range(nbCluster):
+        listePerso = persoDistants(i,metric)
+        file.write(str(i)+',')
+        for j in range(nbPerso):
+            file.write(listePerso[j]+',')
+        file.write(listePerso[nbPerso]+'\n')
+
+
+
 
 
 
 
 if __name__ == '__main__':
-    questionCaracPerso("Abel Jabri",sort=True)
-    differenceFromCluster("Abel Jabri")
-    persoDistants(0)
-
+    #printPersoDistants()
+    persoDistants(1)
