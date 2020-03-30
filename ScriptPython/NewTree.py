@@ -6,9 +6,9 @@ curseur = base.cursor()
 
 def extrait_itemID(cursor):
     res = []
-    cursor.execute("SELECT id FROM app_item")
-    for (x,) in curseur:
-        res.append(x)
+    cursor.execute("SELECT id,name FROM app_item")
+    for (x,y) in curseur:
+        res.append([x,y])
     return res
 
 def extrait_questionID(cursor):
@@ -76,11 +76,12 @@ def median(cursor,liste_item_id,liste_question_id):
         summ_yes = 0
         summ_no = 0
     return med
-        
-            
-    
 
-print median(curseur,extrait_itemID(curseur),extrait_questionID(curseur))
+def proxi(cursor,med,liste_item_id,liste_question_id):
+    dist_aux = 0
+    for question in range(len(liste_question_id)):
+        
+print extrait_itemID(curseur)
 
     
     
