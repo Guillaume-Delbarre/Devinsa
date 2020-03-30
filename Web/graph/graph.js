@@ -11,13 +11,9 @@
     const button = svg.append('button')
     	.attr('class', 'button')
     
-    const title = 'Graph';
-    
     const xValue = d => d.Axe_X;
-    const xAxisLabel = 'Axe 1';
     
     const yValue = d => d.Axe_Y;
-    const yAxisLabel = 'Axe 2';
     
     const circleRadius = 8;
 
@@ -51,26 +47,10 @@
     
     const yAxisG = g.append('g').call(yAxis);
     
-    yAxisG.append('text')
-        .attr('class', 'axis-label')
-        .attr('y', -75)
-        .attr('x', -innerHeight / 2)
-        .attr('fill', 'black')
-        .attr('transform', `rotate(-90)`)
-        .attr('text-anchor', 'middle')
-        .text(yAxisLabel);
-    
     const xAxisG = g.append('g').call(xAxis)
       .attr('transform', `translate(0,${innerHeight})`);
     
     xAxisG.select('.domain').remove();
-    
-    xAxisG.append('text')
-        .attr('class', 'axis-label')
-        .attr('y', 85)
-        .attr('x', innerWidth / 2)
-        .attr('fill', 'black')
-        .text(xAxisLabel);
     
     var zoom = d3.zoom()
     	.scaleExtent([.5,20])
@@ -120,12 +100,6 @@
       	.attr('y', d => yScale(yValue(d)) + circleRadius + 12)
     		.text(d => d.Name)
     
-    g.append('text')
-        .attr('class', 'titleGraph')
-    		.attr('x', 100)
-        .attr('y', -10)
-        .text(title);
-    
     function clicked(d) {
 
       if ( d3.event.button == 0) {
@@ -136,7 +110,7 @@
           clicked = d.Name;
           d3.select(this)
             .attr('class', 'active');
-            document.getElementById('tags').value = clicked;
+          document.getElementById('tags').value = clicked;
           namepers = clicked;
         } else {
           d3.selectAll('.active')
@@ -152,16 +126,22 @@
       } else if( d3.event.button == 2){
 
         if (clickedCluster !== d.Cluster) {
+          d3.selectAll('.active')
+            .attr('class', 'oldActive');
           d3.selectAll('.activeCluster')
             .attr('class', 'myCircle');
-          
-            clickedCluster = d.Cluster;
-
-            d3.selectAll('#\\3'+ (d.Cluster).replace('Groupe ', ''))
-              .attr('class', 'activeCluster')
+          clickedCluster = d.Cluster;
+          d3.selectAll('#\\3'+ (d.Cluster).replace('Groupe ', ''))
+            .attr('class', 'activeCluster');
+          d3.selectAll('.oldActive')
+            .attr('class', 'active');
         } else {
+          d3.selectAll('.active')
+            .attr('class', 'oldActive');
           d3.selectAll('.activeCluster')
             .attr('class', 'myCircle');
+          d3.selectAll('.oldActive')
+            .attr('class', 'active')
           clickedCluster = null
 
         }
