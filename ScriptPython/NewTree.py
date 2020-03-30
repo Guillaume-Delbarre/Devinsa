@@ -120,7 +120,9 @@ def proxi(med,app_item,app_answer):
     return res
                 
 app_question = extrait_app_question(curseur)
+app_item = extrait_app_item(curseur)
+app_answer = extrait_app_answer(curseur)
 
-print len(app_question)
+print len(median(app_item,app_answer))
     
     
