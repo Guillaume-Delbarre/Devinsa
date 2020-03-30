@@ -4,18 +4,18 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-def extrait_itemID(cursor):
+def extrait_item(cursor):
     res = []
-    cursor.execute("SELECT id,name FROM app_item")
+    cursor.execute("SELECT name,id FROM app_item")
     for (x,y) in curseur:
         res.append([x,y])
     return res
 
-def extrait_questionID(cursor):
+def extrait_answer(cursor):
     res = []
-    cursor.execute("SELECT question_id FROM app_answer")
-    for (x,) in cursor:
-        res.append(x)
+    cursor.execute("SELECT question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf FROM app_answer")
+    for (a,b,c,d,e,f) in cursor:
+        res.append([a,b,c,d,e,f])
     return res
 
 def getfils(cursor,parent_id):
@@ -77,7 +77,7 @@ def median(cursor,liste_item_id,liste_question_id):
         summ_no = 0
     return med
         
-print extrait_itemID(curseur)
+print extrait_answer(curseur)
 
     
     
