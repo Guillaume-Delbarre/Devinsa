@@ -87,8 +87,8 @@ def median(app_item,app_answer,app_question,med,compteur):
         for k in range(len(app_answer)):
             for item in range(len(app_item)):
                 if app_answer[k][1]==app_item[item][0] and app_answer[k][0]==app_question[compteur][0]:
-                    summ_yes += app_answer[question][4] 
-                    summ_no += app_answer[question][5]
+                    summ_yes += app_answer[k][4] 
+                    summ_no += app_answer[k][5]
                     next_app_answer.remove(app_answer[k])
         summ_yes = summ_yes/(len(app_item))
         summ_no = summ_no/(len(app_item))
