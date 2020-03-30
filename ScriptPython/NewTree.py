@@ -76,10 +76,6 @@ def median(cursor,liste_item_id,liste_question_id):
         summ_yes = 0
         summ_no = 0
     return med
-
-def proxi(cursor,med,liste_item_id,liste_question_id):
-    dist_aux = 0
-    for question in range(len(liste_question_id)):
         
 print extrait_itemID(curseur)
 
