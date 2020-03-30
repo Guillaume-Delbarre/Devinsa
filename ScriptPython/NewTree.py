@@ -119,11 +119,8 @@ def proxi(med,app_item,app_answer):
         dist_aux = 0
     return res
                 
-app_item = extrait_app_item(curseur)
-app_answer = extrait_app_answer(curseur)
-med = median(app_item,app_answer)
-a = compterPerso(app_item,app_answer,235,"n")
+app_question = extrait_app_question(curseur)
 
-print proxi(med,a,app_answer)
+print len(app_question)
     
     
