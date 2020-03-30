@@ -27,7 +27,7 @@ def extrait_answer(cursor):
 
 def extrait_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_item")
+    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
