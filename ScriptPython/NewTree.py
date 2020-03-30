@@ -67,7 +67,7 @@ def compterPerso(app_item,app_answer,question_id,choice):
         else:
             rapport = 1
         if rapport<0.75:
-            res.remove(liste_item_id[i])
+            res.remove(app_item[i])
     return res
                 
         
