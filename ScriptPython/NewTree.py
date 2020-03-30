@@ -1,7 +1,7 @@
 import mysql.connector
 
 #APP_ITEM
-#[Name,ID]
+#[ID,Name]
 #APP_ANSWER
 #[question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf]
 #APP_TREE
@@ -58,7 +58,7 @@ def compterPerso(app_item,app_answer,question_id,choice):
     COUNT = 0
     for i in range(len(app_item)):
         for j in range(len(app_answer)):
-            if app_item[i][1]==app_answer[j][1] and app_answer[j][0]==question_id:
+            if app_item[i][0]==app_answer[j][1] and app_answer[j][0]==question_id:
                 yes_count = app_answer[j][2]
                 no_count = app_answer[j][3]
                 COUNT += 1
@@ -98,8 +98,8 @@ def median(app_item,app_answer):
         
 a= extrait_app_item(curseur)
 b = extrait_app_answer(curseur)
-print a[0][1]
-print type(a[0][1])
+print a[1][1]
+print type(a[1][1])
 print b[0][1]
 print type(b[0][1])
 
