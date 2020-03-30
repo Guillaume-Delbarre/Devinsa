@@ -15,9 +15,9 @@ curseur = base.cursor()
 
 def extrait_app_item(cursor):
     res = []
-    cursor.execute("SELECT id FROM app_item")
-    for (x) in curseur:
-        res.append(x)
+    cursor.execute("SELECT id,name FROM app_item")
+    for (x,y) in curseur:
+        res.append([x,y])
     return res
 
 def extrait_app_answer(cursor):
@@ -96,7 +96,7 @@ def median(app_item,app_answer):
     return med
         
 
-print len(extrait_app_item(curseur))
+print len(recopierMatrice(extrait_app_item(curseur)))
 
 
 
