@@ -151,7 +151,8 @@ def elaguer_app_tree(app_tree,question,res):
         for i in range(len(fils)):
             aux.remove(fils[i])
         for i in range(len(fils)):
-            elaguer_app_tree(aux,fils[i],res)
+            if fils[i][2] == 'o' or fils[i][1] == 'n':
+                elaguer_app_tree(aux,fils[i],res)
         return res
     
     
