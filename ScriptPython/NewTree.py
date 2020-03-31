@@ -27,7 +27,7 @@ def extrait_app_answer(cursor):
         res.append([a,b,c,d,e,f])
     return res
 
-def extrait_app_arbre(cursor):
+def extrait_app_tree(cursor):
     res = []
     cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
     for (a,b,c,d) in curseur:
