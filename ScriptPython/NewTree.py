@@ -133,7 +133,7 @@ def garder_questions_arbre(app_tree,app_answer):
             res.append(app_tree[i][3])
     return res
 
-print len(garder_question_arbre(extrait_app_tree(curseur);extrait_app_answer(curseur)))
+print len(garder_question_arbre(extrait_app_tree(curseur),extrait_app_answer(curseur)))
                                            
 
 
