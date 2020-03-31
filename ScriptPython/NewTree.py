@@ -172,12 +172,13 @@ def aux_elaguer_app_tree(app_tree,question):
     if len(fils)==0:
         return
     elif len(fils)==3:
+        ingrat = fils
         res = recopierMatrice(app_tree)
         for i in range(len(fils)):
             res.remove(fils[i])
-        res = aux_elaguer_app_tree(res,fils[0])
-        res = aux_elaguer_app_tree(res,fils[1])
-        res = aux_elaguer_app_tree(res,fils[2])
+        res = aux_elaguer_app_tree(res,ingrat[0])
+        res = aux_elaguer_app_tree(res,ingrat[1])
+        res = aux_elaguer_app_tree(res,ingrat[2])
         return res
     else:
         print("Error\n")
