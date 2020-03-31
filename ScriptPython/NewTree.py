@@ -29,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
+    cursor.execute("SELECT id FROM app_tree")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
@@ -147,10 +147,8 @@ def creation_matrice_tree(liste_questions,app_tree):
     res = recopierMatrice(app_tree)
     return res
 
-a = 0
+a = extrait_app_tree(curseur)
 
-for i in range(12):
-    a += 2**(i)
 print a
 
                                            
