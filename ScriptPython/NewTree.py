@@ -138,7 +138,7 @@ def garder_reponses_arbre(app_answer,liste_questions):
     return res
                                            
 
-print len(garder_reponses_arbre(extrait_app_answer(curseur),garder_questions_arbre(extrait_app_tree(curseur))))
+print len(extrait_app_answer(curseur))
 
 
     
