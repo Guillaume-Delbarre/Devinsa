@@ -29,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree WHERE app_tree.choice<>'p'")
+    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
@@ -139,29 +139,12 @@ def garder_reponses_arbre(app_answer,liste_questions):
                 res.append(app_answer[j])
     return res
 
-def elaguer_app_tree(app_tree):
+def init_elaguer_app_tree(app_tree):
     res = recopierMatrice(app_tree)
-    for i in range(len(app_tree)):
-        if app_tree[i][2]=='p':
-            res.remove(app_tree[i])
-    return res
-    
+    compteur = 0
+    fils = getfils(app_tree[0][0])
 
 
-def creation_matrice_tree(liste_questions,app_tree):
-    for i in range(len(liste_questions)):
-        for j in range(len(app_tree)):
-            if liste_questions[i][0] == app_tree[i][3]:
-                app_tree[i].append(res[i][1])
-    res = recopierMatrice(app_tree)
-    return res
+app_tree = extrait_app_tree(curseur)
 
-
-a = extrait_app_tree(curseur)
-print len(a)
-
-
-
-
-    
-    
+print getfils(app_tree[0][0])
