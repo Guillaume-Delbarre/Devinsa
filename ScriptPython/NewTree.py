@@ -139,6 +139,13 @@ def garder_reponses_arbre(app_answer,liste_questions):
                 res.append(app_answer[j])
     return res
 
+"""def elaguer_app_tree(app_tree):
+    res = recopierMatrice(app_tree)
+    for i in range(len(app_tree)):
+        if app_tree[i]["""
+    
+
+
 def creation_matrice_tree(liste_questions,app_tree):
     for i in range(len(liste_questions)):
         for j in range(len(app_tree)):
@@ -147,10 +154,10 @@ def creation_matrice_tree(liste_questions,app_tree):
     res = recopierMatrice(app_tree)
     return res
 
+
 a = extrait_app_tree(curseur)
 
-print a
-
+print a[0:20]
                                            
 
 
