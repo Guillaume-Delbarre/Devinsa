@@ -45,7 +45,7 @@ def getfils(parent_id,app_tree):
     res = []
     for i in range(len(app_tree)):
         if app_tree[i][1]==parent_id:
-            res.append(app_tree[i][0])
+            res.append(app_tree[i])
     return res
 
 def compterPerso(app_item,app_answer,question_id,choice):
