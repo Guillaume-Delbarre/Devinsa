@@ -141,7 +141,7 @@ def garder_reponses_arbre(app_answer,liste_questions):
     res = []
     for i in range(len(liste_questions)):
         for j in range(len(app_answer)):
-            if liste_questions[i]==app_answer[j][0]:
+            if liste_questions[i][0]==app_answer[j][0]:
                 res.append(app_answer[j])
     return res
                                            
