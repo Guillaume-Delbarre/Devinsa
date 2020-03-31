@@ -125,7 +125,7 @@ def proxi(med,app_item,app_answer):
 def garder_questions_arbre(app_tree,app_answer):
     res = []
     for i in range(len(app_tree)):
-        if app_tree[i][3] not in res:
+        if app_tree[i][3] not in res and type(app_tree[i][3])==int:
             res.append(app_tree[i][3])
     return res
 
