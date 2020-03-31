@@ -167,17 +167,17 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-def aux_elaguer_app_tree(app_tree,question,res):
-    fils = getfils(question,app_tree)
+def aux_elaguer_app_tree(app_tree,question):
+    fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
     elif len(fils)==3:
         res = recopierMatrice(app_tree)
         for i in range(len(fils)):
             res.remove(fils[i])
-        aux_elaguer_app_tree(res,fils[0],res)
-        aux_elaguer_app_tree(res,fils[1],res)
-        aux_elaguer_app_tree(res,fils[2],res)
+        res = aux_elaguer_app_tree(res,fils[0])
+        res = aux_elaguer_app_tree(res,fils[1])
+        res = aux_elaguer_app_tree(res,fils[2])
         return res
     else:
         print("Error\n")
