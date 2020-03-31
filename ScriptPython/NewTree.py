@@ -149,8 +149,6 @@ def elaguer_app_tree(app_tree,question,res):
     elif len(fils) == 3:
         aux = recopierMatrice(app_tree)
         for i in range(len(fils)):
-            aux.remove(fils[i])
-        for i in range(len(fils)):
             if fils[i][2] == 'p':
                 fils.remove(fils[i])
         elaguer_app_tree(aux,fils[0],res)
