@@ -126,11 +126,11 @@ app_question = extrait_app_question(curseur)
 app_item = extrait_app_item(curseur)
 app_answer = extrait_app_answer(curseur)
 
-print app_item[25][0]
+print app_item[32][0]
 
 a = 0
 for i in range(len(app_answer)):
-    if app_answer[i][1] == 2529:
+    if app_answer[i][1] == 3212:
         a += 1
 print a
                                            
