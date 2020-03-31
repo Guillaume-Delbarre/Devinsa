@@ -159,7 +159,7 @@ def elaguer_app_tree(app_tree,question,res):
         if ingrat==0:
             print("Error\n")
             return
-        aux = aux_elaguer_app_tree(aux,ingrat)
+        aux = aux_elaguer_app_tree(aux,ingrat,aux)
         elaguer_app_tree(aux,fils[0],res)
         elaguer_app_tree(aux,fils[1],res)
         return res
@@ -168,7 +168,7 @@ def elaguer_app_tree(app_tree,question,res):
         return res
 
 def aux_elaguer_app_tree(app_tree,question,res):
-    fils = getfils(question[0],app_tree)
+    fils = getfils(question,app_tree)
     if len(fils)==0:
         return
     elif len(fils)==3:
