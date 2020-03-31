@@ -147,13 +147,11 @@ def creation_matrice_tree(liste_questions,app_tree):
     res = recopierMatrice(app_tree)
     return res
 
-b = extrait_app_tree(curseur)
-print len(b)
-a = creation_matrice_tree(garder_questions_arbre(b,extrait_app_question(curseur)),b)
+a = 0
+
+for i in range(12):
+    a += 2**(i)
 print a
-print len(a)
-
-
 
                                            
 
