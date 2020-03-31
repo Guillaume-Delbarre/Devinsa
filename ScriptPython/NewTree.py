@@ -140,8 +140,8 @@ def garder_reponses_arbre(app_answer,liste_questions):
     return res
 
 def elaguer_app_tree(app_tree,question,res):
-    if question[2] == 'o' or question[2] == 'n' or question[2] == 'r':
-        res.append(question)
+    res.append(question)
+    print(question)
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
