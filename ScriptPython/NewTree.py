@@ -147,4 +147,4 @@ def init_elaguer_app_tree(app_tree):
 
 app_tree = extrait_app_tree(curseur)
 
-print getfils(app_tree[0][0])
+print getfils(app_tree[0][0],app_tree)
