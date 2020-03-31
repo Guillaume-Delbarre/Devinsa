@@ -6,10 +6,11 @@ Created on Wed Jan  04 14:32:09 2020
 """
 
 
-import csv
+import mysql.connector
 
-global TAUX
-TAUX = 0.25
+base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
+
+curseur = base.cursor()
 
 def extraitMatricePersonnage(file):
     results = []
@@ -139,5 +140,6 @@ def elagagePerso(question,matriceArbre,matricePerso,res):
     elagagePerso(matriceArbre[choixNon],matriceArbre,matricePersoNon,res)
     elagagePerso(matriceArbre[choixOui],matriceArbre,matricePersoOui,res)
     return res
+
 
 

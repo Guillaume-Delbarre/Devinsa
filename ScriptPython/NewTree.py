@@ -27,7 +27,7 @@ def extrait_app_answer(cursor):
         res.append([a,b,c,d,e,f])
     return res
 
-def extrait_app_tree(cursor):
+def extrait_app_arbre(cursor):
     res = []
     cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree")
     for (a,b,c,d) in curseur:
@@ -127,7 +127,7 @@ app_item = extrait_app_item(curseur)
 app_answer = extrait_app_answer(curseur)
 
 a = compterPerso(app_item,app_answer,235,"o")
-print median(app_item,app_answer,app_question,[],0)
+print len(app_question)
                                            
 
 
