@@ -185,4 +185,4 @@ def aux_elaguer_app_tree(app_tree,question,res):
 
 app_tree = extrait_app_tree(curseur)
 
-print len(elaguer_app_tree(app_tree,app_tree[0],[]))
+print len(app_tree)
