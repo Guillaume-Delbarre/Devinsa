@@ -146,7 +146,7 @@ def elaguer_app_tree(app_tree,question,res):
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
-    else if len(fils) == 3
+    elif len(fils) == 3
         aux = recopierMatrice(app_tree)
         for i in range(len(fils)):
             aux.remove(fils[i])
