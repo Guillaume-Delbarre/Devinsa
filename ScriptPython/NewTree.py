@@ -48,8 +48,6 @@ def getfils(parent_id,app_tree):
             res.append(app_tree[i][0])
     return res
 
-
-
 def compterPerso(app_item,app_answer,question_id,choice):
     res = recopierMatrice(app_item)
     yes_count = 0
@@ -99,7 +97,6 @@ def median(app_item,app_answer,app_question,med,compteur):
 def carre(x):
     return (x)*(x)
 
-
 def proxi(med,app_item,app_answer):
     dist_aux = 0
     for i in range(len(app_answer)):
@@ -134,9 +131,6 @@ def garder_questions_arbre(app_tree,app_question):
                 res.append(app_question[j])
     return res
                 
-
-
-
 def garder_reponses_arbre(app_answer,liste_questions):
     res = []
     for i in range(len(liste_questions)):
@@ -144,9 +138,25 @@ def garder_reponses_arbre(app_answer,liste_questions):
             if liste_questions[i][0]==app_answer[j][0]:
                 res.append(app_answer[j])
     return res
+
+def creation_matrice_tree(liste_questions,app_tree):
+    for i in range(len(liste_questions)):
+        for j in range(len(app_tree)):
+            if liste_questions[i][0] == app_tree[i][3]:
+                app_tree[i].append(res[i][1])
+    res = recopierMatrice(app_tree)
+    return res
+
+b = extrait_app_tree(curseur)
+print len(b)
+a = creation_matrice_tree(garder_questions_arbre(b,extrait_app_question(curseur)),b)
+print a
+print len(a)
+
+
+
                                            
 
-print len(garder_reponses_arbre(extrait_app_answer(curseur),garder_questions_arbre(extrait_app_tree(curseur),extrait_app_question(curseur))))
 
 
     
