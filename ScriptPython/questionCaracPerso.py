@@ -55,6 +55,10 @@ def differenceFromCluster(perso):
 def printQuestionDiffCluster(nbQuestion=10):
     global df
     file = open("../Donnees/questionDiffCluster.csv","w",encoding='utf-8')
+    file.write("Personnage,")
+    for i in range(nbQuestion):
+        file.write("Q"+str(i)+',')
+    file.write("Q"+str(nbQuestion)+'\n')
     for i in range(len(df.index)):
         name = df.iloc[[i]].index[0]
         file.write(name+',')
@@ -77,7 +81,6 @@ def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personna
     listePerso = []
     for index, row in res.iterrows():
         listePerso.append(persoCluster.iloc[[index]].index[0])
-    print(listePerso)
     return listePerso
 
 
@@ -85,6 +88,10 @@ def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personna
 def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
     global df
     file = open("../Donnees/persoDistants.csv","w",encoding='utf-8')
+    file.write("Cluster,")
+    for i in range(nbPerso):
+        file.write("P"+str(i)+',')
+    file.write('P'+str(nbPerso)+'\n')
     for i in range(nbCluster):
         listePerso = persoDistants(i,metric)
         file.write(str(i)+',')
@@ -99,4 +106,4 @@ def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
 
 
 if __name__ == '__main__':
-    differenceFromCluster("Abel Jabri")
+    printQuestionDiffCluster()
