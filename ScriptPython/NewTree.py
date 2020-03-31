@@ -121,10 +121,6 @@ def proxi(med,app_item,app_answer):
             res = app_item[k]
         dist_aux = 0
     return res
-                
-
-
-
 
 def garder_questions_arbre(app_tree,app_answer):
     res = []
@@ -133,7 +129,7 @@ def garder_questions_arbre(app_tree,app_answer):
             res.append(app_tree[i][3])
     return res
 
-print len(garder_questions_arbre(extrait_app_tree(curseur),extrait_app_answer(curseur)))
+print garder_questions_arbre(extrait_app_tree(curseur),extrait_app_answer(curseur))
                                            
 
 
