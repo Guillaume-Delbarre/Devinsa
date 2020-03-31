@@ -153,9 +153,6 @@ def elaguer_app_tree(app_tree,question,res):
         for i in range(len(fils)):
             if fils[i][2] == 'p':
                 fils.remove(fils[i])
-        if ingrat==0:
-            print("Error\n")
-            return
         elaguer_app_tree(aux,fils[0],res)
         elaguer_app_tree(aux,fils[1],res)
         return res
