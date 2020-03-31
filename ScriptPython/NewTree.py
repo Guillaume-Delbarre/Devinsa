@@ -167,7 +167,7 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-def aux_elaguer_app_tree(app_tree,question,[]):
+def aux_elaguer_app_tree(app_tree,question,res):
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
