@@ -154,7 +154,7 @@ def elaguer_app_tree(app_tree,question,res):
             aux.remove(fils[i])
         for i in range(len(fils)):
             if fils[i][2] == 'p':
-                ingrat = fils[i][2]
+                ingrat = fils[i]
                 fils.remove(fils[i])
         if ingrat==0:
             print("Error\n")
