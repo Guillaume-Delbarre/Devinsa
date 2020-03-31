@@ -122,17 +122,18 @@ def proxi(med,app_item,app_answer):
         dist_aux = 0
     return res
                 
-app_question = extrait_app_question(curseur)
-app_item = extrait_app_item(curseur)
-app_answer = extrait_app_answer(curseur)
 
-print app_item[32][0]
 
-a = 0
-for i in range(len(app_answer)):
-    if app_answer[i][1] == 7493:
-        a += 1
-print a
+
+
+def garder_questions_arbre(app_tree,app_answer):
+    res = []
+    for i in range(len(app_tree)):
+        if app_tree[i][3] not in res:
+            res.append(app_tree[i][3])
+    return res
+
+print len(garder_question_arbre(extrait_app_tree(curseur);extrait_app_answer(curseur)))
                                            
 
 
