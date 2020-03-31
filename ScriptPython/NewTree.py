@@ -130,7 +130,7 @@ print app_item[32][0]
 
 a = 0
 for i in range(len(app_answer)):
-    if app_answer[i][1] == 3212:
+    if app_answer[i][1] == 7493:
         a += 1
 print a
                                            
