@@ -139,12 +139,23 @@ def garder_reponses_arbre(app_answer,liste_questions):
                 res.append(app_answer[j])
     return res
 
-def init_elaguer_app_tree(app_tree):
-    res = recopierMatrice(app_tree)
-    compteur = 0
-    fils = getfils(app_tree[0][0])
+def elaguer_app_tree(app_tree,question,res):
+    aux = recopierMatrice(app_tree)
+    if question[2] == 'o' or question[2] == 'n' or question[2] == 'r':
+        res.append(question)
+    fils = getfils(aux[0][0])
+    if len(fils)==0:
+        return
+    else:
+        for i in range(len(fils)):
+            aux.remove(fils[i])
+        for i in range(len(fils)):
+            elaguer_app_tree(aux,fils[i],res)
+        return res
+    
+    
 
 
 app_tree = extrait_app_tree(curseur)
 
-print getfils(app_tree[0][0],app_tree)
+print len(elaguer_app_tree(app_tree,app_tree[0],[]))
