@@ -6,7 +6,7 @@ import mysql.connector
 #[question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf]
 #APP_TREE
 #[id,parent_id,choice,question_id]
-#app_question
+#APP_QUESTION
 #[id,title]
 
 base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
@@ -126,8 +126,7 @@ app_question = extrait_app_question(curseur)
 app_item = extrait_app_item(curseur)
 app_answer = extrait_app_answer(curseur)
 
-a = compterPerso(app_item,app_answer,235,"o")
-print len(app_question)
+print app_item[0][0]
                                            
 
 
