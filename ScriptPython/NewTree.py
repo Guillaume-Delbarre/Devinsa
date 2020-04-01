@@ -144,6 +144,7 @@ def garder_reponses_arbre(app_answer,liste_questions):
 
 def elaguer_app_tree(app_tree,question,res):
     res.append(question)
+    print(question)
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
@@ -159,7 +160,7 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-def aux_elaguer_app_tree(app_tree,question,res):
+"""def aux_elaguer_app_tree(app_tree,question,res):
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
@@ -176,6 +177,11 @@ def aux_elaguer_app_tree(app_tree,question,res):
         return res
     else:
         print("Error\n")
-        return res
+        return res"""
 
-print "Number of processors :",mp.cpu_count()
+app_tree = extrait_app_tree(curseur)
+
+app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
+print(len(app_tree))
+
+
