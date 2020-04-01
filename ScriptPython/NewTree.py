@@ -144,7 +144,6 @@ def garder_reponses_arbre(app_answer,liste_questions):
 
 def elaguer_app_tree(app_tree,question,res):
     res.append(question)
-    print(len(res))
     fils = getfils(question[0],app_tree)
     if len(fils)==0:
         return
