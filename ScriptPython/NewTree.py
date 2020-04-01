@@ -1,4 +1,5 @@
 import mysql.connector
+import multiprocessing as mp
 
 #APP_ITEM
 #[ID,Name]
@@ -177,6 +178,4 @@ def aux_elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-app_tree = extrait_app_tree(curseur)
-
-print len(elaguer_app_tree(app_tree,app_tree[0],[]))
+print "Number of processors :",mp.cpu_count()
