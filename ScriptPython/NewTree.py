@@ -171,8 +171,8 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
             id_question = liste_questions[0]
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == id_question:
-                    res[i][j] = app_answer[k][2]
-                    res[i][j+1] = app_answer[k][3]
+                    res[i][j] = app_answer[k][4]
+                    res[i][j+1] = app_answer[k][5]
     print [res[1][0],res[1][1],res[1][2]]
     print [res[2][0],res[2][1],res[2][2]]
     print [res[3][0],res[3][1],res[3][2]]
@@ -182,10 +182,10 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
             
 
 def modifier_liste_questions(liste_questions):
-    res = [None]*(2*(len(liste_questions)))
-    for i in range(len(liste_questions)):
-        res[2*i] = liste_questions[i]
-        res[(2*i)+1] = liste_questions[i]
+    res = [None]*(2*(len(liste_questions))+1)
+    for i in range(1,len(liste_questions)):
+        res[(2*i)-1] = liste_questions[i]
+        res[(2*i)] = liste_questions[i]
     return res
 
 def init(curseur):
