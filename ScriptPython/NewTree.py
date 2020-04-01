@@ -183,7 +183,7 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
             
 
 def modifier_liste_questions(liste_questions):
-    res = [None]*(2*(len(liste_questions)))
+    res = [None]*(2*len(liste_questions)-1)
     for i in range(1,len(liste_questions)):
         res[(2*i)-1] = liste_questions[i]
         res[(2*i)] = liste_questions[i]
