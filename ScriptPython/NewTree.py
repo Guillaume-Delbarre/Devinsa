@@ -190,6 +190,7 @@ def modifier_liste_questions(liste_questions):
 
 def init(curseur):
     app_answer = extrait_app_answer(curseur)
+    app_item = extrait_app_item(curseur)
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
