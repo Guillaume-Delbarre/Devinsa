@@ -196,7 +196,7 @@ def init(curseur):
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
     liste_questions = garder_questions_arbre(app_tree,app_question)
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
-    print app_answer[0]
+    print app_answer[3254]
     
 
     
