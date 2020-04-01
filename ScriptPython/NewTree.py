@@ -169,6 +169,7 @@ def init(curseur):
     liste_questions = garder_questions_arbre(app_tree,app_question)
     print liste_questions
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
+    print len(app_answer)
     
 init(curseur)
 
