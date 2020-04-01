@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree WHERE depth<6")
+    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree WHERE depth<8")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
@@ -159,28 +159,19 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-"""def aux_elaguer_app_tree(app_tree,question,res):
-    fils = getfils(question[0],app_tree)
-    if len(fils)==0:
-        return
-    elif len(fils)==3:
-        ingrat1 = fils[0]
-        ingrat2 = fils[1]
-        ingrat3 = fils[2]
-        res = recopierMatrice(app_tree)
-        for i in range(len(fils)):
-            res.remove(fils[i])
-        aux_elaguer_app_tree(res,ingrat1,res)
-        aux_elaguer_app_tree(res,ingrat2,res)
-        aux_elaguer_app_tree(res,ingrat3,res)
-        return res
-    else:
-        print("Error\n")
-        return res"""
 
-app_tree = extrait_app_tree(curseur)
+def init(curseur):
+    app_answer = extrait_app_answer(curseur)
+    print len(app_answer)
+    app_tree = extrait_app_tree(curseur)
+    app_question = extrait_app_question(curseur)
+    app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
+    liste_questions = garder_questions_arbre(app_tree,app_question)
+    print liste_questions
+    app_answer = garder_reponses_arbre(app_answer,liste_questions)
+    
 
-app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
-print(len(app_tree))
+
+
 
 
