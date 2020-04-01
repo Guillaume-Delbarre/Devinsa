@@ -170,7 +170,7 @@ def init(curseur):
     print liste_questions
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     
-
+init(curseur)
 
 
 
