@@ -163,10 +163,10 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = [[None]*(2*len(liste_questions)+1)]*(len(app_item)+1)
     liste_questions = modifier_liste_questions(liste_questions)
     print liste_questions
-    """for i in range(1,len(liste_questions)):
+    for i in range(1,len(liste_questions)):
         res[0][i] = liste_questions[i]
-    print [res[0][0],res[0][1],res[0][2]]
-    for i in range(len(app_item)):
+        print res[0][i]
+    """for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
         for j in range(0,len(liste_questions),2):
             id_question = liste_questions[0]
