@@ -196,7 +196,7 @@ def init(curseur):
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
     liste_questions = garder_questions_arbre(app_tree,app_question)
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
-    creation_maitrce_perso(app_answer,app_item,lisre_questions)
+    creation_matrice_perso(app_answer,app_item,lisre_questions)
     
 
     
