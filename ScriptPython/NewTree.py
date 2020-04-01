@@ -185,7 +185,7 @@ def init(curseur):
     print liste_questions
 
     
-
+init(curseur)
 
 
 
