@@ -162,11 +162,12 @@ def elaguer_app_tree(app_tree,question,res):
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = [[None]*(2*len(liste_questions)+1)]*(len(app_item)+1)
     liste_questions = modifier_liste_questions(liste_questions)
-    for i in range(1,len(liste_questions)):
+    print liste_questions
+    """for i in range(1,len(liste_questions)):
         res[0][i] = liste_questions[i]
     print [res[0][0],res[0][1],res[0][2]]
-    for i in range(1,len(app_item)):
-        res[i][0] = app_item[i][1]
+    for i in range(len(app_item)):
+        res[i+1][0] = app_item[i][1]
         for j in range(0,len(liste_questions),2):
             id_question = liste_questions[0]
             for k in range(len(app_answer)):
@@ -175,7 +176,7 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
                     res[i][j+1] = app_answer[k][5]
     print [res[1][0],res[1][1],res[1][2]]
     print [res[2][0],res[2][1],res[2][2]]
-    print [res[3][0],res[3][1],res[3][2]]
+    print [res[3][0],res[3][1],res[3][2]]"""
     return res
     
 
@@ -196,7 +197,6 @@ def init(curseur):
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
     liste_questions = garder_questions_arbre(app_tree,app_question)
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
-    creation_matrice_perso(app_answer,app_item,liste_questions)
     
 
     
