@@ -162,13 +162,13 @@ def elaguer_app_tree(app_tree,question,res):
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = [[None]*(2*len(liste_questions)+1)]*(len(app_item)+1)
     liste_questions = modifier_liste_questions(liste_questions)
-    print liste_questions
     for i in range(1,len(liste_questions)):
         res[0][i] = liste_questions[i]
+        print res[0][i]
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
         for j in range(1,len(res[0]),2):
-            id_question = res[0][j][0]
+            id_question = res[0][j]
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == id_question:
                     res[i][j] = app_answer[k][4]
