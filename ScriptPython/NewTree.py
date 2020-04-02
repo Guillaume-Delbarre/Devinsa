@@ -160,7 +160,7 @@ def elaguer_app_tree(app_tree,question,res):
         return res
 
 def creation_matrice_perso(app_answer,app_item,liste_questions):
-    res = [[None]*(len(liste_questions)]*(len(app_item)+1)
+    res = [[None]*(len(liste_questions))]*(len(app_item)+1)
     for i in range(1,len(liste_questions)):
         res[0][i] = liste_questions[i][0]
     print res
