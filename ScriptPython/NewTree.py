@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree,app_question WHERE depth<8")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE question_id.app_tree = id.app_question depth<8")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
