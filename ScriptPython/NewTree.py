@@ -54,7 +54,7 @@ def getfils(parent_id,app_tree):
 def creerMatrice(ligne,colonne):
     res = []
     for i in range(ligne):
-        res.append([0]*colonne)
+        res.append([None]*colonne)
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
