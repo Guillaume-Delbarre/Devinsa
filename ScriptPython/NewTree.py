@@ -163,7 +163,6 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = [[0]*(len(app_item)+1) for i in range(len(liste_questions)+1)]
     for i in range(1,len(liste_questions)):
         res[0][i] = liste_questions[i][0]
-        print res[0][i]
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
         for j in range(1,len(res[0]),2):
