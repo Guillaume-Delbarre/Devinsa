@@ -225,7 +225,7 @@ def main(curseur):
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("questionid_1 = {text: { name: '"+resultat[0][0]+"' }, collapsed : true};\n")
+    ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
     chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,chart_config)
     chart_config = chart_config_init + chart_config
