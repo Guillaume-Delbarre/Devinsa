@@ -142,7 +142,7 @@ def garder_questions_arbre(app_tree,app_question):
                 res.append(app_question[j])
     return res
 
-#Fonction qui permet de garder les réponses d'une liste de questions
+#Fonction qui permet de garder les reponses dune liste de questions
 def garder_reponses_arbre(app_answer,liste_questions):
     res = []
     for i in range(len(liste_questions)):
@@ -151,7 +151,7 @@ def garder_reponses_arbre(app_answer,liste_questions):
                 res.append(app_answer[j])
     return res
 
-#Fonction qui permet de passer de l'arbre ternaire à l'arbre binaire
+#Fonction qui permet de passer de larbre ternaire a larbre binaire
 def elaguer_app_tree(app_tree,question,res):
     res.append(question)
     fils = getfils(question[0],app_tree)
@@ -166,7 +166,7 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error\n")
         return res
 
-#Fonction qui permet de créer la matrice question par colonne, perso par ligne et tfd_idf en valeur
+#Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
     for i in range(1,len(liste_questions)):
@@ -194,18 +194,18 @@ def modifier_liste_questions(liste_questions):
     return res
 
 def init(curseur):
-    #On extrait chaque tables, les détails sont en haut
+    #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
     app_item = extrait_app_item(curseur)
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
-    #On élague l'arbre ternaire en arbre binaire
+    #On elague larbre ternaire en arbre binaire
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
-    #Dans notre liste de questions, seules celles présentes dans l'arbre nous intéressent
+    #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
     liste_questions = garder_questions_arbre(app_tree,app_question)
-    #Seules les réponses aux questions de l'arbre nous intéressent
+    #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
-    #Préparation de liste_questions pour créer une matrice tfidf_oui,non pour chaque (perso,question)
+    #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     liste_questions = modifier_liste_questions(liste_questions)
     creation_matrice_perso(app_answer,app_item,liste_questions)
     
