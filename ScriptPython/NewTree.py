@@ -193,9 +193,8 @@ def init(curseur):
     app_question = extrait_app_question(curseur)
     app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
     liste_questions = garder_questions_arbre(app_tree,app_question)
-    liste_questions = modifier_liste_questions(liste_questions)
-    print liste_questions[1][0]
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
+    liste_questions = modifier_liste_questions(liste_questions)
     creation_matrice_perso(app_answer,app_item,liste_questions)
     
 
