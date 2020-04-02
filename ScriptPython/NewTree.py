@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<8")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<4")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -56,27 +56,59 @@ def creerMatrice(ligne,colonne):
     for i in range(ligne):
         res.append([0]*colonne)
     return res
-    
 
-def compterPerso(app_item,app_answer,question_id,choice):
-    res = recopierMatrice(app_item)
-    yes_count = 0
-    no_count = 0
-    rapport = 1
-    for i in range(len(app_item)):
-        for j in range(len(app_answer)):
-            if app_item[i][0]==app_answer[j][1] and app_answer[j][0]==question_id:
-                yes_count = app_answer[j][2]
-                no_count = app_answer[j][3]
-        if choice == "o" and no_count !=0:
+def compterPerso(rangQuestion,matricePerso,choix):
+    res = recopieMatrice(matricePerso)
+    for i in range(1,len(matricePerso)):
+        rapport = 0
+        yes_count = matricePerso[i][rangQuestion][1]
+        no_count = matricePerso[i][rangQuestion][2]
+        if choix = 'o' and no_count!=0:
             rapport = yes_count/no_count
-        elif choice == "n" and yes_count!=0:
+        elif choix = 'n' and yes_count!=0:
             rapport = no_count/yes_count
         else:
             rapport = 1
         if rapport<0.75:
-            res.remove(app_item[i])
+            res.remove(matricePerso[i])
     return res
+
+def avoirRangQuestion(id_question,matricePerso):          
+    for i in range(len(matricePersoQuestion[0])):       
+        if(question==matricePersoQuestion[0][i][4:]):
+            return i
+    return -1
+
+def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
+    chart_config += "questionid_"+question[0]+",\n"
+    if(len(matricePerso)==1):
+        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
+    else:
+        rangPersoMedian = proxi(median(matricePerso),matricePerso)
+        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage médian :"+str(matricePerso[rangPersoMedian][0])+"'}, collapsed : true};\n")
+    questionsFilles = getfils(question[0],app_tree)
+    if(len(QuestionsFilles)==0):
+        return
+    elif (len(QuestionsFilles==2)):
+        choixOui = []
+        choixNon = []
+        for i in range(len(questionsFilles)):
+            if questionsFilles[i][3]=='o':
+                choixOui = questionsFilles[i]
+            elif questionsFilles[i][3] =='n':
+                choixNon = questionsFilles[i]
+            else:
+                print("Error")
+                return
+        rangQuestion = avoirRangQuestion(question[3],matricePerso)
+        matricePersoOui = compterPerso(rangQuestionOui,matricePerso,'o')
+        matricePersoNon = compterPerso(rangQuestionNon, matricePerso,'n')
+        elagagePerso(choixOui,app_tree,matricePersoNon,res)
+        elagagePerso(choixNon,app_tree,matricePersoOui,res)
+        return chart_config
+    else:
+        print("Error")
+        return
                 
         
 def recopierMatrice(matrice):
@@ -85,49 +117,36 @@ def recopierMatrice(matrice):
         res.append(matrice[i])
     return res
 
-def median(app_item,app_answer,app_question,med,compteur):
-    if compteur==len(app_question):
-        return med
-    else:
-        next_app_answer = recopierMatrice(app_answer)
-        summ_yes = 0
-        summ_no = 0
-        for k in range(len(app_answer)):
-            for item in range(len(app_item)):
-                if app_answer[k][1]==app_item[item][0] and app_answer[k][0]==app_question[compteur][0]:
-                    summ_yes += app_answer[k][4] 
-                    summ_no += app_answer[k][5]
-                    next_app_answer.remove(app_answer[k])
-        summ_yes = summ_yes/(len(app_item))
-        summ_no = summ_no/(len(app_item))
-        med.append([summ_yes,summ_no,app_answer[0]])
-        compteur += 1
-        return median(app_item,next_app_answer,app_question,med,compteur)
+def median(matrice):
+    med = [0]
+    summ = 0
+    for j in range(1,len(matrice[0])):
+        for i in range(1,len(matrice)):
+           summ += float(matrice[i][j][0])
+        summ = summ/(len(matrice)-1)
+        med.append(summ)
+        summ = 0
+    return med
         
 def carre(x):
     return (x)*(x)
 
 def proxi(med,app_item,app_answer):
+    def proxi(med,matrice):
     dist_aux = 0
-    for i in range(len(app_answer)):
-        for j in range(len(med)):
-            if app_item[0][0] == app_answer[i][1] and app_answer[i][0] == med[j][2]:
-                dist_aux += carre(app_answer[i][2]-med[j][0])
-                dist_aux += carre(app_answer[i][3]-med[j][1])
-    res = app_item[0]
+    for j in range(1,len(matrice[0])):
+        dist_aux += carre(med[j]-float(matrice[1][j][0]))
     dist = dist_aux
     dist_aux = 0
-    for k in range(len(app_item)):
-        for j in range(len(med)):
-            for i in range(len(app_answer)):
-                if app_item[k][0] == app_answer[i][1] and app_answer[i][0] == med[j][2]:
-                    dist_aux += carre(app_answer[i][2]-med[j][0])
-                    dist_aux += carre(app_answer[i][3]-med[j][1])
+    rang = 1
+    for i in range(2,len(matrice)):
+        for j in range(2,len(matrice[0])):
+            dist_aux += carre(med[j]-float(matrice[i][j][0]))
         if(dist_aux<dist):
             dist = dist_aux
-            res = app_item[k]
+            rang = i
         dist_aux = 0
-    return res
+    return rang
 
 
 def garder_questions_arbre(app_tree,app_question):
@@ -176,11 +195,8 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
         for j in range(1,len(res[0]),2):
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
-                    res[i+1][j] = app_answer[k][4]
-                    res[i+1][j+1] = app_answer[k][5]
-    print [res[1][0],res[1][1],res[1][2]]
-    print [res[2][0],res[2][1],res[2][2]]
-    print [res[3][0],res[3][1],res[3][2]]
+                    res[i+1][j] = (app_answer[k][4],app_answer[k][2])
+                    res[i+1][j+1] = (app_answer[k][5],app_answer[k][3])
     return res
     
 
@@ -193,7 +209,7 @@ def modifier_liste_questions(liste_questions):
         res[(2*i)] = liste_questions[i]
     return res
 
-def init(curseur):
+def main(curseur):
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
     app_item = extrait_app_item(curseur)
@@ -207,11 +223,19 @@ def init(curseur):
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     liste_questions = modifier_liste_questions(liste_questions)
-    creation_matrice_perso(app_answer,app_item,liste_questions)
+    matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
+    file = "..Web/Arbre_Binaire/Treejavascript.js"
+    ecriture = open(filesortie,"w",encoding="utf-8")
+    ecriture.write("questionid_1 = {text: { name: '"+resultat[0][0]+"' }, collapsed : true};\n")
+    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
+    chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,chart_config)
+    chart_config = chart_config_init + chart_config
+    chart_config = chart_config[0:len(chart_config)-2]
+    chart_config += "];"
+    ecriture.write(chart_config)
+    ecriture.close
     
-
-    
-init(curseur)
+main(curseur)
 
 
 

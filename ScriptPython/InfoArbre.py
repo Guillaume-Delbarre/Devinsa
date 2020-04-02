@@ -5,13 +5,6 @@ Created on Wed Jan  04 14:32:09 2020
 @author: OUGO
 """
 
-
-import mysql.connector
-
-base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
-
-curseur = base.cursor()
-
 def extraitMatricePersonnage(file):
     results = []
     with open(file,encoding="utf8") as csvfile:
