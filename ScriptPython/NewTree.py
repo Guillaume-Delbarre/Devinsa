@@ -85,7 +85,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
         ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
     else:
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
-        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage médian :"+str(matricePerso[rangPersoMedian][0])+"'}, collapsed : true};\n")
+        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+str(matricePerso[rangPersoMedian][0])+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(QuestionsFilles)==0):
         return
