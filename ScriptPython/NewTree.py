@@ -131,8 +131,7 @@ def median(matrice):
 def carre(x):
     return (x)*(x)
 
-def proxi(med,app_item,app_answer):
-    def proxi(med,matrice):
+def proxi(med,matrice):
     dist_aux = 0
     for j in range(1,len(matrice[0])):
         dist_aux += carre(med[j]-float(matrice[1][j][0]))
