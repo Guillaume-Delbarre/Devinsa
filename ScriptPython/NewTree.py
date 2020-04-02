@@ -122,7 +122,7 @@ def median(matrice):
     summ = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-           summ += float(matrice[i][j][0])
+           summ += matrice[i][j][0]
         summ = summ/(len(matrice)-1)
         med.append(summ)
         summ = 0
