@@ -224,10 +224,12 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     liste_questions = modifier_liste_questions(liste_questions)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
+    a = 0
     for i in range(len(matricePerso)):
         for j in range(len(matricePerso[0])):
-            if matricePers[i][j]==None:
-                print(None)
+            if matricePerso[i][j]==None:
+                a+= 1
+    print(a)
     """file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
