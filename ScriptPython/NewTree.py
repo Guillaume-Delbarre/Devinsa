@@ -80,7 +80,7 @@ def avoirRangQuestion(id_question,matricePerso):
     return -1
 
 def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
-    chart_config += "questionid_"+question[0]+",\n"
+    chart_config += "questionid_"+str(question[0])+",\n"
     if(len(matricePerso)==1):
         ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
     else:
