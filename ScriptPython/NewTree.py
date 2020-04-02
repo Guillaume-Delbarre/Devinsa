@@ -122,7 +122,6 @@ def median(matrice):
     summ = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-            print(matrice[i][j])
             summ += matrice[i][j][0]
         summ = summ/(len(matrice)-1)
         med.append(summ)
@@ -209,6 +208,14 @@ def modifier_liste_questions(liste_questions):
         res[(2*i)] = liste_questions[i]
     return res
 
+def remplir_matricePerso(matricePerso):
+    res = recopierMatrice(matricePerso)
+    for i in range(len(matricePerso)):
+        for j in range(len(matricePerso)):
+            if matricePerso[i][j]==None:
+                matricePerso[i][j] = (0,0)
+    return res
+
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
@@ -224,13 +231,8 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     liste_questions = modifier_liste_questions(liste_questions)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
-    a = 0
-    for i in range(len(matricePerso)):
-        for j in range(len(matricePerso[0])):
-            if matricePerso[i][j]==None:
-                a+= 1
-    print(a)
-    """file = "../Web/Arbre_Binaire/Treejavascript.js"
+    matricePerso = remplir_matricePerso(matricePerso)
+    file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
@@ -239,7 +241,7 @@ def main(curseur):
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
     ecriture.write(chart_config)
-    ecriture.close"""
+    ecriture.close
     
 main(curseur)
 
