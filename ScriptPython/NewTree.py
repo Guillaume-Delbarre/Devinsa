@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_question.id = app_tree.question_id and depth<8")
+    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree,app_question WHERE depth<8")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
@@ -163,14 +163,13 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = [[None]*(2*len(liste_questions)-1)]*(len(app_item)+1)
     liste_questions = modifier_liste_questions(liste_questions)
     for i in range(1,len(liste_questions)):
-        res[0][i] = liste_questions[i]
+        res[0][i] = liste_questions[i][0]
     print res
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
         for j in range(1,len(res[0]),2):
-            id_question = res[0][j][0]
             for k in range(len(app_answer)):
-                if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == id_question:
+                if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
                     res[i+1][j] = app_answer[k][4]
                     res[i+1][j+1] = app_answer[k][5]
     print [res[1][0],res[1][1],res[1][2]]
