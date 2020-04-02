@@ -6,7 +6,7 @@ import multiprocessing as mp
 #APP_ANSWER
 #[question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf]
 #APP_TREE
-#[id,parent_id,choice,question_id]
+#[id,parent_id,choice,question_id,title]
 #APP_QUESTION
 #[id,title]
 
@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT id,parent_id,choice,question_id FROM app_tree WHERE depth<8")
+    cursor.execute("SELECT id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_question.id = app_tree.question_id and depth<8")
     for (a,b,c,d) in curseur:
         res.append([a,b,c,d])
     return res
