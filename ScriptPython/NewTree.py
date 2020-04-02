@@ -211,7 +211,7 @@ def modifier_liste_questions(liste_questions):
 def remplir_matricePerso(matricePerso):
     res = recopierMatrice(matricePerso)
     for i in range(len(matricePerso)):
-        for j in range(len(matricePerso)):
+        for j in range(len(matricePerso[0])):
             if matricePerso[i][j]==None:
                 matricePerso[i][j] = (0,0)
     return res
