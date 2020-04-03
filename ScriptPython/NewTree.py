@@ -202,8 +202,8 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
                     res[i+1][j] = (app_answer[k][4],app_answer[k][2])
                     res[i+1][j+1] = (app_answer[k][5],app_answer[k][3])
-    print (res[len(res)][0])
-    print (app_item[len(app_item)][0])
+    print (res[len(res)-1][0])
+    print (app_item[len(app_item)-1][0])
     return res
     
 
