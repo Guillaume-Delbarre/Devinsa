@@ -58,7 +58,7 @@ def creerMatrice(ligne,colonne):
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
-    res = recopieMatrice(matricePerso)
+    res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
         rapport = 0
         yes_count = matricePerso[i][rangQuestion][1]
