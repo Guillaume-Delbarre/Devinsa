@@ -198,8 +198,8 @@ def elaguer_app_tree(app_tree,question,res):
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
-    for i in range(1,len(liste_questions)):
-        res[0][i] = liste_questions[i][0]
+    for i in range(len(liste_questions)):
+        res[0][i+1] = liste_questions[i][0]
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
         for j in range(1,len(res[0])):
@@ -211,13 +211,6 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
 
             
 #Fonction qui permet de doubler les questions pour correspondre tfidf_oui et tfidf_non
-def modifier_liste_questions(liste_questions):
-    liste_questions.insert(0,None)
-    res = [None]*(2*len(liste_questions)-1)
-    for i in range(1,len(liste_questions)):
-        res[(2*i)-1] = liste_questions[i]
-        res[(2*i)] = liste_questions[i]
-    return res
 
 def remplir_matricePerso(matricePerso):
     res = recopierMatrice(matricePerso)
