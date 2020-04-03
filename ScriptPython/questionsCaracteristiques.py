@@ -50,10 +50,10 @@ def printQuestionCarac(nbCluster=6,nbQuestion=15):
 
     #écriture des questions caract
     agg_tab=[]
+    agg = agg.T
     for i in range(nbCluster):
-        agg = agg.T
-        print(agg.reindex(agg.i.abs().sort_values().index))
-        agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
+        print(agg.reindex(agg[i].abs().sort_values(ascending=False).index))
+        #agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
     """
     for j in range(nbQuestion):
         for i in range(nbCluster-1):
@@ -82,7 +82,6 @@ def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyenn
     for i in range(len(question)):
         som.iloc[:,i] = somme.iloc[:,2*i]
         som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
-    print(som)
     return som
 
     
