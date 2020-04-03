@@ -62,7 +62,7 @@ def compterPerso(rangQuestion,matricePerso,choix):
     for i in range(1,len(matricePerso)):
         rapport = 0
         yes_count = matricePerso[i][rangQuestion][1]
-        no_count = matricePerso[i][rangQuestion][2]
+        no_count = matricePerso[i][rangQuestion+1][1]
         if choix =='o' and no_count!=0:
             rapport = yes_count/no_count
         elif choix == 'n' and yes_count!=0:
