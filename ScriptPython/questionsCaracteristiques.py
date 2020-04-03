@@ -11,7 +11,7 @@ df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, enco
 def printQuestionCarac(nbCluster=6,nbQuestion=15):
     global df
     file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
-    agg = moyennesClusters()
+    agg = sommesClusters()
     df.sort_values(by='Clusters', inplace=True)
     #On récupère les médoides dans un tableau
     medoids = df.loc[df['Medoid']==1].index.values
@@ -51,30 +51,39 @@ def printQuestionCarac(nbCluster=6,nbQuestion=15):
     #écriture des questions caract
     agg_tab=[]
     for i in range(nbCluster):
+        agg = agg.T
+        print(agg.reindex(agg.i.abs().sort_values().index))
         agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
-    
+    """
     for j in range(nbQuestion):
         for i in range(nbCluster-1):
             #print(agg_tab[i])
             file.write(agg_tab[i][j]+',')
         file.write(agg_tab[nbCluster-1][j] + '\n')
+    """
 
 
 
-def moyennesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyennes par question
+def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyennes par question
     global df
-    moy = df.sort_values(by='Clusters')
+    somme = df.sort_values(by='Clusters')
     
-    del moy['Medoid']
+    del somme['Medoid']
     #Au lieu d'aller de 0 à 5, les clusters iront de 1 à 6
     for k in range(nbCluster,0,-1):
-        moy['Clusters'].replace(k-1,k, inplace=True)
-    #On remplace les 0 (absence de donnees) par NaN
-    moy = moy.replace(0,np.nan)
-    #On fait la moyenne des TF-IDF pour chaque question par cluster (en ignorant les NaN)
-    moy = pd.DataFrame(moy.groupby(['Clusters'],as_index=False).mean())
-    del moy["Clusters"]
-    return moy
+        somme['Clusters'].replace(k-1,k, inplace=True)
+    #On fait la somme des TF-IDF pour chaque question par cluster 
+    somme = pd.DataFrame(somme.groupby(['Clusters'],as_index=False).sum())
+    del somme["Clusters"]
+    file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
+    question = file_question.readlines()
+    file_question.close()
+    som = pd.DataFrame(index=somme.index,columns=question) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
+    for i in range(len(question)):
+        som.iloc[:,i] = somme.iloc[:,2*i]
+        som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
+    print(som)
+    return som
 
     
 
