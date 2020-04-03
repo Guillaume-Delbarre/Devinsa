@@ -222,7 +222,7 @@ def remplir_matricePerso(matricePerso):
     for i in range(len(matricePerso)):
         for j in range(len(matricePerso[0])):
             if matricePerso[i][j]==None:
-                matricePerso[i][j] = (0,0)
+                matricePerso[i][j] = (0,0,0,0)
     return res
 
 def creer_chart_config(app_tree):
