@@ -8,7 +8,7 @@ medoids = None
 df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 
-def printQuestionCarac(nbCluster=6,nbQuestion=15):
+def printQuestionCarac(nbCluster=6,nbQuestion=4):
     global df
     file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
     agg = sommesClusters()
@@ -47,13 +47,27 @@ def printQuestionCarac(nbCluster=6,nbQuestion=15):
     for i in range(nbCluster-1):
         file.write(medoids[i] + ',')
     file.write(medoids[nbCluster-1] + '\n')
-
+    dfFile=pd.DataFrame()
     #écriture des questions caract
-    agg_tab=[]
     agg = agg.T
     for i in range(nbCluster):
-        print(agg.reindex(agg[i].abs().sort_values(ascending=False).index))
-        #agg_tab.append(agg.sort_values(by=i, axis=1, ascending=False).columns)
+        count = len(df[df["Clusters"]==i])
+        
+        aggTrie = agg.reindex(agg[i].abs().sort_values(ascending=False).index)
+        j=0
+        k=0
+        while((j+k)<nbQuestion):
+            for index,row in aggTrie.iterrows():
+                if(j<(nbQuestion/2+1) ):
+                    dfFile[str(i)]=index
+                    print(aggTrie.loc[index])
+                    dfFile[str(count)]=aggTrie.iloc[[index]].values
+                    j+=1
+                elif(k<(nbQuestion/2+1)):
+                    
+                    k+=1
+
+
     """
     for j in range(nbQuestion):
         for i in range(nbCluster-1):
