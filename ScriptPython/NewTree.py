@@ -103,8 +103,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestionOui,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestionNon, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoNon,res)
-        elagagePerso(choixNon,app_tree,matricePersoOui,res)
+        elagagePerso(choixOui,app_tree,matricePersoNon,chart_config)
+        elagagePerso(choixNon,app_tree,matricePersoOui,chart_config)
         return chart_config
     else:
         print("Error")
