@@ -93,9 +93,9 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         choixNon = []
         for i in range(len(questionsFilles)):
             print(questionsFilles)
-            if questionsFilles[i][3]=='o':
+            if questionsFilles[i][2]=='o':
                 choixOui = questionsFilles[i]
-            elif questionsFilles[i][3] =='n':
+            elif questionsFilles[i][2] =='n':
                 choixNon = questionsFilles[i]
             else:
                 print("Error 3")
