@@ -82,7 +82,10 @@ def avoirRangQuestion(id_question,matricePerso):
 
 def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):
-        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
+        if(question[0]==1):
+            ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
+        else:
+            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
     else:
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+matricePerso[rangPersoMedian][0]+"'}, collapsed : true};\n")
@@ -242,7 +245,7 @@ def main(curseur):
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
-    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
+    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
     elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
     chart_config = creer_chart_config(app_tree)
     chart_config = chart_config_init + chart_config
