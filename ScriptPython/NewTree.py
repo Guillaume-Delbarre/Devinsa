@@ -73,8 +73,10 @@ def compterPerso(rangQuestion,matricePerso,choix):
             res.remove(matricePerso[i])
     return res
 
-def avoirRangQuestion(id_question,matricePerso):          
-    for i in range(len(matricePerso[0])):       
+def avoirRangQuestion(id_question,matricePerso):
+    print(id_question)
+    for i in range(len(matricePerso[0])):
+        print (matricePerso[0][i])
         if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
@@ -100,9 +102,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
             else:
                 print("Error 3")
                 return
-        print(question)
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
-        print (rangQuestion)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoNon)
