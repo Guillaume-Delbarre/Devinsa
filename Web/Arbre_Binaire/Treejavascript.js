@@ -1,5 +1,5 @@
 questionid_1 = {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true};
-questionid_1 = {parent: questionid_None,text: { name: 'Choix : r', desc : 'Titre : Ton personnage est-il réel ? Personnages restants : 2182 Personnage median : Samir Loussif '}, collapsed : true};
+questionid_1 = {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true};
 questionid_2 = {parent: questionid_1,text: { name: 'Choix : o', desc : 'Titre : Ton personnage est-il français ? Personnages restants : 1416 Personnage median : Samir Loussif '}, collapsed : true};
 questionid_3 = {parent: questionid_2,text: { name: 'Choix : o', desc : 'Titre : Ton personnage est-il décédé ? Personnages restants : 1409 Personnage median : Samir Loussif '}, collapsed : true};
 questionid_259552 = {parent: questionid_2,text: { name: 'Choix : n', desc : 'Titre : Ton personnage est-il américain ? Personnages restants : 1364 Personnage median : Samir Loussif '}, collapsed : true};
