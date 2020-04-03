@@ -1,0 +1,6 @@
+Pour faire simple, "resdatatot.txt", c'est le fichier créer par Nathan sur MySQL et qui récupère les les réponses des questions pour chaque perso
+et "resquestion.txt" c'est la liste des questions
+
+Ensuite, le fichier "test_mis_en_page_res.py" crée un "fichier test_des_res.csv" contenant toutes les infos des personnages sous un bon format
+
+et pour finir, "MonTestPCA.py" va utiliser le fichier csv pour faire une PCA et l'afficher sur la console
