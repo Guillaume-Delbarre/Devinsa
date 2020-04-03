@@ -74,8 +74,8 @@ def compterPerso(rangQuestion,matricePerso,choix):
     return res
 
 def avoirRangQuestion(id_question,matricePerso):          
-    for i in range(len(matricePersoQuestion[0])):       
-        if(question==matricePersoQuestion[0][i][4:]):
+    for i in range(len(matricePerso[0])):       
+        if(question==matricePerso[0][i][4:]):
             return i
     return -1
 
@@ -92,7 +92,6 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         choixOui = []
         choixNon = []
         for i in range(len(questionsFilles)):
-            print(questionsFilles)
             if questionsFilles[i][2]=='o':
                 choixOui = questionsFilles[i]
             elif questionsFilles[i][2] =='n':
@@ -249,6 +248,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
+    print("end\n")
     
 main(curseur)
 
