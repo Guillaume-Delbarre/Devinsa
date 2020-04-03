@@ -97,16 +97,16 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
             elif questionsFilles[i][3] =='n':
                 choixNon = questionsFilles[i]
             else:
-                print("Error")
+                print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestionOui,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestionNon, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoNon)
         elagagePerso(choixNon,app_tree,matricePersoOui)
-        return chart_config
+        return
     else:
-        print("Error")
+        print("Error 2 ")
         return
                 
         
@@ -180,7 +180,7 @@ def elaguer_app_tree(app_tree,question,res):
         elaguer_app_tree(aux,fils[1],res)
         return res
     else:
-        print("Error\n")
+        print("Error 1 \n")
         return res
 
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
