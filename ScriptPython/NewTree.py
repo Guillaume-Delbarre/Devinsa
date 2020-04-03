@@ -77,7 +77,9 @@ def compterPerso(rangQuestion,matricePerso,choix):
     return res
 
 def avoirRangQuestion(id_question,matricePerso):
+    print (id_question)
     for i in range(len(matricePerso[0])):
+        print(matricePerso[0][i])
         if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
