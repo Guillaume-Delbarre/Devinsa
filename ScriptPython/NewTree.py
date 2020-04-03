@@ -75,9 +75,10 @@ def compterPerso(rangQuestion,matricePerso,choix):
 
 def avoirRangQuestion(id_question,matricePerso):          
     for i in range(len(matricePerso[0])):       
-        if(question==matricePerso[0][i][4:]):
+        if(id_question==matricePerso[0][i]):
             return i
-    return -1
+    print("Error 4")
+    return
 
 def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):
