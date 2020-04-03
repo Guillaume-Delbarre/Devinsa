@@ -11,7 +11,7 @@ chart_config = [
 connectors: { type: 'step' },
  node: { HTMLclass: 'nodeExample1' },
  animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700,connectorsAnimation: "bounce", connectorsSpeed: 700 }},
- questionid_1,questionid_1,
+questionid_1,
 questionid_2,
 questionid_3,
 questionid_259552,
