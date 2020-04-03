@@ -58,6 +58,7 @@ def creerMatrice(ligne,colonne):
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
+    print(rangQuestion)
     res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
         rapport = 0
