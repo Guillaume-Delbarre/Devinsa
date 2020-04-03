@@ -100,6 +100,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
             else:
                 print("Error 3")
                 return
+        print(question)
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         print (rangQuestion)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
