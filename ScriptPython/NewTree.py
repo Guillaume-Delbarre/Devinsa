@@ -87,7 +87,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+matricePerso[rangPersoMedian][0]+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
-    if(len(QuestionsFilles)==0):
+    if(len(questionsFilles)==0):
         return
     elif (len(questionsFilles==2)):
         choixOui = []
