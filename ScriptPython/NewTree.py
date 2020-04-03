@@ -79,8 +79,7 @@ def avoirRangQuestion(id_question,matricePerso):
             return i
     return -1
 
-def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
-    chart_config += "questionid_"+str(question[0])+",\n"
+def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
     else:
@@ -103,8 +102,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestionOui,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestionNon, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoNon,chart_config)
-        elagagePerso(choixNon,app_tree,matricePersoOui,chart_config)
+        elagagePerso(choixOui,app_tree,matricePersoNon)
+        elagagePerso(choixNon,app_tree,matricePersoOui)
         return chart_config
     else:
         print("Error")
@@ -216,6 +215,12 @@ def remplir_matricePerso(matricePerso):
                 matricePerso[i][j] = (0,0)
     return res
 
+def creer_chart_config(app_tree):
+    res = ""
+    for i in range(len(app_tree)):
+        res += "questionid_"+str(app_tree[i][0])+",\n"
+    return res
+
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
@@ -236,7 +241,8 @@ def main(curseur):
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
-    chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
+    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
+    chart_config = creer_chart_config(app_tree)
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
