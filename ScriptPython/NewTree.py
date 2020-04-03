@@ -67,6 +67,8 @@ def compterPerso(rangQuestion,matricePerso,choix):
             rapport = yes_count/no_count
         elif choix == 'n' and yes_count!=0:
             rapport = no_count/yes_count
+        elif yes_count==0 and no_count==0:
+            rapport = 0
         else:
             rapport = 1
         if rapport<0.75:
