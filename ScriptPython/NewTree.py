@@ -62,8 +62,8 @@ def compterPerso(rangQuestion,matricePerso,choix):
     res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
         rapport = 1
-        yes_count = matricePerso[i][rangQuestion][1]
-        no_count = matricePerso[i][rangQuestion+1][1]
+        yes_count = matricePerso[i][rangQuestion][0]
+        no_count = matricePerso[i][rangQuestion][1]
         if choix =='o' and no_count!=0:
             rapport = yes_count/no_count
         elif choix == 'n' and yes_count!=0:
@@ -128,7 +128,8 @@ def median(matrice):
     summ = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-            summ += matrice[i][j][0]
+            summ += matrice[i][j][2]
+            summ += matrice[i][j][3]
         summ = summ/(len(matrice)-1)
         med.append(summ)
         summ = 0
@@ -140,13 +141,15 @@ def carre(x):
 def proxi(med,matrice):
     dist_aux = 0
     for j in range(1,len(matrice[0])):
-        dist_aux += carre(med[j]-float(matrice[1][j][0]))
+        dist_aux += carre(med[j]-float(matrice[1][j][2]))
+        dist_aux += carre(med[j]-float(matrice[1][j][3]))
     dist = dist_aux
     dist_aux = 0
     rang = 1
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
-            dist_aux += carre(med[j]-float(matrice[i][j][0]))
+            dist_aux += carre(med[j]-float(matrice[i][j][2]))
+            dist_aux += carre(med[j]-float(matrice[i][j][3]))
         if(dist_aux<dist):
             dist = dist_aux
             rang = i
@@ -197,13 +200,10 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
         res[0][i] = liste_questions[i][0]
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
-        for j in range(1,len(res[0]),2):
+        for j in range(1,len(res[0])):
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
-                    res[i+1][j] = (app_answer[k][4],app_answer[k][2])
-                    res[i+1][j+1] = (app_answer[k][5],app_answer[k][3])
-    print (res[len(res)-1][0])
-    print (app_item[len(app_item)-1][1])
+                    res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
     return res
     
 
@@ -244,7 +244,6 @@ def main(curseur):
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    liste_questions = modifier_liste_questions(liste_questions)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     matricePerso = remplir_matricePerso(matricePerso)
     file = "../Web/Arbre_Binaire/Treejavascript.js"
