@@ -89,7 +89,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
     questionsFilles = getfils(question[0],app_tree)
     if(len(QuestionsFilles)==0):
         return
-    elif (len(QuestionsFilles==2)):
+    elif (len(questionsFilles==2)):
         choixOui = []
         choixNon = []
         for i in range(len(questionsFilles)):
