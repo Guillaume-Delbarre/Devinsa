@@ -74,9 +74,7 @@ def compterPerso(rangQuestion,matricePerso,choix):
     return res
 
 def avoirRangQuestion(id_question,matricePerso):
-    print(id_question)
     for i in range(len(matricePerso[0])):
-        print (matricePerso[0][i])
         if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
@@ -160,6 +158,7 @@ def garder_questions_arbre(app_tree,app_question):
         for j in range(len(app_question)):
             if aux[i]==app_question[j][0]:
                 res.append(app_question[j])
+    print(res)
     return res
 
 #Fonction qui permet de garder les reponses dune liste de questions
