@@ -108,8 +108,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoNon,ecriture)
-        elagagePerso(choixNon,app_tree,matricePersoOui,ecriture)
+        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture)
+        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture)
         return
     else:
         print("Error 2 ")
@@ -245,7 +245,7 @@ def main(curseur):
     print (matricePerso[0][1])
     print (matricePerso[25][0],matricePerso[25][1])
     print (matricePerso[34][0],matricePerso[34][1])
-    """file = "../Web/Arbre_Binaire/Treejavascript.js"
+    file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
     elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
@@ -255,7 +255,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
-    print("end\n")"""
+    print("end\n")
     
 main(curseur)
 
