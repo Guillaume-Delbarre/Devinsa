@@ -2,7 +2,7 @@
 
 import pandas as pd
 import numpy as np
-from questionsCaracteristiques import moyennesClusters
+from questionsCaracteristiques import sommesClusters
 from scipy.spatial.distance import pdist, cdist
 from sklearn.metrics import pairwise_distances
 
@@ -33,7 +33,7 @@ def questionCaracPerso(perso, sort=False):
 
 def differenceFromCluster(perso):
     # On recupere le tableau des moyennes par question et par cluster et le tableau du perso
-    moy = moyennesClusters()
+    moy = sommesClusters()
     questionPerso = questionCaracPerso(perso, sort=False)
     # On recupere le numero de cluster du personnage
     numCluster = questionPerso["Cluster"].values[0]

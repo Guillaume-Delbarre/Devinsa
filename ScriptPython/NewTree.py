@@ -58,56 +58,64 @@ def creerMatrice(ligne,colonne):
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
-    res = recopieMatrice(matricePerso)
+    print(rangQuestion)
+    res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
-        rapport = 0
-        yes_count = matricePerso[i][rangQuestion][1]
-        no_count = matricePerso[i][rangQuestion][2]
+        rapport = 1
+        yes_count = matricePerso[i][rangQuestion][0]
+        no_count = matricePerso[i][rangQuestion][1]
         if choix =='o' and no_count!=0:
             rapport = yes_count/no_count
         elif choix == 'n' and yes_count!=0:
             rapport = no_count/yes_count
+        elif yes_count==0 and no_count==0:
+            rapport = 0
         else:
             rapport = 1
         if rapport<0.75:
             res.remove(matricePerso[i])
     return res
 
-def avoirRangQuestion(id_question,matricePerso):          
-    for i in range(len(matricePersoQuestion[0])):       
-        if(question==matricePersoQuestion[0][i][4:]):
+def avoirRangQuestion(id_question,matricePerso):
+    print (id_question)
+    for i in range(len(matricePerso[0])):
+        print(matricePerso[0][i])
+        if(id_question==matricePerso[0][i]):
             return i
-    return -1
+    print("Error 4")
+    return
 
-def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
-    chart_config += "questionid_"+str(question[0])+",\n"
-    if(len(matricePerso)==1):
-        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
+def elagagePerso(question,app_tree,matricePerso,ecriture):
+    if(len(matricePerso)==1):        
+        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
     else:
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
-        ecriture.write("questionid_"+question[0]+" = {parent: questionid_"+question[1]+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+str(matricePerso[rangPersoMedian][0])+"'}, collapsed : true};\n")
+        if(question[0]==1):
+            ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
+        else:
+            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+matricePerso[rangPersoMedian][0]+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
-    if(len(QuestionsFilles)==0):
+    if(len(questionsFilles)==0):
         return
-    elif (len(QuestionsFilles==2)):
+    elif (len(questionsFilles)==2):
         choixOui = []
         choixNon = []
         for i in range(len(questionsFilles)):
-            if questionsFilles[i][3]=='o':
+            if questionsFilles[i][2]=='o':
                 choixOui = questionsFilles[i]
-            elif questionsFilles[i][3] =='n':
+            elif questionsFilles[i][2] =='n':
                 choixNon = questionsFilles[i]
             else:
-                print("Error")
+                print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
-        matricePersoOui = compterPerso(rangQuestionOui,matricePerso,'o')
-        matricePersoNon = compterPerso(rangQuestionNon, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoNon,res)
-        elagagePerso(choixNon,app_tree,matricePersoOui,res)
-        return chart_config
+        matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
+        matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
+        elagagePerso(choixOui,app_tree,matricePersoNon,ecriture)
+        elagagePerso(choixNon,app_tree,matricePersoOui,ecriture)
+        return
     else:
-        print("Error")
+        print("Error 2 ")
         return
                 
         
@@ -122,7 +130,8 @@ def median(matrice):
     summ = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-            summ += matrice[i][j][0]
+            summ += matrice[i][j][2]
+            summ += matrice[i][j][3]
         summ = summ/(len(matrice)-1)
         med.append(summ)
         summ = 0
@@ -134,13 +143,15 @@ def carre(x):
 def proxi(med,matrice):
     dist_aux = 0
     for j in range(1,len(matrice[0])):
-        dist_aux += carre(med[j]-float(matrice[1][j][0]))
+        dist_aux += carre(med[j]-float(matrice[1][j][2]))
+        dist_aux += carre(med[j]-float(matrice[1][j][3]))
     dist = dist_aux
     dist_aux = 0
     rang = 1
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
-            dist_aux += carre(med[j]-float(matrice[i][j][0]))
+            dist_aux += carre(med[j]-float(matrice[i][j][2]))
+            dist_aux += carre(med[j]-float(matrice[i][j][3]))
         if(dist_aux<dist):
             dist = dist_aux
             rang = i
@@ -181,39 +192,38 @@ def elaguer_app_tree(app_tree,question,res):
         elaguer_app_tree(aux,fils[1],res)
         return res
     else:
-        print("Error\n")
+        print("Error 1 \n")
         return res
 
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
-    for i in range(1,len(liste_questions)):
-        res[0][i] = liste_questions[i][0]
+    for i in range(len(liste_questions)):
+        res[0][i+1] = liste_questions[i][0]
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
-        for j in range(1,len(res[0]),2):
+        for j in range(1,len(res[0])):
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
-                    res[i+1][j] = (app_answer[k][4],app_answer[k][2])
-                    res[i+1][j+1] = (app_answer[k][5],app_answer[k][3])
+                    res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
     return res
     
 
             
 #Fonction qui permet de doubler les questions pour correspondre tfidf_oui et tfidf_non
-def modifier_liste_questions(liste_questions):
-    res = [None]*(2*len(liste_questions)-1)
-    for i in range(1,len(liste_questions)):
-        res[(2*i)-1] = liste_questions[i]
-        res[(2*i)] = liste_questions[i]
-    return res
 
 def remplir_matricePerso(matricePerso):
     res = recopierMatrice(matricePerso)
     for i in range(len(matricePerso)):
         for j in range(len(matricePerso[0])):
             if matricePerso[i][j]==None:
-                matricePerso[i][j] = (0,0)
+                matricePerso[i][j] = (0,0,0,0)
+    return res
+
+def creer_chart_config(app_tree):
+    res = ""
+    for i in range(len(app_tree)):
+        res += "questionid_"+str(app_tree[i][0])+",\n"
     return res
 
 def main(curseur):
@@ -229,19 +239,19 @@ def main(curseur):
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    liste_questions = modifier_liste_questions(liste_questions)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     matricePerso = remplir_matricePerso(matricePerso)
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
-    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n questionid_1,"
-    chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
+    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
+    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
+    chart_config = creer_chart_config(app_tree)
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
+    print("end\n")
     
 main(curseur)
 
