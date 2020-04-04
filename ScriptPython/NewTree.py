@@ -132,8 +132,7 @@ def median(matrice):
             summ2 += matrice[i][j][3]
         summ1 = summ1/(len(matrice)-1)
         summ2 = summ2/(len(matrice)-1)
-        med.append([summ1,summ2])
-        med.append(summ2)
+        med.append((summ1,summ2))
         summ1,summ2 = 0,0
     return med
         
