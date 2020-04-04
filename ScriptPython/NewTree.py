@@ -1,5 +1,4 @@
 import mysql.connector
-import re
 
 
 #APP_ITEM
@@ -11,9 +10,9 @@ import re
 #APP_QUESTION
 #[id,title]
 
-"""base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
+base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
 
-curseur = base.cursor()"""
+curseur = base.cursor()
 
 def extrait_app_item(cursor):
     res = []
@@ -257,7 +256,7 @@ def main(curseur):
     ecriture.close
     print("end\n")
     
-print(miseEnFormeText("(personnaage film d'animation)"))
+main(curseur)
 
 
 
