@@ -1,7 +1,11 @@
-Cluster,P0,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10
-0,Abe Shinzo ,Ada Lovelace (comtesse brittanique programmeuse),Adam Ondra,Adele,Aja Naomi King (actrice américaine),Al Capone (gangster américain),Al-Khwarizmi (mathématicien arabe du 10e siècle),Alan Turing,Alan Walker (DJ  britannico-norvégien),Alex Thompson,Alexandre le Grand 
-1, Samir Loussif ,123,A rien lol,Abel ,Abigail Marston ,Ahmed Chawki ,Ahmed mansour ,Aissa Mandi	 ,Aleister Crowley ,Amadou Toumani Touré ,Amaterasu Okami 
-2,Adolf Hitler,Albert Einstein,Astérix (personnage de BD),Barack Obama,Batman,Charles de Gaulle ,Dark Vador,Donald Trump,Emmanuel Macron (président de la République Française),François Hollande,Harry Potter (personnage de livre)
-3,Adémar Prothon (étudiant INSA),Alain Delon,Alain Prost,Angela Merkel,Antoine de Caunes ,Antoine Griezmann (Footballeur français),Arnold Schwarzenegger,Bernard-Henry Lévy (philosophe imposteur),Bill Gates (Fondateur de Microsoft),Bob Marley,Cédric Villani
-4,aa,Abel Jabri,Abel Jabri (apiculteur de l'INSA),Aimé Césaire (écrivain),Alain Juppé,Alain Le Boulch,Alain Soral (Essayiste),Albert Camus,Albert Jacquard (biologiste français),Alex Keryhuel (étudiant INSA),Alexandre Benalla
-5,	Onyx , zero (personnage de jeu),Abraracourcix,Actarus,Adibou,Aelita Stones ,Agent 47,Ahri (jeu League of Legends),Akinator,Aladdin,Albator
+0,1,2,3,4,5
+Abe Shinzo , Samir Loussif ,Adolf Hitler,Adémar Prothon (étudiant INSA),aa,	Onyx 
+Ada Lovelace (comtesse brittanique programmeuse),123,Albert Einstein,Alain Delon,Abel Jabri, zero (personnage de jeu)
+Adam Ondra,A rien lol,Astérix (personnage de BD),Alain Prost,Abel Jabri (apiculteur de l'INSA),Abraracourcix
+Adele,Abel ,Barack Obama,Angela Merkel,Aimé Césaire (écrivain),Actarus
+Aja Naomi King (actrice américaine),Abigail Marston ,Batman,Antoine de Caunes ,Alain Juppé,Adibou
+Al Capone (gangster américain),Ahmed Chawki ,Charles de Gaulle ,Antoine Griezmann (Footballeur français),Alain Le Boulch,Aelita Stones 
+Al-Khwarizmi (mathématicien arabe du 10e siècle),Ahmed mansour ,Dark Vador,Arnold Schwarzenegger,Alain Soral (Essayiste),Agent 47
+Alan Turing,Aissa Mandi	 ,Donald Trump,Bernard-Henry Lévy (philosophe imposteur),Albert Camus,Ahri (jeu League of Legends)
+Alan Walker (DJ  britannico-norvégien),Aleister Crowley ,Emmanuel Macron (président de la République Française),Bill Gates (Fondateur de Microsoft),Albert Jacquard (biologiste français),Akinator
+Alex Thompson,Amadou Toumani Touré ,François Hollande,Bob Marley,Alex Keryhuel (étudiant INSA),Aladdin

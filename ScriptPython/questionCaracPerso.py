@@ -74,17 +74,14 @@ def printQuestionDiffCluster(nbQuestion=10):
     
 def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
     global df
-    file = open("../Donnees/persoDistants.csv","w",encoding='utf-8')
-    file.write("Cluster,")
-    for i in range(nbPerso):
-        file.write("P"+str(i)+',')
-    file.write('P'+str(nbPerso)+'\n')
+    idx=[i for i in range(nbCluster)]
+    col = [i for i in range(nbPerso)]
+    dfPerso = pd.DataFrame(index=idx,columns=col)
     for i in range(nbCluster):
         listePerso = persoExtremes(i,metric, medoid=False, nbPerso=nbPerso)
-        file.write(str(i)+',')
-        for j in range(nbPerso):
-            file.write(listePerso[j]+',')
-        file.write(listePerso[nbPerso]+'\n')
+        dfPerso.iloc[i]=listePerso
+    dfPerso=dfPerso.T
+    dfPerso.to_csv("../Donnees/persoDistants.csv",index=False)
 
 
 
