@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<4")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<7")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -241,9 +241,6 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     matricePerso = remplir_matricePerso(matricePerso)
-    print (matricePerso[0][1])
-    print (matricePerso[25][0],matricePerso[25][1])
-    print (matricePerso[34][0],matricePerso[34][1])
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
