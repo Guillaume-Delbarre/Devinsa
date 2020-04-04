@@ -61,7 +61,6 @@ def tableQuest(nbCluster=6, nbQuestion=14):
         dfFile.loc[str(count)+" personnages"]=score
 
     dfFile=dfFile.T
-    print(dfFile)
     return dfFile
 
 def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyennes par question
