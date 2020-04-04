@@ -8,64 +8,20 @@ medoids = None
 df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 
-def printQuestionCarac(nbCluster=6,nbQuestion=4):
+def printQuestionCarac(nbCluster=6,nbQuestion=14):
     global df
+    if(nbQuestion % 2)!=0:
+        raise ValueError("Veuillez entrer un nombre pair de questions")
     file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
-    agg = sommesClusters()
-    df.sort_values(by='Clusters', inplace=True)
+    dfFile = tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion)
+    #df.sort_values(by='Clusters', inplace=True)
     #On récupère les médoides dans un tableau
-    medoids = df.loc[df['Medoid']==1].index.values
-    #Changement de sens pour le tableau donc pour le csv aussi
-    """
-    #ecriture de l'entête
-    file.write("Cluster,Medoid,")
-    for i in range(nbQuestion-1):
-        file.write("Q"+str(i)+",")
-    file.write("Q"+str(nbQuestion-1)+"\n")
+    #medoids = df.loc[df['Medoid']==1].index.values
+    for i in range()
 
-    for i in range(1,nbCluster+1):
-        #Pour un cluster donné, on ordonne inversement les question en fonction du score TF-IDF
-        agg_sorted = agg.sort_values(by=i, axis=1, ascending=False)
-        file.write(str(i-1)+","+medoids[i-1]+",")
-        j=0
-        for column in agg_sorted.columns:
-            if j>=nbQuestion:
-                break
-            else: 
-                file.write(column+",")
-            j=j+1
-        file.write("\n")
-    """
+    
+    
 
-    #Nouvelle manière :
-
-    #écriture de l'entête
-    for i in range(nbCluster-1) :
-        file.write("Groupe " + str(i) + ',')
-    file.write("Groupe " + str(nbCluster-1) + '\n')
-    #écriture des médoids
-    for i in range(nbCluster-1):
-        file.write(medoids[i] + ',')
-    file.write(medoids[nbCluster-1] + '\n')
-    dfFile=pd.DataFrame()
-    #écriture des questions caract
-    agg = agg.T
-    for i in range(nbCluster):
-        count = len(df[df["Clusters"]==i])
-        
-        aggTrie = agg.reindex(agg[i].abs().sort_values(ascending=False).index)
-        j=0
-        k=0
-        while((j+k)<nbQuestion):
-            for index,row in aggTrie.iterrows():
-                if(j<(nbQuestion/2+1) ):
-                    dfFile[str(i)]=index
-                    print(aggTrie.loc[index])
-                    dfFile[str(count)]=aggTrie.iloc[[index]].values
-                    j+=1
-                elif(k<(nbQuestion/2+1)):
-                    
-                    k+=1
 
 
     """
@@ -76,7 +32,42 @@ def printQuestionCarac(nbCluster=6,nbQuestion=4):
         file.write(agg_tab[nbCluster-1][j] + '\n')
     """
 
+def tableQuest(nbCluster=6, nbQuestion=14):
+    global df
+    agg = sommesClusters()
+    agg = agg.T
+    col=[i for i in range(nbQuestion)]
+    idx=[]
+    
+    for i in range(nbCluster):
+        count = len(df[df["Clusters"]==i])
+        idx.append("Groupe "+str(i))
+        idx.append(str(count)+" personnages")
 
+    dfFile=pd.DataFrame(index=idx,columns=col)
+    for i in range(nbCluster):
+        count = len(df[df["Clusters"]==i])
+        aggTrie = agg.reindex(agg[i].abs().sort_values(ascending=False).index)
+        j=0
+        k=0
+        quest=[]
+        score=[]
+        while((j+k)<nbQuestion):
+            for index,row in aggTrie.iterrows():
+                if(j<(nbQuestion/2) and row[i]>=0):
+                    quest.append(str(index))
+                    score.append(row[i])
+                    j+=1
+                elif(k<(nbQuestion/2) and row[i]<0):
+                    quest.append(str(index))
+                    score.append(row[i])
+                    k+=1
+        dfFile.loc["Groupe "+str(i)]=quest
+        dfFile.loc[str(count)+" personnages"]=score
+
+    dfFile=dfFile.T
+    print(dfFile)
+    return dfFile
 
 def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyennes par question
     global df
@@ -101,5 +92,4 @@ def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyenn
     
 
 if __name__ == '__main__':
-    printQuestionCarac()
-    
+    tableQuest()
