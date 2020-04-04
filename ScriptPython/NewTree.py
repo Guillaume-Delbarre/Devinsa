@@ -240,7 +240,8 @@ def main(curseur):
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     matricePerso = remplir_matricePerso(matricePerso)
     print (matricePerso[0][1])
-    print (matricePerso[1][0],matricePerso[1][1])
+    print (matricePerso[25][0],matricePerso[25][1])
+    print (matricePerso[34][0],matricePerso[34][1])
     """file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
