@@ -2,7 +2,7 @@
 
 import pandas as pd
 import numpy as np
-from questionsCaracteristiques import sommesClusters
+from questionsCaracteristiques import sommesClusters, persoExtremes
 from scipy.spatial.distance import pdist, cdist
 from sklearn.metrics import pairwise_distances
 
@@ -30,7 +30,7 @@ def questionCaracPerso(perso, sort=False):
     return questionPerso
     
 
-
+"""
 def differenceFromCluster(perso):
     # On recupere le tableau des moyennes par question et par cluster et le tableau du perso
     moy = sommesClusters()
@@ -51,7 +51,6 @@ def differenceFromCluster(perso):
         listeQuestions.append(questionPerso.iloc[[index]].index[0]) 
     return listeQuestions
 
-
 def printQuestionDiffCluster(nbQuestion=10):
     global df
     file = open("../Donnees/questionDiffCluster.csv","w",encoding='utf-8')
@@ -66,22 +65,10 @@ def printQuestionDiffCluster(nbQuestion=10):
         for j in range(nbQuestion):
             file.write(questionPerso[j]+',')
         file.write(questionPerso[nbQuestion]+'\n')
-    
+"""
     
 
-def persoDistants(numCluster, metric='cosine'): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
-    moy = moyennesClusters()
-    moy.fillna(0, inplace=True)
-    moy = moy[moy.index==numCluster]
-    persoCluster = df.copy()
-    persoCluster = persoCluster[persoCluster['Clusters']==numCluster]
-    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:902], metric))
-    res.sort_values(by=0,axis=1, inplace=True, ascending=False)
-    res= res.T
-    listePerso = []
-    for index, row in res.iterrows():
-        listePerso.append(persoCluster.iloc[[index]].index[0])
-    return listePerso
+
 
 
     
@@ -93,7 +80,7 @@ def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
         file.write("P"+str(i)+',')
     file.write('P'+str(nbPerso)+'\n')
     for i in range(nbCluster):
-        listePerso = persoDistants(i,metric)
+        listePerso = persoExtremes(i,metric, medoid=False, nbPerso=nbPerso)
         file.write(str(i)+',')
         for j in range(nbPerso):
             file.write(listePerso[j]+',')
@@ -106,4 +93,4 @@ def printPersoDistants(nbCluster=6,nbPerso=10, metric='cosine'):
 
 
 if __name__ == '__main__':
-    printQuestionDiffCluster()
+    printPersoDistants()
