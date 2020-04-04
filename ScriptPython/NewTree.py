@@ -124,14 +124,17 @@ def recopierMatrice(matrice):
 
 def median(matrice):
     med = [0]
-    summ = 0
+    summ1 = 0
+    summ2 = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-            summ += matrice[i][j][2]
-            summ += matrice[i][j][3]
-        summ = summ/(len(matrice)-1)
-        med.append(summ)
-        summ = 0
+            summ1 += matrice[i][j][2]
+            summ2 += matrice[i][j][3]
+        summ1 = summ1/(len(matrice)-1)
+        summ2 = summ2/(len(matrice)-1)
+        med.append([summ1,summ2])
+        med.append(summ2)
+        summ1,summ2 = 0,0
     return med
         
 def carre(x):
@@ -140,15 +143,15 @@ def carre(x):
 def proxi(med,matrice):
     dist_aux = 0
     for j in range(1,len(matrice[0])):
-        dist_aux += carre(med[j]-float(matrice[1][j][2]))
-        dist_aux += carre(med[j]-float(matrice[1][j][3]))
+        dist_aux += carre(med[j][0]-float(matrice[1][j][2]))
+        dist_aux += carre(med[j][1]-float(matrice[1][j][3]))
     dist = dist_aux
     dist_aux = 0
     rang = 1
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
-            dist_aux += carre(med[j]-float(matrice[i][j][2]))
-            dist_aux += carre(med[j]-float(matrice[i][j][3]))
+            dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
+            dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
         if(dist_aux<dist):
             dist = dist_aux
             rang = i
