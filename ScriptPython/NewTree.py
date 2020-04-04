@@ -58,7 +58,6 @@ def creerMatrice(ligne,colonne):
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
-    print(rangQuestion)
     res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
         rapport = 1
@@ -77,9 +76,7 @@ def compterPerso(rangQuestion,matricePerso,choix):
     return res
 
 def avoirRangQuestion(id_question,matricePerso):
-    print (id_question)
     for i in range(len(matricePerso[0])):
-        print(matricePerso[0][i])
         if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
@@ -109,8 +106,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
                 print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
-        matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
-        matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
+        matricePersoOui = compterPerso(rangQuestion,matricePerso,'n')
+        matricePersoNon = compterPerso(rangQuestion, matricePerso,'o')
         elagagePerso(choixOui,app_tree,matricePersoNon,ecriture)
         elagagePerso(choixNon,app_tree,matricePersoOui,ecriture)
         return
@@ -205,6 +202,7 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
         for j in range(1,len(res[0])):
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
+                    #               (yes_count,no_count,yes_tfidf,no_tfidf)
                     res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
     return res
     
