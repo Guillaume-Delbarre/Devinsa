@@ -12,25 +12,16 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14):
     global df
     if(nbQuestion % 2)!=0:
         raise ValueError("Veuillez entrer un nombre pair de questions")
-    file = open("../Donnees/infoClusters.csv","w",encoding='utf-8')
     dfFile = tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion)
     #df.sort_values(by='Clusters', inplace=True)
     #On récupère les médoides dans un tableau
     #medoids = df.loc[df['Medoid']==1].index.values
-    for i in range()
+    
+    dfFile.to_csv("../Donnees/infoClusters.csv", mode='w')
 
     
     
 
-
-
-    """
-    for j in range(nbQuestion):
-        for i in range(nbCluster-1):
-            #print(agg_tab[i])
-            file.write(agg_tab[i][j]+',')
-        file.write(agg_tab[nbCluster-1][j] + '\n')
-    """
 
 def tableQuest(nbCluster=6, nbQuestion=14):
     global df
@@ -55,11 +46,15 @@ def tableQuest(nbCluster=6, nbQuestion=14):
         while((j+k)<nbQuestion):
             for index,row in aggTrie.iterrows():
                 if(j<(nbQuestion/2) and row[i]>=0):
-                    quest.append(str(index))
+                    ind=index.replace("\n","")
+                    ind=ind.replace('"','')
+                    quest.append(str(ind))
                     score.append(row[i])
                     j+=1
                 elif(k<(nbQuestion/2) and row[i]<0):
-                    quest.append(str(index))
+                    ind=index.replace("\n","")
+                    ind=ind.replace('"','')
+                    quest.append(str(ind))
                     score.append(row[i])
                     k+=1
         dfFile.loc["Groupe "+str(i)]=quest
@@ -92,4 +87,4 @@ def sommesClusters(nbCluster=6): #retourne un tableau (nbCluster,902) des moyenn
     
 
 if __name__ == '__main__':
-    tableQuest()
+    printQuestionCarac()
