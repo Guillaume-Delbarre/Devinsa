@@ -106,8 +106,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
                 print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
-        matricePersoOui = compterPerso(rangQuestion,matricePerso,'n')
-        matricePersoNon = compterPerso(rangQuestion, matricePerso,'o')
+        matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
+        matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoNon,ecriture)
         elagagePerso(choixNon,app_tree,matricePersoOui,ecriture)
         return
@@ -239,7 +239,9 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     matricePerso = remplir_matricePerso(matricePerso)
-    file = "../Web/Arbre_Binaire/Treejavascript.js"
+    print (matricePerso[0][1])
+    print (matricePerso[1][0],matricePerso[1][1])
+    """file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
     elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
@@ -249,7 +251,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
 
