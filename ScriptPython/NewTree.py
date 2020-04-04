@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<4")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<7")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -58,7 +58,6 @@ def creerMatrice(ligne,colonne):
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
-    print(rangQuestion)
     res = recopierMatrice(matricePerso)
     for i in range(1,len(matricePerso)):
         rapport = 1
@@ -76,10 +75,11 @@ def compterPerso(rangQuestion,matricePerso,choix):
             res.remove(matricePerso[i])
     return res
 
+def miseEnFormeText(text):
+    return text.replace('\'',"\\'")
+
 def avoirRangQuestion(id_question,matricePerso):
-    print (id_question)
     for i in range(len(matricePerso[0])):
-        print(matricePerso[0][i])
         if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
@@ -87,13 +87,13 @@ def avoirRangQuestion(id_question,matricePerso):
 
 def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):        
-        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : 0'}, collapsed : true};\n")
+        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+miseEnFormeText(question[2])+"', desc : 'Titre : "+miseEnFormeText(question[4])+" Personnages restants : 0'}, collapsed : true};\n")
     else:
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
         if(question[0]==1):
-            ecriture.write("questionid_1 = {text: { name: '"+app_tree[0][4]+"' }, collapsed : true};\n")
+            ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
-            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+question[2]+"', desc : 'Titre : "+question[4]+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+matricePerso[rangPersoMedian][0]+"'}, collapsed : true};\n")
+            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",text: { name: 'Choix : "+miseEnFormeText(question[2])+"', desc : 'Titre : "+miseEnFormeText(question[4])+" Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(matricePerso[rangPersoMedian][0])+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         return
@@ -111,8 +111,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoNon,ecriture)
-        elagagePerso(choixNon,app_tree,matricePersoOui,ecriture)
+        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture)
+        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture)
         return
     else:
         print("Error 2 ")
@@ -127,14 +127,16 @@ def recopierMatrice(matrice):
 
 def median(matrice):
     med = [0]
-    summ = 0
+    summ1 = 0
+    summ2 = 0
     for j in range(1,len(matrice[0])):
         for i in range(1,len(matrice)):
-            summ += matrice[i][j][2]
-            summ += matrice[i][j][3]
-        summ = summ/(len(matrice)-1)
-        med.append(summ)
-        summ = 0
+            summ1 += matrice[i][j][2]
+            summ2 += matrice[i][j][3]
+        summ1 = summ1/(len(matrice)-1)
+        summ2 = summ2/(len(matrice)-1)
+        med.append((summ1,summ2))
+        summ1,summ2 = 0,0
     return med
         
 def carre(x):
@@ -143,15 +145,15 @@ def carre(x):
 def proxi(med,matrice):
     dist_aux = 0
     for j in range(1,len(matrice[0])):
-        dist_aux += carre(med[j]-float(matrice[1][j][2]))
-        dist_aux += carre(med[j]-float(matrice[1][j][3]))
+        dist_aux += carre(med[j][0]-float(matrice[1][j][2]))
+        dist_aux += carre(med[j][1]-float(matrice[1][j][3]))
     dist = dist_aux
     dist_aux = 0
     rang = 1
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
-            dist_aux += carre(med[j]-float(matrice[i][j][2]))
-            dist_aux += carre(med[j]-float(matrice[i][j][3]))
+            dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
+            dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
         if(dist_aux<dist):
             dist = dist_aux
             rang = i
@@ -205,6 +207,7 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
         for j in range(1,len(res[0])):
             for k in range(len(app_answer)):
                 if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
+                    #               (yes_count,no_count,yes_tfidf,no_tfidf)
                     res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
     return res
     
