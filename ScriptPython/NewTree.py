@@ -85,22 +85,16 @@ def avoirRangQuestion(id_question,matricePerso):
     print("Error 4")
     return
 
-def levelcolor(choice):
-    if choice=='o':
-        return "green"
-    if choice=='n':
-        return "red"
-
 def elagagePerso(question,app_tree,matricePerso,ecriture):
     color = levelcolor(question[2])
     if(len(matricePerso)==1):        
-        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",level : '"+color+"',text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
+        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
     else:
         rangPersoMedian = proxi(median(matricePerso),matricePerso)
         if(question[0]==1):
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
-            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+",level : '"+color+"',text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(matricePerso[rangPersoMedian][0])+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
+            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(matricePerso[rangPersoMedian][0])+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         return
