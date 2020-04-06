@@ -31,6 +31,17 @@
             .enter()
           .append('td')
             .text(function (d) { return d.value })
+            .style('color', function(d) { 
+              if( (d.value).includes('.') ){
+                if( (d.value).includes('-') ){
+                  return 'red'
+                } else {
+                  return 'green'
+                }
+              } else {
+                return 'black'
+              }
+            })
       
         return table;
       }
