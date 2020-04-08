@@ -50,13 +50,13 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
                     quest.append(str(ind))
-                    score.append(row[i])
+                    score.append(int(row[i]))
                     j+=1
                 elif(k<(nbQuestion/2) and row[i]<0):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
                     quest.append(str(ind))
-                    score.append(row[i])
+                    score.append(int(row[i]))
                     k+=1
         dfFile.loc["Groupe "+str(i)]=quest
         dfFile.loc[str(count)+" personnages"]=score
