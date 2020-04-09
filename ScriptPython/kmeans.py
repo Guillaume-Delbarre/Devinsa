@@ -99,7 +99,7 @@ def kmeansAlgo(n=6):
     
     #Matrice distance au centre ?
     matrice = kmeans10.fit_transform(df)
-    print(y_kmeans10)
+    #print(y_kmeans10)
     listemedoid = medoid(matrice, y_kmeans10, n)
     #print(listemedoid)
 

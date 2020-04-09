@@ -69,7 +69,7 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     global df
     somme = df.sort_values(by='Clusters')
     
-    del somme['Medoid']
+    #del somme['Medoid']
     #Au lieu d'aller de 0 à 5, les clusters iront de 1 à 6
     for k in range(nbCluster,0,-1):
         somme['Clusters'].replace(k-1,k, inplace=True)

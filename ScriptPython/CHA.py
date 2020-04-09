@@ -6,7 +6,7 @@ from sklearn.cluster import AgglomerativeClustering
 
 def classHierarchique(n=0) :
     df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
-    print(df['Noms'])
+    #print(df)
 
     clt = AgglomerativeClustering(n_clusters=5).fit(df)
 
@@ -14,33 +14,24 @@ def classHierarchique(n=0) :
     for s in clt.labels_ :
         file.write(str(s) + '\n')
     file.close
-    print(clt.labels_)
-
-def findMedoid(data,listClust,nbClust):
-    tabMed = []
-    for i in range(nbClust):
-        for j in range(len(listClust)):
-            print()
+    #print(clt.labels_)
+    ecritcluster(clt.labels_)
 
 
-
-def ecritcluster(tabCluster,listMedoid):
+def ecritcluster(tabCluster):
     fileentree = open("../Donnees/Personnages.csv","r",encoding='utf-8')
     filesortie = open("../Donnees/kmeans.csv","w",encoding='utf-8')
-
     taille = len(tabCluster)
     i=-1
-
     for line in fileentree:
         if (i<taille) :
             if (i<0) :
-                filesortie.write(line.replace("\n","") + ";Clusters;Medoid\n")
+                filesortie.write(line.replace("\n","") + ";Clusters\n")
             else :
-                if i in listMedoid :
-                    filesortie.write(line.replace("\n","") + ";" + str(tabCluster[i]) + ";1\n")
-                    #print(i)
-                else :
-                    filesortie.write(line.replace("\n","") + ";" + str(tabCluster[i]) + ";0\n")
+                filesortie.write(line.replace("\n","") + ";" + str(tabCluster[i]) + "\n")
         i += 1
 
-classHierarchique()
+#classHierarchique()
+
+if __name__ == '__main__':
+    classHierarchique(4)

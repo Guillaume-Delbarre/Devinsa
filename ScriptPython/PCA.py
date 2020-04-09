@@ -37,14 +37,14 @@ def to2D():
     x = df.loc[:, listTitres].values
     
     cluster = df.loc[:,'Clusters'].values
-    med = df.loc[:,'Medoid'].values
+    #med = df.loc[:,'Medoid'].values
     
     
     pca = TSNE(n_components=2)
     x_r = pca.fit_transform(x)
     
     file_zero = open("../Donnees/resPCA.csv","w",encoding='utf-8')
-    file_zero.write("Axe_X,Axe_Y,Name,Cluster,Medoid\n")
+    file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
     file_zero.close()
     
     file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
@@ -54,7 +54,7 @@ def to2D():
         x0 = str(x_r[i,0])
         x1 = str(x_r[i,1])
         
-        file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "," + str(med[i]) + "\n")
+        file.write(x0 + "," + x1 + "," + str(y[i]) + "," + "Groupe " + str(cluster[i]) + "\n")
     
     file.close()
 
