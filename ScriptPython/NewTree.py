@@ -178,10 +178,18 @@ def proxi(med,matrice):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
         if(dist_aux<max(dic.values())):
-           dic.pop(dic.index(max(dic.values())))
+           dic.pop(getKeysByValue(dic,(max(dic.values()))))
            dic[matrice[i][0]] = dist_aux
         dist_aux = 0
     return dic.keys()
+
+def getKeysByValue(dictOfElements, valueToFind):
+    listOfKeys = list()
+    listOfItems = dictOfElements.items()
+    for item  in listOfItems:
+        if item[1] == valueToFind:
+            listOfKeys.append(item[0])
+    return  listOfKeys
 
 
 def garder_questions_arbre(app_tree,app_question):
