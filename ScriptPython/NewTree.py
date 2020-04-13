@@ -96,12 +96,16 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):        
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
     else:
-        rangPersoMedian = proxi(median(matricePerso),matricePerso)
         if(question[0]==1):
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
+            rangPersoMedian = proxi(median(matricePerso),matricePerso)
+            perso_median = ""
+            for i in range(len(rangPersoMedian)):
+                perso_median += matricePerso[rangPersoMedian][i][0]+","
+            perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
-            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(matricePerso[rangPersoMedian][0])+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
+            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         return
@@ -151,22 +155,38 @@ def carre(x):
     return (x)*(x)
 
 def proxi(med,matrice):
-    dist_aux = 0
+    liste_dist = [0,0,0]
+    if len(matrice==4):
+        return [1,2,3]
+    elif len(matrice==3):
+        return [1,2]
+    elif len(matrice==2):
+        return [1]
     for j in range(1,len(matrice[0])):
-        dist_aux += carre(med[j][0]-float(matrice[1][j][2]))
-        dist_aux += carre(med[j][1]-float(matrice[1][j][3]))
-    dist = dist_aux
+        liste_dist[0] += carre(med[j][0]-float(matrice[1][j][2]))
+        liste_dist[0] += carre(med[j][1]-float(matrice[1][j][3]))
+        liste_dist[1] += carre(med[j][0]-float(matrice[2][j][2]))
+        liste_dist[1] += carre(med[j][1]-float(matrice[2][j][3]))
+        liste_dist[2] += carre(med[j][0]-float(matrice[3][j][2]))
+        liste_dist[2] += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
-    rang = 1
+    liste_dist.sort()
+    liste_rang = [[1,list_dist[0]],[2,list_dist[1]],[3,list_dist[2]]]
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
-        if(dist_aux<dist):
-            dist = dist_aux
-            rang = i
+        if(dist_aux<liste_dist[2]):
+            for k in range(len(liste_rang)):
+                if liste_rang[k][1] == liste_dist[2]:
+                    liste_rang[k] == [i,dist_aux]
+            liste_dist[2] = dist_aux
+            liste_dist.sort()
         dist_aux = 0
-    return rang
+    res = []
+    for k in range(len(liste_rang)):
+        res.append(liste_rang[k][0])
+    return res
 
 
 def garder_questions_arbre(app_tree,app_question):
@@ -254,7 +274,7 @@ def main(curseur):
     matricePerso = remplir_matricePerso(matricePerso)
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
-    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
+    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
     elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
     chart_config = creer_chart_config(app_tree)
     chart_config = chart_config_init + chart_config
