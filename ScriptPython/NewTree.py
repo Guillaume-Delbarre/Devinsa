@@ -101,8 +101,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         else:
             listeperso = proxi(median(matricePerso),matricePerso)
             perso_median = ""
-            for i in range(len(rangPersoMedian)):
-                perso_median += rangPersoMedian[i]+","
+            for i in range(len(listeperso)):
+                perso_median += listeperso[i]+","
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
             ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
