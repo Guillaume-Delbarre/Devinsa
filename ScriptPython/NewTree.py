@@ -174,7 +174,7 @@ def proxi(med,matrice):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
-        if(dist_aux<max(dic.values()):
+        if(dist_aux<max(dic.values())):
            dic.pop(dic.get(max.values()))
            dic[matrice[i][0]] = dist_aux
         dist_aux = 0
