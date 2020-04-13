@@ -100,9 +100,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
             rangPersoMedian = proxi(median(matricePerso),matricePerso)
-            perso_median = ""
             for i in range(len(rangPersoMedian)):
-                perso_median += matricePerso[rangPersoMedian[i]][0]+","
+                perso_median += rangPersoMedian[i]+","
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
             ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
@@ -155,7 +154,7 @@ def carre(x):
     return (x)*(x)
 
 def proxi(med,matrice):
-    liste_dist = [0,0,0]
+    dic = {}
     if len(matrice)==4:
         return [1,2,3]
     elif len(matrice)==3:
@@ -170,23 +169,16 @@ def proxi(med,matrice):
         liste_dist[2] += carre(med[j][0]-float(matrice[3][j][2]))
         liste_dist[2] += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
-    liste_dist.sort()
-    liste_rang = [[1,liste_dist[0]],[2,liste_dist[1]],[3,liste_dist[2]]]
+    dic = {matrice[1][0] : liste_dist[0], matrice[2][0] : liste_dist[1], matrice[3][0] : liste_dist[2]}
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
-        if(dist_aux<liste_dist[2]):
-            for k in range(len(liste_rang)):
-                if liste_rang[k][1] == liste_dist[2]:
-                    liste_rang[k] == [i,dist_aux]
-            liste_dist[2] = dist_aux
-            liste_dist.sort()
+        if(dist_aux<max(dic.values()):
+           dic.pop(dic.get(max.values()))
+           dic[matrice[i][0]] = dist_aux
         dist_aux = 0
-    res = []
-    for k in range(len(liste_rang)):
-        res.append(liste_rang[k][0])
-    return res
+    return dic.keys()
 
 
 def garder_questions_arbre(app_tree,app_question):
