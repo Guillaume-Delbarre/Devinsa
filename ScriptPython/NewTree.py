@@ -172,7 +172,7 @@ def proxi(med,matrice):
         dist3 += carre(med[j][0]-float(matrice[3][j][2]))
         dist3 += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
-    aux = [[matrice[1][0],dist1],[matrice[1][0],dist2],matrice[1][0],dist3]
+    aux = [[matrice[1][0],dist1],[matrice[1][0],dist2],[matrice[1][0],dist3]]
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
