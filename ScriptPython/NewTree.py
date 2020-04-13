@@ -188,8 +188,8 @@ def getKeysByValue(dictOfElements, valueToFind):
     listOfItems = dictOfElements.items()
     for item  in listOfItems:
         if item[1] == valueToFind:
-            listOfKeys.append(item[0])
-    return  listOfKeys
+            return item[0]
+    return None
 
 
 def garder_questions_arbre(app_tree,app_question):
