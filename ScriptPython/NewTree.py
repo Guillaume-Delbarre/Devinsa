@@ -99,7 +99,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         if(question[0]==1):
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
-            rangPersoMedian = proxi(median(matricePerso),matricePerso)
+            listeperso = proxi(median(matricePerso),matricePerso)
             perso_median = ""
             for i in range(len(rangPersoMedian)):
                 perso_median += rangPersoMedian[i]+","
@@ -155,13 +155,12 @@ def carre(x):
     return (x)*(x)
 
 def proxi(med,matrice):
-    dic = {}
     if len(matrice)==4:
-        return [1,2,3]
+        return [matrice[1][0],matrice[2][0],matrice[3][0]]
     elif len(matrice)==3:
-        return [1,2]
+        return [matrice[1][0],matrice[2][0]]
     elif len(matrice)==2:
-        return [1]
+        return [matrice[1][0]]
     dist1 = 0
     dist2 = 0
     dist3 = 0
@@ -173,16 +172,20 @@ def proxi(med,matrice):
         dist3 += carre(med[j][0]-float(matrice[3][j][2]))
         dist3 += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
-    dic = {matrice[1][0] : dist1, matrice[2][0] : dist2, matrice[3][0] : dist3}
+    aux = [[matrice[1][0],dist1],[matrice[1][0],dist2],matrice[1][0],dist3]
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
-        if(dist_aux<max(dic.values())):
-           dic.pop(getKeysByValue(dic,(max(dic.values()))))
-           dic[matrice[i][0]] = dist_aux
+        rang_maxi_dist = 0
+        for k in range(len(aux)):
+            if(aux[k][1]>maxi_dist):
+                 rang_maxi_dist = k
+        if(dist_aux<aux[rang_maxi_dist][1]):
+            aux[rang_maxi_dist][0] = matrice[i][0]
+            aux[rang_maxi_dist][1] = dist_aux
         dist_aux = 0
-    return list(dic.keys())
+    return [aux[0][0],aux[1][0],aux[2][0]]
 
 def getKeysByValue(dictOfElements, valueToFind):
     listOfKeys = list()
