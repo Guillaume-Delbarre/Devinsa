@@ -171,7 +171,7 @@ def proxi(med,matrice):
         liste_dist[2] += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
     liste_dist.sort()
-    liste_rang = [[1,list_dist[0]],[2,list_dist[1]],[3,list_dist[2]]]
+    liste_rang = [[1,liste_dist[0]],[2,liste_dist[1]],[3,liste_dist[2]]]
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
