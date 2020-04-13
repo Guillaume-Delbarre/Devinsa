@@ -182,7 +182,7 @@ def proxi(med,matrice):
            dic.pop(getKeysByValue(dic,(max(dic.values()))))
            dic[matrice[i][0]] = dist_aux
         dist_aux = 0
-    return dic.keys()
+    return list(dic.keys())
 
 def getKeysByValue(dictOfElements, valueToFind):
     listOfKeys = list()
