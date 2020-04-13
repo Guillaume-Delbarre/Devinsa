@@ -179,7 +179,7 @@ def proxi(med,matrice):
             dist_aux += carre(med[j][1]-float(matrice[i][j][3]))
         rang_maxi_dist = 0
         for k in range(len(aux)):
-            if(aux[k][1]>maxi_dist):
+            if(aux[k][1]>aux[rang_maxi_dist][1]):
                  rang_maxi_dist = k
         if(dist_aux<aux[rang_maxi_dist][1]):
             aux[rang_maxi_dist][0] = matrice[i][0]
