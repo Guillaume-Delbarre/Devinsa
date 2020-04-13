@@ -156,11 +156,11 @@ def carre(x):
 
 def proxi(med,matrice):
     liste_dist = [0,0,0]
-    if len(matrice==4):
+    if len(matrice)==4:
         return [1,2,3]
-    elif len(matrice==3):
+    elif len(matrice)==3:
         return [1,2]
-    elif len(matrice==2):
+    elif len(matrice)==2:
         return [1]
     for j in range(1,len(matrice[0])):
         liste_dist[0] += carre(med[j][0]-float(matrice[1][j][2]))
