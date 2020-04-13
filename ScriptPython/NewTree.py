@@ -100,6 +100,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
             rangPersoMedian = proxi(median(matricePerso),matricePerso)
+            perso_median = ""
             for i in range(len(rangPersoMedian)):
                 perso_median += rangPersoMedian[i]+","
             perso_median = perso_median[:len(perso_median)-1]
