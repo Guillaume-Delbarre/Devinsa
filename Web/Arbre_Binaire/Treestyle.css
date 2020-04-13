@@ -1,11 +1,4 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin:0; padding:0; }
-table { border-collapse:collapse; border-spacing:0; }
-fieldset,img { border:0; }
-address,caption,cite,code,dfn,em,strong,th,var { font-style:normal; font-weight:normal; }
-caption,th { text-align:center; }
-h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight:normal; }
-q:before,q:after { content:''; }
-abbr,acronym { border:0; }
 
 body { background: #fff; }
 /* optional Container STYLES */
@@ -27,5 +20,20 @@ body { background: #fff; }
 }
 
 .Treant .collapse-switch { width: 100%; height: 100%; border: none; }
-.Treant .node.collapsed { background-color: ; }
-.Treant .node.collapsed .collapse-switch { background: none; }
+.Treant .node.not-collapsed { background-color: #DCDCDC ; }
+
+.light-green {
+    background-color: #a9ff8c;
+}
+
+.light-red {
+    background-color: #ff6464;
+}
+
+.green{
+    background-color: #4bff37;
+}
+
+.red {
+    background-color : #b90606;
+}
