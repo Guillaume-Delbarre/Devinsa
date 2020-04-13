@@ -64,6 +64,10 @@ io.sockets.on('connection', function (socket) {
 		demande(scriptpca);
 	});
 	
+	socket.on('getvaleursreponse', ({qname, name}) => {
+		getvaleursreponses(qname, name);
+	});
+	
 	// EVENEMENT UPDATE SQL
 	
 	socket.on('updatesql', ({name,qname,value,param}) => {
@@ -150,6 +154,7 @@ io.sockets.on('connection', function (socket) {
 	function demande(callback){
 	// ON DEMANDE LES DONNEES A LA BASE
 		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS itemCROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
+		const start = Date.now();
 		connection.query(rqt, function(error, data, fields) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
@@ -161,6 +166,8 @@ io.sockets.on('connection', function (socket) {
 			a.on('finish', function () {
 				socket.emit("message","Fichier ecrit");
 				console.log("Ecriture faite");
+				const millis = Date.now() - start;
+				console.log("Temps écriture fichier : ", millis/1000, " secondes");
 				//callback();
 			});
 		});
@@ -186,6 +193,18 @@ io.sockets.on('connection', function (socket) {
 				fileattente(fonctions);
 				}
 			});
+		});
+	}
+	
+	function getvaleursreponses(title,name){
+		let rqt = "select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where title = ?) and item_id in (select id from app_item where name = ?);"
+		connection.query(rqt,[title, name],function (err,result) {
+		if (err) throw err;
+			if (result.length != 0){
+				socket.emit("valeursreponses", {y: result[0].yes_count, n: result[0].no_count, p: result[0].pass_count});
+			}else{
+				socket.emit("valeursreponses", {y: 0, n: 0, p: 0});
+			}
 		});
 	}
 
