@@ -161,15 +161,18 @@ def proxi(med,matrice):
         return [1,2]
     elif len(matrice)==2:
         return [1]
+    dist1 = 0
+    dist2 = 0
+    dist3 = 0
     for j in range(1,len(matrice[0])):
-        liste_dist[0] += carre(med[j][0]-float(matrice[1][j][2]))
-        liste_dist[0] += carre(med[j][1]-float(matrice[1][j][3]))
-        liste_dist[1] += carre(med[j][0]-float(matrice[2][j][2]))
-        liste_dist[1] += carre(med[j][1]-float(matrice[2][j][3]))
-        liste_dist[2] += carre(med[j][0]-float(matrice[3][j][2]))
-        liste_dist[2] += carre(med[j][1]-float(matrice[3][j][3]))
+        dist1 += carre(med[j][0]-float(matrice[1][j][2]))
+        dist1 += carre(med[j][1]-float(matrice[1][j][3]))
+        dist2 += carre(med[j][0]-float(matrice[2][j][2]))
+        dist2 += carre(med[j][1]-float(matrice[2][j][3]))
+        dist3 += carre(med[j][0]-float(matrice[3][j][2]))
+        dist3 += carre(med[j][1]-float(matrice[3][j][3]))
     dist_aux = 0
-    dic = {matrice[1][0] : liste_dist[0], matrice[2][0] : liste_dist[1], matrice[3][0] : liste_dist[2]}
+    dic = {matrice[1][0] : dist1, matrice[2][0] : dist2, matrice[3][0] : dist3}
     for i in range(2,len(matrice)):
         for j in range(2,len(matrice[0])):
             dist_aux += carre(med[j][0]-float(matrice[i][j][2]))
