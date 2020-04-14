@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<9")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<6")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -232,6 +232,21 @@ def elaguer_app_tree(app_tree,question,res):
         print("Error 1 \n")
         return res
 
+def createBinarytree(app_tree):  
+    resultat = []
+    temp = []
+    exclus = []
+    i = 0
+    for question in app_tree:
+        if (i>0):
+            if (question[2] == 'p' or temp[1] in exclus):
+                exclus.append(temp[0])
+            else:
+                i=0
+                resultat.append(question)
+        i +=1
+    return resultat
+
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
 def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
@@ -271,9 +286,10 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     #On elague larbre ternaire en arbre binaire
-    app_tree = elaguer_app_tree(app_tree,app_tree[0],[])
+    app_tree = elaguer_app_tree(app_tree)
+    print(len(app_tree))
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    liste_questions = garder_questions_arbre(app_tree,app_question)
+    """liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -289,7 +305,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
 
