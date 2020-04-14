@@ -19,7 +19,7 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
 
     
 
-def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
+def tableQuest(nbCluster=4, nbQuestion=14, nbMedoid=4):
     global df
     agg = sommesClusters()
     agg = agg.T

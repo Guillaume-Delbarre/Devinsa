@@ -13,7 +13,7 @@ from questionsCaracteristiques import printQuestionCarac
 
 import time
 
-def main(numberOfClusters=5, nbQuestion=10):
+def main(numberOfClusters=4, nbQuestion=10):
     temps = time.time()
     miseEnPage()
     print("Temps mis en page : %s secondes ---" % (time.time() - temps))
