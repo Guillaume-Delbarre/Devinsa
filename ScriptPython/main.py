@@ -15,7 +15,7 @@ import time
 
 def main(numberOfClusters=5, nbQuestion=10):
     temps = time.time()
-    #miseEnPage()
+    miseEnPage()
     print("Temps mis en page : %s secondes ---" % (time.time() - temps))
     #kmeansAlgo(numberOfClusters)
     classHierarchique(numberOfClusters)
