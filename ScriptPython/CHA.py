@@ -8,12 +8,15 @@ def classHierarchique(n=0) :
     df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     #print(df)
 
-    clt = AgglomerativeClustering(n_clusters=5).fit(df)
+    #plus la distance threshold est faible, plus le nombre de cluster est élevé
+    clt = AgglomerativeClustering(n_clusters=None,distance_threshold=125,compute_full_tree=True).fit(df)
 
+    '''
     file = open("../Donnees/testCAH.txt","w")
     for s in clt.labels_ :
         file.write(str(s) + '\n')
     file.close
+    '''
     #print(clt.labels_)
     ecritcluster(clt.labels_)
 
