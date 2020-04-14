@@ -234,13 +234,12 @@ def elaguer_app_tree(app_tree,question,res):
 
 def createBinarytree(app_tree):  
     resultat = []
-    temp = []
     exclus = []
     i = 0
     for question in app_tree:
         if (i>0):
-            if (question[2] == 'p' or temp[1] in exclus):
-                exclus.append(temp[0])
+            if (question[2] == 'p' or question[1] in exclus):
+                exclus.append(question[0])
             else:
                 i=0
                 resultat.append(question)
