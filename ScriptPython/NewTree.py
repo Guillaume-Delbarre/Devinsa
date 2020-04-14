@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and app_tree.choice<>'p' and depth<6")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and depth<6")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -235,15 +235,13 @@ def elaguer_app_tree(app_tree,question,res):
 def createBinarytree(app_tree):  
     resultat = []
     exclus = []
-    i = 0
     for question in app_tree:
-        if (i>0):
-            if (question[2] == 'p' or question[1] in exclus):
-                exclus.append(question[0])
-            else:
-                i=0
-                resultat.append(question)
-        i +=1
+        if (question[1] in exclus or question[2]=='p'):
+            exclus.append(question[0])
+        else:
+             i=0
+            resultat.append(question)
+
     return resultat
 
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
