@@ -239,9 +239,8 @@ def createBinarytree(app_tree):
         if (question[1] in exclus or question[2]=='p'):
             exclus.append(question[0])
         else:
-             i=0
+            i=0
             resultat.append(question)
-
     return resultat
 
 #Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
