@@ -9,7 +9,7 @@ def classHierarchique(n=0) :
     #print(df)
 
     #plus la distance threshold est faible, plus le nombre de cluster est élevé
-    clt = AgglomerativeClustering(n_clusters=None,distance_threshold=125,compute_full_tree=True).fit(df)
+    clt = AgglomerativeClustering(n_clusters=None,distance_threshold=150,compute_full_tree=True).fit(df)
 
     '''
     file = open("../Donnees/testCAH.txt","w")
