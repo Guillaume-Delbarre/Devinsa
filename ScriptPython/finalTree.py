@@ -94,7 +94,7 @@ def miseEnFormeText(text):
 
 def avoirRangQuestion(id_question,matricePerso):
     for question in matricePerso[0]:
-        if(id_question==question[0]):
+        if(id_question==question):
             return i
     print("Error 4")
     return
