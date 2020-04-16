@@ -286,7 +286,7 @@ def main(curseur):
     app_tree = createBinarytree(app_tree)
     print(len(app_tree))
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    """liste_questions = garder_questions_arbre(app_tree,app_question)
+    liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -302,7 +302,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
-    print("end\n")"""
+    print("end\n")
     
 main(curseur)
 
