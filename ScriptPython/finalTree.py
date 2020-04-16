@@ -93,9 +93,11 @@ def miseEnFormeText(text):
     return text.replace('\'',"\\'")
 
 def avoirRangQuestion(id_question,matricePerso):
+    i = 0
     for question in matricePerso[0]:
         if(id_question==question):
             return i
+        i += 1
     print("Error 4")
     return
 
