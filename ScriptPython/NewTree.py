@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice <> 'p'")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice <> 'p' and depth<5")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -40,15 +40,6 @@ def extrait_app_question(cursor):
     cursor.execute("SELECT id,title FROM app_question")
     for (a,b) in cursor:
         res.append([a,b])
-    return res
-
-def getfils(parent_id,app_tree):
-    res = []
-    for i in range(len(app_tree)):
-        if app_tree[i][1]==parent_id:
-            res.append(app_tree[i])
-        if len(res)==2:
-            return res
     return res
 
 def creerMatrice(ligne,colonne):
@@ -79,8 +70,8 @@ def miseEnFormeText(text):
     return text.replace('\'',"\\'")
 
 def avoirRangQuestion(id_question,matricePerso):
-    for i in range(len(matricePerso[0])):
-        if(id_question==matricePerso[0][i]):
+    for question in matricePerso[0]:
+        if(id_question==question[0]):
             return i
     print("Error 4")
     return
@@ -130,13 +121,6 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         print("Error 2 ")
         return
                 
-        
-def recopierMatrice(matrice):
-    res = []
-    for i in range(len(matrice)):
-        res.append(matrice[i])
-    return res
-
 def median(matrice):
     med = [0]
     summ1 = 0
