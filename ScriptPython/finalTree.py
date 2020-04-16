@@ -59,8 +59,8 @@ def creerMatrice(ligne,colonne):
 
 def recopierMatrice(matrice):
     res = []
-    for i in range(len(matrice)):
-        res.append(matrice[i])
+    for elem in matrice:
+        res.append(elem)
     return res
 
 def getKeysByValue(dictOfElements, valueToFind):
