@@ -234,7 +234,7 @@ def elaguer_app_tree(app_tree,question,res):
 
 def createBinarytree(app_tree):  
     ident = []
-    res = []
+    resultat = []
     for question in app_tree:
         if (len(resultat)==0):
             ident.append(question[0])
