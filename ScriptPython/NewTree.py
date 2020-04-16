@@ -42,10 +42,17 @@ def extrait_app_question(cursor):
         res.append([a,b])
     return res
 
+
 def creerMatrice(ligne,colonne):
     res = []
     for i in range(ligne):
         res.append([None]*colonne)
+    return res
+
+def recopierMatrice(matrice):
+    res = []
+    for i in range(len(matrice)):
+        res.append(matrice[i])
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
@@ -120,7 +127,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
     else:
         print("Error 2 ")
         return
-                
+
 def median(matrice):
     med = [0]
     summ1 = 0
