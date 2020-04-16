@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice <> 'p' and depth <4")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -233,13 +233,14 @@ def elaguer_app_tree(app_tree,question,res):
         return res
 
 def createBinarytree(app_tree):  
-    resultat = []
-    exclus = []
+    ident = []
+    res = []
     for question in app_tree:
-        if (question[1] in exclus or question[2]=='p'):
-            exclus.append(question[0])
-        else:
-            i=0
+        if (len(resultat)==0):
+            ident.append(question[0])
+            resultat.append(question)
+        if (question[1] in ident):
+            ident.append(question[0])
             resultat.append(question)
     return resultat
 
