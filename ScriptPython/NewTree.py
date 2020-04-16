@@ -30,7 +30,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice <> 'p' and depth<5")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -42,17 +42,19 @@ def extrait_app_question(cursor):
         res.append([a,b])
     return res
 
+def getfils(parent_id,app_tree):
+    res = []
+    for i in range(len(app_tree)):
+        if app_tree[i][1]==parent_id:
+            res.append(app_tree[i])
+        if len(res)==2:
+            return res
+    return res
 
 def creerMatrice(ligne,colonne):
     res = []
     for i in range(ligne):
         res.append([None]*colonne)
-    return res
-
-def recopierMatrice(matrice):
-    res = []
-    for i in range(len(matrice)):
-        res.append(matrice[i])
     return res
 
 def compterPerso(rangQuestion,matricePerso,choix):
@@ -77,8 +79,8 @@ def miseEnFormeText(text):
     return text.replace('\'',"\\'")
 
 def avoirRangQuestion(id_question,matricePerso):
-    for question in matricePerso[0]:
-        if(id_question==question[0]):
+    for i in range(len(matricePerso[0])):
+        if(id_question==matricePerso[0][i]):
             return i
     print("Error 4")
     return
@@ -127,6 +129,13 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
     else:
         print("Error 2 ")
         return
+                
+        
+def recopierMatrice(matrice):
+    res = []
+    for i in range(len(matrice)):
+        res.append(matrice[i])
+    return res
 
 def median(matrice):
     med = [0]
@@ -224,14 +233,14 @@ def elaguer_app_tree(app_tree,question,res):
         return res
 
 def createBinarytree(app_tree):  
-    ident = []
     resultat = []
+    question_id = []
     for question in app_tree:
-        if (len(resultat)==0):
-            ident.append(question[0])
+        if len(resultat)==0 and len(question_id)==0:
+            question_id.append(question[0])
             resultat.append(question)
-        if (question[1] in ident):
-            ident.append(question[0])
+        if (question[1] in question_id):
+            question_id.append(question[0])
             resultat.append(question)
     return resultat
 
@@ -277,7 +286,7 @@ def main(curseur):
     app_tree = createBinarytree(app_tree)
     print(len(app_tree))
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    liste_questions = garder_questions_arbre(app_tree,app_question)
+    """liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -293,7 +302,7 @@ def main(curseur):
     chart_config += "];"
     ecriture.write(chart_config)
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
 
