@@ -53,15 +53,20 @@
     xAxisG.select('.domain').remove();
     
     var zoom = d3.zoom()
-    	.scaleExtent([.5,20])
-    	.extent([[0,0], [innerWidth,innerHeight]])
-    	.on('zoom', updateZoom);
+    	    .scaleExtent([.5,20])
+    	    .extent([[0,0], [innerWidth,innerHeight]])
+          .on('zoom', updateZoom);
+      
+    var brush = d3.brush()
+      .extent([ [0,0],[innerWidth,innerHeight]])
+      .on("start brush", updateChart)
     
     g.append('rect')
     	.attr('class', 'zoomRect')
     	.attr('width', innerWidth)
     	.attr('height', innerHeight)
-    	.call(zoom);
+      .call(zoom)
+      .call(brush);
     
     g.append('clipPath')
     	.attr('id', 'rect-clip')
@@ -154,7 +159,7 @@
     }
 
     function updateZoom() {
-
+      if(document.getElementById("Zoom").checked){
         var newX = d3.event.transform.rescaleX(xScale);
         var newY = d3.event.transform.rescaleY(yScale);
         
@@ -176,7 +181,20 @@
         circleTitle
           .attr('x', d => newX(xValue(d)))
           .attr('y', d => newY(yValue(d)) + circleRadius + 12)
-     
+      }
+    }
+
+    function updateChart() {
+      extent = d3.event.selection
+      cercle.classed("active", function(d){return isBrushed(extent, x(d.Axe_X), y(d.Axe_Y))})
+    }
+
+    function isBrushed(brush_coords, cx, cy){
+      var x0 = brush_coords[0][0],
+          x1 = brush_coords[1][0],
+          y0 = brush_coords[0][1],
+          y1 = brush_coords[1][1];
+      return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
     }
     
     d3.selectAll('.toggle').on('change', function(d){
