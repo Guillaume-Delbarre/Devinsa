@@ -58,15 +58,20 @@
           .on('zoom', updateZoom);
       
     var brush = d3.brush()
-      .extent([ [0,0],[innerWidth,innerHeight]])
+      .extent([ [0,0],[innerWidth,innerHeight] ] )
       .on("start brush", updateChart)
     
-    g.append('rect')
-    	.attr('class', 'zoomRect')
-    	.attr('width', innerWidth)
-    	.attr('height', innerHeight)
-      .call(zoom)
-      .call(brush);
+    if(document.getElementById("Zoom").checked) {
+      g.append('rect')
+        .attr('id', 'rectZoom')
+        .attr('class', 'zoomRect')
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .call(zoom)
+    } else {
+      g.selectAll('rectZoom').parentElement.remove('rect')
+      g.call(brush)
+    }
     
     g.append('clipPath')
     	.attr('id', 'rect-clip')
