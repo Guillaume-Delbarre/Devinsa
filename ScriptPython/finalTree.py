@@ -244,6 +244,24 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
                     #               (yes_count,no_count,yes_tfidf,no_tfidf)
                     res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
     return res
+
+
+def get_tfIdfCount(id_perso,app_answer,id_question):
+    for answer in app_answer:
+        if answer[1] == id_perso and answer[0] == id_question:
+            return (answer[2],answer[3],answer[4],answer[5])
+    return (0,0,0,0)
+
+def creation_matrice_persobis(app_answer,app_item,liste_questions):
+    res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
+    for i in range(len(liste_questions)):
+        res[0][i+1] = liste_questions[i][0]
+    for i in range(len(app_item)):
+        res[i+1][0] = app_item[i][1]
+    for i in range(1,len(res)):
+        for j in range(1,len(res[0])):
+            res[i][j] = get_tfIdfCount(res[i][0],app_answer,res[0][j])
+    return res
     
 
             
@@ -279,8 +297,7 @@ def main(curseur):
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     print("o")
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
-    matricePerso = remplir_matricePerso(matricePerso)
+    matricePerso = creation_matrice_persobis(app_answer,app_item,liste_questions)
     print("é")
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
