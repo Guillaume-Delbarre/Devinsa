@@ -108,13 +108,17 @@ def HTMLclass(choice):
         return 'light-red'
     return 'None'
 
-def elagagePerso(question,app_tree,matricePerso,ecriture):
+def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
     if(len(matricePerso)==1):        
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
+        chart_config += "questionid_"+str(question[0])+",\n"
+        return
     else:
         if(question[0]==1):
+            chart_config += "questionid_"+str(question[0])+",\n"
             ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
         else:
+            chart_config += "questionid_"+str(question[0])+",\n"
             listeperso = proxi(median(matricePerso),matricePerso)
             perso_median = ""
             for i in range(len(listeperso)):
@@ -139,11 +143,12 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture)
-        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture)
-        return
+        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture,chart_config)
+        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture,chart_config)
+        return chart_config
     else:
         print("Error 2 ")
+        print(questionsFilles)
         return
                 
         
@@ -298,8 +303,7 @@ def main(curseur):
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
-    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
-    chart_config = creer_chart_config(app_tree)
+    chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
