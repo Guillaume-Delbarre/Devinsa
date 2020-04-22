@@ -112,7 +112,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
     if(len(matricePerso)==1):        
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
         chart_config += "questionid_"+str(question[0])+",\n"
-        return
+        return chart_config
     else:
         if(question[0]==1):
             chart_config += "questionid_"+str(question[0])+",\n"
@@ -128,7 +128,7 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
             ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
-        return
+        return chart_config
     elif (len(questionsFilles)==2):
         choixOui = []
         choixNon = []
