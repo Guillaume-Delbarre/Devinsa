@@ -256,6 +256,7 @@ def creation_matrice_persobis(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
     for i in range(len(liste_questions)):
         res[0][i+1] = liste_questions[i][0]
+        print(res[0][i+1])
     for i in range(len(app_item)):
         res[i+1][0] = app_item[i][1]
     for i in range(1,len(res)):
