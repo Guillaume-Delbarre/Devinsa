@@ -108,7 +108,7 @@ def HTMLclass(choice):
         return 'light-red'
     return 'None'
 
-def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
+def elagagePerso(question,app_tree,matricePerso,ecriture):
     if(len(matricePerso)==1):        
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
         chart_config += "questionid_"+str(question[0])+",\n"
@@ -144,9 +144,9 @@ def elagagePerso(question,app_tree,matricePerso,ecriture,chart_config):
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         print(chart_config)
-        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture,chart_config)
-        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture,chart_config)
-        return chart_config
+        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture)
+        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture)
+        return
     else:
         print("Error 2 ")
         print(questionsFilles)
@@ -304,7 +304,8 @@ def main(curseur):
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
-    chart_config = elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
+    global chart_config = ""
+    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
