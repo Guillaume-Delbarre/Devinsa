@@ -60,17 +60,36 @@
     var brush = d3.brush()
       .extent([ [0,0],[innerWidth,innerHeight] ] )
       .on("start brush", updateChart)
+
+    g.append('rect')
+      .attr('id', 'rectZoom')
+      .attr('class', 'zoomRect')
+      .attr('width', innerWidth)
+      .attr('height', innerHeight)
+      .call(zoom)
     
-    if(document.getElementById("Zoom").checked) {
-      g.append('rect')
-        .attr('id', 'rectZoom')
-        .attr('class', 'zoomRect')
-        .attr('width', innerWidth)
-        .attr('height', innerHeight)
-        .call(zoom)
-    } else {
-      g.selectAll('rectZoom').parentElement.remove('rect')
-      g.call(brush)
+    var rad = document.modeForm.mode;
+    var prev = null;
+    for (var i = 0; i < rad.length; i++) {
+        rad[i].addEventListener('change', function() {
+            //(prev) ? console.log(prev.value): null;
+            if (this !== prev) {
+                prev = this;
+            }
+            console.log(this.value)
+            if (this.value == 'zoom'){
+              g.call(brush.clear)
+              g.append('rect')
+                .attr('id', 'rectZoom')
+                .attr('class', 'zoomRect')
+                .attr('width', innerWidth)
+                .attr('height', innerHeight)
+                .call(zoom)
+            } else {
+              g.selectAll('#rectZoom').remove()
+              g.call(brush)
+            }
+        });
     }
     
     g.append('clipPath')
