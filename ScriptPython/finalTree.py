@@ -306,7 +306,7 @@ def main(curseur):
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
     global chart_config
     chart_config = ""
-    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture,"")
+    elagagePerso(app_tree[0],app_tree,matricePerso,ecriture)
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
     chart_config += "];"
