@@ -2,11 +2,15 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 
 body { background: #fff; }
 /* optional Container STYLES */
-.chart { height: 600px; margin: 5px; width: 900px; }
+.chart { height: 90%; margin: 5px; width: 90%;}
 .Treant > .node {  }
 .Treant > p { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: bold; font-size: 12px; }
-.node-name { font-weight: bold;}
-
+.node-name { font-weight: bold;
+             text-align: center;    
+            }
+.node-desc{
+    text-align : center;
+}
 .nodeExample1 {
     padding: 2px;
     -webkit-border-radius: 3px;
