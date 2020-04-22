@@ -289,16 +289,12 @@ def main(curseur):
     app_question = extrait_app_question(curseur)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
-    print(len(app_tree))
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
     liste_questions = garder_questions_arbre(app_tree,app_question)
-    print("a")
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
-    print("o")
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_persobis(app_answer,app_item,liste_questions)
-    print("é")
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
