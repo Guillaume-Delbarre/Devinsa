@@ -257,11 +257,10 @@ def creation_matrice_persobis(app_answer,app_item,liste_questions):
     for i in range(len(liste_questions)):
         res[0][i+1] = liste_questions[i][0]
     for i in range(len(app_item)):
-        res[i+1][0] = app_item[i][1]
-        print(res[i+1][0])
+        res[i+1][0] = (app_item[i][0],app_item[i][1])
     for i in range(1,len(res)):
         for j in range(1,len(res[0])):
-            res[i][j] = get_tfIdfCount(res[i][0],app_answer,res[0][j])
+            res[i][j] = get_tfIdfCount(res[i][0][0],app_answer,res[0][j])
     return res
     
 
