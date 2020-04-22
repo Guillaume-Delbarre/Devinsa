@@ -1,5 +1,4 @@
 import mysql.connector
-global chart_config,ecriture
 chart_config = ""
 file = "../Web/Arbre_Binaire/Treejavascript.js"
 ecriture = open(file,"w",encoding="utf-8")
@@ -147,7 +146,6 @@ def elagagePerso(question,app_tree,matricePerso):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        print(chart_config)
         elagagePerso(choixOui,app_tree,matricePersoOui)
         elagagePerso(choixNon,app_tree,matricePersoNon)
         return
