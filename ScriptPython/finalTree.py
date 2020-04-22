@@ -1,5 +1,7 @@
 import mysql.connector
 global chart_config,ecriture
+chart_config = ""
+ecriture = open(file,"w",encoding="utf-8")
 
 #APP_ITEM
 #[ID,Name]
@@ -289,6 +291,7 @@ def creer_chart_config(app_tree):
     return res
 
 def main(curseur):
+    global chart_config, ecriture
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
     app_item = extrait_app_item(curseur)
@@ -303,9 +306,7 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_persobis(app_answer,app_item,liste_questions)
     file = "../Web/Arbre_Binaire/Treejavascript.js"
-    ecriture = open(file,"w",encoding="utf-8")
     chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
-    chart_config = ""
     elagagePerso(app_tree[0],app_tree,matricePerso)
     chart_config = chart_config_init + chart_config
     chart_config = chart_config[0:len(chart_config)-2]
