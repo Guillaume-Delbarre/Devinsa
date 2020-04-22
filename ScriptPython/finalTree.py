@@ -1,5 +1,5 @@
 import mysql.connector
-global chart_config
+global chart_config,ecriture
 
 #APP_ITEM
 #[ID,Name]
@@ -108,7 +108,8 @@ def HTMLclass(choice):
         return 'light-red'
     return 'None'
 
-def elagagePerso(question,app_tree,matricePerso,ecriture):
+def elagagePerso(question,app_tree,matricePerso):
+    global chart_config,ecriture
     if(len(matricePerso)==1):        
         ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
         chart_config += "questionid_"+str(question[0])+",\n"
@@ -144,8 +145,8 @@ def elagagePerso(question,app_tree,matricePerso,ecriture):
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         print(chart_config)
-        elagagePerso(choixOui,app_tree,matricePersoOui,ecriture)
-        elagagePerso(choixNon,app_tree,matricePersoNon,ecriture)
+        elagagePerso(choixOui,app_tree,matricePersoOui)
+        elagagePerso(choixNon,app_tree,matricePersoNon)
         return
     else:
         print("Error 2 ")
