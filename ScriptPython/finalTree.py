@@ -148,7 +148,6 @@ def elagagePerso(question,app_tree,matricePerso):
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoOui)
-        ecriture.write("},")
         elagagePerso(choixNon,app_tree,matricePersoNon)
         ecriture.write("} \n ]")
         return
