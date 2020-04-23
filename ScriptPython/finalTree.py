@@ -128,7 +128,7 @@ def elagagePerso(question,app_tree,matricePerso):
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
             ecriture.write("\ntext: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', "+
-                           "desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n")
+                           "desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [{\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         ecriture.write("]")
