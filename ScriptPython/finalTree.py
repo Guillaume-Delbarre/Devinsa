@@ -118,8 +118,7 @@ def elagagePerso(question,app_tree,matricePerso):
         return
     else:
         if(question[0]==1):
-            chart_config += "questionid_"+str(question[0])+",\n"
-            ecriture.write("questionid_1 = {text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true};\n")
+            ecriture.write("text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true}, children : [\n")
         else:
             chart_config += "questionid_"+str(question[0])+",\n"
             listeperso = proxi(median(matricePerso),matricePerso)
@@ -128,7 +127,8 @@ def elagagePerso(question,app_tree,matricePerso):
                 perso_median += listeperso[i][1]+","
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
-            ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", HTMLclass :'"+html+"', text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'}, collapsed : true};\n")
+            ecriture.write("text: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', "+
+                           "desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         return
@@ -147,7 +147,9 @@ def elagagePerso(question,app_tree,matricePerso):
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoOui)
+        ecriture.write("},")
         elagagePerso(choixNon,app_tree,matricePersoNon)
+        ecriture.write("} \n ]")
         return
     else:
         print("Error 2 ")
@@ -239,20 +241,6 @@ def createBinarytree(app_tree):
             resultat.append(question)
     return resultat
 
-#Fonction qui permet de creer la matrice question par colonne perso par ligne et tfd_idf en valeur
-def creation_matrice_perso(app_answer,app_item,liste_questions):
-    res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
-    for i in range(len(liste_questions)):
-        res[0][i+1] = liste_questions[i][0]
-    for i in range(len(app_item)):
-        res[i+1][0] = app_item[i][1]
-        for j in range(1,len(res[0])):
-            for k in range(len(app_answer)):
-                if app_answer[k][1] == app_item[i][0] and app_answer[k][0] == res[0][j]:
-                    #               (yes_count,no_count,yes_tfidf,no_tfidf)
-                    res[i+1][j] = (app_answer[k][2],app_answer[k][3],app_answer[k][4],app_answer[k][5])
-    return res
-
 
 def get_tfIdfCount(id_perso,app_answer,id_question):
     for answer in app_answer:
@@ -260,7 +248,7 @@ def get_tfIdfCount(id_perso,app_answer,id_question):
             return (answer[2],answer[3],answer[4],answer[5])
     return (0,0,0,0)
 
-def creation_matrice_persobis(app_answer,app_item,liste_questions):
+def creation_matrice_perso(app_answer,app_item,liste_questions):
     res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
     for i in range(len(liste_questions)):
         res[0][i+1] = liste_questions[i][0]
@@ -269,24 +257,6 @@ def creation_matrice_persobis(app_answer,app_item,liste_questions):
     for i in range(1,len(res)):
         for j in range(1,len(res[0])):
             res[i][j] = get_tfIdfCount(res[i][0][0],app_answer,res[0][j])
-    return res
-    
-
-            
-#Fonction qui permet de doubler les questions pour correspondre tfidf_oui et tfidf_non
-
-def remplir_matricePerso(matricePerso):
-    res = recopierMatrice(matricePerso)
-    for i in range(len(matricePerso)):
-        for j in range(len(matricePerso[0])):
-            if matricePerso[i][j]==None:
-                matricePerso[i][j] = (0,0,0,0)
-    return res
-
-def creer_chart_config(app_tree):
-    res = ""
-    for i in range(len(app_tree)):
-        res += "questionid_"+str(app_tree[i][0])+",\n"
     return res
 
 def main(curseur):
@@ -303,13 +273,12 @@ def main(curseur):
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    matricePerso = creation_matrice_persobis(app_answer,app_item,liste_questions)
-    chart_config_init = "chart_config = [\n{container: '#basic-example',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"
+    matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
+    ecriture.write("chart_config = { chart : {container: '#tree',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n "+
+                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
+                        "nodeStructure : {")
     elagagePerso(app_tree[0],app_tree,matricePerso)
-    chart_config = chart_config_init + chart_config
-    chart_config = chart_config[0:len(chart_config)-2]
-    chart_config += "];"
-    ecriture.write(chart_config)
+    ecriture.write(" } \n };")
     ecriture.close
     print("end\n")
     
