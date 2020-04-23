@@ -131,7 +131,7 @@ def elagagePerso(question,app_tree,matricePerso):
                            "desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [{\n")
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
-        ecriture.write("]")
+        ecriture.write("}]")
         return
     elif (len(questionsFilles)==2):
         choixOui = []
@@ -149,7 +149,6 @@ def elagagePerso(question,app_tree,matricePerso):
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         elagagePerso(choixOui,app_tree,matricePersoOui)
         elagagePerso(choixNon,app_tree,matricePersoNon)
-        ecriture.write("} \n ]")
         return
     else:
         print("Error 2 ")
