@@ -151,7 +151,7 @@ def elagagePerso(question,app_tree,matricePerso):
         elagagePerso(choixOui,app_tree,matricePersoOui)
         ecriture.write("\n}, \n {")
         elagagePerso(choixNon,app_tree,matricePersoNon)
-        ecriture.write("\n }")
+        ecriture.write("\n } \n]")
         return
     else:
         print("Error 2 ")
