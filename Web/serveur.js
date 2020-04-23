@@ -11,8 +11,6 @@ server.listen(8080, "192.168.1.43");
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
-const ws = fs.createWriteStream("../donnees/Vecteur.csv");
-const as = fs.createWriteStream("../donnees/Arbre.csv");
 
 // CHARGEMENT DE SOCKET.IO
 var io = require('socket.io')(server);
@@ -163,6 +161,7 @@ io.sockets.on('connection', function (socket) {
 	// Fonction Lecture Base / Ecriture fichier
 
 	function demande(callback){
+		const ws = fs.createWriteStream("../donnees/Vecteur.csv");
 	// ON DEMANDE LES DONNEES A LA BASE
 		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS itemCROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		const start = Date.now();
@@ -185,6 +184,7 @@ io.sockets.on('connection', function (socket) {
 	}
 	
 	function creerarbre(profondeur,fonctions = null){
+		const as = fs.createWriteStream("../donnees/Arbre.csv");
 	// ON DEMANDE L'ARBRE A LA BASE
 		if (!Number.isInteger(profondeur) || profondeur < 0 || profondeur >20){
 			socket.emit("message","Paramètre non valable");
@@ -282,7 +282,7 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 	
-		function scriptarbre(){
+	function scriptarbre(){
 		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
 			if (err) throw err;
 			console.log('Fichier JS Ecrit');
