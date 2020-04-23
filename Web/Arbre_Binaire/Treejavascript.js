@@ -2,7 +2,7 @@ chart_config = { chart : {container: '#tree',
 connectors: { type: 'straight' },
  node: { HTMLclass: 'nodeExample1' },
  animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700,connectorsAnimation: "bounce", connectorsSpeed: 700 }},
-nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true}, children : [
+nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true, children : [
 
 {
 text: { name: ' Personnages restants : 772 Personnage median :f,Passe-partout,Alex Keryhuel (étudiant INSA)', desc : 'Prochaine question : Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [

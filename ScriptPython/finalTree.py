@@ -113,12 +113,11 @@ def HTMLclass(choice):
 def elagagePerso(question,app_tree,matricePerso):
     global chart_config,ecriture
     if(len(matricePerso)==1):        
-        ecriture.write("questionid_"+str(question[0])+" = {parent: questionid_"+str(question[1])+", text: { name: ' Personnages restants : 0'}, collapsed : true};\n")
-        chart_config += "questionid_"+str(question[0])+",\n"
+        ecriture.write("\ntext: { name: ' Personnages restants : 0'}, collapsed : true\n")
         return
     else:
         if(question[0]==1):
-            ecriture.write("text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true}, children : [\n")
+            ecriture.write("text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n")
         else:
             chart_config += "questionid_"+str(question[0])+",\n"
             listeperso = proxi(median(matricePerso),matricePerso)
