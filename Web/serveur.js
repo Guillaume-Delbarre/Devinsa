@@ -55,6 +55,12 @@ function fileattente(tab){
 }
 	
 io.sockets.on('connection', function (socket) {
+	
+	//Remplir les tableaux de question et de personnages
+	getallques();
+	getallpers();
+	getvaleursreponsespers("A t il un rapport avec l'espace ?", [" Samir Loussif ", "Batman"]);
+	
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
 		console.log(message);
@@ -67,6 +73,11 @@ io.sockets.on('connection', function (socket) {
 	socket.on('getvaleursreponse', ({qname, name}) => {
 		getvaleursreponses(qname, name);
 	});
+	
+	socket.on('getallpersreponses', function() {
+		getallpersreponses();
+	});
+
 	
 	// EVENEMENT UPDATE SQL
 	
@@ -207,8 +218,71 @@ io.sockets.on('connection', function (socket) {
 			}
 		});
 	}
-
-	function scriptarbre(){
+	
+	function getvaleursreponsespers(title,names){
+		let donnees = "("
+		for(let i = 0; i<names.length; i++){
+			donnees = donnees + "'" + names[i] + "'";
+			if (i != (names.length - 1)){
+				donnees = donnees + ",";
+			}
+		}
+		donnees = donnees + ")";
+		let rqt = "select name, yes_count, no_count, pass_count from app_answer inner join app_item on app_item.id = app_answer.item_id and question_id in (select id from app_question where title = ?) and name in " + donnees +";"
+		connection.query(rqt,[title],function (err,result) {
+		let tabreponse = []
+		if (err) throw err;
+			if (result.length != 0){
+				for(let j = 0; j <names.length; j++){
+					let pushed = 0;
+					for(let g = 0; g<result.length; g++){
+						if (names[j] == result[g].name){
+							tabreponse.push({name: result[j].name, y: result[j].yes_count, n: result[j].no_count, p: result[j].pass_count});
+							pushed = 1;
+						}
+					}						
+					if (pushed == 0){
+						tabreponse.push({name: names[j].name, y: 0, n: 0, p: 0});
+					}			
+				}
+				socket.emit("getallparamreponse", tabreponse);
+			}
+		});
+	}
+	
+	function getallpers(){
+		let rqt = "select name from app_item where id in (select item_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
+		connection.query(rqt, function (err,result) {
+		if (err) throw err;
+			if (result.length != 0){
+				let pers = []
+				for (let i = 0; i < result.length; i++) {
+					pers.push(result[i].name);
+				}
+				socket.emit("getallpersreponse", pers);
+			}else{
+				throw err;
+			}
+		});
+	}
+	
+	function getallques(){
+		let rqt = "select title from app_question where id in (select question_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
+		connection.query(rqt, function (err,result) {
+		if (err) throw err;
+			if (result.length != 0){
+				let ques = []
+				for (let i = 0; i < result.length; i++) {
+					ques.push(result[i].title);
+				}
+				socket.emit("getallquesreponse", ques);
+			}else{
+				throw err;
+			}
+		});
+	}
+	
+		function scriptarbre(){
 		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
 			if (err) throw err;
 			console.log('Fichier JS Ecrit');
