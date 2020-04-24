@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import os
+import sys
 from sklearn.metrics import pairwise_distances
 
 
@@ -110,4 +111,9 @@ def persoExtremes(numCluster, metric='cosine', medoid=True, nbPerso=4): # Retour
     return listePerso
 
 if __name__ == '__main__':
-    printQuestionCarac()
+    if (len(sys.argv) == 3):
+        numberOfClusters=int(sys.argv[1])
+        nbQuestion=int(sys.argv[2])
+        printQuestionCarac(numberOfClusters, nbQuestion)
+    else:
+        printQuestionCarac()

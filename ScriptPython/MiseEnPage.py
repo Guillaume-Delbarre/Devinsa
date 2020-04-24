@@ -5,7 +5,7 @@ listeParNom = []
 listeNoms = []
 
 def miseEnPage(): 
-    
+
     file = open("../Donnees/Personnages.csv","w", encoding='utf-8')
     file.close()
     global listeParNom

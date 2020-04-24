@@ -41,18 +41,6 @@ var path = require('path');
 // On importe le fichier chemins.js qui permet de router les demandes clients
 var Chemins = require('./Chemins');
 app.use('/', Chemins);
-
-function fileattente(tab){
-	route = "../ScriptPython/";
-	chemin = route.concat(tab[0]);
-	PythonShell.run(chemin, null, function (err) {
-		if (err) throw err;
-		console.log('Fichier JS Ecrit');
-		if (tab.length > 1){
-			fileattente(tab.slice(1));
-		}
-	});
-}
 	
 io.sockets.on('connection', function (socket) {
 	
@@ -65,54 +53,37 @@ io.sockets.on('connection', function (socket) {
 		console.log(message);
 	});
 	
-	socket.on('ecrirevecteursql', function() {
-		demande(scriptMiseenPage);
-	});
-	
+	//AVOIR DES PARAMETRES DE REPONSES
 	socket.on('getvaleursreponse', ({qname, name}) => {
 		getvaleursreponses(qname, name);
 	});
 	
-	socket.on('getallpersreponses', function() {
-		getallpersreponses();
+	socket.on('getallpersreponses', ({qname, names}) =>  {
+		getvaleursreponsespers(qname, names);
 	});
 
 	
 	// EVENEMENT UPDATE SQL
-	
 	socket.on('updatesql', ({name,qname,value,param}) => {
 		update(name,qname,value,param);
 	});
-	
-	socket.on('montrerquestionssql', ({name,persos,nb}) => {
-		montrequestion(name,persos,nb);
-	});
-	
+		
 	socket.on('creerarbre', ({profondeur}) => {
 		creerarbre(profondeur,["apptree.py"]);
 	});
 	
-	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
-		lancermain(nbcluster, nbquestions);
+	// LANCER SCRIPTS
+	socket.on('ecrirevecteursql', function() {
+		demande("MiseEnPage.py", []);
 	});
-		
-	// ON ENVOIE LES LISTES DE PERSONNAGES ET QUESTIONS
-	socket.on('tab', function() {
-		var pers = [];
-		var questions = [];
-		connection.query("Select name from app_item", function(error, data, fields) {
-			if (error) throw error;
-			console.log(data);
-			pers = data;
-			});
-		connection.query("Select title from app_question", function(error, data, fields) {
-			if (error) throw error;
-			console.log(data)
-			questions = data;
-			});
-			socket.emit('restab',{tabpers : pers , tabques : questions});
-		});
-		
+	
+	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
+		demande("main.py", [nbcluster, nbquestions]);
+	});
+	
+	socket.on('lancerdeuxièmepartie', ({nbcluster, nbquestions}) => {
+		lancercalculs(nbcluster, nbquestions);
+	});
 	
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
@@ -151,21 +122,29 @@ io.sockets.on('connection', function (socket) {
 		}
 	}
 	
-	// Montre les questions similaires SUREMENT PRB GUILLEMET
-	
-	function montrequestion(name,persos,nb){
-		let rqt = "select * from (select title, avg(yes_count), avg(no_count) from (select * from (select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where name != ? and name in ?) ) as a1 inner join app_question on app_question.id = a1.question_id) as a2 group by question_id order by sum(yes_count) desc limit ? ) as f1 select * from (select title, avg(yes_count), avg(no_count) from (select * from (	select question_id,yes_count,no_count from app_answer where item_id in (select id from app_item where id != ? and name in ?)) as a1 inner join app_question on app_question.id = a1.question_id) as a2 group by question_id order by sum(no_count) desc limit ? ) as f2;";
-		connection.query(rqt,[name,persos,nb,name,persos,nb],function (err,result) {
-		if (err) throw err;
-			console.log(result.affectedRows + " record(s) extracted");
-			// Pas affectedRows je pense
-			socket.emit("message","Questions Done " + result.affectedRows);
+	function fileattente(tab, optionsligne){
+		route = "../ScriptPython/";
+		chemin = route.concat(tab[0]);
+		let options = {args: optionsligne};
+		PythonShell.run(chemin, options, function (err) {
+			if (err) {
+				console.log(err);
+				console.log(tab[0] + " : Echec de l'execution");
+			}else{
+				console.log(tab[0] + ' fini');
+			}
+			if (tab.length > 1){
+				fileattente(tab.slice(1), optionsligne);
+			}
+			if(tab.length == 1){
+				socket.emit("message", "Scripts finis");
+				console.log("Scripts finis");
+			}
 		});
 	}
-	
 	// Fonction Lecture Base / Ecriture fichier
 
-	function demande(callback, nbcluster, nbquestions){
+	function demande(script, options){
 		const ws = fs.createWriteStream("../donnees/Vecteur.csv");
 		console.log("Extraction des données");
 	// ON DEMANDE LES DONNEES A LA BASE
@@ -183,17 +162,14 @@ io.sockets.on('connection', function (socket) {
 				//console.log("Ecriture faite");
 				const millis = Date.now() - start;
 				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
-				if (callback == lancermain){
-					callback(nbcluster, nbquestions);
-				}
-				if(callback == scriptMiseenPage){
-					scriptMiseenPage();
+				if (script != ""){
+					lancerscript(script, options);
 				}
 			});
 		});
 	}
 	
-	function creerarbre(profondeur,fonctions = null){
+	function creerarbre(profondeur, callback){
 		const as = fs.createWriteStream("../donnees/Arbre.csv");
 	// ON DEMANDE L'ARBRE A LA BASE
 		if (!Number.isInteger(profondeur) || profondeur < 0 || profondeur >20){
@@ -292,29 +268,29 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 	
-	function scriptarbre(){
-		PythonShell.run("../ScriptPython/apptree.py", null, function (err) {
-			if (err) throw err;
-			console.log('Fichier JS Ecrit');
+	function lancerscript(nom, optionsligne){
+		path = "../ScriptPython/".concat(nom);
+		let options = {args: optionsligne};
+		PythonShell.run(path, options, function (err) {
+			if (err) {
+				console.log(err)
+				console.log(nom + " : Echec de l'execution");
+			}else{
+				console.log(nom + ' fini');
+			}
 		});
 	}
-	
-	function scriptMiseenPage(){
-		console.log("Mise en page en cours");
-		PythonShell.run("../ScriptPython/MiseEnPage.py", null, function (err) {
-			if (err) throw err;
-			console.log('Mise en page faite');
-		});
-	}
-	
-	function lancermain(nbclusters, nbquestions){
-		console.log("Début ecriture de tout");
-		let options = {
-			args: [nbclusters, nbquestions]
-		};
-		PythonShell.run("../ScriptPython/main.py", options, null, function (err) {
-			if (err) throw err;
-			console.log('Main fini');
-		});
+
+	function lancercalculs(nbcluster, nbquestions){
+		var stats1 = fs.statSync("../Donnees/Vecteur.csv");
+		var fileSizeInBytes1 = stats1["size"];
+		var stats2 = fs.statSync("../Donnees/Personnages.csv");
+		var fileSizeInBytes2 = stats2["size"];
+		if(fileSizeInBytes1 < 1000 || fileSizeInBytes2 < 1000){
+			socket.emit("message","Fichiers de base non créés, veuillez lancer la première partie");
+			console.log("Fichiers non écrits");
+			return 0;
+		}
+		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
 	}
 });

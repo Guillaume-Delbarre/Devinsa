@@ -37,4 +37,9 @@ def ecritcluster(tabCluster):
 #classHierarchique()
 
 if __name__ == '__main__':
-    classHierarchique(4)
+    if (len(sys.argv) == 3):
+        numberOfClusters=int(sys.argv[1])
+        nbQuestion=int(sys.argv[2])
+        classHierarchique(numberOfClusters)
+    else:
+        classHierarchique(4)
