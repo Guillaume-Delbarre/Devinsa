@@ -59,7 +59,6 @@ io.sockets.on('connection', function (socket) {
 	//Remplir les tableaux de question et de personnages
 	getallques();
 	getallpers();
-	getvaleursreponsespers("A t il un rapport avec l'espace ?", [" Samir Loussif ", "Batman"]);
 	
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
@@ -67,7 +66,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('ecrirevecteursql', function() {
-		demande(scriptpca);
+		demande(scriptMiseenPage);
 	});
 	
 	socket.on('getvaleursreponse', ({qname, name}) => {
@@ -91,6 +90,10 @@ io.sockets.on('connection', function (socket) {
 	
 	socket.on('creerarbre', ({profondeur}) => {
 		creerarbre(profondeur,["apptree.py"]);
+	});
+	
+	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
+		lancermain(nbcluster, nbquestions);
 	});
 		
 	// ON ENVOIE LES LISTES DE PERSONNAGES ET QUESTIONS
@@ -162,8 +165,9 @@ io.sockets.on('connection', function (socket) {
 	
 	// Fonction Lecture Base / Ecriture fichier
 
-	function demande(callback){
+	function demande(callback, nbcluster, nbquestions){
 		const ws = fs.createWriteStream("../donnees/Vecteur.csv");
+		console.log("Extraction des données");
 	// ON DEMANDE LES DONNEES A LA BASE
 		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS itemCROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		const start = Date.now();
@@ -173,14 +177,18 @@ io.sockets.on('connection', function (socket) {
 	// ECRITURE FICHIER
 			console.log("Ecriture en cours");
 			socket.emit("message","Ecriture en cours");
-			var a = 
-			fastcsv.write(jsonData, { headers: true }).pipe(ws);
+			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
-				socket.emit("message","Fichier ecrit");
-				console.log("Ecriture faite");
+				socket.emit("message","Fichier écrit");
+				//console.log("Ecriture faite");
 				const millis = Date.now() - start;
-				console.log("Temps écriture fichier : ", millis/1000, " secondes");
-				//callback();
+				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
+				if (callback == lancermain){
+					callback(nbcluster, nbquestions);
+				}
+				if(callback == scriptMiseenPage){
+					scriptMiseenPage();
+				}
 			});
 		});
 	}
@@ -291,14 +299,22 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 	
-	function scriptpca(){
+	function scriptMiseenPage(){
+		console.log("Mise en page en cours");
 		PythonShell.run("../ScriptPython/MiseEnPage.py", null, function (err) {
 			if (err) throw err;
-			console.log('MISE EN PAGE FAITE');
-			PythonShell.run("../ScriptPython/ScriptPCA.py", null, function (err) {
+			console.log('Mise en page faite');
+		});
+	}
+	
+	function lancermain(nbclusters, nbquestions){
+		console.log("Début ecriture de tout");
+		let options = {
+			args: [nbclusters, nbquestions]
+		};
+		PythonShell.run("../ScriptPython/main.py", options, null, function (err) {
 			if (err) throw err;
-			console.log('finished PCA');
-			});
+			console.log('Main fini');
 		});
 	}
 });

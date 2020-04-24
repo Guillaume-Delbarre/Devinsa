@@ -12,8 +12,14 @@ from ScriptPCA import PCA
 from questionsCaracteristiques import printQuestionCarac
 
 import time
+import sys
 
-def main(numberOfClusters=4, nbQuestion=10):
+def main():
+    numberOfClusters=4;
+    nbQuestion=10;
+    if (len(sys.argv) == 3):
+        numberOfClusters=sys.argv[1];
+        nbQuestion=sys.argv[2];
     temps = time.time()
     miseEnPage()
     print("Temps mis en page : %s secondes ---" % (time.time() - temps))
