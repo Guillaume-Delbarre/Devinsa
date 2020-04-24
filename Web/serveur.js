@@ -4,7 +4,9 @@ let {PythonShell} = require('python-shell');
 //Dialogue Site web
 var express = require('express');
 var session = require('express-session');
+const helmet = require('helmet');
 var app = express();
+app.use(helmet());
 var server = require('http').createServer(app);
 server.listen(8080, "192.168.1.43");
 
