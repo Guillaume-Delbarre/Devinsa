@@ -10,21 +10,26 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
+    <h1><strong>Bon Anniversaire</strong></h1>
+    <p id="photo">
+      <a href="img.jpg"><img src="img.jpg" /></a>
+      <br />
+    </p>
   		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
   		<p><input type="button" value="Ecrire le fichier de vecteurs" id="vctsql" /></p>
-		<p><input type="button" value="Update la base" id="updatesql" /></p>		
+		<p><input type="button" value="Update la base" id="updatesql" /></p>
 		<div class="ui-widget">
-			<label for="tags">Personnages : </label> 
+			<label for="tags">Personnages : </label>
 			<input id="tags" value="">
 		</div>
 		<div class="ui-widget">
-			<label for="tags1">Questions : </label> 
+			<label for="tags1">Questions : </label>
 			<input id="tags1">
 		</div>
 		<div class="container">
 			<table id='valeurreponses'>
 				<thead>
-					<tr><th>Yes_count</th><th>No_count</th><th>Pass_count</th></tr>	
+					<tr><th>Yes_count</th><th>No_count</th><th>Pass_count</th></tr>
 				</thead>
 				<tbody>
 					<tr>
@@ -39,7 +44,7 @@
       <ul class="menu">
 		<form action="Arbre" method="POST">
 			<input type="submit" value="Aller à l'Arbre">
-		</form>		  
+		</form>
       </ul>
     </nav>
     <div class="container">
@@ -51,7 +56,7 @@
     </div>
 
     <form name='modeForm'>
-      <div class='container'> 
+      <div class='container'>
         <p>Quel mode :  </p>
           <div>
             <input id="Zoom" name="mode" id="zoom" value="zoom" type="radio" checked>
@@ -66,7 +71,7 @@
 
     <div class="container">
       <svg width="1000" height="650"></svg>
-      
+
       <table id='tableSelect'>
         <thead>
         <tr><th>Nom du Cluster</th><th>Personnage sélectionné</th></tr>
@@ -89,5 +94,5 @@
     <script src="table.js"></script>
     <script src="com.js"></script>
   </body>
-  
+
 </html>
