@@ -59,7 +59,7 @@
       
     var brush = d3.brush()
       .extent([ [0,0],[innerWidth,innerHeight] ] )
-      .on("start brush", updateChart)
+      .on("start brush", updateChart);
 
     g.append('rect')
       .attr('id', 'rectZoom')
@@ -209,7 +209,8 @@
     }
 
     function updateChart() {
-      extent = d3.event.selection
+      console.log(d3.brushSelection(d3.select(".brush").node()))
+      //extent = d3.brushSelection(g)
       cercle.classed("active", function(d){return isBrushed(extent, x(d.Axe_X), y(d.Axe_Y))})
     }
 
