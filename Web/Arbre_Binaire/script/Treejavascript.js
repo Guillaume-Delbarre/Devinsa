@@ -1,5 +1,5 @@
-chart_config = { chart : {container: '#tree',
-connectors: { type: 'straight' },
+chart_config = { chart : {container: '#tree', scrollbar:"native",
+connectors: { type: 'step' },
  node: { HTMLclass: 'nodeExample1' },
  animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700,connectorsAnimation: "bounce", connectorsSpeed: 700 }},
 nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true, children : [
