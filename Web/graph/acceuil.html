@@ -4,7 +4,7 @@
     <title>Graph Devinsa Radio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src="http://92.94.210.93:8080/socket.io/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -57,20 +57,6 @@
         <label for="toggle-off" class="btn">Non</label>
     </div>
 
-    <form name='modeForm'>
-      <div class='container'>
-        <p>Quel mode :  </p>
-          <div>
-            <input id="Zoom" name="mode" id="zoom" value="zoom" type="radio" checked>
-            <label for="Zoom">Zoom and Move</label>
-          </div>
-          <div>
-            <input id="Select" name="mode" id="select" value="selection" type="radio">
-            <label for="Select">Selection</label>
-          </div>
-      </div>
-    </form>
-
     <div class="container">
       <svg width="1000" height="650"></svg>
 
@@ -92,9 +78,11 @@
       </table>
 
     <script src="graph.js"></script>
+    <!--
     <script src="cluster.js"></script>
     <script src="table.js"></script>
     <script src="com.js"></script>
+    -->
   </body>
 
 </html>

@@ -1,246 +1,179 @@
-(function (d3) {
-  'use strict';
-  
-  const svg = d3.select('svg');
+var margin = {top: 60, right: 40, bottom: 88, left: 100},
+  width = 1000 - margin.left - margin.right,
+  height = 650 - margin.top - margin.bottom;
 
-  const width = +svg.attr('width');
-  const height = +svg.attr('height');
-  
-  const render = data => {
+var x = d3.scale.linear()
+  .range([0, width]);
 
-    const button = svg.append('button')
-    	.attr('class', 'button')
-    
-    const xValue = d => d.Axe_X;
-    
-    const yValue = d => d.Axe_Y;
-    
-    const circleRadius = 8;
+var y = d3.scale.linear()
+  .range([height, 0]);
 
-    var clicked;
-    var clickedCluster;
-    
-    const margin = { top: 60, right: 40, bottom: 88, left: 100 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-    
-    const xScale = d3.scaleLinear()
-      .domain(d3.extent(data, xValue))
-      .range([0, innerWidth])
-      .nice();
-    
-    const yScale = d3.scaleLinear()
-      .domain(d3.extent(data, yValue))
-      .range([innerHeight, 0])
-      .nice();
-    
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-    
-    const xAxis = d3.axisBottom(xScale)
-      .tickSize(-innerHeight)
-      .tickPadding(15);
-    
-    const yAxis = d3.axisLeft(yScale)
-      .tickSize(-innerWidth)
-      .tickPadding(10);
-    
-    const yAxisG = g.append('g').call(yAxis);
-    
-    const xAxisG = g.append('g').call(xAxis)
-      .attr('transform', `translate(0,${innerHeight})`);
-    
-    xAxisG.select('.domain').remove();
-    
-    var zoom = d3.zoom()
-    	    .scaleExtent([.5,20])
-    	    .extent([[0,0], [innerWidth,innerHeight]])
-          .on('zoom', updateZoom);
-      
-    var brush = d3.brush()
-      .extent([ [0,0],[innerWidth,innerHeight] ] )
-      .on("start brush", updateChart);
+var color = d3.scale.category10();
 
-    g.append('rect')
-      .attr('id', 'rectZoom')
-      .attr('class', 'zoomRect')
-      .attr('width', innerWidth)
-      .attr('height', innerHeight)
-      .call(zoom)
-    
-    var rad = document.modeForm.mode;
-    var prev = null;
-    for (var i = 0; i < rad.length; i++) {
-        rad[i].addEventListener('change', function() {
-            //(prev) ? console.log(prev.value): null;
-            if (this !== prev) {
-                prev = this;
-            }
-            console.log(this.value)
-            if (this.value == 'zoom'){
-              g.call(brush.clear)
-              g.append('rect')
-                .attr('id', 'rectZoom')
-                .attr('class', 'zoomRect')
-                .attr('width', innerWidth)
-                .attr('height', innerHeight)
-                .call(zoom)
-            } else {
-              g.selectAll('#rectZoom').remove()
-              g.call(brush)
-            }
-        });
+var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom");
+
+var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left");
+
+var svg = d3.select("body")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom);
+
+var shiftKey;
+
+var rect, 
+node;
+
+svg = svg.append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var selection = [];
+
+function get_selection(){
+  selection = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection.push(d);
     }
-    
-    g.append('clipPath')
-    	.attr('id', 'rect-clip')
-    .append('rect')
-    	.attr('width', innerWidth)
-      .attr('height', innerHeight);
-      
-      var couleur = d3.scaleOrdinal(d3.schemeCategory10)
-        .domain(["Groupe 0","Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9"])
-    
-    var cercle = g.selectAll('circle').data(data)
-                  .enter()
-    cercle
-      .append('circle')
-        .attr('id', d => (d.Cluster).replace('Groupe ', ''))
-    		.attr('clip-path', 'url(#rect-clip)')
-    		.attr('class', 'myCircle')
-        .attr('cy', d => yScale(yValue(d)))
-        .attr('cx', d => xScale(xValue(d)))
-        .attr('fill', d => couleur(d.Cluster))
-        .attr('r', circleRadius)
-        .attr('stroke', 'black')
-        .attr('stroke-width', 0)
-        .on("mousedown", clicked)
-    	.append('title')
-    		.text(d => d.Name);
-    
-    var circleTitle = g.selectAll('text').data(data)
-      .enter().append('text')
-      	.attr('clip-path', 'url(#rect-clip)')
-      	.attr('class', 'circleTitle')
-        .attr('opacity', 0)
-        .attr('stroke', 'black')
-        .attr('stroke-width', d => 1.5*d.Medoid)
-      	.attr('x', d => xScale(xValue(d)))
-      	.attr('y', d => yScale(yValue(d)) + circleRadius + 12)
-    		.text(d => d.Name)
-    
-    function clicked(d) {
-
-      if ( d3.event.button == 0) {
-
-        if(clicked !== d.Name) {
-          d3.selectAll('.active')
-            .attr('class', 'myCircle');
-          clicked = d.Name;
-          d3.select(this)
-            .attr('class', 'active');
-          document.getElementById('tags').value = clicked;
-          namepers = clicked;
-        } else {
-          d3.selectAll('.active')
-            .attr('class', 'myCircle');
-          clicked = null
-          document.getElementById('tags').value = "";
-          namepers = "";
-        }
-
-        var myTable = document.getElementById('tableSelect');
-        myTable.rows[1].cells[1].innerHTML = clicked;
-
-      } else if( d3.event.button == 2){
-
-        if (clickedCluster !== d.Cluster) {
-          d3.selectAll('.active')
-            .attr('class', 'oldActive');
-          d3.selectAll('.activeCluster')
-            .attr('class', 'myCircle');
-          clickedCluster = d.Cluster;
-          d3.selectAll('#\\3'+ (d.Cluster).replace('Groupe ', ''))
-            .attr('class', 'activeCluster');
-          d3.selectAll('.oldActive')
-            .attr('class', 'active');
-        } else {
-          d3.selectAll('.active')
-            .attr('class', 'oldActive');
-          d3.selectAll('.activeCluster')
-            .attr('class', 'myCircle');
-          d3.selectAll('.oldActive')
-            .attr('class', 'active')
-          clickedCluster = null
-
-        }
-
-        var myTable = document.getElementById('tableSelect');
-        myTable.rows[1].cells[0].innerHTML = clickedCluster;
-
-      }
-
-    }
-
-    function updateZoom() {
-      if(document.getElementById("Zoom").checked){
-        var newX = d3.event.transform.rescaleX(xScale);
-        var newY = d3.event.transform.rescaleY(yScale);
-        
-        var newXAxis = d3.axisBottom(newX)
-          .tickSize(-innerHeight)
-          .tickPadding(15);
-        
-        const newYAxis = d3.axisLeft(newY)
-          .tickSize(-innerWidth)
-          .tickPadding(10);
-        
-        xAxisG.call(newXAxis);
-        yAxisG.call(newYAxis);
-
-        g.selectAll('circle')
-          .attr("cx", function(d) {return newX(d.Axe_X)})
-          .attr("cy", function(d) {return newY(d.Axe_Y)});
-        
-        circleTitle
-          .attr('x', d => newX(xValue(d)))
-          .attr('y', d => newY(yValue(d)) + circleRadius + 12)
-      }
-    }
-
-    function updateChart() {
-      console.log(d3.brushSelection(d3.select(".brush").node()))
-      //extent = d3.brushSelection(g)
-      cercle.classed("active", function(d){return isBrushed(extent, x(d.Axe_X), y(d.Axe_Y))})
-    }
-
-    function isBrushed(brush_coords, cx, cy){
-      var x0 = brush_coords[0][0],
-          x1 = brush_coords[1][0],
-          y0 = brush_coords[0][1],
-          y1 = brush_coords[1][1];
-      return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1;
-    }
-    
-    d3.selectAll('.toggle').on('change', function(d){
-      var opa = +this.value
-      afficheNoms(opa);
-    });
-    
-    function afficheNoms(opacity) {
-      circleTitle
-      	.attr('opacity', opacity);
-    }
-  
-  };
-  
-  d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv')
-  	.then(data => {
-    	data.forEach(d => {
-        d.Axe_X = +d.Axe_X;
-        d.Axe_Y = +d.Axe_Y;
-        d.Medoid = +d.Medoid;
-      });
-    	render(data);
   });
-}(d3));
+  console.log(selection);
+}
+
+function clear_selection() {
+  node.classed('selected', function (d) { return d.selected = false; })
+}
+
+d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.Axe_X = +d.Axe_X;
+    d.Axe_Y = +d.Axe_Y;
+    d.Medoid = +d.Medoid;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.Axe_X; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.Axe_Y; })).nice();
+
+  svg = svg.call(d3.behavior.zoom().x(x).y(y).on("zoom", zoom));
+
+  svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+
+  var brush = svg.append("g")
+    .datum(function() { return {selected: false, previouslySelected: false}; })
+    .attr("class", "brush")
+    .call(d3.svg.brush()
+      .x(d3.scale.identity().domain([0, width]))
+      .y(d3.scale.identity().domain([0, height]))
+      .on("brushstart", function(d) {
+        console.log('brushstart');
+        node.each(function(d) { d.previouslySelected = shiftKey && d.selected; });
+        if (!shiftKey) {
+          d3.event.target.clear();
+          d3.select(this).call(d3.event.target);
+        }
+      })
+      .on("brush", function() {
+        if (shiftKey) {
+          console.log('shiftKey', shiftKey);
+          var extent = d3.event.target.extent();
+          node.classed("selected", function(d) {
+            return d.selected = d.previouslySelected ^
+            (extent[0][0] <= x(d.Axe_X) && x(d.Axe_X) < extent[1][0]
+              && extent[0][1] <= y(d.Axe_Y) && y(d.Axe_Y) < extent[1][1]);
+          });
+        } else {
+          d3.event.target.clear();
+          d3.select(this).call(d3.event.target);
+        }
+      })
+      .on("brushend", function() {
+        d3.event.target.clear();
+        d3.select(this).call(d3.event.target);
+      }));
+
+  function zoom() {
+    if (shiftKey) { 
+      console.log('zoom shiftKey');
+      return;
+    }
+    console.log('zoom');
+    node.attr("cx", function(d) { return x(d.Axe_X); })
+    .attr("cy", function(d) { return y(d.Axe_Y); });
+    d3.select('.x.axis').call(xAxis);
+    d3.select('.y.axis').call(yAxis);
+  }
+
+  rect = svg.append('rect')
+    .attr('pointer-events', 'all')
+    .attr('width', width)
+    .attr('height', height)
+    .style('fill', 'none');
+  
+  node = svg.selectAll(".dot")
+    .data(data)
+    .enter().append("circle")
+    .attr("class", "dot")
+    .attr("r", function(d) { return d.selected ? 5 : 7; })
+    .attr("cx", function(d) { return x(d.Axe_X); })
+    .attr("cy", function(d) { return y(d.Axe_Y); })
+    .style("fill", function(d) { return color(d.Cluster); })
+    .on("mousedown", function(d) {
+      if (shiftKey) {
+        d3.select(this).classed("selected", d.selected = !d.selected);
+      } else {
+        node.classed("selected", function(p) {
+          return p.selected = d === p;
+        });
+      }
+    });
+
+  node.classed('selected', function (d) {return d.selected;})
+
+  var legend = svg.selectAll(".legend")
+    .data(color.domain())
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", color);
+
+  legend.append("text")
+    .attr("x", width - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(function(d) { return d; });
+  
+    d3.select(window).on("keydown", function() {
+      shiftKey = d3.event.shiftKey;
+      if (shiftKey) {
+        rect = rect.attr('pointer-events', 'none');
+      } else {
+        rect = rect.attr('pointer-events', 'all');
+      }
+    });
+  
+    d3.select(window).on("keyup", function() {
+      shiftKey = d3.event.shiftKey;
+      if (shiftKey) {
+        rect = rect.attr('pointer-events', 'none');
+      } else {
+        rect = rect.attr('pointer-events', 'all');
+      }
+    });
+  
+});
