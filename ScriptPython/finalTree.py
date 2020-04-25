@@ -276,7 +276,7 @@ def main(curseur):
     ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("chart_config = { chart : {container: '#tree',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n "+
+    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
                         "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
                         "nodeStructure : {")
     

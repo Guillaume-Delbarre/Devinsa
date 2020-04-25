@@ -1,4 +1,4 @@
-chart_config = { chart : {container: '#tree', scrollbar:"native",
+chart_config = { chart : {container: '#tree', scrollbar:'native',
 connectors: { type: 'step' },
  node: { HTMLclass: 'nodeExample1' },
  animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700,connectorsAnimation: "bounce", connectorsSpeed: 700 }},
