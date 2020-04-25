@@ -1,0 +1,40 @@
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+  
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+  
+.dot {
+    stroke: none;
+    fill-opacity: 0.5;
+}
+  
+.dot.selected {
+    stroke: #000000;
+    stroke-width: 2px;
+    fill-opacity: 0.8;
+}
+  
+a {
+    color: #5BBEAA;
+}
+
+.zone{
+    stroke: #000000;
+}
+  
+.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
+}
+
+.axis text { 
+    display: none; 
+}

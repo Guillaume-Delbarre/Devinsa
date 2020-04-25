@@ -1,55 +1,43 @@
-(function (d3) {
-    'use strict';
+function tabulate(data, columns) {
+  var table = d3.select("body").append("table"),
+      thead = table.append("thead"),
+      tbody = table.append("tbody");
 
-    var couleur = d3.scaleOrdinal(d3.schemeCategory10)
-        .domain(["Groupe 0","Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9"])
+  // Append the header row
+  thead.append("tr")
+      .selectAll("th")
+      .data(columns)
+      .enter()
+      .append("th")
+          .text(function(column) {
+              return column;
+          });
 
-    var tabulate = function (data,columns) {
-        var table = d3.select('body').append('table')
-          var thead = table.append('thead')
-          var tbody = table.append('tbody')
-      
-          thead.append('tr')
-            .selectAll('th')
-              .data(columns)
-              .enter()
-            .append('th')
-              .style('color', function(d) {return couleur(d)})
-              .text(function (d) { return d })
-      
-          var rows = tbody.selectAll('tr')
-              .data(data)
-              .enter()
-            .append('tr')
-      
-          var cells = rows.selectAll('td')
-              .data(function(row) {
-                  return columns.map(function (column) {
-                      return { column: column, value: row[column] }
-                })
-            })
-            .enter()
-          .append('td')
-            .text(function (d) { return d.value })
-            .style('color', function(d) { 
-              if( (d.value).includes('.') ){
-                if( (d.value).includes('-') ){
-                  return 'red'
-                } else {
-                  return 'green'
-                }
-              } else {
-                return 'black'
-              }
-            })
-      
-        return table;
-      }
+  // Create a row for each object in the data
+  var rows = tbody.selectAll("tr")
+      .data(data)
+      .enter()
+      .append("tr");
 
-    d3.csv('https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv')
-        .then(data => {
-            
-            tabulate(data,data.columns)
-            
-        });
-}(d3));
+  // Create a cell in each row for each column
+  var cells = rows.selectAll("td")
+      .data(function(row) {
+          return columns.map(function(column) {
+              return {
+                  column: column,
+                  value: row[column]
+              };
+          });
+      })
+      .enter()
+      .append("td")
+          .text(function(d) { return d.value; });
+
+  return table;
+}
+
+d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv", function(data) {
+  console.log(data.parseRows)
+  console.log(data)
+  tabulate(data,["Groupe 0","131 personnages","Groupe 1","567 personnages","Groupe 2","425 personnages","Groupe 3","307 personnages"])
+})

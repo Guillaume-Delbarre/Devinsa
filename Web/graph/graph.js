@@ -1,6 +1,6 @@
-var margin = {top: 60, right: 40, bottom: 88, left: 100},
-  width = 1000 - margin.left - margin.right,
-  height = 650 - margin.top - margin.bottom;
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+  width = 800 - margin.left - margin.right,
+  height = 450 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
   .range([0, width]);
@@ -20,6 +20,7 @@ var yAxis = d3.svg.axis()
 
 var svg = d3.select("body")
   .append("svg")
+  .attr("class", "zone")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom);
 
@@ -59,15 +60,6 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
 
   svg = svg.call(d3.behavior.zoom().x(x).y(y).on("zoom", zoom));
 
-  svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis)
-
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-
   var brush = svg.append("g")
     .datum(function() { return {selected: false, previouslySelected: false}; })
     .attr("class", "brush")
@@ -86,6 +78,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         if (shiftKey) {
           console.log('shiftKey', shiftKey);
           var extent = d3.event.target.extent();
+          console.log(extent)
           node.classed("selected", function(d) {
             return d.selected = d.previouslySelected ^
             (extent[0][0] <= x(d.Axe_X) && x(d.Axe_X) < extent[1][0]
@@ -108,7 +101,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     }
     console.log('zoom');
     node.attr("cx", function(d) { return x(d.Axe_X); })
-    .attr("cy", function(d) { return y(d.Axe_Y); });
+    .attr("cy", function(d) { return y(d.Axe_Y
+      ); });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -118,7 +112,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .attr('width', width)
     .attr('height', height)
     .style('fill', 'none');
-  
+
   node = svg.selectAll(".dot")
     .data(data)
     .enter().append("circle")
@@ -136,6 +130,17 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         });
       }
     });
+
+  var circleTitle = svg.selectAll('text').data(data)
+    .enter().append('text')
+      .attr('clip-path', 'url(#rect-clip)')
+      .attr('class', 'circleTitle')
+      .attr('opacity', 0)
+      .attr('stroke', 'black')
+      .attr('stroke-width', d => 1.5*d.Medoid)
+      .attr('x', d => x(d.Axe_X))
+      .attr('y', d => y(d.Axe_Y) + 12)
+      .text(d => d.Name)
 
   node.classed('selected', function (d) {return d.selected;})
 
