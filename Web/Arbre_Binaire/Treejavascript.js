@@ -5,7 +5,7 @@ connectors: { type: 'straight' },
 nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true, children : [
 
 {
-text: { name: '772 personnage(s)',perso1 : \'Passe-partout\',perso2 : \'Alex Keryhuel (étudiant INSA)\',perso2 : \'Aya Nakamura (chanteuse)\'', desc : 'Prochaine question : Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
+text: { name: '772 personnage(s)', perso1 : 'Passe-partout',perso2 : \'Alex Keryhuel (étudiant INSA)\',perso2 : \'Aya Nakamura (chanteuse)\'', desc : 'Prochaine question : Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
 
 {
 text: { name: '423 personnage(s)',perso1 : \'Paul Queva (étudiant INSA)\',perso2 : \'Aya Nakamura (chanteuse)\',perso2 : \'Alex Keryhuel (étudiant INSA)\'', desc : 'Prochaine question : Ton personnage est-il décédé ?'},HTMLclass :'light-green',collapsed : true, children : [
