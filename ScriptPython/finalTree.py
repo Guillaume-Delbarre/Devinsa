@@ -140,7 +140,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        ecriture.write("\n{")
+        ecrire += "\n{"
         ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
         ecrire += "\n}, \n {"
         ecrire += elagagePerso(choixNon,app_tree,matricePersoNon,"")
