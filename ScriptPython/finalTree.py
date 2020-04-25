@@ -109,7 +109,7 @@ def HTMLclass(choice):
 
 def elagagePerso(question,app_tree,matricePerso,ecrire):
     if(len(matricePerso)==1):        
-        ecrire += "\ntext: { name: ' Personnages restants : 0'}, collapsed : true\n"
+        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
         return ecrire
     else:
         if(question[0]==1):
@@ -118,10 +118,15 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
             listeperso = proxi(median(matricePerso),matricePerso)
             perso_median = ""
             for i in range(len(listeperso)):
-                perso_median += listeperso[i][1]+","
+                if i==0:
+                    perso_median += "perso1 : '"+listeperso[i][1]+"',"
+                if i==1:
+                    perso_median += "perso2 : '"+listeperso[i][1]+"',"
+                if i==2:
+                    perso_median += "perso2 : '"+listeperso[i][1]+"',"
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
-            ecrire += "\ntext: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+            ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+miseEnFormeText(perso_median)+"', desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         ecrire += "]"
@@ -268,12 +273,13 @@ def main(curseur):
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
     file = "../Web/Arbre_Binaire/Treejavascript.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n "+
                         "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
                         "nodeStructure : {")
-    ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
+    
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
