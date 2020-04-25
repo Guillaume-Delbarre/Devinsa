@@ -110,7 +110,7 @@ def HTMLclass(choice):
 def elagagePerso(question,app_tree,matricePerso,ecrire):
     if(len(matricePerso)==1):        
         ecrire += "\ntext: { name: ' Personnages restants : 0'}, collapsed : true\n"
-        return
+        return ecrire
     else:
         if(question[0]==1):
             ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
@@ -125,7 +125,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         ecrire += "]"
-        return
+        return ecrire
     elif (len(questionsFilles)==2):
         choixOui = []
         choixNon = []
