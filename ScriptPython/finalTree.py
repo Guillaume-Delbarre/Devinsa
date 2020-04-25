@@ -1,7 +1,4 @@
 import mysql.connector
-chart_config = ""
-file = "../Web/Arbre_Binaire/Treejavascript.js"
-ecriture = open(file,"w",encoding="utf-8")
 
 #APP_ITEM
 #[ID,Name]
@@ -32,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<7")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -110,28 +107,30 @@ def HTMLclass(choice):
         return 'light-red'
     return 'None'
 
-def elagagePerso(question,app_tree,matricePerso):
-    global chart_config,ecriture
+def elagagePerso(question,app_tree,matricePerso,ecrire):
     if(len(matricePerso)==1):        
-        ecriture.write("\ntext: { name: ' Personnages restants : 0'}, collapsed : true\n")
-        return
+        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
+        return ecrire
     else:
         if(question[0]==1):
-            ecriture.write("text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n")
+            ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
         else:
-            chart_config += "questionid_"+str(question[0])+",\n"
             listeperso = proxi(median(matricePerso),matricePerso)
             perso_median = ""
             for i in range(len(listeperso)):
-                perso_median += listeperso[i][1]+","
+                if i==0:
+                    perso_median += "perso1 : '"+miseEnFormeText(listeperso[i][1])+"',"
+                if i==1:
+                    perso_median += "perso2 : '"+miseEnFormeText(listeperso[i][1])+"',"
+                if i==2:
+                    perso_median += "perso3 : '"+miseEnFormeText(listeperso[i][1])+"',"
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
-            ecriture.write("\ntext: { name: ' Personnages restants : "+str(len(matricePerso)-1)+" Personnage median :"+miseEnFormeText(perso_median)+"', "+
-                           "desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n")
+            ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
-        ecriture.write("]")
-        return
+        ecrire += "]"
+        return ecrire
     elif (len(questionsFilles)==2):
         choixOui = []
         choixNon = []
@@ -146,12 +145,12 @@ def elagagePerso(question,app_tree,matricePerso):
         rangQuestion = avoirRangQuestion(question[3],matricePerso)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
-        ecriture.write("\n{")
-        elagagePerso(choixOui,app_tree,matricePersoOui)
-        ecriture.write("\n}, \n {")
-        elagagePerso(choixNon,app_tree,matricePersoNon)
-        ecriture.write("\n } \n]")
-        return
+        ecrire += "\n{"
+        ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
+        ecrire += "\n}, \n {"
+        ecrire += elagagePerso(choixNon,app_tree,matricePersoNon,"")
+        ecrire += "\n } \n]"
+        return ecrire
     else:
         print("Error 2 ")
         print(questionsFilles)
@@ -261,7 +260,6 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
     return res
 
 def main(curseur):
-    global chart_config, ecriture
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
     app_item = extrait_app_item(curseur)
@@ -275,10 +273,14 @@ def main(curseur):
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
-    ecriture.write("chart_config = { chart : {container: '#tree',\nconnectors: { type: 'straight' },\n node: { HTMLclass: 'nodeExample1' },\n "+
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
+    file = "../Web/Arbre_Binaire/Treejavascript.js"
+    ecriture = open(file,"w",encoding="utf-8")
+    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
                         "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
                         "nodeStructure : {")
-    elagagePerso(app_tree[0],app_tree,matricePerso)
+    
+    ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
     print("end\n")
