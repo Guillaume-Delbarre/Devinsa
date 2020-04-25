@@ -37,7 +37,8 @@ function tabulate(data, columns) {
 }
 
 d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv", function(data) {
-  console.log(data.parseRows)
-  console.log(data)
-  tabulate(data,["Groupe 0","131 personnages","Groupe 1","567 personnages","Groupe 2","425 personnages","Groupe 3","307 personnages"])
+    console.log(data[0].getAttribute())
+    console.log(data[0])
+    console.log(data)
+    tabulate(data,["Groupe 0","131 personnages","Groupe 1","567 personnages","Groupe 2","425 personnages","Groupe 3","307 personnages"])
 })
