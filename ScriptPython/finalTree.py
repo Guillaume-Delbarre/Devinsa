@@ -152,9 +152,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
         ecrire += "\n } \n]"
         return ecrire
     else:
-        print("Error 2 ")
-        print(questionsFilles)
-        return
+        return ""
                 
         
 def median(matrice):
