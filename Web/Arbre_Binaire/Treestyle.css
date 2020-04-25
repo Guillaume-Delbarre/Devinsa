@@ -11,6 +11,19 @@ body { background: #fff; }
             }
 .node-desc{
     text-align : center;
+    font-weight : bold;
+}
+
+.node-perso1{
+    text-align: center;
+}
+
+.node-perso2{
+    text-align: center;
+}
+
+.node-perso3{
+    text-align: center;
 }
 .nodeExample1 {
     padding: 2px;

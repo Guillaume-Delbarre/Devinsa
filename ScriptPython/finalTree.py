@@ -29,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<5")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<9")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -126,7 +126,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
                     perso_median += "perso3 : '"+miseEnFormeText(listeperso[i][1])+"',"
             perso_median = perso_median[:len(perso_median)-1]
             html = HTMLclass(question[2])
-            ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : 'Prochaine question : "+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+            ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         ecrire += "]"
