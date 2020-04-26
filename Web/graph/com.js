@@ -6,6 +6,9 @@ var namepers = "";
 
 $(document).ready(function() {
     $('#personnages').DataTable();
+	$('#personnages').on( 'click', 'tr', function () {
+		$(this).toggleClass('selected');
+    });
 });
 
 socket.on('getallpersreponse', function(pers) {
@@ -63,7 +66,7 @@ $( function() {
 		select : function(event, ui){
 			namepers = ui.item.value ; // On stock la valeur dans le param
 			if (questiontitle != ""){
-				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
+				//socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
 			}
 		}
 	});
