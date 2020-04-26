@@ -187,6 +187,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .style("text-anchor", "end")
     .text(function(d) { return d; });
   
+  var persoSelectionne = svg.selec
+  
     d3.select(window).on("keydown", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
