@@ -56,10 +56,8 @@ function get_selection(){
   });
   console.log(selection);
   var nomsPerso = []
-  var tabletemp = document.getElementById('tablePerso')
-  if(! (tabletemp == null)){
-    tabletemp.remove()
-  }
+  var tabletemp = document.getElementById("tableSelect");
+  tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){
     nomsPerso.push([selection[i].Name,selection[i].Cluster])
   }
