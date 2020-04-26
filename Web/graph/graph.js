@@ -42,7 +42,6 @@ function tabulatePerso(array){
       var newCell = newRow.insertCell(j);
       let newText = document.createTextNode(array[i][j]);
       newCell.appendChild(newText)
-      console.log(array[i][j])
     }
   }
 }
@@ -56,12 +55,14 @@ function get_selection(){
   });
   console.log(selection);
   var nomsPerso = []
+  var nomSelectionne = []
   var tabletemp = document.getElementById("tableSelect");
   tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){
     nomsPerso.push([selection[i].Name,selection[i].Cluster])
+    nomSelectionne.push(selection[i].Name)
   }
-  console.log(nomsPerso)
+  console.log(nomSelectionne)
   tabulatePerso(nomsPerso)
 }
 
