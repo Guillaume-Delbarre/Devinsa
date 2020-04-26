@@ -3213,6 +3213,15 @@ text: { name: ' Aucun personnage '}, collapsed : true
 
 }, 
  {
+text: { name: '1 personnage(s)',perso1 : 'Lady Gaga ', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-red',collapsed : true, children : [
+
+{
+}, 
+ {
+text: { name: '1 personnage(s)',perso1 : 'Lady Gaga ', desc : 'Ton personnage a-t-il un rapport avec le milieu du sport ?'},HTMLclass :'light-red',collapsed : true, children : [
+]
+ } 
+]
  } 
 ]
  } 
