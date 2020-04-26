@@ -164,7 +164,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
           .style("opacity", .9);		
       div	.html(d.Name)	
           .style("left", (d3.event.pageX) + "px")		
-          .style("top", (d3.event.pageY - 28) + "px");	
+          .style("top", (d3.event.pageY - 21) + "px");	
       })					
     .on("mouseout", function(d) {		
       div.transition()		
