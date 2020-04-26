@@ -34,6 +34,17 @@ svg = svg.append("g")
 
 var selection = [];
 
+function tabulatePerso(array){
+  table = document.getElementById("tableSelect");
+  for(var i = 0; i < array.length; i++){
+    var newRow = table.insertRow(table.length);
+    for(var j = 0; j < array[i].length; j++){
+      var cell = newRow.insertCell(j);
+      cell.innertHTML = array[i][j];
+    }
+  }
+}
+
 function get_selection(){
   selection = [];
   node.each(function(d) {
@@ -42,6 +53,16 @@ function get_selection(){
     }
   });
   console.log(selection);
+  var nomsPerso = []
+  var tabletemp = document.getElementById('tablePerso')
+  if(! (tabletemp == null)){
+    tabletemp.remove()
+  }
+  for(i=0;i<selection.length;i++){
+    nomsPerso.push([selection[i].Name,selection[i].Cluster])
+  }
+  console.log(nomsPerso)
+  tabulatePerso(nomsPerso)
 }
 
 function clear_selection() {
@@ -67,7 +88,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       .x(d3.scale.identity().domain([0, width]))
       .y(d3.scale.identity().domain([0, height]))
       .on("brushstart", function(d) {
-        console.log('brushstart');
+        svg = svg.call(d3.behavior.zoom().on("zoom", null));
+        //console.log('brushstart');
         node.each(function(d) { d.previouslySelected = shiftKey && d.selected; });
         if (!shiftKey) {
           d3.event.target.clear();
@@ -76,9 +98,9 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       })
       .on("brush", function() {
         if (shiftKey) {
-          console.log('shiftKey', shiftKey);
+          //console.log('shiftKey', shiftKey);
           var extent = d3.event.target.extent();
-          console.log(extent)
+          //console.log(extent)
           node.classed("selected", function(d) {
             return d.selected = d.previouslySelected ^
             (extent[0][0] <= x(d.Axe_X) && x(d.Axe_X) < extent[1][0]
@@ -92,6 +114,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       .on("brushend", function() {
         d3.event.target.clear();
         d3.select(this).call(d3.event.target);
+        svg.call(d3.behavior.zoom().x(x).y(y).on("zoom", zoom));
       }));
 
   function zoom() {
@@ -101,8 +124,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     }
     console.log('zoom');
     node.attr("cx", function(d) { return x(d.Axe_X); })
-    .attr("cy", function(d) { return y(d.Axe_Y
-      ); });
+    .attr("cy", function(d) { return y(d.Axe_Y); });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -117,7 +139,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .data(data)
     .enter().append("circle")
     .attr("class", "dot")
-    .attr("r", function(d) { return d.selected ? 5 : 7; })
+    .attr("r", function(d) { if(d.selected){return 7} else {return 5} })
     .attr("cx", function(d) { return x(d.Axe_X); })
     .attr("cy", function(d) { return y(d.Axe_Y); })
     .style("fill", function(d) { return color(d.Cluster); })
