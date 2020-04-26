@@ -87,6 +87,7 @@ io.sockets.on('connection', function (socket) {
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
 	function update(name,question,value,param){
+		console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
 		if (name != null && question != null && value != null && param != null){
@@ -115,7 +116,7 @@ io.sockets.on('connection', function (socket) {
 					});
 				}
 			});
-			console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
+			//console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
 		}else{
 			socket.emit("message","parametres incorrects");
 		}

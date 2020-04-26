@@ -3,10 +3,11 @@ var tabp = [];
 var tabq = [];
 var questiontitle = "";
 var namepers = "";
+var table;
 
 $(document).ready(function() {
-    $('#personnages').DataTable();
-	$('#personnages').on( 'click', 'tr', function () {
+    table = $('#personnages').DataTable();
+	$('#personnages').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
     });
 });
@@ -45,9 +46,12 @@ $('#lancer2emepartie').click(function () {
 			
 $('#updatesql').click(function () {
 	var rqtp = parseInt(prompt('Paramètre à changer ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
-	var rqtv = parseInt(prompt('Valeur à mettre ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE	
-	socket.emit('updatesql', {name :namepers, qname : questiontitle, value: rqtv, param : rqtp}); // ON ENVOIE L'EVENT AU SERVEUR
-
+	var rqtv = parseInt(prompt('Valeur à mettre ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
+	if(questiontitle != ""){
+		for (let i = 0; i<table.rows('.selected').data().length; i++){
+			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
+		}
+	}
 });
 
 $('#creerarbre').click(function () {
