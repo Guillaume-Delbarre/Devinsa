@@ -42,7 +42,6 @@ function tabulatePerso(array){
       var newCell = newRow.insertCell(j);
       let newText = document.createTextNode(array[i][j]);
       newCell.appendChild(newText)
-      console.log(array[i][j])
     }
   }
 }
@@ -56,14 +55,14 @@ function get_selection(){
   });
   console.log(selection);
   var nomsPerso = []
-  var tabletemp = document.getElementById('tablePerso')
-  if(! (tabletemp == null)){
-    tabletemp.remove()
-  }
+  var nomSelectionne = []
+  var tabletemp = document.getElementById("tableSelect");
+  tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){
     nomsPerso.push([selection[i].Name,selection[i].Cluster])
+    nomSelectionne.push(selection[i].Name)
   }
-  console.log(nomsPerso)
+  console.log(nomSelectionne)
   tabulatePerso(nomsPerso)
 }
 
@@ -152,6 +151,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         node.classed("selected", function(p) {
           return p.selected = d === p;
         });
+        document.getElementById('persoSelectionne').innerText = d.Name
       }
     });
 
@@ -187,7 +187,6 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .style("text-anchor", "end")
     .text(function(d) { return d; });
   
-  var persoSelectionne = svg.selec
   
     d3.select(window).on("keydown", function() {
       shiftKey = d3.event.shiftKey;

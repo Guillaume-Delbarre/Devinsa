@@ -4,12 +4,10 @@
     <title>Graph Devinsa Radio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="styles.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="https://d3js.org/d3.v3.js"></script>
 	<script src="http://92.94.210.93:8080/socket.io/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
   		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
@@ -19,24 +17,26 @@
 		<p><input type="button" value="Lancer la 2ème partie" id="lancer2emepartie" /></p>
 		<div class="ui-widget">
 			<label for="tags">Personnages : </label>
-			<input id="tags">
+			<input id="tags" value="">
 		</div>
 		<div class="ui-widget">
 			<label for="tags1">Questions : </label>
 			<input id="tags1">
 		</div>
-		<table id="personnages" class="display" style="width:100%">
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Yes_count</th>
-					<th>No_count</th>
-					<th>Pass_count</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div class="container">
+			<table id='valeurreponses'>
+				<thead>
+					<tr><th>Yes_count</th><th>No_count</th><th>Pass_count</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
     <nav>
       <ul class="menu">
 		<form action="Arbre" method="POST">
@@ -45,26 +45,33 @@
       </ul>
     </nav>
     <table class="objecttable">
-    </table>   
+    </table>
+    <!--
+      <script src="table.js"></script>
+    -->
+    
     <div class="container">
-		<a class="btn" href="javascript:void(0);" onclick="get_selection();">Get Selection</a>
-		<a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
-		<script src="graph.js"></script>
-		<script src="tableCluster.js"></script>
-		<table id='tableSelect'>
-			<thead>
-			<tr><th>Personnage sélectionné</th><th>Cluster</th></tr>
-			</thead>
-		</table>
-	</div>
-	<script>
-		$(document).ready(function() {
-			$('#personnages').DataTable();
-		});
-	</script>
+      <script src="graph.js"></script>
+      <script src="tableCluster.js"></script>
+      <table id='tableSelect'>
+        <thead>
+          <tr>
+            <th>Personnage sélectionné</th>
+            <th>Cluster</th>
+          </tr>
+        </thead>
+      </table>
+      <a class="btn" href="javascript:void(0);" onclick="get_selection();">Get Selection</a>
+      <a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
+      <p id='persoSelectionne'></p>
+    </div>
+    <!--
     <script src="cluster.js"></script>
+    -->
     <script src="table.js"></script>
+    <!--
     <script src="com.js"></script>
+    -->
 
   </body>
 
