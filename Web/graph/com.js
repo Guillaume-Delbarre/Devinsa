@@ -14,6 +14,11 @@ socket.on('getallquesreponse', function(ques) {
 });
 
 socket.on('getallparamreponse', function(tabreponse) {
+	var t = $('#personnages').DataTable();
+	t.clear().draw();
+	for(let i = 0; i<tabresponse.length; i++){
+		t.row.add([tabreponse.name, tabreponse.y, tabreponse.n, tabreponse.p]).draw( false );
+	}
 });
 		
 $('#vctsql').click(function () {
@@ -73,6 +78,9 @@ $( function() {
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
 			if (namepers != ""){
 				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
+			}
+			if (nomSelectionne != []){
+				socket.emit("getallpersreponses", {qname: questiontitle, name: nomSelectionne});
 			}
 		}
 	});

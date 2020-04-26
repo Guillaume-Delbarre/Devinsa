@@ -43,7 +43,6 @@ var Chemins = require('./Chemins');
 app.use('/', Chemins);
 	
 io.sockets.on('connection', function (socket) {
-	
 	//Remplir les tableaux de question et de personnages
 	getallques();
 	getallpers();
