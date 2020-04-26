@@ -33,6 +33,7 @@ svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var selection = [];
+var nomSelectionne =[];
 
 function tabulatePerso(array){
   table = document.getElementById("tableSelect");
@@ -55,7 +56,7 @@ function get_selection(){
   });
   console.log(selection);
   var nomsPerso = []
-  var nomSelectionne = []
+  nomSelectionne = []
   var tabletemp = document.getElementById("tableSelect");
   tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){

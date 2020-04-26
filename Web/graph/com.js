@@ -5,6 +5,10 @@ var questiontitle = "";
 var namepers = "";
 var arrayreponses = [];
 
+$(document).ready(function() {
+    $('#personnages').DataTable();
+});
+
 socket.on('getallpersreponse', function(pers) {
 	tabp = pers;
 });
@@ -14,6 +18,7 @@ socket.on('getallquesreponse', function(ques) {
 });
 
 socket.on('getallparamreponse', function(tabreponse) {
+	alert(tabreponse);
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
 	for(let i = 0; i<tabresponse.length; i++){
@@ -59,9 +64,10 @@ $( function() {
 		},
 		select : function(event, ui){
 			namepers = ui.item.value ; // On stock la valeur dans le param
+			/*
 			if (questiontitle != ""){
 				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
-			}
+			}*/
 		}
 	});
 });
@@ -76,11 +82,11 @@ $( function() {
 		},
 		select : function(event, ui){
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
-			if (namepers != ""){
+			/*if (namepers != ""){
 				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
-			}
-			if (nomSelectionne != []){
-				socket.emit("getallpersreponses", {qname: questiontitle, name: nomSelectionne});
+			}*/
+			if (nomSelectionne.length != 0){
+				socket.emit("getallpersreponses", {qname: questiontitle, names: nomSelectionne});
 			}
 		}
 	});
