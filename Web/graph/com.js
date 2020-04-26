@@ -3,7 +3,6 @@ var tabp = [];
 var tabq = [];
 var questiontitle = "";
 var namepers = "";
-var arrayreponses = [];
 
 $(document).ready(function() {
     $('#personnages').DataTable();

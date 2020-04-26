@@ -100,8 +100,8 @@ io.sockets.on('connection', function (socket) {
 			connection.query(rqt,[value,question,name],function (err,result) {
 				if (err) throw err;
 				if (result.affectedRows != 0){ 
-					console.log(result.affectedRows + " record(s) updated");
-					socket.emit("message","Update Done " + result.affectedRows);
+					//console.log(result.affectedRows + " record(s) updated");
+					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
 					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[question,name],function (error,res) {
 						if (error) throw error;
@@ -109,8 +109,8 @@ io.sockets.on('connection', function (socket) {
 						let itemid = res[1].id;
 						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
 							if (errors) throw errors;
-							socket.emit("message","Resultat inséré ");
-							console.log("Résultat inséré");
+							//socket.emit("message","Resultat inséré ");
+							//console.log("Résultat inséré");
 						});
 					});
 				}
@@ -136,7 +136,7 @@ io.sockets.on('connection', function (socket) {
 				fileattente(tab.slice(1), optionsligne);
 			}
 			if(tab.length == 1){
-				socket.emit("message", "Scripts finis");
+				//socket.emit("message", "Scripts finis");
 				console.log("Scripts finis");
 			}
 		});
@@ -153,11 +153,11 @@ io.sockets.on('connection', function (socket) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
 	// ECRITURE FICHIER
-			console.log("Ecriture en cours");
-			socket.emit("message","Ecriture en cours");
+			//console.log("Ecriture en cours");
+			//socket.emit("message","Ecriture en cours");
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
-				socket.emit("message","Fichier écrit");
+				socket.emit("message","Fichiers écrits");
 				//console.log("Ecriture faite");
 				const millis = Date.now() - start;
 				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
@@ -279,7 +279,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
 			}else{
-				console.log(nom + ' fini');
+				//console.log(nom + ' fini');
 			}
 		});
 	}
@@ -291,9 +291,10 @@ io.sockets.on('connection', function (socket) {
 		var fileSizeInBytes2 = stats2["size"];
 		if(fileSizeInBytes1 < 1000 || fileSizeInBytes2 < 1000){
 			socket.emit("message","Fichiers de base non créés, veuillez lancer la première partie");
-			console.log("Fichiers non écrits");
+			//console.log("Fichiers non écrits");
 			return 0;
 		}
-		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
+		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
+		console.log("fini")});
 	}
 });
