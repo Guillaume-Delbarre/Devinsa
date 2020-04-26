@@ -131,7 +131,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
     if(len(questionsFilles)==0):
         ecrire += "]"
         return ecrire
-    elif (len(questionsFilles)==2):
+    else:
         choixOui = []
         choixNon = []
         for i in range(len(questionsFilles)):
@@ -146,14 +146,14 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
         matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
         ecrire += "\n{"
-        ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
+        if (choixOui!=[]):
+            ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
         ecrire += "\n}, \n {"
-        ecrire += elagagePerso(choixNon,app_tree,matricePersoNon,"")
+        if (choixNon!=[]):
+            ecrire += elagagePerso(choixNon,app_tree,matricePersoNon,"")
         ecrire += "\n } \n]"
         return ecrire
-    else:
-        print("Error 2")
-        return ""
+
                 
         
 def median(matrice):
