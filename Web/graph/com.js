@@ -18,11 +18,10 @@ socket.on('getallquesreponse', function(ques) {
 });
 
 socket.on('getallparamreponse', function(tabreponse) {
-	alert(tabreponse);
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
-	for(let i = 0; i<tabresponse.length; i++){
-		t.row.add([tabreponse.name, tabreponse.y, tabreponse.n, tabreponse.p]).draw( false );
+	for(let i = 0; i<tabreponse.length; i++){
+		t.row.add([tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
 	}
 });
 		
@@ -64,10 +63,9 @@ $( function() {
 		},
 		select : function(event, ui){
 			namepers = ui.item.value ; // On stock la valeur dans le param
-			/*
 			if (questiontitle != ""){
 				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
-			}*/
+			}
 		}
 	});
 });
@@ -82,9 +80,6 @@ $( function() {
 		},
 		select : function(event, ui){
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
-			/*if (namepers != ""){
-				socket.emit("getvaleursreponse", {qname: questiontitle, name: namepers});
-			}*/
 			if (nomSelectionne.length != 0){
 				socket.emit("getallpersreponses", {qname: questiontitle, names: nomSelectionne});
 			}
@@ -97,8 +92,7 @@ socket.on('message', function(message) {
 });
 
 socket.on('valeursreponses', ({y, n, p}) => {	
-	var Table = document.getElementById('valeurreponses');
-	Table.rows[1].cells[0].innerHTML = y;
-	Table.rows[1].cells[1].innerHTML = n;
-	Table.rows[1].cells[2].innerHTML = p;
+	var t = $('#personnages').DataTable();
+	t.clear().draw();
+	t.row.add([namepers,y,n,p]).draw(false);
 });

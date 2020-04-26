@@ -213,32 +213,28 @@ io.sockets.on('connection', function (socket) {
 			}
 		}
 		donnees = donnees + ")";
-		console.log(donnees);
 		let rqt = "select name, yes_count, no_count, pass_count from app_answer inner join app_item on app_item.id = app_answer.item_id and question_id in (select id from app_question where title = ?) and name in " + donnees +";"
 		connection.query(rqt,[title],function (err,result) {
-		let tabreponse = []
-		if (err) throw err;
+			let tabreponse = []
+			if (err) throw err;
 			if (result.length != 0){
-				console.log(result);
-				console.log(result.length);
 				for(let j = 0; j <names.length; j++){
 					let pushed = 0;
 					for(let g = 0; g<result.length; g++){
 						if (names[j] == result[g].name){
-							tabreponse.push({name: result[j].name, y: result[j].yes_count, n: result[j].no_count, p: result[j].pass_count});
+							tabreponse.push({nom: names[j], y: result[g].yes_count, n: result[g].no_count, p: result[g].pass_count});
 							pushed = 1;
 						}
 					}						
 					if (pushed == 0){
-						tabreponse.push({name: names[j], y: 0, n: 0, p: 0});
+						tabreponse.push({nom: names[j], y: 0, n: 0, p: 0});
 					}			
 				}
 			}else{
 				for(let v = 0; v <names.length; v++){
-					tabreponse.push({name: names[v], y: 0, n: 0, p: 0});
+					tabreponse.push({nom: names[v], y: 0, n: 0, p: 0});
 				}
 			}
-			console.log(tabreponse, "la");
 			socket.emit("getallparamreponse", tabreponse);
 		});
 	}
