@@ -37,10 +37,12 @@ var selection = [];
 function tabulatePerso(array){
   table = document.getElementById("tableSelect");
   for(var i = 0; i < array.length; i++){
-    var newRow = table.insertRow(table.length);
+    var newRow = table.insertRow(-1);
     for(var j = 0; j < array[i].length; j++){
-      var cell = newRow.insertCell(j);
-      cell.innertHTML = array[i][j];
+      var newCell = newRow.insertCell(j);
+      let newText = document.createTextNode(array[i][j]);
+      newCell.appendChild(newText)
+      console.log(array[i][j])
     }
   }
 }
