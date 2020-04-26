@@ -266,7 +266,8 @@ def main(curseur):
     app_question = extrait_app_question(curseur)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
-    #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
+    print(len(app_tree))
+    """#Dans notre liste de questions, seules celles presentes dans larbre nous interessent
     liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
@@ -282,6 +283,6 @@ def main(curseur):
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
