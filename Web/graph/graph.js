@@ -29,6 +29,10 @@ var shiftKey;
 var rect, 
 node;
 
+var div = d3.select("body").append("div")	
+  .attr("class", "tooltip")				
+  .style("opacity", 0);
+
 svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -152,20 +156,21 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         node.classed("selected", function(p) {
           return p.selected = d === p;
         });
-        document.getElementById('persoSelectionne').innerText = d.Name
       }
+    })
+    .on("mouseover", function(d) {		
+      div.transition()		
+          .duration(200)		
+          .style("opacity", .9);		
+      div	.html(d.Name)	
+          .style("left", (d3.event.pageX) + "px")		
+          .style("top", (d3.event.pageY - 28) + "px");	
+      })					
+    .on("mouseout", function(d) {		
+      div.transition()		
+          .duration(500)		
+          .style("opacity", 0);	
     });
-
-  var circleTitle = svg.selectAll('text').data(data)
-    .enter().append('text')
-      .attr('clip-path', 'url(#rect-clip)')
-      .attr('class', 'circleTitle')
-      .attr('opacity', 0)
-      .attr('stroke', 'black')
-      .attr('stroke-width', d => 1.5*d.Medoid)
-      .attr('x', d => x(d.Axe_X))
-      .attr('y', d => y(d.Axe_Y) + 12)
-      .text(d => d.Name)
 
   node.classed('selected', function (d) {return d.selected;})
 
