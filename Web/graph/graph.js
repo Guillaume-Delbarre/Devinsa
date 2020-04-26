@@ -57,14 +57,14 @@ function get_selection(){
   console.log(selection);
   var nomsPerso = []
   nomSelectionne = []
-  var tabletemp = document.getElementById("tableSelect");
-  tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
+  //var tabletemp = document.getElementById("tableSelect");
+  //tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){
     nomsPerso.push([selection[i].Name,selection[i].Cluster])
     nomSelectionne.push(selection[i].Name)
   }
   console.log(nomSelectionne)
-  tabulatePerso(nomsPerso)
+  //tabulatePerso(nomsPerso)
 }
 
 function clear_selection() {
