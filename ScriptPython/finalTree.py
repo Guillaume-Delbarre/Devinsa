@@ -29,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<13")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -129,7 +129,7 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
         ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
-        ecrire += "]"
+        ecrire += "{text : {name : 'Question aléatoire'}, collapsed: true}]"
         return ecrire
     else:
         choixOui = []
@@ -273,7 +273,7 @@ def main(curseur):
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
-    file = "../Web/Arbre_Binaire/Treejavascript.js"
+    file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
                         "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
