@@ -29,7 +29,7 @@ def extrait_app_answer(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<13")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -111,22 +111,22 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
     if(len(matricePerso)==1):        
         ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
         return ecrire
+    elif(question[0]==1):
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
     else:
-        if(question[0]==1):
-            ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
-        else:
-            listeperso = proxi(median(matricePerso),matricePerso)
-            perso_median = ""
-            for i in range(len(listeperso)):
-                if i==0:
-                    perso_median += "perso1 : '"+miseEnFormeText(listeperso[i][1])+"',"
-                if i==1:
-                    perso_median += "perso2 : '"+miseEnFormeText(listeperso[i][1])+"',"
-                if i==2:
-                    perso_median += "perso3 : '"+miseEnFormeText(listeperso[i][1])+"',"
-            perso_median = perso_median[:len(perso_median)-1]
-            html = HTMLclass(question[2])
-            ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        listeperso = proxi(median(matricePerso),matricePerso)
+        listeperso = list(set(listeperso))
+        perso_median = ""
+        for i in range(len(listeperso)):
+            if i==0:
+                perso_median += "perso1 : '"+miseEnFormeText(listeperso[i][1])+"',"
+            if i==1:
+                perso_median += "perso2 : '"+miseEnFormeText(listeperso[i][1])+"',"
+            if i==2:
+                perso_median += "perso3 : '"+miseEnFormeText(listeperso[i][1])+"',"
+        perso_median = perso_median[:len(perso_median)-1]
+        html = HTMLclass(question[2])
+        ecrire += "\ntext: { name: '"+str(len(matricePerso)-1)+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     questionsFilles = getfils(question[0],app_tree)
     if(len(questionsFilles)==0):
         ecrire += "]"
