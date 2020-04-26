@@ -36,7 +36,7 @@ var selection = [];
 var nomSelectionne =[];
 
 function tabulatePerso(array){
-  table = document.getElementById("tableSelect");
+  //table = document.getElementById("tableSelect");
   for(var i = 0; i < array.length; i++){
     var newRow = table.insertRow(-1);
     for(var j = 0; j < array[i].length; j++){
