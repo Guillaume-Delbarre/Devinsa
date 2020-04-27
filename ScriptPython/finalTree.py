@@ -23,8 +23,8 @@ def test(cursor):
                    "(select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN"+
                    "(select item_id,question_id,yes_tfidf,no_tfidf,yes_count,no_count from app_answer) as a ON"+
                    " t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
-    for (a,b,c,d,e) in cursor:
-        res.append([a,b,c,d,e])
+    for (a,b,c,d,e,f) in cursor:
+        res.append([a,b,c,d,e,f])
     return res
 
 def extrait_app_item(cursor):
