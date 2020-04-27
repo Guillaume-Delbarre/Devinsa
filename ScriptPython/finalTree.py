@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def test(cursor):
     res = []
-    cursor.execute("SELECT name,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
+    cursor.execute("SELECT name,question_id,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
                    "SELECT name,title,id,idg FROM ( "+
                    "SELECT id AS idg, name FROM app_item where id in "+
                    "(Select distinct item_id from app_answer)) AS itemCROSS JOIN "+
