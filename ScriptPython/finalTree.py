@@ -285,10 +285,10 @@ def main(curseur):
     print(len(question))
     item = itemByOrder(vecteur)
     print(item.shape)
-    """tfidf,count = personnage(vecteur,question,item)
-    print(tfidf[0:0],count[0:0])
+    tfidf,count = personnage(vecteur,question,item)
+    print(tfidf[27,3],count[27,3])
     #On elague larbre ternaire en arbre binaire
-    app_tree = createBinarytree(app_tree)
+    """app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
