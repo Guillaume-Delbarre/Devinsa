@@ -258,7 +258,7 @@ def personnage(vecteur,question,item):
         tfidf[i] = vecteur[i][4]
         tfidf[i+1] = vecteur[i][5]
         count[i] = vecteur[i][6]
-        count[i+1] vecteur[i][7]
+        count[i+1] = vecteur[i][7]
     tfidf = np.array(res1).reshape(len(item),2*len(question))
     count = np.array(res2).reshape(len(item),2*len(question))
     return tfidf,count
