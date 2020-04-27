@@ -284,7 +284,6 @@ def main(curseur):
     question = questionByOrder(vecteur)
     print(len(question))
     item = itemByOrder(vecteur)
-    print(item.shape)
     tfidf,count = personnage(vecteur,question,item)
     print(tfidf[27,3],count[27,3])
     #On elague larbre ternaire en arbre binaire
