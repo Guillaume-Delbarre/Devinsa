@@ -15,10 +15,16 @@ curseur = base.cursor()
 
 def test(cursor):
     res = []
-    cursor.execute("SELECT app_answer.question_id, app_answer.item_id, yes_count, no_count, yes_tfidf, no_tfidf FROM app_answer,app_question,app_item WHERE "+
-                   "app_question.id = app_answer.question_id and app_item.id = app_answer.item_id")
-    for (a,b,c,d,e,f) in cursor:
-        res.append([a,b,c,d,e,f])
+    cursor.execute("SELECT name,yes_tfidf,no_tfidf FROM ( "+
+                   "SELECT name,title,id,idg FROM ( "+
+                   "SELECT id AS idg, name FROM app_item where id in "+
+                   "(Select distinct item_id from app_answer)) AS itemCROSS JOIN "+
+                   "(select distinct id,title from app_question where id IN"+
+                   "(select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN"+
+                   "(select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON"+
+                   "t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
+    for (a,b,c) in cursor:
+        res.append(a,b,c)
     return res
 
 def extrait_app_item(cursor):
