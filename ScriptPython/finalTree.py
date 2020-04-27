@@ -261,13 +261,14 @@ def creation_matrice_perso(app_answer,app_item,liste_questions):
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
     app_answer = extrait_app_answer(curseur)
+    print(len(app_answer))
     app_item = extrait_app_item(curseur)
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    liste_questions = garder_questions_arbre(app_tree,app_question)
+    """liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -282,6 +283,6 @@ def main(curseur):
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
