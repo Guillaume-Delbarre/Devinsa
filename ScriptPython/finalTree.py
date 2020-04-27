@@ -13,6 +13,14 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
+def test(cursor):
+    res = []
+    cursor.execute("SELECT app_answer.question_id, app_answer.item_id, yes_count, no_count, yes_tfidf, no_tfidf FROM app_answer CROSS JOIN app_question,app_item ON "+
+                   "app_question.id = app_answer.question_id and app_item.id = app_anser.item_id")
+    for (a,b,c,d,e,f) in cursor:
+        res.append([a,b,c,d,e,f])
+    return res
+
 def extrait_app_item(cursor):
     res = []
     cursor.execute("SELECT id,name FROM app_item")
@@ -267,10 +275,12 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     print(len(app_question))
+    lol = test(curseur)
+    print(len(lol))
     #On elague larbre ternaire en arbre binaire
-    app_tree = createBinarytree(app_tree)
+    """app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    """liste_questions = garder_questions_arbre(app_tree,app_question)
+    liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
     app_answer = garder_reponses_arbre(app_answer,liste_questions)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
