@@ -263,8 +263,10 @@ def main(curseur):
     app_answer = extrait_app_answer(curseur)
     print(len(app_answer))
     app_item = extrait_app_item(curseur)
+    print(len(app_item))
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
+    print(len(app_question))
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
