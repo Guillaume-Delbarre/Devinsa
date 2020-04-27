@@ -61,8 +61,7 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
                     k+=1
         dfFile.loc["Groupe "+str(i)]=quest
         dfFile.loc[str(count)+" personnages"]=score
-    idex = [i for i in range(2*nbCluster)]
-    print(dfFile)    
+    idex = [i for i in range(2*nbCluster)]   
     dfFile = dfFile.set_index(pd.Index(idex))   
     dfFile=dfFile.T   
     return dfFile
