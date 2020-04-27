@@ -274,6 +274,7 @@ def itemByOrder(vecteur):
     res = []
     for info in vecteur:
         if info[0] not in res:
+            print(info[0])
             res.append(info[0])
         else:
             return res
