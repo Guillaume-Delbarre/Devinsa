@@ -266,6 +266,7 @@ def ordreQuestions(vecteur):
     aux = []
     for info in vecteur:
         if info[1] not in aux:
+            print(info[1])
             aux.append(info[1])
         else:
             return aux
