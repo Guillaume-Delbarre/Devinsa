@@ -239,16 +239,16 @@ def createBinarytree(app_tree):
 def questionByOrder(vecteur):
     res = []
     for info in vecteur:
-        if info[1] not in res:
-            res.append(info[1])
+        if (info[2],info[3]) not in res:
+            res.append((info[2],info[3]))
         else:
             return res
 
 def itemByOrder(vecteur):
     res = []
     for info in vecteur:
-        if info[0] not in res:
-            res.append(info[0])
+        if (info[0],info[1]) not in res:
+            res.append((info[0],info[1]))
     return res
 
 def personnage(vecteur,question,item):
