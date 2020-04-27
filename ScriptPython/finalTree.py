@@ -266,7 +266,6 @@ def ordreQuestions(vecteur):
     aux = []
     for info in vecteur:
         if info[1] not in aux:
-            print(info[1])
             aux.append(info[1])
         else:
             return aux
@@ -286,7 +285,7 @@ def main(curseur):
     vecteur = vector(curseur)
     print(len(vecteur))
     question = ordreQuestions(vecteur)
-    print(len(vecteur))
+    print(len(question))
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
