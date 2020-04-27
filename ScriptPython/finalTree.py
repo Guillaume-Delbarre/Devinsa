@@ -274,12 +274,8 @@ def itemByOrder(vecteur):
     res = []
     for info in vecteur:
         if info[0] not in res:
-            print(info[0])
             res.append(info[0])
-        else:
-            return res
-
-    
+    return res    
 
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
