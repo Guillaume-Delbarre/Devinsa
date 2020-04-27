@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def vector(cursor):
     res = []
-    cursor.execute("SELECT name,id,idg,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
+    cursor.execute("SELECT idg,name,id,title,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
                    "SELECT name,title,id,idg FROM ( "+
                    "SELECT id AS idg, name FROM app_item where id in "+
                    "(Select distinct item_id from app_answer)) AS itemCROSS JOIN "+
@@ -23,8 +23,8 @@ def vector(cursor):
                    "(select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN"+
                    "(select item_id,question_id,yes_tfidf,no_tfidf,yes_count,no_count from app_answer) as a ON"+
                    " t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
-    for (a,b,c,d,e,f,g) in cursor:
-        res.append([a,b,c,d,e,f,g])
+    for (a,b,c,d,e,f,g,h) in cursor:
+        res.append([a,b,c,d,e,f,g,h])
     return res
 
 def extrait_app_item(cursor):
@@ -284,6 +284,12 @@ def main(curseur):
     app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
     print(vecteur[800])
+    for i in app_item:
+        if i[0]==vecteur[800][0]:
+            print(i)
+    for i in app_question:
+        if i[0]==vecteur[800][2]:
+            print(i)
     """question = questionByOrder(vecteur)
     item = itemByOrder(vecteur)
     #On elague larbre ternaire en arbre binaire
