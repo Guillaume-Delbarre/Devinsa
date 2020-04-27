@@ -69,11 +69,10 @@ def tableQuest(nbCluster=4, nbQuestion=14, nbMedoid=4):
 def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,902) des moyennes par question
     global df
     somme = df.sort_values(by='Clusters')
-    
     #del somme['Medoid']
     #Au lieu d'aller de 0 à 5, les clusters iront de 1 à 6
-    for k in range(nbCluster,0,-1):
-        somme['Clusters'].replace(k-1,k, inplace=True)
+    #for k in range(nbCluster,0,-1):
+    #   somme['Clusters'].replace(k-1,k, inplace=True)
     #On fait la somme des TF-IDF pour chaque question par cluster 
     somme = pd.DataFrame(somme.groupby(['Clusters'],as_index=False).sum())
     del somme["Clusters"]
@@ -86,6 +85,7 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     for i in range(len(question)):
         som.iloc[:,i] = somme.iloc[:,2*i]
         som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
+    #print(som)
     return som
 
 
@@ -117,3 +117,4 @@ if __name__ == '__main__':
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
         printQuestionCarac()
+    
