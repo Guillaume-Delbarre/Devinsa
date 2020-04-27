@@ -252,8 +252,8 @@ def itemByOrder(vecteur):
     return res
 
 def personnage(vecteur,question,item):
-    tfidf = [None]*2*len(vecteur)
-    count = [None]*2*len(vecteur)
+    tfidf = [0]*2*len(vecteur)
+    count = [0]*2*len(vecteur)
     for i in range(len(vecteur)):
         if vecteur[i][4] == None:
             tfidf[2*i] = 0
