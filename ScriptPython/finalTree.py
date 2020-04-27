@@ -264,13 +264,13 @@ def personnage(vecteur,question,item):
         else:
             tfidf[i] = vecteur[i][5]
         if vecteur[i][6] == None:
-            tfidf[2*i] = 0
+            count[2*i] = 0
         else:
-            tfidf[2*i] = vecteur[i][6]
+            count[2*i] = vecteur[i][6]
         if vecteur[i][7] == None:
-            tfidf[(2*i)+1] = 0
+            count[(2*i)+1] = 0
         else:
-            tfidf[(2*i)+1] = vecteur[i][7]
+            count[(2*i)+1] = vecteur[i][7]
     tfidf = np.array(tfidf).reshape(len(item),2*len(question))
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
