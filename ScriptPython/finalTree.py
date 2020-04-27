@@ -22,7 +22,7 @@ def test(cursor):
                    "(select distinct id,title from app_question where id IN"+
                    "(select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN"+
                    "(select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON"+
-                   "t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
+                   " t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
     for (a,b,c) in cursor:
         res.append(a,b,c)
     return res
