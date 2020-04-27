@@ -272,6 +272,7 @@ def main(curseur):
     question = questionByOrder(vecteur)
     item = itemByOrder(vecteur)
     tfidf,count = personnage(vecteur,question,item)
+    print(tfidf[0:0],count[0:0])
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
