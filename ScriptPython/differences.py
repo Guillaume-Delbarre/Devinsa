@@ -24,7 +24,18 @@ def differences2Cluster(L1,L2):
     print(res.columns)
 
 def differences2Selection(L1,L2):
-    "TODO"
+    global df
+    countS1 = len(L1)
+    countS2 = len(L2)
+    S1 = pd.DataFrame(df.loc[L1, :], copy=True)
+    S2 = pd.DataFrame(df.loc[L2, :], copy=True)
+    del S1["Clusters"]
+    del S2["Clusters"]
+    S1 = S1/countS1
+    S2 = S2/countS2
+    res = np.subtract(S1,S2).abs()
+    res.sort_values(by= [L1[0]], axis = 'columns', inplace=True, ascending = False )
+    print(res.columns)
 
 def differencesSelectionCluster(L1,L2):
     global df
@@ -37,10 +48,10 @@ def differencesSelectionCluster(L1,L2):
     del S["Clusters"]
     print(S)
     C = C/countC
-    S= S/countS
+    S = S/countS
     res = np.subtract(S,C).abs()
     res.sort_values(by= [L1[0]], axis = 'columns', inplace=True, ascending = False )
-    print(res)
+    print(res.columns)
 
 
 
@@ -60,4 +71,4 @@ if __name__ == '__main__':
             raise ValueError("Erreur dans les type des paramètres")
 
     else:
-        differencesSelectionCluster(["Batman"],[0])
+        differencesSelectionCluster(["Batman", "Donald Trump"],[0])
