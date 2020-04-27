@@ -270,7 +270,7 @@ def ordreQuestions(vecteur):
         else:
             return aux
         
-def creation_matrice_perso():
+"""def creation_matrice_perso():"""
     
 
 def main(curseur):
