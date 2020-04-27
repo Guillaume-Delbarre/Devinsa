@@ -1,4 +1,5 @@
 import mysql.connector
+import numpy as np
 
 #APP_ITEM
 #[ID,Name]
@@ -8,6 +9,8 @@ import mysql.connector
 #[id,parent_id,choice,question_id,title]
 #APP_QUESTION
 #[id,title]
+#VECTEUR
+#[id_item,name,id_question,title,yes_tfidf,no_tfidf,yes_count,no_count]
 
 base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
 
@@ -220,28 +223,6 @@ def proxi(med,matrice):
         dist_aux = 0
     return [aux[0][0],aux[1][0],aux[2][0]]
 
-
-def garder_questions_arbre(app_tree,app_question):
-    aux = []
-    for question in app_tree:
-        if question[3] not in aux and type(question[3])==int:
-            aux.append(question[3])
-    res = []
-    for ident in aux:
-        for question in app_question:
-            if ident==question[0]:
-                res.append(question)
-    return res
-
-#Fonction qui permet de garder les reponses dune liste de questions
-def garder_reponses_arbre(app_answer,liste_questions):
-    res = []
-    for i in range(len(liste_questions)):
-        for j in range(len(app_answer)):
-            if liste_questions[i][0]==app_answer[j][0]:
-                res.append(app_answer[j])
-    return res
-
 def createBinarytree(app_tree):  
     resultat = []
     question_id = []
@@ -253,13 +234,6 @@ def createBinarytree(app_tree):
             question_id.append(question[0])
             resultat.append(question)
     return resultat
-
-
-def get_tfIdfCount(id_perso,app_answer,id_question):
-    for answer in app_answer:
-        if answer[1] == id_perso and answer[0] == id_question:
-            return (answer[2],answer[3],answer[4],answer[5])
-    return (0,0,0,0)
 
 
 def questionByOrder(vecteur):
@@ -275,7 +249,19 @@ def itemByOrder(vecteur):
     for info in vecteur:
         if info[0] not in res:
             res.append(info[0])
-    return res    
+    return res
+
+def personnage(vecteur,question,item):
+    tfidf = [None]*2*len(vecteur)
+    count = [None]*2*len(vecteur)
+    for i in range(len(vecteur),2):
+        tfidf[i] = vecteur[i][4]
+        tfidf[i+1] = vecteur[i][5]
+        count[i] = vecteur[i][6]
+        count[i+1] vecteur[i][7]
+    tfidf = np.array(res1).reshape(len(item),2*len(question))
+    count = np.array(res2).reshape(len(item),2*len(question))
+    return tfidf,count
 
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
@@ -283,21 +269,11 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
-    print(vecteur[800])
-    for i in app_item:
-        if i[0]==vecteur[800][0]:
-            print(i)
-    for i in app_question:
-        if i[0]==vecteur[800][2]:
-            print(i)
-    """question = questionByOrder(vecteur)
+    question = questionByOrder(vecteur)
     item = itemByOrder(vecteur)
+    tfidf,count = personnage(vecteur,question,item)
     #On elague larbre ternaire en arbre binaire
-    app_tree = createBinarytree(app_tree)
-    #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
-    liste_questions = garder_questions_arbre(app_tree,app_question)
-    #Seules les reponses aux questions de larbre nous interessent
-    app_answer = garder_reponses_arbre(app_answer,liste_questions)
+    """app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
