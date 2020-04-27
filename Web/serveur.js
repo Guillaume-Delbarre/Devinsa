@@ -77,17 +77,25 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
-		demande("main.py", [nbcluster, nbquestions]);
+		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
+			demande("main.py", [nbcluster, nbquestions]);
+		}else{
+			socket.emit("message", "paramètres incorrects");
+		}
 	});
 	
 	socket.on('lancerdeuxièmepartie', ({nbcluster, nbquestions}) => {
-		lancercalculs(nbcluster, nbquestions);
+		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
+			lancercalculs(nbcluster, nbquestions);
+		}else{
+			socket.emit("message", "paramètres incorrects");
+		}
 	});
 	
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
 	function update(name,question,value,param){
-		console.log(name,question,value,param);
+		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
 		if (name != null && question != null && value != null && param != null){
@@ -208,7 +216,7 @@ io.sockets.on('connection', function (socket) {
 	function getvaleursreponsespers(title,names){
 		let donnees = "("
 		for(let i = 0; i<names.length; i++){
-			donnees = donnees + '"' + names[i] + '"';
+			donnees = donnees + '"' + names[i].replace(/"/g, "") + '"';
 			if (i != (names.length - 1)){
 				donnees = donnees + ",";
 			}
@@ -273,6 +281,7 @@ io.sockets.on('connection', function (socket) {
 	}
 	
 	function lancerscript(nom, optionsligne){
+		console.log(nom + " : Scriptlancé");
 		path = "../ScriptPython/".concat(nom);
 		let options = {args: optionsligne};
 		PythonShell.run(path, options, function (err) {
