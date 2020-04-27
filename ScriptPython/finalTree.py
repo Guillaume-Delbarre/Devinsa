@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def test(cursor):
     res = []
-    cursor.execute("SELECT name,yes_tfidf,no_tfidf FROM ( "+
+    cursor.execute("SELECT name,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
                    "SELECT name,title,id,idg FROM ( "+
                    "SELECT id AS idg, name FROM app_item where id in "+
                    "(Select distinct item_id from app_answer)) AS itemCROSS JOIN "+
@@ -23,8 +23,8 @@ def test(cursor):
                    "(select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN"+
                    "(select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON"+
                    " t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
-    for (a,b,c) in cursor:
-        res.append([a,b,c])
+    for (a,b,c,d,e) in cursor:
+        res.append([a,b,c,d,e])
     return res
 
 def extrait_app_item(cursor):
@@ -283,6 +283,7 @@ def main(curseur):
     print(len(app_question))
     lol = test(curseur)
     print(len(lol))
+    print(lol[700])
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
