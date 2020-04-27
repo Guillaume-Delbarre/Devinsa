@@ -15,12 +15,12 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
     if(nbQuestion % 2)!=0:
         raise ValueError("Veuillez entrer un nombre pair de questions")
-    dfFile = tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid)
+    dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
     dfFile.to_csv("../Donnees/infoClusters.csv", mode='w', index=False)
 
     
 
-def tableQuest(nbCluster=4, nbQuestion=14, nbMedoid=4):
+def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
     global df
     agg = sommesClusters()
     agg = agg.T
@@ -61,8 +61,12 @@ def tableQuest(nbCluster=4, nbQuestion=14, nbMedoid=4):
                     k+=1
         dfFile.loc["Groupe "+str(i)]=quest
         dfFile.loc[str(count)+" personnages"]=score
-
+    idex = [i for i in range(2*nbCluster)]
+    print(dfFile)    
+    dfFile = dfFile.set_index(pd.Index(idex))
+    print(dfFile)    
     dfFile=dfFile.T
+    print(dfFile)    
     return dfFile
 
 
