@@ -289,7 +289,7 @@ def main(curseur):
     question = questionByOrder(vecteur)
     item = itemByOrder(vecteur)
     print(len(item))
-    print(len(quesiton))
+    print(len(question))
     print(len(vecteur))
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
