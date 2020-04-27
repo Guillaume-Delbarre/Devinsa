@@ -265,8 +265,8 @@ def get_tfIdfCount(id_perso,app_answer,id_question):
 def ordreQuestions(vecteur):
     aux = []
     for info in vecteur:
-        if vecteur[1] not in aux:
-            aux.append(vecteur[1])
+        if info[1] not in aux:
+            aux.append(info[1])
         else:
             return aux
         
