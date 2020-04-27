@@ -262,30 +262,31 @@ def get_tfIdfCount(id_perso,app_answer,id_question):
     return (0,0,0,0)
 
 
-def ordreQuestions(vecteur):
-    aux = []
+def questionByOrder(vecteur):
+    res = []
     for info in vecteur:
-        if info[1] not in aux:
-            aux.append(info[1])
+        if info[1] not in res:
+            res.append(info[1])
         else:
-            return aux
-        
-"""def creation_matrice_perso():"""
+            return res
+
+def itemByOrder(vecteur):
+    res = []
+    for info in vecteur:
+        if info[0] not in res:
+            res.append(info[0])
+        else:
+            return res
+
     
 
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
-    app_answer = extrait_app_answer(curseur)
-    print(len(app_answer))
-    app_item = extrait_app_item(curseur)
-    print(len(app_item))
-    app_tree = extrait_app_tree(curseur)
+    app_item = extrait_app_item(curseurapp_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
-    print(len(app_question))
     vecteur = vector(curseur)
-    print(len(vecteur))
-    question = ordreQuestions(vecteur)
-    print(len(question))
+    question = questionByOrder(vecteur)
+    item = itemByOrder(vecteur)
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
