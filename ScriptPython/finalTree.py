@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def vector(cursor):
     res = []
-    cursor.execute("SELECT name,title,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
+    cursor.execute("SELECT name,id,idg,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
                    "SELECT name,title,id,idg FROM ( "+
                    "SELECT id AS idg, name FROM app_item where id in "+
                    "(Select distinct item_id from app_answer)) AS itemCROSS JOIN "+
@@ -283,13 +283,11 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
-    question = questionByOrder(vecteur)
+    print(vecteur[800])
+    """question = questionByOrder(vecteur)
     item = itemByOrder(vecteur)
-    print(len(item))
-    print(len(question))
-    print(len(vecteur))
     #On elague larbre ternaire en arbre binaire
-    """app_tree = createBinarytree(app_tree)
+    app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
     liste_questions = garder_questions_arbre(app_tree,app_question)
     #Seules les reponses aux questions de larbre nous interessent
