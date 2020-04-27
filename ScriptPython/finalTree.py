@@ -254,11 +254,23 @@ def itemByOrder(vecteur):
 def personnage(vecteur,question,item):
     tfidf = [None]*2*len(vecteur)
     count = [None]*2*len(vecteur)
-    for i in range(len(vecteur),2):
-        tfidf[i] = vecteur[i][4]
-        tfidf[i+1] = vecteur[i][5]
-        count[i] = vecteur[i][6]
-        count[i+1] = vecteur[i][7]
+    for i in range(len(vecteur)):
+        if vecteur[i][4] == None:
+            tfidf[2*i] = 0
+        else:
+            tfidf[2*i] = vecteur[i][4]
+        if vecteur[i][5] == None:
+            tfidf[(2*i)+1] = 0
+        else:
+            tfidf[i] = vecteur[i][5]
+        if vecteur[i][6] == None:
+            tfidf[2*i] = 0
+        else:
+            tfidf[2*i] = vecteur[i][6]
+        if vecteur[i][7] == None:
+            tfidf[(2*i)+1] = 0
+        else:
+            tfidf[(2*i)+1] = vecteur[i][4]
     tfidf = np.array(tfidf).reshape(len(item),2*len(question))
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
