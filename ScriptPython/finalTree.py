@@ -282,7 +282,6 @@ def main(curseur):
     app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
     question = questionByOrder(vecteur)
-    print(len(question))
     item = itemByOrder(vecteur)
     tfidf,count = personnage(vecteur,question,item)
     print(tfidf[27,3],count[27,3])
