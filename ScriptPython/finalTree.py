@@ -15,7 +15,7 @@ curseur = base.cursor()
 
 def test(cursor):
     res = []
-    cursor.execute("SELECT app_answer.question_id, app_answer.item_id, yes_count, no_count, yes_tfidf, no_tfidf FROM app_answer CROSS JOIN app_question,app_item ON "+
+    cursor.execute("SELECT app_answer.question_id, app_answer.item_id, yes_count, no_count, yes_tfidf, no_tfidf FROM app_answer,app_question,app_item WHERE "+
                    "app_question.id = app_answer.question_id and app_item.id = app_anser.item_id")
     for (a,b,c,d,e,f) in cursor:
         res.append([a,b,c,d,e,f])
