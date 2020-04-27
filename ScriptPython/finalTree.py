@@ -13,7 +13,7 @@ base = mysql.connector.connect(host='localhost',database='devinsa',user='root',p
 
 curseur = base.cursor()
 
-def test(cursor):
+def vector(cursor):
     res = []
     cursor.execute("SELECT name,title,yes_tfidf,no_tfidf,yes_count,no_count FROM ( "+
                    "SELECT name,title,id,idg FROM ( "+
@@ -261,16 +261,17 @@ def get_tfIdfCount(id_perso,app_answer,id_question):
             return (answer[2],answer[3],answer[4],answer[5])
     return (0,0,0,0)
 
-def creation_matrice_perso(app_answer,app_item,liste_questions):
-    res = creerMatrice(len(app_item)+1,len(liste_questions)+1)
-    for i in range(len(liste_questions)):
-        res[0][i+1] = liste_questions[i][0]
-    for i in range(len(app_item)):
-        res[i+1][0] = (app_item[i][0],app_item[i][1])
-    for i in range(1,len(res)):
-        for j in range(1,len(res[0])):
-            res[i][j] = get_tfIdfCount(res[i][0][0],app_answer,res[0][j])
-    return res
+
+def ordreQuestions(vecteur):
+    aux = []
+    for info in vecteur:
+        if vecteur[1] not in aux:
+            aux.append(vecteur[1])
+        else:
+            return aux
+        
+def creation_matrice_perso():
+    
 
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
@@ -281,9 +282,10 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     print(len(app_question))
-    lol = test(curseur)
-    print(len(lol))
-    print(lol[700])
+    vecteur = vector(curseur)
+    print(len(vecteur))
+    question = ordreQuestions(vecteur)
+    print(len(vecteur))
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Dans notre liste de questions, seules celles presentes dans larbre nous interessent
