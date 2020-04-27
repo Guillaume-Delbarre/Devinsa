@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sys
+import time
 from matplotlib import pyplot as plt
 from scipy.cluster.hierarchy import dendrogram
 from sklearn.cluster import AgglomerativeClustering
@@ -10,8 +11,10 @@ def classHierarchique(n=0) :
     #print(df)
 
     #plus la distance threshold est faible, plus le nombre de cluster est élevé
-    clt = AgglomerativeClustering(n_clusters=None,distance_threshold=150,compute_full_tree=True).fit(df)
-
+    if (n==0):  
+        clt = AgglomerativeClustering(n_clusters=None,distance_threshold=150,compute_full_tree=True).fit(df)
+    else:
+        clt = AgglomerativeClustering(n_clusters=n,compute_full_tree=True).fit(df)
     '''
     file = open("../Donnees/testCAH.txt","w")
     for s in clt.labels_ :
@@ -20,6 +23,7 @@ def classHierarchique(n=0) :
     '''
     #print(clt.labels_)
     ecritcluster(clt.labels_)
+  
 
 
 def ecritcluster(tabCluster):
@@ -43,4 +47,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         classHierarchique(numberOfClusters)
     else:
-        classHierarchique(4)
+        classHierarchique(6)

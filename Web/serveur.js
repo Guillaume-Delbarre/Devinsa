@@ -73,12 +73,12 @@ io.sockets.on('connection', function (socket) {
 	
 	// LANCER SCRIPTS
 	socket.on('ecrirevecteursql', function() {
-		demande("MiseEnPage.py", []);
+		demande(["MiseEnPage.py"], []);
 	});
 	
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
-			demande("main.py", [nbcluster, nbquestions]);
+			demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
 		}else{
 			socket.emit("message", "paramètres incorrects");
 		}
@@ -133,21 +133,24 @@ io.sockets.on('connection', function (socket) {
 	function fileattente(tab, optionsligne){
 		route = "../ScriptPython/";
 		chemin = route.concat(tab[0]);
+		console.log(tab[0] + " lancé");
 		let options = {args: optionsligne};
 		PythonShell.run(chemin, options, function (err) {
-			if (err) {
-				console.log(err);
-				console.log(tab[0] + " : Echec de l'execution");
-			}else{
-				console.log(tab[0] + ' fini');
-			}
-			if (tab.length > 1){
-				fileattente(tab.slice(1), optionsligne);
-			}
-			if(tab.length == 1){
-				//socket.emit("message", "Scripts finis");
-				console.log("Scripts finis");
-			}
+			setTimeout(function(){
+				if (err) {
+					console.log(err);
+					console.log(tab[0] + " : Echec de l'execution");
+				}else{
+					console.log(tab[0] + ' fini');
+				}
+				if (tab.length > 1){
+					fileattente(tab.slice(1), optionsligne);
+				}
+				if(tab.length == 1){
+					//socket.emit("message", "Scripts finis");
+					console.log("Scripts finis");
+				}
+			}, 1000);
 		});
 	}
 	// Fonction Lecture Base / Ecriture fichier
@@ -170,8 +173,8 @@ io.sockets.on('connection', function (socket) {
 				//console.log("Ecriture faite");
 				const millis = Date.now() - start;
 				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
-				if (script != ""){
-					lancerscript(script, options);
+				if (script != []){
+					fileattente(script, options);
 				}
 			});
 		});
@@ -281,7 +284,7 @@ io.sockets.on('connection', function (socket) {
 	}
 	
 	function lancerscript(nom, optionsligne){
-		console.log(nom + " : Scriptlancé");
+		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
 		let options = {args: optionsligne};
 		PythonShell.run(path, options, function (err) {
