@@ -9,12 +9,25 @@ from sklearn.metrics import pairwise_distances
 df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 def differences2Cluster(L1,L2):
-    
+    global df
+    C1 = len(df[df["Clusters"]==L1[0]])
+    C2 = len(df[df["Clusters"]==L2[0]])
+    somme = pd.DataFrame(df.groupby(['Clusters'],as_index=False).sum())
+    S1 = pd.DataFrame(somme[somme["Clusters"]==L1[0]], copy=True)
+    S2 = pd.DataFrame(somme[somme["Clusters"]==L2[0]], copy=True)
+    del S1["Clusters"]
+    del S2["Clusters"]
+    S1 = S1/C1
+    S2 = S2/C2
+    res = np.subtract(S1,S2).abs()
+    res.sort_values(by= [L1[0]], axis = 'columns', inplace=True, ascending = False )
+    print(res.columns)
 
 def differences2Selection(L1,L2):
+    "TODO"
 
 def differencesSelectionCluster(L1,L2):
-    
+    "TODO"
 
 
 
