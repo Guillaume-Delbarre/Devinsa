@@ -24,7 +24,7 @@ def test(cursor):
                    "(select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON"+
                    " t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title")
     for (a,b,c) in cursor:
-        res.append(a,b,c)
+        res.append([a,b,c])
     return res
 
 def extrait_app_item(cursor):
