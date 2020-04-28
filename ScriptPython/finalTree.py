@@ -54,7 +54,7 @@ def compterPerso(rangQuestion,count):
         divise = 1
     else:
         divise = -1
-    liste_rapport = count[:,rangQuestion]/count[:,(rangQuestion+divise)]
+    liste_rapport = (count[:,rangQuestion]+1)/(count[:,(rangQuestion+divise)]+1)
     liste_rapport.shape
 
 def miseEnFormeText(text):
