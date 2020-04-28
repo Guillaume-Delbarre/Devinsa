@@ -7,7 +7,7 @@ const helmet = require('helmet');
 var app = express();
 app.use(helmet());
 var server = require('http').createServer(app);
-server.listen(8080, "127.0.0.1", function(){
+server.listen(8080, "10.133.33.20", function(){
 	console.log("listening at port : 8080");}
 );
 //Ecriture fichier
