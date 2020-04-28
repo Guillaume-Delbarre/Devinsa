@@ -9,8 +9,8 @@ var mysql = require('mysql');
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "etudespratiques",
-  database: "animal"
+  password: "devinsa!",
+  database: "devinsa"
 });
 
 router.use(session({
