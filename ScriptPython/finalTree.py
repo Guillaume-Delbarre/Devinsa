@@ -60,9 +60,9 @@ def extrait_app_question(cursor):
 
 def getfils(parent_id,app_tree):
     res = []
-    for i in range(len(app_tree)):
-        if app_tree[i][1]==parent_id:
-            res.append(app_tree[i])
+    for question in app_tree:
+        if question[1]==parent_id:
+            res.append(question)
         if len(res)==2:
             return res
     return res
@@ -108,13 +108,13 @@ def compterPerso(rangQuestion,matricePerso,choix):
 def miseEnFormeText(text):
     return text.replace('\'',"\\'")
 
-def avoirRangQuestion(id_question,matricePerso):
+def avoirRangQuestion(id_question,questionOrder):
     i = 0
-    for question in matricePerso[0]:
-        if(id_question==question):
+    for question in questionOrder:
+        if(id_question==question[0]):
             return i
         i += 1
-    print("Error 4")
+    print("Error avoirRangQuestion")
     return
 
 def HTMLclass(choice):
@@ -124,7 +124,7 @@ def HTMLclass(choice):
         return 'light-red'
     return 'None'
 
-def elagagePerso(question,app_tree,matricePerso,ecrire):
+def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     if(len(matricePerso)==1):        
         ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
         return ecrire
@@ -151,17 +151,17 @@ def elagagePerso(question,app_tree,matricePerso,ecrire):
     else:
         choixOui = []
         choixNon = []
-        for i in range(len(questionsFilles)):
-            if questionsFilles[i][2]=='o':
-                choixOui = questionsFilles[i]
-            elif questionsFilles[i][2] =='n':
-                choixNon = questionsFilles[i]
+        for question in questionsFilles:
+            if question[2]=='o':
+                choixOui = question
+            elif question[2] =='n':
+                choixNon = question
             else:
                 print("Error 3")
                 return
-        rangQuestion = avoirRangQuestion(question[3],matricePerso)
+        rangQuestion = avoirRangQuestion(question[3],questionOrder)
         matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
-        matricePersoNon = compterPerso(rangQuestion, matricePerso,'n')
+        matricePersoNon = compterPerso(rangQuestion+1, matricePerso,'n')
         ecrire += "\n{"
         if (choixOui!=[]):
             ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
@@ -281,15 +281,17 @@ def main(curseur):
     app_tree = extrait_app_tree(curseur)
     app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
+    #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
-    item = itemByOrder(vecteur)
+    print(question)
+    #Item contient l'ordre des lignes des personnages sous la forme [ID, Name]
+    """item = itemByOrder(vecteur)
+    #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = personnage(vecteur,question,item)
-    print(tfidf[0,:])
     #On elague larbre ternaire en arbre binaire
-    """app_tree = createBinarytree(app_tree)
+    app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    matricePerso = creation_matrice_perso(app_answer,app_item,liste_questions)
-    ecrireFinal = elagagePerso(app_tree[0],app_tree,matricePerso,"")
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
