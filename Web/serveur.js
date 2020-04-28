@@ -1,6 +1,5 @@
 //ExecutionPython
 let {PythonShell} = require('python-shell');
-
 //Dialogue Site web
 var express = require('express');
 var session = require('express-session');
@@ -8,8 +7,9 @@ const helmet = require('helmet');
 var app = express();
 app.use(helmet());
 var server = require('http').createServer(app);
-server.listen(8080, "192.168.1.43");
-
+server.listen(8080, "127.0.0.1", function(){
+	console.log("listening at port : 8080");}
+);
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -25,8 +25,8 @@ var mysql = require('mysql');
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "etudespratiques",
-  database: "animal"
+  password: "devinsa!",
+  database: "devinsa"
 });
 
 // On lance la connexion 
