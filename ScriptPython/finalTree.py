@@ -26,7 +26,7 @@ def vector(cursor):
 
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<3")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -56,8 +56,6 @@ def compterPerso(rangQuestion,count):
         divise = -1
     liste_rapport = count[:,rangQuestion]/count[:,(rangQuestion+divise)]
     liste_rapport.shape
-    
-    return res
 
 def miseEnFormeText(text):
     return text.replace('\'',"\\'")
@@ -237,7 +235,6 @@ def main(curseur):
     vecteur = vector(curseur)
     #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
-    print(question)
     #Item contient l'ordre des lignes des personnages sous la forme [ID, Name]
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
