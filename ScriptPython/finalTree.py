@@ -1,14 +1,8 @@
 import mysql.connector
 import numpy as np
 
-#APP_ITEM
-#[ID,Name]
-#APP_ANSWER
-#[question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf]
 #APP_TREE
 #[id,parent_id,choice,question_id,title]
-#APP_QUESTION
-#[id,title]
 #VECTEUR
 #[id_item,name,id_question,title,yes_tfidf,no_tfidf,yes_count,no_count]
 
@@ -30,32 +24,11 @@ def vector(cursor):
         res.append([a,b,c,d,e,f,g,h])
     return res
 
-def extrait_app_item(cursor):
-    res = []
-    cursor.execute("SELECT id,name FROM app_item")
-    for (x,y) in curseur:
-        res.append([x,y])
-    return res
-
-def extrait_app_answer(cursor):
-    res = []
-    cursor.execute("SELECT question_id,item_id,yes_count,no_count,yes_tfidf,no_tfidf FROM app_answer")
-    for (a,b,c,d,e,f) in cursor:
-        res.append([a,b,c,d,e,f])
-    return res
-
 def extrait_app_tree(cursor):
     res = []
     cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
-    return res
-
-def extrait_app_question(cursor):
-    res = []
-    cursor.execute("SELECT id,title FROM app_question")
-    for (a,b) in cursor:
-        res.append([a,b])
     return res
 
 def getfils(parent_id,app_tree):
@@ -67,18 +40,6 @@ def getfils(parent_id,app_tree):
             return res
     return res
 
-def creerMatrice(ligne,colonne):
-    res = []
-    for i in range(ligne):
-        res.append([None]*colonne)
-    return res
-
-def recopierMatrice(matrice):
-    res = []
-    for elem in matrice:
-        res.append(elem)
-    return res
-
 def getKeysByValue(dictOfElements, valueToFind):
     listOfKeys = list()
     listOfItems = dictOfElements.items()
@@ -87,22 +48,15 @@ def getKeysByValue(dictOfElements, valueToFind):
             return item[0]
     return None
 
-def compterPerso(rangQuestion,matricePerso,choix):
-    res = recopierMatrice(matricePerso)
-    for perso in matricePerso[1:]:
-        rapport = 1
-        yes_count = perso[rangQuestion][0]
-        no_count = perso[rangQuestion][1]
-        if choix =='o' and no_count!=0:
-            rapport = yes_count/no_count
-        elif choix == 'n' and yes_count!=0:
-            rapport = no_count/yes_count
-        elif yes_count==0 and no_count==0:
-            rapport = 0
-        else:
-            rapport = 1
-        if rapport<0.75:
-            res.remove(perso)
+def compterPerso(rangQuestion,count):
+    res = np.copy(count)
+    if rangQuestion%2==0:
+        divise = 1
+    else:
+        divise = -1
+    liste_rapport = count[:,rangQuestion]/count[:,(rangQuestion+divise)]
+    liste_rapport.shape
+    
     return res
 
 def miseEnFormeText(text):
@@ -113,7 +67,9 @@ def avoirRangQuestion(id_question,questionOrder):
     for question in questionOrder:
         if(id_question==question[0]):
             return i
-        i += 1
+        #On incrémente de 2 car les matrices contiennent une colonne Oui et une colonne Non
+        #Chaque question suivante se trouve donc 2 Colonnes plus loin
+        i += 2
     print("Error avoirRangQuestion")
     return
 
@@ -160,8 +116,8 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
-        matricePersoOui = compterPerso(rangQuestion,matricePerso,'o')
-        matricePersoNon = compterPerso(rangQuestion+1, matricePerso,'n')
+        matricePersoOui = compterPerso(rangQuestion,count)
+        matricePersoNon = compterPerso(rangQuestion+1,count)
         ecrire += "\n{"
         if (choixOui!=[]):
             ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
@@ -277,15 +233,13 @@ def personnage(vecteur,question,item):
 
 def main(curseur):
     #On extrait chaque tables, les details sont en haut
-    app_item = extrait_app_item(curseur)
     app_tree = extrait_app_tree(curseur)
-    app_question = extrait_app_question(curseur)
     vecteur = vector(curseur)
     #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
     print(question)
     #Item contient l'ordre des lignes des personnages sous la forme [ID, Name]
-    """item = itemByOrder(vecteur)
+    item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = personnage(vecteur,question,item)
     #On elague larbre ternaire en arbre binaire
@@ -301,6 +255,6 @@ def main(curseur):
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")"""
+    print("end\n")
     
 main(curseur)
