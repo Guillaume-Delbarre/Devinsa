@@ -48,14 +48,19 @@ def getKeysByValue(dictOfElements, valueToFind):
             return item[0]
     return None
 
-def compterPerso(rangQuestion,count):
-    res = np.copy(count)
+def compterPerso(rangQuestion,count,tfidf,itemByOrder):
     if rangQuestion%2==0:
         divise = 1
     else:
         divise = -1
     liste_rapport = (count[:,rangQuestion]+1)/(count[:,(rangQuestion+divise)]+1)
-    print(liste_rapport.shape)
+    index_remove = []
+    for i in range(liste_rapport.shape[0]):
+        if liste_rapport[i]<=1:
+            index_remove.append(i)
+    return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
+            
+            
 
 def miseEnFormeText(text):
     return text.replace('\'',"\\'")
@@ -79,7 +84,7 @@ def HTMLclass(choice):
     return 'None'
 
 def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
-    if(len(itemOrder)==1):        
+    if(itemOrder.shape[0]==0):        
         ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
         return ecrire
     elif(question[0]==1):
@@ -114,37 +119,19 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 print("Error 3")
                 return
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
-        matricePersoOui = compterPerso(rangQuestion,count)
-        matricePersoNon = compterPerso(rangQuestion+1,count)
+        count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion,count,tfidf,itemOrder)
+        count_no,tfidf_no,itemOrder_no = compterPerso(rangQuestion+1,count,tfidf,itemOrder)
         ecrire += "\n{"
         if (choixOui!=[]):
-            ecrire += elagagePerso(choixOui,app_tree,matricePersoOui,"")
+            ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,"")
         ecrire += "\n}, \n {"
         if (choixNon!=[]):
-            ecrire += elagagePerso(choixNon,app_tree,matricePersoNon,"")
+            ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,"")
         ecrire += "\n } \n]"
         return ecrire
 
-                
-        
-def median(matrice):
-    med = [0]
-    summ1 = 0
-    summ2 = 0
-    for j in range(1,len(matrice[0])):
-        for i in range(1,len(matrice)):
-            summ1 += matrice[i][j][2]
-            summ2 += matrice[i][j][3]
-        summ1 = summ1/(len(matrice)-1)
-        summ2 = summ2/(len(matrice)-1)
-        med.append((summ1,summ2))
-        summ1,summ2 = 0,0
-    return med
-        
-def carre(x):
-    return (x)*(x)
-
-def proxi(med,matrice):
+def proxi(tfidf):
+    moyen = np.mean(tfidf,0)
     if len(matrice)==4:
         return [matrice[1][0],matrice[2][0],matrice[3][0]]
     elif len(matrice)==3:
@@ -241,7 +228,7 @@ def main(curseur):
     tfidf,count = personnage(vecteur,question,item)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
-    compterPerso(2,count)
+    compterPerso(2,count,tfidf,item)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     """ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
