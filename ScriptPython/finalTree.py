@@ -253,6 +253,6 @@ def main(curseur):
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")
+    print("end\n")"""
     
 main(curseur)
