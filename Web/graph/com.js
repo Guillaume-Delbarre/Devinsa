@@ -1,4 +1,5 @@
 var socket = io.connect('http://10.133.33.20:8080');
+alert("ici");
 var tabp = [];
 var tabq = [];
 var questiontitle = "";
