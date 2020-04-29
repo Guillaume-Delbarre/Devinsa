@@ -163,10 +163,10 @@ def proxi(tfidf):
         for compteur in range(3):
             minimum = np.amin(dist)
             for i in range(taille):
-                    if dist[i]==minimum:
-                        res.append(i)
-                        dist[i] = np.amax(dist)
-                        break
+                if dist[i]==minimum:
+                    res.append(i)
+                    dist[i] = np.amax(dist)
+                    
         return res
             
 
