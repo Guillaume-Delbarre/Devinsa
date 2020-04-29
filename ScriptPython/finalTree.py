@@ -96,7 +96,7 @@ def HTMLclass(choice):
 #Fonction principal qui créé le JS/JSON
 def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     #S'il ne reste aucun personnage
-    if(itemOrder.shape[0]==0):        
+    if(len(itemOrder)==0):        
         ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
         return ecrire
     #Si c'est la première question : cas spécifique
