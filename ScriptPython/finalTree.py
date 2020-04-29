@@ -43,14 +43,6 @@ def getfils(parent_id,app_tree):
             return res
     return res
 
-def getKeysByValue(dictOfElements, valueToFind):
-    listOfKeys = list()
-    listOfItems = dictOfElements.items()
-    for item  in listOfItems:
-        if item[1] == valueToFind:
-            return item[0]
-    return None
-
 #CompterPerso permet d'enlever les personnages qui ne correspondent pas à la réponse de la question
 #on rajoute +1 au count car on ne peut pas diviser par 0
 #Toutes les réponses Oui sont en rang pair, les réponses Non en rang impair +1
@@ -112,9 +104,12 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
+        
         #On rajoute les données
-        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},"+
+                "HTMLclass :'"+html+"',collapsed : true, children : [\n"
     #On cherche les children de la question
+    print(question)
     questionsFilles = getfils(question[0],app_tree)
     #Si aucun enfant
     if(len(questionsFilles)==0):
@@ -133,7 +128,6 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 print("Error 3")
                 return
         #On compte les personnages pour la réponse Oui et la réponse Non
-        print(question)
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
