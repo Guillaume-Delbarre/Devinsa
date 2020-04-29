@@ -81,7 +81,7 @@ def avoirRangQuestion(id_question,questionOrder):
             return i
         #On incrémente de 2 car les matrices contiennent une colonne Oui et une colonne Non
         #Chaque question suivante se trouve donc 2 Colonnes plus loin
-        i += 2
+        i += 1
     print("Error avoirRangQuestion")
     return
 
