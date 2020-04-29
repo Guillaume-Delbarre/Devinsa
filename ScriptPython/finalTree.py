@@ -61,10 +61,10 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
         divise = 1
     else:
         divise = -1
-    liste_rapport = (count[:,rangQuestion]+1)/(count[:,(rangQuestion+divise)]+1)
+    liste_rapport = (count[:,rangQuestion])/(count[:,(rangQuestion+divise)]+1)
     index_remove = []
     for i in range(liste_rapport.shape[0]):
-        if liste_rapport[i]<=1:
+        if liste_rapport[i]<1:
             index_remove.append(i)
     return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
             
