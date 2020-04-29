@@ -104,17 +104,13 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = proxi(median(matricePerso),matricePerso)
+        listeperso = proxi(tfidf)
         listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
         for i in range(len(listeperso)):
             if i==0:
-                perso_median += "perso1 : '"+miseEnFormeText(listeperso[i][1])+"',"
-            if i==1:
-                perso_median += "perso2 : '"+miseEnFormeText(listeperso[i][1])+"',"
-            if i==2:
-                perso_median += "perso3 : '"+miseEnFormeText(listeperso[i][1])+"',"
+                perso_median += "perso"+str(i)+" : '"+miseEnFormeText(itemOrder[listeperso[i]])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
         #On rajoute les données
@@ -163,8 +159,14 @@ def proxi(tfidf):
     elif taille == 3:
         return [0,1,2]
     else:
+        res = []
         for compteur in range(3):
-            print(np.amin(dist))
+            minimum = np.amin(dist)
+            for i in range(taille):
+                    if dist[i]==minimum:
+                        res.append(i)
+                        dist[i] = np.amax(dist)
+        return res
             
 
 #Fonction permettant de créer l'arbre binaire
