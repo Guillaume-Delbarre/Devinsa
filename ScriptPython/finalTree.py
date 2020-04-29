@@ -155,7 +155,7 @@ def proxi(tfidf):
     moyen = np.mean(tfidf,0)
     dist = (tfidf-moyen)**2
     dist = np.sum(dist,1)
-    print(dist)
+    print(dist.shape)
 
 #Fonction permettant de créer l'arbre binaire
 #Elle enlève tous les sous-arbres correspondant au choix "Je ne sais pas"
