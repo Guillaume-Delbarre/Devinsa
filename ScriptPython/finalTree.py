@@ -127,6 +127,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 return
         #On compte les personnages pour la réponse Oui et la réponse Non
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
+        print(question)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
         ecrire += "\n{"
