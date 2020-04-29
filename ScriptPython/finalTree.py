@@ -108,7 +108,6 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         #On rajoute les données
         ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     #On cherche les children de la question
-    print(question)
     questionsFilles = getfils(question[0],app_tree)
     #Si aucun enfant
     if(len(questionsFilles)==0):
@@ -118,10 +117,10 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         #Chaque enfant correspond à une réponse Oui/Non de la question
         choixOui = []
         choixNon = []
-        for question in questionsFilles:
-            if question[2]=='o':
+        for children in questionsFilles:
+            if children[2]=='o':
                 choixOui = question
-            elif question[2] =='n':
+            elif children[2] =='n':
                 choixNon = question
             else:
                 print("Error 3")
