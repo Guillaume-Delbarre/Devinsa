@@ -9,8 +9,8 @@ var mysql = require('mysql');
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "etudespratiques",
-  database: "animal"
+  password: "devinsa!",
+  database: "devinsa"
 });
 
 router.use(session({
@@ -64,7 +64,7 @@ router.post('/auth', function(request, response) {
 	var password = request.body.password;
 	// On confirme les informations
 	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		connection.query('SELECT * FROM accounts WHERE login = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
