@@ -164,7 +164,7 @@ def proxi(tfidf):
         return [0,1,2]
     else:
         for compteur in range(3):
-            print(np.minimum(dist))
+            print(np.amin(dist))
             
 
 #Fonction permettant de créer l'arbre binaire
