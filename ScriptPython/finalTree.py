@@ -119,9 +119,9 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         choixNon = []
         for children in questionsFilles:
             if children[2]=='o':
-                choixOui = question
+                choixOui = children
             elif children[2] =='n':
-                choixNon = question
+                choixNon = children
             else:
                 print("Error 3")
                 return
