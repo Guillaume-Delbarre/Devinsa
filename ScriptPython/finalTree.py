@@ -116,6 +116,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     #On cherche les children de la question
     questionsFilles = getfils(question[0],app_tree)
+    
     #Si aucun enfant
     if(len(questionsFilles)==0):
         ecrire += "{text : {name : 'Fin'}, collapsed: true}]"
@@ -133,8 +134,9 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 print("Error 3")
                 return
         #On compte les personnages pour la réponse Oui et la réponse Non
+        print(question)
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
-        print(rangQuestion)
+        print(questionOrder[rangQuestion])
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso(rangQuestion+1,count,tfidf,itemOrder)
         ecrire += "\n{"
