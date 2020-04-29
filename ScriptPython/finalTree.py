@@ -244,7 +244,7 @@ if __name__ == '__main__':
     tfidf,count = tfidf_and_count(vecteur,question,item)
     proxi(tfidf)
     #On elague larbre ternaire en arbre binaire
-    """app_tree = createBinarytree(app_tree)
+    app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
@@ -256,5 +256,5 @@ if __name__ == '__main__':
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")"""
+    print("end\n")
     
