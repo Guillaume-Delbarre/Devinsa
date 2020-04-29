@@ -29,7 +29,7 @@ def vector(cursor):
 #On retire les choix "Je ne sais pas" car pas important
 def extrait_app_tree(cursor):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth<3")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
