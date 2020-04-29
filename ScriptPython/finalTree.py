@@ -106,8 +106,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         html = HTMLclass(question[2])
         
         #On rajoute les données
-        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},"+
-                "HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
     #On cherche les children de la question
     print(question)
     questionsFilles = getfils(question[0],app_tree)
