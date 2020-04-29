@@ -217,7 +217,7 @@ def tfidf_and_count(vecteur,question,item):
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
 
-def main(curseur):
+if __name__ == '__main__':
     #On se connecte à la base de données
     base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
     curseur = base.cursor()
@@ -246,4 +246,3 @@ def main(curseur):
     ecriture.close
     print("end\n")"""
     
-main(curseur)
