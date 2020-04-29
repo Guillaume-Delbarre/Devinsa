@@ -5,11 +5,11 @@ connectors: { type: 'step' },
 nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true, children : [
 
 {
-text: { name: '114 personnage(s)',perso1 : 'Tracer (Overwatch)',perso2 : 'Altair',perso3 : 'Jill (Va-11 Hall-a)', desc : 'Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
+text: { name: '766 personnage(s)',perso1 : 'Brigitte Macron',perso2 : 'Michel Blanc (acteur français)',perso3 : 'Roselyne Bachelot', desc : 'Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text : {name : 'Fin'}, collapsed: true}]
 }, 
  {
-text: { name: '371 personnage(s)',perso1 : 'Tryphon Tournesol',perso2 : 'Tyler Durden (perso du film fight club)[',perso3 : 'Ford Prefect (perso du Guide du voyageur galactique)', desc : 'Ton personnage est-il un personnage de jeu vidéo ?'},HTMLclass :'light-red',collapsed : true, children : [
+text: { name: '460 personnage(s)',perso1 : 'Toki (frère de Ken le survivant)',perso2 : 'Ford Prefect (perso du Guide du voyageur galactique)',perso3 : 'Ant-man (super héros Marvel)', desc : 'Ton personnage est-il un personnage de jeu vidéo ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text : {name : 'Fin'}, collapsed: true}]
  } 
 ] } 
