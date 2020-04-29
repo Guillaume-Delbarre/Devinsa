@@ -166,7 +166,9 @@ def proxi(tfidf):
                 if dist[i]==minimum:
                     res.append(i)
                     dist[i] = np.amax(dist)
-                    
+                #Limite si trop de distance minimale égale
+                if len(res)==3:
+                    return res
         return res
             
 
