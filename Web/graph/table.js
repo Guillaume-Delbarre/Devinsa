@@ -1,11 +1,12 @@
 var color = d3.scale.category10();
 
-function tabulate(data, columns) {
-  var table = d3.select("body").append("table"),
-      thead = table.append("thead"),
-      tbody = table.append("tbody");
+function tabulate(donnee,columns){
+  var table = d3.select("#tableResult").append("table");
+  thead = table.append("thead");
+  tbody = table.append('tbody');
 
-  // Append the header row
+  console.log('test');
+
   thead.append("tr")
       .selectAll("th")
       .data(columns)
@@ -20,42 +21,43 @@ function tabulate(data, columns) {
             return column;
         });
 
-  // Create a row for each object in the data
-  var rows = tbody.selectAll("tr")
-      .data(data)
-      .enter()
-      .append("tr");
+  var tr = tbody.selectAll("tr")
+    .data(donnee.filter(function(d,i){
+      if(i>0){
+        return d;
+      }
+    }))
+    .enter()
+    .append('tr');
 
-  // Create a cell in each row for each column
-  var cells = rows.selectAll("td")
-      .data(function(row) {
-          return columns.map(function(column) {
-              return {
-                  column: column,
-                  value: row[column]
-              };
-          });
-      })
-      .enter()
-      .append("td")
-          .text(function(d) { return d.value; })
-          .style('color', function(d) { 
-            if( (d.value).includes('.') ){
-              if( (d.value).includes('-') ){
-                return 'red'
-              } else {
-                return 'green'
-              }
-            } else {
-              return 'black'
-            }
-          });
+  var td = tr.selectAll("td")
+    .data(function(d) { return d; })
+    .enter()
+    .append('td')
+    .text(function(d) {return d;})
+    .style('color', function(d) { 
+      if( (d).includes('.') ){
+        if( (d).includes('-') ){
+          return 'red'
+        } else {
+          return 'green'
+        }
+      } else {
+        return 'black'
+      }});
+}
 
-  return table;
+function miseEnPage(data) {
+  var tab = [];
+  for(var i = 0;i < data.length; i++){
+    tab.push(Object.values(data[i]));
+  }
+  return tab;
 }
 
 d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv", function(data) {
-    //console.log(data[0])
-    //console.log(data)
-    tabulate(data,["Groupe 0","131 personnages","Groupe 1","567 personnages","Groupe 2","425 personnages","Groupe 3","307 personnages"])
+    //console.log(Object.values(data[0]))
+    tableau = miseEnPage(data)
+    console.log(tableau)
+    tabulate(tableau,tableau[0])
 })
