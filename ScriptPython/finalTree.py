@@ -94,7 +94,7 @@ def HTMLclass(choice):
     return 'None'
 
 #Fonction principal qui créé le JS/JSON
-def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
+def elagagePerso(question,question_parent_id,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     #S'il ne reste aucun personnage
     if(len(itemOrder)==0):        
         ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
@@ -133,6 +133,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
                 print("Error 3")
                 return
         #On compte les personnages pour la réponse Oui et la réponse Non
+        print(question)
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
@@ -248,8 +249,7 @@ if __name__ == '__main__':
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    print(app_tree[0])
-    """ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
@@ -259,5 +259,5 @@ if __name__ == '__main__':
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")"""
+    print("end\n")
     
