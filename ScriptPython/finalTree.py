@@ -107,11 +107,10 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         listeperso = proxi(tfidf)
         listeperso = list(set(listeperso))
         perso_median = ""
-        print(listeperso)
         #On met en forme pour le JS/JSON
         for i in range(len(listeperso)):
             if i==0:
-                perso_median += "perso"+str(i)+" : '"+miseEnFormeText(itemOrder[listeperso[i]])+"',"
+                perso_median += "perso"+str(i)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
         #On rajoute les données
