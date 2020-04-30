@@ -2,25 +2,25 @@
     fill: none;
     pointer-events: all;
 }
-  
+
 .axis path,
 .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
 }
-  
+
 .dot {
     stroke: none;
     fill-opacity: 0.5;
 }
-  
+
 .dot.selected {
     stroke: #000000;
     stroke-width: 2px;
     fill-opacity: 0.8;
 }
-  
+
 a {
     color: #5BBEAA;
 }
@@ -28,26 +28,26 @@ a {
 .graph{
     stroke: #000000;
 }
-  
+
 .extent {
     fill: #000;
     fill-opacity: .125;
     stroke: #fff;
 }
 
-.axis text { 
-    display: none; 
+.axis text {
+    display: none;
 }
 
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 80px;					
-    height: 35px;					
-    padding: 2px;				
-    font: 11px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 80px;
+    height: 35px;
+    padding: 2px;
+    font: 11px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
