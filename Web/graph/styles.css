@@ -52,10 +52,10 @@ div.tooltip {
     pointer-events: none;
 }
 .conteneurBoutons{
-  width:50%
+  width:45%
 }
 .b{
-  width:30%;
+  width:33%;
   float:left;
   display:inline;
 }
