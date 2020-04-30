@@ -13,11 +13,16 @@
   </head>
   <body>
     <header>
-        <ul class="menu">
-      		<form action="Arbre" method="POST">
-      			<input type="submit" value="Arbre des questions" title="Cliquez pour acceder à la page" target="_blank">
+      <table height=1>
+        <th>
+          <p><a class="menu_item" href="http://devinsa.insa-rennes.fr"><img src="imgdevinsa.png" title='Cliquez pour jouer' /></a>
+        </th>
+        <th>
+          <form action="Arbre" method="POST">
+      			<input class="menu_item" type="submit" value="Arbre des questions" title="Cliquez pour accéder à la page" target="_blank">
       		</form>
-        </ul>
+        </th>
+      </table>
     </header>
 
 		    <p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
@@ -25,9 +30,9 @@
     <div class="ActuDonnees">
       <p><b>Actualisation des données </b><img src="help_icon.png" title="L'actualisation complète comprend l'extraction des données et leur traitement" /></p>
       <div class="conteneurBoutons">
-    		<p><input type="button" value="Extraction des données" id="vctsql" class="b" title="Environ 1min"/></p>
-    		<p><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Environ 30sec" /></p>
-        <p><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Environ 1min30"/></p>
+    		<p><input type="button" value="Extraction des données" id="vctsql" class="b" title="Extraction des données - Environ 1min"/></p>
+    		<p><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Traitement des données - Environ 30sec" /></p>
+        <p><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Actualisation complète - Environ 1min30"/></p>
       </div>
     </div>
     <br>
