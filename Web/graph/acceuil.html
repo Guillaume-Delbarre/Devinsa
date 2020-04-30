@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Graph Devinsa Radio</title>
+    <title>Accueil outil administration Devinsa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="styles.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -13,13 +13,11 @@
   </head>
   <body>
     <header>
-      <nav>
         <ul class="menu">
       		<form action="Arbre" method="POST">
       			<input type="submit" value="Aller à l'Arbre">
       		</form>
         </ul>
-      </nav>
     </header>
 
 		    <p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
@@ -76,17 +74,17 @@
 							<tbody id='tabButton'>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="get_selection();">Modify the Selection</a>
+										<a class="btn" href="javascript:void(0);" onclick="get_selection();">Appliquer la sélection</a>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_clust();">Compare the Selection to a Cluster</a>
+										<a class="btn" href="javascript:void(0);" onclick="comp_selection_clust();">Comparer la sélection à un cluster</a>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_select();">Compare the Selection to another Selection</a>
+										<a class="btn" href="javascript:void(0);" onclick="comp_selection_select();">Comparer la sélection à une autre sélection</a>
 									</td>
 								</tr>
 							</tbody>
