@@ -62,8 +62,8 @@ function annuler_selection(){
   console.log('annuler')
   clear_selection();
   document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Appliquer la selection</a>"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Compare the Selection to a Cluster</a>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Compare the Selection to another Selection</a>"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Comparer la sélection à un groupe</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Comparer la sélection à une autre sélection</a>"
 }
 
 function comp_selection_clust(){
