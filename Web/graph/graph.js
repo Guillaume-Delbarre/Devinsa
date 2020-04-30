@@ -36,10 +36,10 @@ svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var selection = [];
+var selection2 = [];
 var nomSelectionne =[];
 
 function tabulatePerso(array){
-  //table = document.getElementById("tableSelect");
   for(var i = 0; i < array.length; i++){
     var newRow = table.insertRow(-1);
     for(var j = 0; j < array[i].length; j++){
@@ -50,6 +50,74 @@ function tabulatePerso(array){
   }
 }
 
+function selection_to_nom(objSelect){
+  var ret = [];
+  for(var i=0;i<objSelect.length;i++){
+    ret.push(objSelect[i].Name)
+  }
+  return ret;
+}
+
+function annuler_selection(){
+  console.log('annuler')
+  clear_selection();
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Modify the Selection</a>"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Compare the Selection to a Cluster</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Compare the Selection to another Selection</a>"
+}
+
+function comp_selection_clust(){
+  selection = return_selection();
+  clear_selection();
+  console.log('select clust')
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un personnage pour connaitre son cluster <p>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_cluster();\">Valider</a>"
+}
+
+function valider_cluster(){
+  selection2 = return_selection();
+  if(selection2.length != 1){
+    document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un unique personnage <p>"
+  } else {
+    console.log("Selection de cluster")
+    console.log(selection)
+    console.log(selection2[0].Cluster)
+  }
+}
+
+function comp_selection_select(){
+  selection = return_selection();
+  clear_selection();
+  console.log('select select')
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Faites une autre sélection <p>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_select();\">Valider</a>"
+}
+
+var nomSel = [];
+var nomSel2 = [];
+
+function valider_select(){
+  selection2 = return_selection();
+  if(selection2.length > 1){
+    nomSel = selection_to_nom(selection);
+    nomSel2 = selection_to_nom(selection2);
+    console.log(nomSel)
+    console.log(nomSel2)
+  }
+}
+
+function return_selection(){
+  ret = [];
+  node.each(function(d) {
+    if (d.selected) {
+       ret.push(d);
+    }
+  });
+  return ret;
+}
+
 function get_selection(){
   selection = [];
   node.each(function(d) {
@@ -57,17 +125,13 @@ function get_selection(){
        selection.push(d);
     }
   });
-  console.log(selection);
   var nomsPerso = []
   nomSelectionne = []
-  //var tabletemp = document.getElementById("tableSelect");
-  //tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
   for(i=0;i<selection.length;i++){
     nomsPerso.push([selection[i].Name,selection[i].Cluster])
     nomSelectionne.push(selection[i].Name)
   }
   console.log(nomSelectionne)
-  //tabulatePerso(nomsPerso)
 }
 
 function clear_selection() {
@@ -94,7 +158,6 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       .y(d3.scale.identity().domain([0, height]))
       .on("brushstart", function(d) {
         svg = svg.call(d3.behavior.zoom().on("zoom", null));
-        //console.log('brushstart');
         node.each(function(d) { d.previouslySelected = shiftKey && d.selected; });
         if (!shiftKey) {
           d3.event.target.clear();
@@ -103,9 +166,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       })
       .on("brush", function() {
         if (shiftKey) {
-          //console.log('shiftKey', shiftKey);
           var extent = d3.event.target.extent();
-          //console.log(extent)
           node.classed("selected", function(d) {
             return d.selected = d.previouslySelected ^
             (extent[0][0] <= x(d.Axe_X) && x(d.Axe_X) < extent[1][0]
