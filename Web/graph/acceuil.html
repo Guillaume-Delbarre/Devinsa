@@ -12,6 +12,13 @@
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
+    <nav>
+      <ul class="menu">
+		<form action="Arbre" method="POST">
+			<input type="submit" value="Aller à l'Arbre">
+		</form>
+      </ul>
+    </nav>
   		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
   		<p><input type="button" value="Extraction des données" id="vctsql" /></p>
 		<p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
@@ -39,13 +46,7 @@
 			</tbody>
 		</table>
 		</div>
-    <nav>
-      <ul class="menu">
-		<form action="Arbre" method="POST">
-			<input type="submit" value="Aller à l'Arbre">
-		</form>
-      </ul>
-    </nav>
+
     <div class="container">
 		<table>
 			<tbody>
