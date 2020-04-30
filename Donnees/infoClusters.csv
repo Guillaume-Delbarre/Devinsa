@@ -1,18 +1,18 @@
-0,1,2,3,4,5,6,7
-Groupe 0,131 personnages,Groupe 1,567 personnages,Groupe 2,425 personnages,Groupe 3,307 personnages
-François Hollande,Barack Obama,Michel Blanc (acteur français),Mike Oldfield,Gandalf,Aladdin,Ant-man ,Anne Hidalgo 
-Albert Einstein,Emmanuel Macron (président de la République Française),Carlos Ghosn,Brigitte Macron,Han Solo (star wars),Hubert Bonnisseur de la Bath,James Potter ,Aquarius 
-Ton personnage est-il réel ?,5.08,Ton personnage est-il réel ?,3.945,Ton personnage est-il réel ?,-4.133,Ton personnage est-il portugais ?,-0.052
-Ton personnage a-t-il été roi ?,-4.329,Ton personnage a-t-il été roi ?,-2.395,Ton personnage a-t-il été roi ?,-1.835,Ton personnage a-t-il joué dans Stargate ?,-0.051
-Ton personnage est-il un tueur ?,-4.057,Ton personnage vit-il dans un monde imaginaire ?,-1.967,Ton personnage est-il méchant ? ,-1.737,Ton personnage est-il un réalisateur de films ?,-0.043
-Ton personnage vit-il dans un monde imaginaire ?,-3.986,Ton personnage a-t-il un prénom hors du commun ?,-1.814,Ton personnage est-il un tueur ?,-1.455,Ton personnage est-il un inventeur ?,-0.033
-Ton personnage est-il dans le domaine de la musique ?,-3.147,Ton personnage est-il décédé ?,-1.581,Ton personnage porte-t-il des chaussures ?,1.452,Ton personnage fait-il peur ?,-0.032
-Ton personnage est-il devenu connu grâce à Internet ?,-2.713,Ton personnage est-il un tueur ?,-1.443,Ton personnage a-t-il un prénom hors du commun ?,1.439,Ton personnage figure-t-il dans \Retour vers le Futur\ ?,-0.028
-Ton personnage a-t-il un prénom hors du commun ?,-2.496,Ton personnage a-t-il un rapport avec le milieu du sport ?,-1.318,Ton personnage a-t-il des cheveux ?,1.424,Ton personnage est-il un intellectuel de son temps ?,-0.025
-Ton personnage est-il anglais ?,-2.224,Ton personnage est-il dans le domaine de la musique ?,-1.21,Ton personnage a-t-il plus de 50 ans ?,-1.267,Ton personnage vit-il dans un monde imaginaire ?,0.021
-Ton personnage est-il célèbre  ?,2.157,Ton personnage est-il un garçon ?,1.017,Ton personnage est-il un personnage de jeu vidéo ?,-1.128,Ton personnage a-t-il un prénom hors du commun ?,0.011
-Ton personnage porte-t-il des chaussures ?,2.069,Ton personnage est-il célèbre  ?,0.87,Ton personnage est-il un personnage de série télévisée ?,-0.911,Ton personnage a-t-il plus de 50 ans ?,0.011
-Ton personnage a-t-il des cheveux ?,2.069,Ton personnage a-t-il plus de 35 ans ?,0.55,Ton personnage a-t-il des yeux ?,0.603,Ton personnage est-il plus grand que toi ?,0.008
-Ton personnage a-t-il des yeux ?,1.958,Ton personnage est-il français ?,0.269,Ton personnage vit-il dans un monde imaginaire ?,0.541,Ton personnage a-t-il eu une altercation avec Chris Brown ?,0.0
-Ton personnage est-il un garçon ?,1.81,Ton personnage porte-t-il des chaussures ?,0.266,Ton personnage est-il masculin ?,0.44,Ton personnage a-t-il les poils longs ?,0.0
-Ton personnage a-t-il plus de 35 ans ?,1.676,Ton personnage a-t-il des yeux ?,0.265,Ton personnage fait-il des combats ?,0.438,Ton personnage a-t-il les pieds palmés ?,0.0
+0,1,2,3,4,5,6,7,8,9
+Groupe 0,567 personnages,Groupe 1,26 personnages,Groupe 2,425 personnages,Groupe 3,307 personnages,Groupe 4,105 personnages
+Michel Blanc (acteur français),Mike Oldfield,François Hollande,Barack Obama,Gandalf,Aladdin,Ant-man ,Anne Hidalgo ,Ivan Leplumey (enseignant INSA Rennes),Victor Hugo
+Carlos Ghosn,Brigitte Macron,Donald Trump,Albert Einstein,Han Solo (star wars),Hubert Bonnisseur de la Bath,James Potter ,Aquarius ,M'hamed Drissy (Directeur de l'INSA de Rennes),Bernard-Henry Lévy (philosophe imposteur)
+Ton personnage est-il réel ?,3.945,Ton personnage a-t-il été roi ?,-5.262,Ton personnage est-il réel ?,-4.133,Ton personnage est-il portugais ?,-0.052,Ton personnage est-il réel ?,6.056
+Ton personnage a-t-il été roi ?,-2.395,Ton personnage a-t-il un rapport avec le milieu du sport ?,-4.418,Ton personnage a-t-il été roi ?,-1.835,Ton personnage a-t-il joué dans Stargate ?,-0.051,Ton personnage vit-il dans un monde imaginaire ?,-4.56
+Ton personnage vit-il dans un monde imaginaire ?,-1.967,Ton personnage est-il un tueur ?,-4.345,Ton personnage est-il méchant ? ,-1.737,Ton personnage est-il un réalisateur de films ?,-0.043,Ton personnage a-t-il été roi ?,-4.098
+Ton personnage a-t-il un prénom hors du commun ?,-1.814,Ton personnage est-il dans le domaine de la musique ?,-4.238,Ton personnage est-il un tueur ?,-1.455,Ton personnage est-il un inventeur ?,-0.033,Ton personnage est-il un tueur ?,-3.986
+Ton personnage est-il décédé ?,-1.581,Ton personnage porte-t-il des chaussures ?,4.077,Ton personnage porte-t-il des chaussures ?,1.452,Ton personnage fait-il peur ?,-0.032,Ton personnage a-t-il un prénom hors du commun ?,-3.044
+Ton personnage est-il un tueur ?,-1.443,Ton personnage est-il célèbre  ?,3.969,Ton personnage a-t-il un prénom hors du commun ?,1.439,Ton personnage figure-t-il dans \Retour vers le Futur\ ?,-0.028,Ton personnage est-il dans le domaine de la musique ?,-2.877
+Ton personnage a-t-il un rapport avec le milieu du sport ?,-1.318,Ton personnage est-il une fille ?,-3.834,Ton personnage a-t-il des cheveux ?,1.424,Ton personnage est-il un intellectuel de son temps ?,-0.025,Ton personnage est-il devenu connu grâce à Internet ?,-2.474
+Ton personnage est-il dans le domaine de la musique ?,-1.21,Ton personnage est-il devenu connu grâce à Internet ?,-3.68,Ton personnage a-t-il plus de 50 ans ?,-1.267,Ton personnage vit-il dans un monde imaginaire ?,0.021,Ton personnage est-il anglais ?,-1.99
+Ton personnage est-il un garçon ?,1.017,Ton personnage est-il acteur/actrice ?,-3.551,Ton personnage est-il un personnage de jeu vidéo ?,-1.128,Ton personnage a-t-il un prénom hors du commun ?,0.011,Ton personnage a-t-il plus de 35 ans ?,1.83
+Ton personnage est-il célèbre  ?,0.87,Ton personnage est-il un garçon ?,3.527,Ton personnage est-il un personnage de série télévisée ?,-0.911,Ton personnage a-t-il plus de 50 ans ?,0.011,Ton personnage a-t-il des cheveux ?,1.761
+Ton personnage a-t-il plus de 35 ans ?,0.55,Ton personnage a-t-il des yeux ?,3.442,Ton personnage a-t-il des yeux ?,0.603,Ton personnage est-il plus grand que toi ?,0.008,Ton personnage est-il célèbre  ?,1.709
+Ton personnage est-il français ?,0.269,Ton personnage a-t-il des cheveux ?,3.311,Ton personnage vit-il dans un monde imaginaire ?,0.541,Ton personnage a-t-il eu une altercation avec Chris Brown ?,0.0,Ton personnage a-t-il des yeux ?,1.591
+Ton personnage porte-t-il des chaussures ?,0.266,Ton personnage est-il masculin ?,2.793,Ton personnage est-il masculin ?,0.44,Ton personnage a-t-il les poils longs ?,0.0,Ton personnage porte-t-il des chaussures ?,1.572
+Ton personnage a-t-il des yeux ?,0.265,Ton personnage a-t-il la peau blanche ?,1.952,Ton personnage fait-il des combats ?,0.438,Ton personnage a-t-il les pieds palmés ?,0.0,Ton personnage est-il un garçon ?,1.385

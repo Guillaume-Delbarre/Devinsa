@@ -14,7 +14,7 @@ df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, enco
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
     if(nbQuestion % 2)!=0:
-        raise ValueError("Veuillez entrer un nombre pair de questions")
+        raise ValueError("Veuillez entrer un nombre de questions pair")
     dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
     dfFile.to_csv("../Donnees/infoClusters.csv", mode='w', index=False)
 
@@ -70,10 +70,6 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
 def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,902) des moyennes par question
     global df
     somme = df.sort_values(by='Clusters')
-    #del somme['Medoid']
-    #Au lieu d'aller de 0 à 5, les clusters iront de 1 à 6
-    #for k in range(nbCluster,0,-1):
-    #   somme['Clusters'].replace(k-1,k, inplace=True)
     #On fait la somme des TF-IDF pour chaque question par cluster 
     somme = pd.DataFrame(somme.groupby(['Clusters'],as_index=False).sum())
     del somme["Clusters"]
@@ -86,7 +82,6 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     for i in range(len(question)):
         som.iloc[:,i] = somme.iloc[:,2*i]
         som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
-    #print(som)
     return som
 
 
@@ -117,5 +112,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac()
-    
+        printQuestionCarac(5)    
