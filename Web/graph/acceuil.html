@@ -12,42 +12,54 @@
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
-    <nav>
-      <ul class="menu">
-    		<form action="Arbre" method="POST">
-    			<input type="submit" value="Aller à l'Arbre">
-    		</form>
-      </ul>
-    </nav>
-		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
-		<p><input type="button" value="Extraction des données" id="vctsql" /></p>
-		<p><input type="button" value="Traitement des données" id="lancer2emepartie" /></p>
-    <p><input type="button" value="Actualisation complète" id="toutlancer" /></p>
+    <header>
+      <nav>
+        <ul class="menu">
+      		<form action="Arbre" method="POST">
+      			<input type="submit" value="Aller à l'Arbre">
+      		</form>
+        </ul>
+      </nav>
+    </header>
 
-		<div class="ui-widget">
-			<label for="tags1">Questions : </label>
-			<input id="tags1">
-		</div>
-    <div class="ui-widget">
-			<label for="tags">Personnages : </label>
-			<input id="tags" value="">
-		</div>
-    <p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
-		<div class="container"  style="width:40%">
-  		<table id="personnages" class="display" style="width:100%">
-  			<thead>
-  				<tr>
-  					<th>Nom</th>
-  					<th>Yes_count</th>
-  					<th>No_count</th>
-  					<th>Pass_count</th>
-  				</tr>
-  			</thead>
-  			<tbody>
-  			</tbody>
-  		</table>
-		</div>
+		    <p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
 
+    <div class="ActuDonnees">
+      <p><b>Actualisation du graphique et du tableau des groupes</b></p>
+      <div class="conteneurBoutons">
+    		<p><input type="button" value="Extraction des données" id="vctsql" class="b"/></p>
+    		<p><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" /></p>
+        <p><input type="button" value="Actualisation complète" id="toutlancer" class="b" /></p>
+      </div>
+    </div>
+    </br>
+    </br>
+    <div class="modifBase">
+      <p><b>Modification de la base</b></p>
+  		<div class="ui-widget">
+  			<label for="tags1">Questions : </label>
+  			<input id="tags1">
+  		</div>
+      <div class="ui-widget">
+  			<label for="tags">Personnages : </label>
+  			<input id="tags" value="">
+  		</div>
+      <p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
+  		<div class="container" >
+    		<table id="personnages" class="display" style="width:100%">
+    			<thead>
+    				<tr>
+    					<th>Nom</th>
+    					<th>Yes_count</th>
+    					<th>No_count</th>
+    					<th>Pass_count</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    			</tbody>
+    		</table>
+  		</div>
+    </div>
     <div class="container">
 		<table>
 			<tbody>

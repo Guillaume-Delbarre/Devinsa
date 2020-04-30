@@ -51,3 +51,25 @@ div.tooltip {
     border-radius: 8px;
     pointer-events: none;
 }
+.conteneurBoutons{
+  width:50%
+}
+.b{
+  width:30%;
+  float:left;
+  display:inline;
+}
+
+.modifBase{
+  background-color: #f0f8ff;
+  width:40%;
+}
+
+
+#tableResult{
+  background-color: #f0f8ff;
+}
+
+header{
+  background-color: #f0f8ff;
+}

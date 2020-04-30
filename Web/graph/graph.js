@@ -25,11 +25,11 @@ var yAxis = d3.svg.axis()
 
 var shiftKey;
 
-var rect, 
+var rect,
 node;
 
-var div = d3.select("body").append("div")	
-  .attr("class", "tooltip")				
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
   .style("opacity", 0);
 
 svg = svg.append("g")
@@ -61,7 +61,7 @@ function selection_to_nom(objSelect){
 function annuler_selection(){
   console.log('annuler')
   clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Modify the Selection</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Appliquer la selection</a>"
   document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Compare the Selection to a Cluster</a>"
   document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Compare the Selection to another Selection</a>"
 }
@@ -184,7 +184,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       }));
 
   function zoom() {
-    if (shiftKey) { 
+    if (shiftKey) {
       console.log('zoom shiftKey');
       return;
     }
@@ -218,18 +218,18 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         });
       }
     })
-    .on("mouseover", function(d) {		
-      div.transition()		
-          .duration(200)		
-          .style("opacity", .9);		
-      div	.html(d.Name)	
-          .style("left", (d3.event.pageX) + "px")		
-          .style("top", (d3.event.pageY - 21) + "px");	
-      })					
-    .on("mouseout", function(d) {		
-      div.transition()		
-          .duration(500)		
-          .style("opacity", 0);	
+    .on("mouseover", function(d) {
+      div.transition()
+          .duration(200)
+          .style("opacity", .9);
+      div	.html(d.Name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 21) + "px");
+      })
+    .on("mouseout", function(d) {
+      div.transition()
+          .duration(500)
+          .style("opacity", 0);
     });
 
   node.classed('selected', function (d) {return d.selected;})
@@ -252,8 +252,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .attr("dy", ".35em")
     .style("text-anchor", "end")
     .text(function(d) { return d; });
-  
-  
+
+
     d3.select(window).on("keydown", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -262,7 +262,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
     d3.select(window).on("keyup", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -271,5 +271,5 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
 });
