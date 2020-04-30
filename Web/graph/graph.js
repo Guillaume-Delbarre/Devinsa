@@ -1,6 +1,11 @@
+var svg = d3.select('#zoneGraph')
+
+const widthTotal = +svg.attr('width');
+const heighTotal = +svg.attr('height');
+
 var margin = {top: 0, right: 0, bottom: 0, left: 0},
-  width = 800 - margin.left - margin.right,
-  height = 450 - margin.top - margin.bottom;
+  width = widthTotal - margin.left - margin.right,
+  height = heighTotal - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
   .range([0, width]);
@@ -17,12 +22,6 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left");
-
-var svg = d3.select("body")
-  .append("svg")
-  .attr("class", "zone")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom);
 
 var shiftKey;
 

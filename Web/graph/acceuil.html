@@ -47,17 +47,44 @@
       </ul>
     </nav>
     <div class="container">
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<p id='persoSelectionne'></p>
+						<a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
+					</td>
+					<td>
+						<svg id="zoneGraph" class="graph" width=800 height=450></svg>
+					</td>
+					<td>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<a class="btn" href="javascript:void(0);" onclick="get_selection();">Modify the Selection</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a class="btn" href="javascript:void(0);" onclick="comp_selection_clust();">Compare the Selection to a Cluster</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a class="btn" href="javascript:void(0);" onclick="comp_selection_select();">Compare the Selection to another Selection</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
       <script src="graph.js"></script>
       <script src="tableCluster.js"></script>
-      <a class="btn" href="javascript:void(0);" onclick="get_selection();">Get Selection</a>
-      <a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
-      <p id='persoSelectionne'></p>
 	</div>
-	<table>
-		<div id="tableResult">
-			
-		</div>
-	</table>
+	<div id="tableResult"></div>
     <!--<script src="cluster.js"></script>-->
     <script src="table.js"></script>
     <script src="com.js"></script>
