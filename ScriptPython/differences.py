@@ -67,7 +67,7 @@ if __name__ == '__main__':
             L1=[int(r1.group(1))]
         if r2!=None:
             L2=[int(r2.group(1))]
-            
+
         if(isinstance(L1[0], int) and isinstance(L2[0], int)):
             differences2Cluster(L1,L2)
         elif(isinstance(L1[0], str) and isinstance(L2[0], str)):
@@ -77,7 +77,4 @@ if __name__ == '__main__':
         elif(isinstance(L1[0], int) and isinstance(L2[0], str)):
             differencesSelectionCluster(L2,L1)
         else:
-            raise ValueError("Erreur dans les type des paramètres")
-
-    else:
-        differencesSelectionCluster(["Batman", "Donald Trump"],[0])
+            raise ValueError("Erreur dans les paramètres")
