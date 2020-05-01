@@ -12,7 +12,7 @@ def classHierarchique(n=0) :
 
     #plus la distance threshold est faible, plus le nombre de cluster est élevé
     if (n==0):  
-        clt = AgglomerativeClustering(n_clusters=None,distance_threshold=150,compute_full_tree=True).fit(df)
+        clt = AgglomerativeClustering(n_clusters=None,distance_threshold=100,compute_full_tree=True).fit(df)
     else:
         clt = AgglomerativeClustering(n_clusters=n,compute_full_tree=True).fit(df)
     '''
