@@ -36,35 +36,46 @@
       </div>
     </div>
     <br>
-    <br>
-    <div class="modifBase">
-      <p><b>Modification de la base  </b><img src="help_icon.png" title='Veuillez entrez une question et un personnage ou bien utilisez la sélection sur le graphique' /></p>
+	<br>
+	<table id="tableauAffichagePersonnage">
+		<tbody>
+			<tr>
+				<td>
+					<div class="modifBase">
+						<p><b>Modification de la base  </b><img src="help_icon.png" title='Veuillez entrez une question et un personnage ou bien utilisez la sélection sur le graphique' /></p>
+				  
+							<div class="ui-widget">
+								<label for="tags1">Question : </label>
+								<input id="tags1">
+							</div>
+						<div class="ui-widget">
+								<label for="tags">Personnage : </label>
+								<input id="tags" value="">
+							</div>
+						<p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
+						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
+							<div class="container" >
+							  <table id="personnages" class="display" style="width:100%">
+								  <thead>
+									  <tr>
+										  <th>Nom</th>
+										  <th>Yes_count</th>
+										  <th>No_count</th>
+										  <th>Pass_count</th>
+									  </tr>
+								  </thead>
+								  <tbody>
+								  </tbody>
+							  </table>
+							</div>
+					  </div>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
 
-  		<div class="ui-widget">
-  			<label for="tags1">Question : </label>
-  			<input id="tags1">
-  		</div>
-      <div class="ui-widget">
-  			<label for="tags">Personnage : </label>
-  			<input id="tags" value="">
-  		</div>
-      <p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
-      <p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
-  		<div class="container" >
-    		<table id="personnages" class="display" style="width:100%">
-    			<thead>
-    				<tr>
-    					<th>Nom</th>
-    					<th>Yes_count</th>
-    					<th>No_count</th>
-    					<th>Pass_count</th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    			</tbody>
-    		</table>
-  		</div>
-    </div>
     <div class="container">
 		<table>
 			<tbody>

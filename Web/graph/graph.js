@@ -83,7 +83,7 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
-    retour_init();
+    afficherTableauListe([2,5,1]);
   }
 }
 
@@ -113,9 +113,24 @@ function valider_select(){
     nomSel2 = selection_to_nom(selection2);
     console.log(nomSel)
     console.log(nomSel2)
-    retour_init();
+    //retourTableau = fontionListe();
+    afficherTableauListe([1,2,1,5]);
   }
 }
+
+function afficherTableauListe(listeQ) {
+  document.getElementById("tableauAffichagePersonnage").rows[0].cells[1].innerHTML = "<div class=\"container\" ><p><input type=\"button\" onClick=\"buttonResetClick()\" value=\"Enlever le tableau\"></p><table id=\"listQusetion\" class=\"display\" style=\"width:125%\"><thead><tr><th>Question</th><th>Positive/Négative</th></tr></thead><tbody></tbody></table></div>"
+  $(document).ready( function () {
+    $('#listQusetion').DataTable();
+} );
+};
+
+
+function buttonResetClick() {
+  console.log("slqjdh")
+  document.getElementById("tableauAffichagePersonnage").rows[0].cells[1].innertHTML = "<div class=\"container\"></div>"
+  retour_init();
+};
 
 function return_selection(){
   ret = [];
