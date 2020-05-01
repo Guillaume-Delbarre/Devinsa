@@ -83,6 +83,7 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
+    retour_init();
   }
 }
 
@@ -95,6 +96,13 @@ function comp_selection_select(){
   document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_select();\">Valider</a>"
 }
 
+function retour_init() {
+  clear_selection();
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Appliquer la sélection</a>"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Comparer la sélection à un cluster</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Comparer la sélection à une autre sélection</a>"
+}
+
 var nomSel = [];
 var nomSel2 = [];
 
@@ -105,6 +113,7 @@ function valider_select(){
     nomSel2 = selection_to_nom(selection2);
     console.log(nomSel)
     console.log(nomSel2)
+    retour_init();
   }
 }
 
