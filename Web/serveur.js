@@ -147,7 +147,7 @@ io.sockets.on('connection', function (socket) {
 					fileattente(tab.slice(1), optionsligne);
 				}
 				if(tab.length == 1){
-					//socket.emit("message", "Scripts finis");
+					socket.emit("message", "Scripts finis");
 					console.log("Scripts finis");
 				}
 			}, 1000);
