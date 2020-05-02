@@ -76,10 +76,10 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     if(not(versionConcat)):
         return somme
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
-    question = file_question.readlines().slice(1)
+    question = file_question.readlines()
     file_question.close()
-    som = pd.DataFrame(index=somme.index,columns=question) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
-    for i in range(len(question)):
+    som = pd.DataFrame(index=somme.index,columns=question[1:]) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
+    for i in range(len(question)-1):
         som.iloc[:,i] = somme.iloc[:,2*i]
         som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
     return som

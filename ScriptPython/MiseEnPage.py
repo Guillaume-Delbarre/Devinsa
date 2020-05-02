@@ -16,9 +16,9 @@ def miseEnPage():
     
     #Mettre les questions du fichier dans listeQuestions
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
-    listeQ = file_question.readlines().slice(1)
+    listeQ = file_question.readlines()
     file_question.close()
-    for q in listeQ :
+    for q in listeQ[1:] :
         q = q.replace('\n',"")
         q = q.replace('"',"")
         listeQuestions.append(q)
