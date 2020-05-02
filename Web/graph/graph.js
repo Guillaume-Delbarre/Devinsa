@@ -61,18 +61,18 @@ function selection_to_nom(objSelect){
 function annuler_selection(){
   console.log('annuler')
   clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Appliquer la selection</a>"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Comparer la sélection à un groupe</a>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Comparer la sélection à une autre sélection</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"get_selection();\" value=\"Appliquer la selection\">"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_clust();\" value=\"Comparer la sélection à un groupe\">"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_select();\" value=\"Comparer la sélection à une autre sélection\">"
 }
 
 function comp_selection_clust(){
   selection = return_selection();
   clear_selection();
   console.log('select clust')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
   document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un personnage pour connaitre son cluster <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_cluster();\">Valider</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_cluster();\" value=\"Valider\">"
 }
 
 function valider_cluster(){
@@ -91,16 +91,9 @@ function comp_selection_select(){
   selection = return_selection();
   clear_selection();
   console.log('select select')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
   document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Faites une autre sélection <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_select();\">Valider</a>"
-}
-
-function retour_init() {
-  clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Appliquer la sélection</a>"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Comparer la sélection à un cluster</a>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Comparer la sélection à une autre sélection</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_select();\" value=\"Valider\">"
 }
 
 var nomSel = [];
@@ -118,19 +111,9 @@ function valider_select(){
   }
 }
 
-function afficherTableauListe(listeQ) {
-  document.getElementById("tableauAffichagePersonnage").rows[0].cells[1].innerHTML = "<div class=\"container\" ><p><input type=\"button\" onClick=\"buttonResetClick()\" value=\"Enlever le tableau\"></p><table id=\"listQusetion\" class=\"display\" style=\"width:125%\"><thead><tr><th>Question</th><th>Positive/Négative</th></tr></thead><tbody></tbody></table></div>"
-  $(document).ready( function () {
+$(document).ready( function () {
     $('#listQusetion').DataTable();
 } );
-};
-
-
-function buttonResetClick() {
-  console.log("slqjdh")
-  document.getElementById("tableauAffichagePersonnage").rows[0].cells[1].innertHTML = "<div class=\"container\"></div>"
-  retour_init();
-};
 
 function return_selection(){
   ret = [];

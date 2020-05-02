@@ -71,6 +71,16 @@
 					  </div>
 				</td>
 				<td>
+					<div class="container">
+						<table id="listQusetion" class="display" style="width:125%">
+							<thead>
+								<tr>
+									<th>Question</th>
+									<th>Positive/Négative</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</td>
 			</tr>
 		</tbody>
@@ -81,28 +91,40 @@
 			<tbody>
 				<tr>
 					<td>
-						<p id='persoSelectionne'></p>
-						<a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
-					</td>
-					<td>
 						<svg id="zoneGraph" class="graph" width=800 height=450></svg>
 					</td>
 					<td>
-						<table id = "tabButton">
-							<tbody id='tabButton'>
+						<table>
+							<tbody>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="get_selection();">Appliquer la sélection</a>
+										<p></p>
+										<input type="button" onclick="clear_selection();" value="Réinitialiser la sélection">
+										<p></p>
+										<p></p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_clust();">Comparer la sélection à un cluster</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_select();">Comparer la sélection à une autre sélection</a>
+										<table id = "tabButton">
+											<tbody id='tabButton'>
+												<tr>
+													<td>
+														<input type="button" onclick="get_selection();" value="Appliquer la selection">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="button" onclick="comp_selection_clust();" value="Comparer la sélection à un groupe">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="button" onclick="comp_selection_select();" value="Comparer la sélection à une autre sélection">
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</td>
 								</tr>
 							</tbody>
