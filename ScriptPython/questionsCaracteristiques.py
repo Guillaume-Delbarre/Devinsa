@@ -86,11 +86,12 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
 
 
 def persoExtremes(numCluster, metric='cosine', medoid=True, nbPerso=4): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
+    
     moy = sommesClusters(versionConcat=False)
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
     persoCluster = df[df['Clusters']==numCluster].copy()
-    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:902], metric))
+    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:len(moy.columns)], metric))
     if medoid:
         res.sort_values(by=0,axis=1, inplace=True)
     else :
@@ -112,4 +113,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac(5)    
+        printQuestionCarac(4)    
