@@ -169,7 +169,7 @@ io.sockets.on('connection', function (socket) {
 			//socket.emit("message","Ecriture en cours");
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
-				socket.emit("message","Fichiers écrits");
+				//socket.emit("message","Fichiers écrits");
 				//console.log("Ecriture faite");
 				const millis = Date.now() - start;
 				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
@@ -181,7 +181,7 @@ io.sockets.on('connection', function (socket) {
 	}
 	
 	function creerarbre(profondeur, callback){
-		const as = fs.createWriteStream("../donnees/Arbre.csv");
+		const as = fs.createWriteStream("../Donnees/Arbre.csv");
 	// ON DEMANDE L'ARBRE A LA BASE
 		if (!Number.isInteger(profondeur) || profondeur < 0 || profondeur >20){
 			socket.emit("message","Paramètre non valable");

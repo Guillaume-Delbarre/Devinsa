@@ -47,4 +47,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         classHierarchique(numberOfClusters)
     else:
-        classHierarchique(5)
+        classHierarchique(4)
