@@ -22,7 +22,7 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
 
 def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
     global df
-    agg = sommesClusters()
+    agg = sommesClusters(6)
     agg = agg.T
     col=[i for i in range(nbQuestion+int(nbMedoid/2))]
     idx=[]
@@ -76,7 +76,7 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     if(not(versionConcat)):
         return somme
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
-    question = file_question.readlines()
+    question = file_question.readlines().slice(1)
     file_question.close()
     som = pd.DataFrame(index=somme.index,columns=question) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
     for i in range(len(question)):
