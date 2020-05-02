@@ -142,9 +142,9 @@ io.sockets.on('connection', function (socket) {
 					console.log(tab[0] + " : Echec de l'execution");
 				}else{
 					console.log(tab[0] + ' fini');
-				}
-				if (tab.length > 1){
-					fileattente(tab.slice(1), optionsligne);
+					if (tab.length > 1){
+						fileattente(tab.slice(1), optionsligne);
+					}
 				}
 				if(tab.length == 1){
 					socket.emit("message", "Scripts finis");
