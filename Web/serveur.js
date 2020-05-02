@@ -150,7 +150,7 @@ io.sockets.on('connection', function (socket) {
 					socket.emit("message", "Scripts finis");
 					console.log("Scripts finis");
 				}
-			}, 1000);
+			}, 2000);
 		});
 	}
 	// Fonction Lecture Base / Ecriture fichier

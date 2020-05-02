@@ -2,12 +2,14 @@ import pandas as pd
 import numpy as np
 import sys
 import time
+import os.path
 from matplotlib import pyplot as plt
 from scipy.cluster.hierarchy import dendrogram
 from sklearn.cluster import AgglomerativeClustering
 
-def classHierarchique(n=0) :
-    df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+def classHierarchique(n=0):
+    if os.path.isfile('../Donnees/Personnages.csv'):
+        df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
     #print(df)
 
     #plus la distance threshold est faible, plus le nombre de cluster est élevé
