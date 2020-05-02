@@ -21,7 +21,8 @@ def miseEnPage():
     for q in listeQ :
         q = q.replace('\n',"")
         q = q.replace('"',"")
-        listeQuestions.append(q)
+        if (q != "title"):
+            listeQuestions.append(q)
     #print(listeQuestions)
 
     #construction de la 1ere ligne du fichier, dans listetitre
