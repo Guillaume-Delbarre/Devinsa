@@ -45,14 +45,15 @@ def differencesSelectionCluster(L1,L2):
     somme = pd.DataFrame(df.groupby(['Clusters'],as_index=False).sum())
     C = pd.DataFrame(somme[somme["Clusters"]==L2[0]], copy=True)
     del C["Clusters"]
-    S = pd.DataFrame(df.loc[L1, :], copy=True)
+    S = pd.DataFrame(pd.DataFrame(df.loc[L1, :] ,copy=True).sum())
     del S["Clusters"]
-    print(S)
     C = C/countC
     S = S/countS
+    print(S)
+    print(C)
     res = np.subtract(S,C).abs()
     res.sort_values(by= [L1[0]], axis = 'columns', inplace=True, ascending = False )
-    print(res.columns)
+    print(res)
 
 
 
@@ -74,7 +75,7 @@ if __name__ == '__main__':
             differences2Selection(L1,L2)
         elif(isinstance(L1[0], str) and isinstance(L2[0], int)):
             differencesSelectionCluster(L1,L2)
-        elif(isinstance(L1[0], int) and isinstance(L2[0], str)):
-            differencesSelectionCluster(L2,L1)
         else:
             raise ValueError("Erreur dans les paramètres")
+    else: 
+        differencesSelectionCluster(["Nelson Mandela", "Batman","Franklin","Dora"],[2])
