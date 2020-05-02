@@ -43,7 +43,7 @@ router.get('/home', function(request, response) {
 	}
 });
 
-router.get('/respca', function(request, response) {
+router.get('/resPCA.csv', function(request, response) {
 	if (request.session.loggedin) {
 		// Chargement du fichier acceuil.html affiché au client
 		response.sendFile(path.join(__dirname + '../Donnees/resPCA.csv'));
