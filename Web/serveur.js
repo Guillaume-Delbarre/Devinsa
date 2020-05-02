@@ -172,7 +172,7 @@ io.sockets.on('connection', function (socket) {
 					if (error) throw error
 					const jsonData1 = JSON.parse(JSON.stringify(data));
 					var b = fastcsv.write(jsonData1, { headers: true }).pipe(zs);
-					a.on('finish', function () {
+					b.on('finish', function () {
 						//socket.emit("message","Fichiers écrits");
 						//console.log("Ecriture faite");
 						const millis = Date.now() - start;
