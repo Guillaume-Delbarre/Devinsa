@@ -27,23 +27,23 @@ socket.on('getallparamreponse', function(tabreponse) {
 		t.row.add([tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
 	}
 });
-		
+
 $('#vctsql').click(function () {
 	socket.emit('ecrirevecteursql');
 });
 
 $('#toutlancer').click(function () {
 	var nbcluster = parseInt(prompt('Nombre de clusters'));
-	var nbquestions = parseInt(prompt('Nombre de questions')); 	
+	var nbquestions = parseInt(prompt('Nombre de questions'));
 	socket.emit('toutlancer', ({nbcluster: nbcluster, nbquestions: nbquestions}));
 });
 
 $('#lancer2emepartie').click(function () {
-	var nbcluster = parseInt(prompt('Nombre de clusters')); 
-	var nbquestions = parseInt(prompt('Nombre de questions')); 	
+	var nbcluster = parseInt(prompt('Nombre de clusters'));
+	var nbquestions = parseInt(prompt('Nombre de questions'));
 	socket.emit('lancerdeuxièmepartie', ({nbcluster: nbcluster, nbquestions: nbquestions}));
 });
-			
+
 $('#updatesql').click(function () {
 	var rqtp = parseInt(prompt('Paramètre à changer ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
 	var rqtv = parseInt(prompt('Valeur à mettre ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
@@ -57,10 +57,10 @@ $('#updatesql').click(function () {
 $('#creerarbre').click(function () {
 	var prof = parseInt(prompt("Profondeur de l'arbre ?")); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
 	socket.emit('creerarbre', {profondeur :prof}); // ON ENVOIE L'EVENT AU SERVEUR
-});	
-			
+});
+
 	// Case avec autocompletion pour trouver plus facilement les personnages
-			
+
 $( function() {
 	$( "#tags" ).autocomplete({
 		source: function(request, response) {
@@ -75,9 +75,9 @@ $( function() {
 		}
 	});
 });
-			
+
 // Case avec autocompletion pour trouver plus facilement les questions
-		
+
 $( function() {
 	$( "#tags1" ).autocomplete({
 		source: function(request, response) {
@@ -97,7 +97,7 @@ socket.on('message', function(message) {
 	alert(message);
 });
 
-socket.on('valeursreponses', ({y, n, p}) => {	
+socket.on('valeursreponses', ({y, n, p}) => {
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
 	t.row.add([namepers,y,n,p]).draw(false);

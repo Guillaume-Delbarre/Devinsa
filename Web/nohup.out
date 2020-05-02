@@ -3,3 +3,10 @@ listening at port : 8080
 Serveur lancé
 listening at port : 8080
 Connection depuis l'adresse : 10.4.1.36
+<<<<<<< HEAD
+=======
+Connection depuis l'adresse : 10.4.1.36
+Serveur lancé
+listening at port : 8080
+Connection depuis l'adresse : 10.4.1.36
+>>>>>>> 6eac08c4f018439de7656d349e24569fb3cf63e5

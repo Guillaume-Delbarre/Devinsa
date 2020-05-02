@@ -5,6 +5,7 @@ import numpy as np
 import os
 import sys
 from sklearn.metrics import pairwise_distances
+import re
 
 df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
@@ -59,6 +60,14 @@ if __name__ == '__main__':
     if (len(sys.argv) == 3):
         L1=int(sys.argv[1])
         L2=int(sys.argv[2])
+        regex = re.compile("Groupe (.)")
+        r1 = regex.search(L1)
+        r2 = regex.search(L2)
+        if r1!=None:
+            L1=[int(r1.group(1))]
+        if r2!=None:
+            L2=[int(r2.group(1))]
+
         if(isinstance(L1[0], int) and isinstance(L2[0], int)):
             differences2Cluster(L1,L2)
         elif(isinstance(L1[0], str) and isinstance(L2[0], str)):
@@ -68,7 +77,4 @@ if __name__ == '__main__':
         elif(isinstance(L1[0], int) and isinstance(L2[0], str)):
             differencesSelectionCluster(L2,L1)
         else:
-            raise ValueError("Erreur dans les type des paramètres")
-
-    else:
-        differencesSelectionCluster(["Batman", "Donald Trump"],[0])
+            raise ValueError("Erreur dans les paramètres")

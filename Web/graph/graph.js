@@ -25,11 +25,11 @@ var yAxis = d3.svg.axis()
 
 var shiftKey;
 
-var rect, 
+var rect,
 node;
 
-var div = d3.select("body").append("div")	
-  .attr("class", "tooltip")				
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
   .style("opacity", 0);
 
 svg = svg.append("g")
@@ -61,18 +61,18 @@ function selection_to_nom(objSelect){
 function annuler_selection(){
   console.log('annuler')
   clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"get_selection();\">Modify the Selection</a>"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_clust();\">Compare the Selection to a Cluster</a>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"comp_selection_select();\">Compare the Selection to another Selection</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"get_selection();\" value=\"Appliquer la selection\">"
+  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_clust();\" value=\"Comparer la sélection à un groupe\">"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_select();\" value=\"Comparer la sélection à une autre sélection\">"
 }
 
 function comp_selection_clust(){
   selection = return_selection();
   clear_selection();
   console.log('select clust')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
   document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un personnage pour connaitre son cluster <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_cluster();\">Valider</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_cluster();\" value=\"Valider\">"
 }
 
 function valider_cluster(){
@@ -83,6 +83,7 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
+    afficherTableauListe([2,5,1]);
   }
 }
 
@@ -90,9 +91,9 @@ function comp_selection_select(){
   selection = return_selection();
   clear_selection();
   console.log('select select')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"annuler_selection();\">Annuler</a>"
+  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
   document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Faites une autre sélection <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<a class=\"btn\" href=\"javascript:void(0);\" onclick=\"valider_select();\">Valider</a>"
+  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_select();\" value=\"Valider\">"
 }
 
 var nomSel = [];
@@ -105,8 +106,14 @@ function valider_select(){
     nomSel2 = selection_to_nom(selection2);
     console.log(nomSel)
     console.log(nomSel2)
+    //retourTableau = fontionListe();
+    afficherTableauListe([1,2,1,5]);
   }
 }
+
+$(document).ready( function () {
+    $('#listQusetion').DataTable();
+} );
 
 function return_selection(){
   ret = [];
@@ -138,7 +145,7 @@ function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
 }
 
-d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv", function(error, data) {
+d3.csv("../../Donnees/resPCA.csv", function(error, data) {
   data.forEach(function(d) {
     d.Axe_X = +d.Axe_X;
     d.Axe_Y = +d.Axe_Y;
@@ -184,7 +191,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       }));
 
   function zoom() {
-    if (shiftKey) { 
+    if (shiftKey) {
       console.log('zoom shiftKey');
       return;
     }
@@ -218,18 +225,18 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         });
       }
     })
-    .on("mouseover", function(d) {		
-      div.transition()		
-          .duration(200)		
-          .style("opacity", .9);		
-      div	.html(d.Name)	
-          .style("left", (d3.event.pageX) + "px")		
-          .style("top", (d3.event.pageY - 21) + "px");	
-      })					
-    .on("mouseout", function(d) {		
-      div.transition()		
-          .duration(500)		
-          .style("opacity", 0);	
+    .on("mouseover", function(d) {
+      div.transition()
+          .duration(200)
+          .style("opacity", .9);
+      div	.html(d.Name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 21) + "px");
+      })
+    .on("mouseout", function(d) {
+      div.transition()
+          .duration(500)
+          .style("opacity", 0);
     });
 
   node.classed('selected', function (d) {return d.selected;})
@@ -252,8 +259,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .attr("dy", ".35em")
     .style("text-anchor", "end")
     .text(function(d) { return d; });
-  
-  
+
+
     d3.select(window).on("keydown", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -262,7 +269,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
     d3.select(window).on("keyup", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -271,5 +278,5 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
 });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Graph Devinsa Radio</title>
+    <title>Accueil outil administration Devinsa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="styles.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -12,69 +12,119 @@
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
-    <nav>
-      <ul class="menu">
-    		<form action="Arbre" method="POST">
-    			<input type="submit" value="Aller à l'Arbre">
-    		</form>
-      </ul>
-    </nav>
-		<p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
-		<p><input type="button" value="Extraction des données" id="vctsql" /></p>
-		<p><input type="button" value="Actualiser" id="toutlancer" /></p>
-		<p><input type="button" value="Lancer la 2ème partie" id="lancer2emepartie" /></p>
-    <p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
-		<div class="ui-widget">
-			<label for="tags">Personnages : </label>
-			<input id="tags" value="">
-		</div>
-		<div class="ui-widget">
-			<label for="tags1">Questions : </label>
-			<input id="tags1">
-		</div>
+    <header>
+      <table height=1>
+        <th>
+          <p><a class="menu_item" href="http://devinsa.insa-rennes.fr"><img src="imgdevinsa.jpg" title='Cliquez pour jouer' /></a>
+        </th>
+        <th>
+          <form action="Arbre" method="POST">
+      			<input class="menu_item" type="submit" value="Arbre des questions" title="Cliquez pour accéder à la page" target="_blank">
+      		</form>
+        </th>
+      </table>
+    </header>
 
-		<div class="container">
-		<table id="personnages" class="display" style="width:100%">
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Yes_count</th>
-					<th>No_count</th>
-					<th>Pass_count</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		</div>
+		    <p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
+
+    <div class="ActuDonnees">
+      <p><b>Actualisation des données </b><img src="help_icon.png" title="L'actualisation complète comprend l'extraction des données et leur traitement" /></p>
+      <div class="conteneurBoutons">
+    		<p><input type="button" value="Extraction des données" id="vctsql" class="b" title="Extraction des données - Environ 1min"/></p>
+    		<p><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Traitement des données - Environ 30sec" /></p>
+        <p><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Actualisation complète - Environ 1min30"/></p>
+      </div>
+    </div>
+    <br>
+	<br>
+	<table id="tableauAffichagePersonnage">
+		<tbody>
+			<tr>
+				<td>
+					<div class="modifBase">
+						<p><b>Modification de la base  </b><img src="help_icon.png" title='Veuillez entrez une question et un personnage ou bien utilisez la sélection sur le graphique' /></p>
+				  
+							<div class="ui-widget">
+								<label for="tags1">Question : </label>
+								<input id="tags1">
+							</div>
+						<div class="ui-widget">
+								<label for="tags">Personnage : </label>
+								<input id="tags" value="">
+							</div>
+						<p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
+						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
+							<div class="container" >
+							  <table id="personnages" class="display" style="width:100%">
+								  <thead>
+									  <tr>
+										  <th>Nom</th>
+										  <th>Yes_count</th>
+										  <th>No_count</th>
+										  <th>Pass_count</th>
+									  </tr>
+								  </thead>
+								  <tbody>
+								  </tbody>
+							  </table>
+							</div>
+					  </div>
+				</td>
+				<td>
+					<div class="container">
+						<table id="listQusetion" class="display" style="width:125%">
+							<thead>
+								<tr>
+									<th>Question</th>
+									<th>Positive/Négative</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
 
     <div class="container">
 		<table>
 			<tbody>
 				<tr>
 					<td>
-						<p id='persoSelectionne'></p>
-						<a class="btn" href="javascript:void(0);" onclick="clear_selection();">Clear Selection</a>
-					</td>
-					<td>
 						<svg id="zoneGraph" class="graph" width=800 height=450></svg>
 					</td>
 					<td>
-						<table id = "tabButton">
-							<tbody id='tabButton'>
+						<table>
+							<tbody>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="get_selection();">Modify the Selection</a>
+										<p></p>
+										<input type="button" onclick="clear_selection();" value="Réinitialiser la sélection">
+										<p></p>
+										<p></p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_clust();">Compare the Selection to a Cluster</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<a class="btn" href="javascript:void(0);" onclick="comp_selection_select();">Compare the Selection to another Selection</a>
+										<table id = "tabButton">
+											<tbody id='tabButton'>
+												<tr>
+													<td>
+														<input type="button" onclick="get_selection();" value="Appliquer la selection">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="button" onclick="comp_selection_clust();" value="Comparer la sélection à un groupe">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input type="button" onclick="comp_selection_select();" value="Comparer la sélection à une autre sélection">
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</td>
 								</tr>
 							</tbody>
