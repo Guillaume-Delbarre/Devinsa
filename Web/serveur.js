@@ -159,25 +159,31 @@ io.sockets.on('connection', function (socket) {
 		const ws = fs.createWriteStream("../Donnees/Vecteur.csv");
 		console.log("Extraction des données");
 	// ON DEMANDE LES DONNEES A LA BASE
-		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS itemCROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
+		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		const start = Date.now();
 		connection.query(rqt, function(error, data, fields) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
-	// ECRITURE FICHIER
-			//console.log("Ecriture en cours");
-			//socket.emit("message","Ecriture en cours");
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
-				//socket.emit("message","Fichiers écrits");
-				//console.log("Ecriture faite");
-				const millis = Date.now() - start;
-				//console.log("Temps écriture fichier : ", millis/1000, " secondes");
-				if (script != []){
-					fileattente(script, options);
-				}
+				const zs = fs.createWriteStream("../Donnees/Questionsligne");
+				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer)"
+				connection.query(rqt1, function(error, data, fields) {
+					if (error) throw error
+					const jsonData1 = JSON.parse(JSON.stringify(data));
+					var b = fastcsv.write(jsonData1, { headers: true }).pipe(zs);
+					a.on('finish', function () {
+						//socket.emit("message","Fichiers écrits");
+						//console.log("Ecriture faite");
+						const millis = Date.now() - start;
+						//console.log("Temps écriture fichier : ", millis/1000, " secondes");
+						if (script != []){
+							fileattente(script, options);
+						}
+					}
+				});
 			});
-		});
+		}
 	}
 	
 	function creerarbre(profondeur, callback){
