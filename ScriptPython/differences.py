@@ -46,12 +46,15 @@ def differencesSelectionCluster(L1,L2):
     C = pd.DataFrame(somme[somme["Clusters"]==L2[0]], copy=True)
     del C["Clusters"]
     S = pd.DataFrame(pd.DataFrame(df.loc[L1, :] ,copy=True).sum())
+    S=S.T
     del S["Clusters"]
+    
     C = C/countC
     S = S/countS
     print(S)
     print(C)
     res = np.subtract(S,C).abs()
+    print(res)
     res.sort_values(by= [L1[0]], axis = 'columns', inplace=True, ascending = False )
     print(res)
 
