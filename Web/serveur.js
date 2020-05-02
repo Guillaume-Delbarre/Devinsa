@@ -168,9 +168,9 @@ io.sockets.on('connection', function (socket) {
 			a.on('finish', function () {
 				const zs = fs.createWriteStream("../Donnees/QuestionsLigne.txt");
 				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer)"
-				connection.query(rqt1, function(error, data, fields) {
+				connection.query(rqt1, function(error, rows) {
 					if (error) throw error
-					const jsonData1 = JSON.parse(JSON.stringify(data));
+					const jsonData1 = JSON.parse(JSON.stringify(rows));
 					var b = fastcsv.write(jsonData1, { headers: true }).pipe(zs);
 					b.on('finish', function () {
 						//socket.emit("message","Fichiers écrits");
