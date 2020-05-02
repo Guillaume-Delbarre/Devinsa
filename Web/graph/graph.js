@@ -145,7 +145,7 @@ function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
 }
 
-d3.csv("../../Donnees/resPCA.csv", function(error, data) {
+d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv", function(error, data) {
   data.forEach(function(d) {
     d.Axe_X = +d.Axe_X;
     d.Axe_Y = +d.Axe_Y;
