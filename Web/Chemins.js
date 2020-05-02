@@ -45,11 +45,8 @@ router.get('/home', function(request, response) {
 
 router.get('/resPCA.csv', function(request, response) {
 	if (request.session.loggedin) {
-		// Chargement du fichier acceuil.html affiché au client
+		// Chargement du fichier resPCA.csv affiché au client
 		response.sendFile(path.join(__dirname + '/../Donnees/resPCA.csv'));
-	} else {
-		// On retourne au login
-		response.sendFile(path.join(__dirname + '/login.html'));
 	}
 });
 
