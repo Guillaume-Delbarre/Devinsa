@@ -43,9 +43,27 @@ router.get('/home', function(request, response) {
 	}
 });
 
+router.get('/respca', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '../Donnees/resPCA.csv'));
+	} else {
+		// On retourne au login
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
+});
+
 router.post('/Arbre', function(request, response) {
 	if (request.session.loggedin){
 		response.sendFile(path.join(__dirname + '/Arbre_Binaire/Treeweb.html'));
+	}else{
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
+});
+
+router.post('/acceuil', function(request, response) {
+	if (request.session.loggedin){
+		response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
 	}else{
 		response.sendFile(path.join(__dirname + '/login.html'));
 	}

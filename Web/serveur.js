@@ -167,7 +167,7 @@ io.sockets.on('connection', function (socket) {
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				const zs = fs.createWriteStream("../Donnees/QuestionsLigne.txt");
-				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer)"
+				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer) order by title"
 				connection.query(rqt1, function(error, rows) {
 					if (error) throw error
 					const jsonData1 = JSON.parse(JSON.stringify(rows));
