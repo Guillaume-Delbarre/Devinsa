@@ -77,7 +77,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		demande(["differences.py"], [liste1, liste2]);
+		lancerscript(["differences.py"], [liste1, liste2]);
 	});
 	
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
