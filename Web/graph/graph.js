@@ -114,7 +114,7 @@ function valider_select(){
     console.log(nomSel2)
     //retourTableau = fontionListe();
     $.ajax({
-      type: "get",
+      type: "POST",
       url: "differences.py",
       data: {param: nomSel, nomSel2},
       success: function(response){
