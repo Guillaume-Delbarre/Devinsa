@@ -86,13 +86,10 @@ function valider_cluster(){
     $.ajax({
       type: "get",
       url: "differences.py",
-      data: {param: nomSel, nomSel2},
-      success: function(response){
-        //afficherTableauListe(response);
-        console.log(response)
-      }
-    });
-  }
+      data: {param: nomSel, nomSel2}
+    }).done(function(o){
+      console.log(o);
+  });
 }
 
 function comp_selection_select(){
