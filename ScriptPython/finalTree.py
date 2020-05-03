@@ -89,11 +89,11 @@ def HTMLclass(choice):
 def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     #S'il ne reste aucun personnage
     if(len(itemOrder)==0):        
-        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
+        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true"
         return ecrire
     #Si c'est la première question : cas spécifique
     elif(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
         listeperso = proxi(tfidf)
@@ -106,7 +106,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         html = HTMLclass(question[2])
         
         #On rajoute les données
-        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : ["
     #On cherche les children de la question
     questionsFilles = getfils(question[0],app_tree)
     #Si aucun enfant
@@ -129,14 +129,14 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
-        ecrire += "\n{"
+        ecrire += "{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
             ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,"")
-        ecrire += "\n}, \n {"
+        ecrire += "},{"
         if (choixNon!=[]):
             ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,"")
-        ecrire += "\n } \n]"
+        ecrire += "}]"
         return ecrire
 
 def proxi(tfidf):
@@ -244,8 +244,8 @@ if __name__ == '__main__':
     ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
-                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
+    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native',connectors: { type: 'step' },node: { HTMLclass: 'nodeExample1' },"+
+                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},"+
                         "nodeStructure : {")
     
     ecriture.write(ecrireFinal)
