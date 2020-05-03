@@ -77,6 +77,9 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
+		console.log("lancement demande questions")
+		console.log(liste1)
+		console.log(liste2)
 		lancerScriptQuestions(["differences.py"], liste1, liste2);
 	});
 	
