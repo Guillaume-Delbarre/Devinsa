@@ -313,7 +313,7 @@ io.sockets.on('connection', function (socket) {
 	function lancerScriptQuestions(nom, liste1, liste2){
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
-		let options = {args: liste1, liste2};
+		let options = {args: [liste1, liste2]};
 		PythonShell.run(path, options, function (err) {
 			if (err) {
 				console.log(err)
