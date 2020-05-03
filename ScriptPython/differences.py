@@ -64,13 +64,11 @@ def differencesSelectionCluster(L1,L2):
     res = res.iloc[:20,:]
     res = res.reset_index()
     res.columns=['Question','Différences']
-    res.to_csv("../Donnees/differences.csv", mode='w', index=True)
+    res.to_csv("../Donnees/differences.csv", mode='w', index=False)
 
 
 
 def differences(L1,L2):
-    print(L1)
-    print(L2)
 
     L1= str(L1).replace("[","").replace("]","")
     L1 = L1.split(",")
@@ -83,8 +81,6 @@ def differences(L1,L2):
     else:
         L2= str(L2).replace("[","").replace("]","")
         L2 = L2.split(",")
-    print(L1)
-    print(L2)
     if(isinstance(L1[0], str) and isinstance(L2[0], str)):
         differences2Selection(L1,L2)
     elif(isinstance(L1[0], str) and isinstance(L2[0], int)):
