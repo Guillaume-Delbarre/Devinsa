@@ -87,8 +87,16 @@ function valider_cluster(){
       //console.log(data)
       var t = $('#listQusetion')
       $("#listQusetion tbody tr").remove();
+      var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
         t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
+        var nouvelleLigne = refTable.insertRow();
+        var nouvelleCellule = nouvelleLigne.insertCell(0);
+        var nouveauTexte = document.createTextNode(data[i].questions)
+        nouvelleCellule.appendChild(nouveauTexte)
+        var nouvelleCellule = nouvelleLigne.insertCell(0)
+        var nouveauTexte = document.createTextNode(data[i].coef)
+        nouvelleCellule.appendChild(nouveauTexte)
       }
     })
   }
@@ -118,8 +126,16 @@ function valider_select(){
       //console.log(data)
       var t = $('#listQusetion')
       $("#listQusetion tbody tr").remove();
+      var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
         t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
+        var nouvelleLigne = refTable.insertRow();
+        var nouvelleCellule = nouvelleLigne.insertCell(0);
+        var nouveauTexte = document.createTextNode(data[i].questions)
+        nouvelleCellule.appendChild(nouveauTexte)
+        var nouvelleCellule = nouvelleLigne.insertCell(0)
+        var nouveauTexte = document.createTextNode(data[i].coef)
+        nouvelleCellule.appendChild(nouveauTexte)
       }
     })
   }
