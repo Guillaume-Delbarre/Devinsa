@@ -63,7 +63,7 @@ div.tooltip {
 .modifBase{
   background-color: #f0f8ff;
   width:40%;
-  min-width:600px;
+  min-width:550px;
 }
 
 
@@ -77,5 +77,12 @@ header{
 }
 
 table{
-  padding: 2px;
+  padding: 5px;
+}
+
+#comp{
+  background-color: #f0f8ff;
+  width:40%;
+  min-width:550px;
+  min-height: 310px
 }

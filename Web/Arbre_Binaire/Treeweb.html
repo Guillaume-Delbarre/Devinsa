@@ -7,16 +7,22 @@
     <title> Arbre </title>
     <link rel="stylesheet" href="style/Treant.css">
     <link rel="stylesheet" href="style/Treestyle.css">
-
+    <link rel="stylesheet" href="../graph/styles.css">
 </head>
-<body>
-    <nav>
-      <ul class="menu">
-    		<form action="acceuil" method="POST">
-    			<input type="submit" value="Aller à l'acceuil">
-    		</form>
-      </ul>
-    </nav>
+  <body>
+    <header>
+      <table height=1>
+        <th>
+          <p><a class="menu_item" href="http://devinsa.insa-rennes.fr"><img src="../graph/imgdevinsa.jpg" title='Cliquez pour jouer' /></a>
+        </th>
+        <th>
+          <form action="acceuil" method="POST">
+      			<input type="submit" value="Retour à l'acceuil" title="Cliquez pour accéder à la page">
+      		</form>
+        </th>
+      </table>
+    </header>
+
     <div class="chart" id="tree"></div>
     <script src="vendor/raphael.js"></script>
     <script src="script/Treant.js"></script>
