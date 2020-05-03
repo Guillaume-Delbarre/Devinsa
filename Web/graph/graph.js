@@ -86,9 +86,9 @@ function valider_cluster(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      t.draw();
+      $("#listQusetion tbody tr").remove();
       for(let i = 0; i<data.length; i++){
-        t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
+        t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
       }
     })
   }
@@ -117,9 +117,9 @@ function valider_select(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      t.draw();
+      $("#listQusetion tbody tr").remove();
       for(let i = 0; i<data.length; i++){
-        t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
+        t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
       }
     })
   }
