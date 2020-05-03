@@ -84,7 +84,7 @@ function valider_cluster(){
     console.log(selection)
     console.log(selection2[0].Cluster)
     $.ajax({
-      type: "POST",
+      type: "get",
       url: "differences.py",
       data: {param: nomSel, nomSel2}
       }).done(function(o){

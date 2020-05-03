@@ -54,9 +54,6 @@ router.get('/infoClusters.csv', function(request, response) {
 	if (request.session.loggedin) {
 		// Chargement du fichier acceuil.html affiché au client
 		response.sendFile(path.join(__dirname + '/../Donnees/infoClusters.csv'));
-	} else {
-		// On retourne au login
-		response.sendFile(path.join(__dirname + '/login.html'));
 	}
 });
 
@@ -64,10 +61,7 @@ router.get('/differences.py', function(request, response) {
 	if (request.session.loggedin) {
 		// Chargement du fichier acceuil.html affiché au client
 		response.sendFile(path.join(__dirname + '/../ScriptPython/differences.py'));
-	} else {
-		// On retourne au login
-		response.sendFile(path.join(__dirname + '/login.html'));
-	}
+	} 
 });
 
 router.post('/Arbre', function(request, response) {
