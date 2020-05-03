@@ -83,21 +83,13 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
-    d3.csv("differences.csv", function(data) {
-      //console.log(data)
-      var t = $('#listQusetion')
-      //$("#listQusetion tbody tr").remove();
-      var refTable = document.getElementById(listQusetion);
-      for(let i = 0; i<data.length; i++){
-        //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
-        var nouvelleLigne = refTable.insertRow(i);
-        var nouvelleCellule = nouvelleLigne.insertCell(0);
-        var nouveauTexte = document.createTextNode(data[i].questions)
-        nouvelleCellule.appendChild(nouveauTexte)
-        var nouvelleCellule = nouvelleLigne.insertCell(0)
-        var nouveauTexte = document.createTextNode(data[i].coef)
-        nouvelleCellule.appendChild(nouveauTexte)
-      }
+      d3.csv("differences.csv", function(data) {
+        //console.log(data)
+        var t = $('#listQusetion').DataTable();
+        t.clear().draw();
+        for(let i = 0; i<data.length; i++){
+          t.row.add([data[i].questions, data[i].coef]).draw(false);
+        }
     })
   }
 }
@@ -124,19 +116,11 @@ function valider_select(){
     //retourTableau = fontionListe();
     d3.csv("differences.csv", function(data) {
       //console.log(data)
-      var t = $('#listQusetion')
-      //$("#listQusetion tbody tr").remove();
-      var refTable = document.getElementById(listQusetion);
+      var t = $('#listQusetion').DataTable();
+      t.clear().draw();
       for(let i = 0; i<data.length; i++){
-        //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
-        var nouvelleLigne = refTable.insertRow(i);
-        var nouvelleCellule = nouvelleLigne.insertCell(0);
-        var nouveauTexte = document.createTextNode(data[i].questions)
-        nouvelleCellule.appendChild(nouveauTexte)
-        var nouvelleCellule = nouvelleLigne.insertCell(0)
-        var nouveauTexte = document.createTextNode(data[i].coef)
-        nouvelleCellule.appendChild(nouveauTexte)
-      }
+        t.row.add([data[i].questions, data[i].coef]).draw(false);
+	    }
     })
   }
 }
