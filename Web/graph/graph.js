@@ -85,7 +85,7 @@ function valider_cluster(){
     console.log(selection2[0].Cluster)
     $.ajax({
       type: "get",
-      url: "ScriptPython/differences.py",
+      url: "differences.py",
       data: {param: nomSel, nomSel2},
       success: function(response){
         //afficherTableauListe(response);
@@ -117,7 +117,7 @@ function valider_select(){
     //retourTableau = fontionListe();
     $.ajax({
       type: "get",
-      url: "ScriptPython/differences.py",
+      url: "differences.py",
       data: {param: nomSel, nomSel2},
       success: function(response){
         //afficherTableauListe(response);
