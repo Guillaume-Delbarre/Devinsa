@@ -83,13 +83,13 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
-    $.ajax({
-      type: "get",
-      url: "differences.py",
-      data: {param: nomSel, nomSel2}
-      }).done(function(o){
-        console.log(o);
-    });
+    d3.csv("differences.csv", function(data) {
+      //console.log(data)
+      var t = $('#listQusetion')
+      t.clear().draw();
+      for(let i = 0; i<data.length; i++){
+        t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
+      }
   }
 }
 
@@ -114,13 +114,12 @@ function valider_select(){
     console.log(nomSel2)
     //retourTableau = fontionListe();
     d3.csv("differences.csv", function(data) {
-      console.log(data)
-      /*
+      //console.log(data)
       var t = $('#listQusetion')
       t.clear().draw();
-      for(let i = 0; i<tabreponse.length; i++){
-        t.row.add([tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
-      }*/
+      for(let i = 0; i<data.length; i++){
+        t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
+      }
     })
   }
 }
