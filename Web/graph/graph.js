@@ -113,15 +113,17 @@ function valider_select(){
     console.log(nomSel)
     console.log(nomSel2)
     //retourTableau = fontionListe();
-    $.ajax({
-      type: "POST",
-      url: "differences.py",
-      data: {param: nomSel, nomSel2},
-      success: function(response){
-        //afficherTableauListe(response);
-        console.log(response)
-      }
-    });
+    d3.csv("differences.csv", function(error, data) {
+      data.forEach(function(d) {
+      });
+      console.log(d)
+      /*
+      var t = $('#listQusetion')
+      t.clear().draw();
+      for(let i = 0; i<tabreponse.length; i++){
+        t.row.add([tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
+      }*/
+    })
   }
 }
 
