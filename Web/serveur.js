@@ -335,7 +335,7 @@ io.sockets.on('connection', function (socket) {
 			return 0;
 		}
 		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
-		//console.log("fini")});
+		console.log("fini")});
 		});
 	}
 }

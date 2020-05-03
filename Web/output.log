@@ -1,26 +1,15 @@
-Serveur lancé
-listening at port : 8080
-Connection depuis l'adresse : 10.4.1.36
-Extraction des données
-MiseEnPage.py lancé
-MiseEnPage.py fini
-CHA.py lancé
-CHA.py fini
-questionsCaracteristiques.py lancé
-questionsCaracteristiques.py fini
-PCA.py lancé
-PCA.py fini
-Scripts finis
-events.js:183
-      throw er; // Unhandled 'error' event
-      ^
+/home-reseau/nlemaire/DevinsaTest/Web/serveur.js:339
+	}
+	^
 
-Error: Connection lost: The server closed the connection.
-    at Protocol.end (/home-reseau/nlemaire/DevinsaTest/node_modules/mysql/lib/protocol/Protocol.js:112:13)
-    at Socket.<anonymous> (/home-reseau/nlemaire/DevinsaTest/node_modules/mysql/lib/Connection.js:94:28)
-    at Socket.<anonymous> (/home-reseau/nlemaire/DevinsaTest/node_modules/mysql/lib/Connection.js:526:10)
-    at emitNone (events.js:111:20)
-    at Socket.emit (events.js:208:7)
-    at endReadableNT (_stream_readable.js:1064:12)
-    at _combinedTickCallback (internal/process/next_tick.js:138:11)
-    at process._tickCallback (internal/process/next_tick.js:180:9)
+SyntaxError: missing ) after argument list
+    at createScript (vm.js:80:10)
+    at Object.runInThisContext (vm.js:139:10)
+    at Module._compile (module.js:616:28)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+    at Function.Module.runMain (module.js:693:10)
+    at startup (bootstrap_node.js:188:16)
+    at bootstrap_node.js:609:3
