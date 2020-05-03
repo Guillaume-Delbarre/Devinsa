@@ -26,7 +26,6 @@ def differences2Cluster(L1,L2):
 """
 def differences2Selection(L1,L2):
     global df
-    
     countS1 = len(L1)
     countS2 = len(L2)
     S1 = pd.DataFrame(pd.DataFrame(df.loc[L1, :] ,copy=True).sum())
