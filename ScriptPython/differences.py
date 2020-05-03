@@ -26,11 +26,10 @@ def differences2Cluster(L1,L2):
 """
 def differences2Selection(L1,L2):
     global df
-    
     countS1 = len(L1)
     countS2 = len(L2)
-    S1 = pd.DataFrame(pd.DataFrame(df.loc[L1, :] ,copy=True).sum())
-    S2 = pd.DataFrame(pd.DataFrame(df.loc[L2, :] ,copy=True).sum())
+    S1 = pd.DataFrame(pd.DataFrame(df.loc[L1, :], copy=True).sum())
+    S2 = pd.DataFrame(pd.DataFrame(df.loc[L2, :],copy=True).sum())
     S1=S1.T
     S2=S2.T
     del S1["Clusters"]
@@ -87,3 +86,5 @@ if __name__ == '__main__':
             differencesSelectionCluster(L1,L2)
         else:
             raise ValueError("Erreur dans les paramètres")
+    else: 
+        differences2Selection(["Nelson Mandela"], ["Batman"])
