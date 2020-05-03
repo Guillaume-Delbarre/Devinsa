@@ -83,7 +83,15 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
-    afficherTableauListe([2,5,1]);
+    $.ajax({
+      type: "get",
+      url: "ScriptPython/differences.py",
+      data: {param: nomSel, nomSel2},
+      success: function(response){
+        //afficherTableauListe(response);
+        console.log(response)
+      }
+    });
   }
 }
 
@@ -107,13 +115,25 @@ function valider_select(){
     console.log(nomSel)
     console.log(nomSel2)
     //retourTableau = fontionListe();
-    afficherTableauListe([1,2,1,5]);
+    $.ajax({
+      type: "get",
+      url: "ScriptPython/differences.py",
+      data: {param: nomSel, nomSel2},
+      success: function(response){
+        //afficherTableauListe(response);
+        console.log(response)
+      }
+    });
   }
 }
 
 $(document).ready( function () {
     $('#listQusetion').DataTable();
 } );
+
+function afficherTableauListe( liste ){
+
+}
 
 function return_selection(){
   ret = [];
