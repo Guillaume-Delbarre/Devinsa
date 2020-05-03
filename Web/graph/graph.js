@@ -89,7 +89,7 @@ function valider_cluster(){
       $("#listQusetion tbody tr").remove();
       var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
-        t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
+        //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
         var nouvelleLigne = refTable.insertRow();
         var nouvelleCellule = nouvelleLigne.insertCell(0);
         var nouveauTexte = document.createTextNode(data[i].questions)
@@ -128,7 +128,7 @@ function valider_select(){
       $("#listQusetion tbody tr").remove();
       var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
-        t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
+        //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
         var nouvelleLigne = refTable.insertRow();
         var nouvelleCellule = nouvelleLigne.insertCell(0);
         var nouveauTexte = document.createTextNode(data[i].questions)
