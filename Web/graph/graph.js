@@ -83,15 +83,16 @@ function valider_cluster(){
     document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un unique personnage <p>"
   } else {
     console.log("Selection de cluster")
-    console.log(selection)
+    nomSel = selection_to_nom(selection);
+    console.log(nomSel)
     console.log(selection2[0].Cluster)
-    socket.emit('ecrirequestiondiff', ({liste1: selection, liste2: selection2[0].Cluster}));
+    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: selection2[0].Cluster}));
       d3.csv("differences.csv", function(data) {
         //console.log(data)
         var t = $('#listQusetion').DataTable();
         t.clear().draw();
         for(let i = 0; i<data.length; i++){
-          t.row.add([data[i].questions, data[i].coef]).draw(false);
+          t.row.add([data[i].Question, data[i].Différences]).draw(false);
         }
     })
   }
@@ -123,7 +124,7 @@ function valider_select(){
       var t = $('#listQusetion').DataTable();
       t.clear().draw();
       for(let i = 0; i<data.length; i++){
-        t.row.add([data[i].questions, data[i].coef]).draw(false);
+        t.row.add([data[i].Question, data[i].Différences]).draw(false);
 	    }
     })
   }

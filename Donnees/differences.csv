@@ -1,21 +1,21 @@
-questions,coef
-Non Ton personnage est-il réel ?,6.763816801384139
-Oui Ton personnage est-il réel ?,-6.073630797199841
-Oui Ton personnage porte-t-il des chaussures ?,6.00945010211569
-Oui Ton personnage fait-il des combats ?,5.867688469680643
-Oui Ton personnage est-il décédé ?,-5.7057704886990885
-Non Ton personnage est-il méchant ? ,5.674610087767452
-Oui Ton personnage possède-t-il des armes ?,5.53909490936471
-Non Ton personnage possède-t-il des armes ?,-5.179407084494764
-Non Ton personnage est-il américain ?,-5.1671032773349115
-Non Ton personnage a-t-il plus de 50 ans ?,4.890061664235973
-Oui Ton personnage vit-il dans un monde imaginaire ?,4.849617183183744
-Non Ton personnage vit-il dans un monde imaginaire ?,-4.849610871333214
-Non Est-ce que ton personnage est un animal ?,4.713339068201704
-Oui Ton personnage est-il masculin ?,4.704821928739237
-Non Ton personnage a-t-il une épée ?,4.327495113169062
-Non Ton personnage a-t-il un rapport avec le milieu du sport ?,4.272354884230718
-Non Ton personnage a-t-il joué dans des westerns ?,4.27004998714641
-Oui Ton personnage a-t-il plus de 50 ans ?,-4.156553407513865
-Oui Ton personnage a-t-il la peau blanche ?,4.085074437441663
-Non Ton personnage fait-il de la politique ?,3.9624294192040455
+Question,Différences
+Non Ton personnage est-il décédé ?,-3.6891315865739975
+Non Ton personnage est-il français ?,3.1118131231431865
+Non Ton personnage est-il acteur/actrice ?,-2.808234400057806
+Oui Ton personnage est-il français ?,-2.8081880451554606
+Non Ton personnage est-il devenu connu grâce à Internet ?,-2.777051212778626
+Oui Ton personnage a-t-il un rival ?,2.4248587198093428
+Non Ton personnage est-il immortel ?,2.294013465705028
+Non Ton personnage est-il un savant ?,2.212052432735677
+Oui Ton personnage a-t-il les cheveux bruns ?,2.1577540798234143
+Non Ton personnage est-il allemand ?,2.1044635883900993
+Non Ton personnage a-t-il joué dans Stargate ?,-1.872878171119304
+Oui Ton personnage possède-t-il des armes ?,1.8470679260664338
+Non Ton personnage a-t-il un rapport avec la religion ?,1.8185621712863975
+Non Ton personnage est-il réel ?,1.7539020756125665
+Oui Ton personnage est-il réel ?,-1.7265253849737934
+Non Ton personnage est-il japonais ?,-1.6872542017019068
+Non Ton personnage est-il anglais ?,1.6839095896078105
+Non Ton personnage est-il un artiste ?,1.6720246032918302
+Oui Ton personnage a-t-il été président ?,1.6625195440764824
+Non Ton personnage est-il un tennisman ?,1.6590802455729667
