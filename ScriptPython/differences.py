@@ -26,6 +26,7 @@ def differences2Cluster(L1,L2):
 """
 def differences2Selection(L1,L2):
     global df
+    
     countS1 = len(L1)
     countS2 = len(L2)
     S1 = pd.DataFrame(pd.DataFrame(df.loc[L1, :] ,copy=True).sum())
@@ -37,8 +38,11 @@ def differences2Selection(L1,L2):
     S1 = S1/countS1
     S2 = S2/countS2
     res = np.subtract(S1,S2)
-    res.abs().sort_values(by= [0], axis = 'columns', inplace=True, ascending = False )
-    return res
+    res= res.T
+    res = res.reindex(res[0].abs().sort_values(ascending = False).index)
+    res = res.iloc[:20,:]
+    res.to_csv("../Donnees/differences.csv", mode='w', index=True)
+
 
 def differencesSelectionCluster(L1,L2):
     global df
@@ -53,8 +57,10 @@ def differencesSelectionCluster(L1,L2):
     C = C/countC
     S = S/countS
     res = np.subtract(S,C)
-    res.abs().sort_values(by= [0], axis = 'columns', inplace=True, ascending = False )
-    return res
+    res= res.T
+    res = res.reindex(res[0].abs().sort_values(ascending = False).index)
+    res = res.iloc[:20,:]
+    res.to_csv("../Donnees/differences.csv", mode='w', index=True)
 
 
 
