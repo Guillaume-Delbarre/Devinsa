@@ -113,10 +113,8 @@ function valider_select(){
     console.log(nomSel)
     console.log(nomSel2)
     //retourTableau = fontionListe();
-    d3.csv("differences.csv", function(error, data) {
-      data.forEach(function(d) {
-      });
-      console.log(d)
+    d3.csv("differences.csv", function(data) {
+      console.log(data)
       /*
       var t = $('#listQusetion')
       t.clear().draw();
