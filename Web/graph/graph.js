@@ -1,3 +1,5 @@
+var socket = io.connect('http://127.0.0.1:8080');
+
 var svg = d3.select('#zoneGraph')
 
 const widthTotal = +svg.attr('width');
@@ -83,6 +85,7 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
+    socket.emit('ecrirequestiondiff', ({liste1: selection, liste2: selection2[0].Cluster}));
       d3.csv("differences.csv", function(data) {
         //console.log(data)
         var t = $('#listQusetion').DataTable();
@@ -114,6 +117,7 @@ function valider_select(){
     console.log(nomSel)
     console.log(nomSel2)
     //retourTableau = fontionListe();
+    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: nomSel2}));
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion').DataTable();

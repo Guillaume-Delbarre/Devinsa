@@ -75,6 +75,10 @@ io.sockets.on('connection', function (socket) {
 	socket.on('ecrirevecteursql', function() {
 		demande(["MiseEnPage.py"], []);
 	});
+
+	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
+		demande(["differences.py"], [liste1, liste2]);
+	});
 	
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
