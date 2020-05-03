@@ -51,11 +51,9 @@ div.tooltip {
     border-radius: 8px;
     pointer-events: none;
 }
-.conteneurBoutons{
-  width:50%
-}
+
 .b{
-  width:25%;
+  min-width: 100px
   float:left;
   display:inline;
 }
