@@ -41,6 +41,8 @@ def differences2Selection(L1,L2):
     res = res.reindex(res[0].abs().sort_values(ascending = False).index)
     print(res)
     res = res.iloc[:20,:]
+    res = res.reset_index()
+    res.columns=['Question','Différences']
     res.to_csv("../Donnees/differences.csv", mode='w', index=True)
 
 
@@ -60,31 +62,39 @@ def differencesSelectionCluster(L1,L2):
     res= res.T
     res = res.reindex(res[0].abs().sort_values(ascending = False).index)
     res = res.iloc[:20,:]
-    res.to_csv("../Donnees/differences.csv", mode='w', index=True)
+    res = res.reset_index()
+    res.columns=['Question','Différences']
+    res.to_csv("../Donnees/differences.csv", mode='w', index=False)
 
 
+
+def differences(L1,L2):
+
+    L1= str(L1).replace("[","").replace("]","")
+    L1 = L1.split(",")
+
+    regex = re.compile("Groupe (.)")
+    groupe = regex.search(L2)
+    # 2e parametre est un cluster
+    if groupe!=None:
+        L2=[int(groupe.group(1))]  
+    else:
+        L2= str(L2).replace("[","").replace("]","")
+        L2 = L2.split(",")
+    if(isinstance(L1[0], str) and isinstance(L2[0], str)):
+        differences2Selection(L1,L2)
+    elif(isinstance(L1[0], str) and isinstance(L2[0], int)):
+        differencesSelectionCluster(L1,L2)
+    else:
+        raise ValueError("Erreur dans les paramètres")
 
 if __name__ == '__main__':
+
     if (len(sys.argv) == 3):
-        print('ytyi')
         L1=sys.argv[1]
         L2=sys.argv[2]
-        regex = re.compile("Groupe (.)")
-        r1 = regex.search(L1)
-        r2 = regex.search(L2)
-        if r1!=None:
-            L1=[int(r1.group(1))]
-        if r2!=None:
-            L2=[int(r2.group(1))]
-        """
-        if(isinstance(L1[0], int) and isinstance(L2[0], int)):
-            differences2Cluster(L1,L2)
-        """
-        if(isinstance(L1[0], str) and isinstance(L2[0], str)):
-            differences2Selection(L1,L2)
-        elif(isinstance(L1[0], str) and isinstance(L2[0], int)):
-            differencesSelectionCluster(L1,L2)
-        else:
-            raise ValueError("Erreur dans les paramètres")
-    else: 
-        differences2Selection(["Nelson Mandela"], ["Batman"])
+        
+        differences(L1,L2)
+    
+
+        
