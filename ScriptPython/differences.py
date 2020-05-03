@@ -40,6 +40,7 @@ def differences2Selection(L1,L2):
     res = np.subtract(S1,S2)
     res= res.T
     res = res.reindex(res[0].abs().sort_values(ascending = False).index)
+    print(res)
     res = res.iloc[:20,:]
     res.to_csv("../Donnees/differences.csv", mode='w', index=True)
 
@@ -66,6 +67,7 @@ def differencesSelectionCluster(L1,L2):
 
 if __name__ == '__main__':
     if (len(sys.argv) == 3):
+        print('ytyi')
         L1=int(sys.argv[1])
         L2=int(sys.argv[2])
         regex = re.compile("Groupe (.)")
