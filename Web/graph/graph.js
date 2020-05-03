@@ -86,11 +86,11 @@ function valider_cluster(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      $("#listQusetion tbody tr").remove();
-      var refTable = document.getElementById(listQusetion);
+      //$("#listQusetion tbody tr").remove();
+      //var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
         //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
-        var nouvelleLigne = refTable.insertRow();
+        var nouvelleLigne = refTable.insertRow(i);
         var nouvelleCellule = nouvelleLigne.insertCell(0);
         var nouveauTexte = document.createTextNode(data[i].questions)
         nouvelleCellule.appendChild(nouveauTexte)
@@ -125,11 +125,11 @@ function valider_select(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      $("#listQusetion tbody tr").remove();
-      var refTable = document.getElementById(listQusetion);
+      //$("#listQusetion tbody tr").remove();
+      //var refTable = document.getElementById(listQusetion);
       for(let i = 0; i<data.length; i++){
         //t.row.add([tabreponse[i].questions, tabreponse[i].coef]);
-        var nouvelleLigne = refTable.insertRow();
+        var nouvelleLigne = refTable.insertRow(i);
         var nouvelleCellule = nouvelleLigne.insertCell(0);
         var nouveauTexte = document.createTextNode(data[i].questions)
         nouvelleCellule.appendChild(nouveauTexte)
