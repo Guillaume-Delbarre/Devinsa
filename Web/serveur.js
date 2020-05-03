@@ -77,9 +77,9 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		console.log("lancement demande questions")
-		console.log(liste1)
-		console.log(liste2)
+		//console.log("lancement demande questions")
+		//console.log(liste1)
+		//console.log(liste2)
 		lancerScriptQuestions(["differences.py"], liste1, liste2);
 	});
 	
@@ -319,7 +319,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
 			}else{
-				//console.log(nom + ' fini');
+				console.log(nom + ' fini');
 			}
 		});
 	}
@@ -335,6 +335,6 @@ io.sockets.on('connection', function (socket) {
 			return 0;
 		}
 		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
-		console.log("fini")});
+		//console.log("fini")});
 	}
 });

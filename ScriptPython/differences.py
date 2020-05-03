@@ -39,7 +39,6 @@ def differences2Selection(L1,L2):
     res = np.subtract(S1,S2)
     res= res.T
     res = res.reindex(res[0].abs().sort_values(ascending = False).index)
-    print(res)
     res = res.iloc[:20,:]
     res = res.reset_index()
     res.columns=['Question','Différences']
