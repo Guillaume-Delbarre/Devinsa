@@ -90,7 +90,7 @@ function valider_cluster(){
       for(let i = 0; i<data.length; i++){
         t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
       }
-  }
+  })
 }
 
 function comp_selection_select(){
