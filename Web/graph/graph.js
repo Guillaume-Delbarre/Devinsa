@@ -86,7 +86,7 @@ function valider_cluster(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      t.clear().draw();
+      t.draw();
       for(let i = 0; i<data.length; i++){
         t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
       }
@@ -117,7 +117,7 @@ function valider_select(){
     d3.csv("differences.csv", function(data) {
       //console.log(data)
       var t = $('#listQusetion')
-      t.clear().draw();
+      t.draw();
       for(let i = 0; i<data.length; i++){
         t.row.add([tabreponse[i].questions, tabreponse[i].coef]).draw(false);
       }
