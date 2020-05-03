@@ -123,7 +123,7 @@ function valider_select(){
       var t = $('#listQusetion').DataTable();
       t.clear().draw();
       for(let i = 0; i<data.length; i++){
-        t.row.add([data[i].questions, data[i].coef]).draw(false);
+        t.row.add([data[i].Question, data[i].Différences]).draw(false);
 	    }
     })
   }
