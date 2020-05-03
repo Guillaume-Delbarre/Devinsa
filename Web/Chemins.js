@@ -50,6 +50,20 @@ router.get('/resPCA.csv', function(request, response) {
 	}
 });
 
+router.get('/infoClusters.csv', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/infoClusters.csv'));
+	}
+});
+
+router.get('/differences.csv', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/differences.csv'));
+	}
+});
+
 router.post('/Arbre', function(request, response) {
 	if (request.session.loggedin){
 		response.sendFile(path.join(__dirname + '/Arbre_Binaire/Treeweb.html'));
@@ -87,7 +101,7 @@ router.post('/auth', function(request, response) {
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
-			}			
+			}
 			response.end();
 		});
 	} else {

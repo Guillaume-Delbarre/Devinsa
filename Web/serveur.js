@@ -75,6 +75,13 @@ io.sockets.on('connection', function (socket) {
 	socket.on('ecrirevecteursql', function() {
 		demande(["MiseEnPage.py"], []);
 	});
+
+	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
+		console.log("lancement demande questions")
+		console.log(liste1)
+		console.log(liste2)
+		lancerScriptQuestions(["differences.py"], liste1, liste2);
+	});
 	
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
@@ -293,6 +300,20 @@ io.sockets.on('connection', function (socket) {
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
 		let options = {args: optionsligne};
+		PythonShell.run(path, options, function (err) {
+			if (err) {
+				console.log(err)
+				console.log(nom + " : Echec de l'execution");
+			}else{
+				//console.log(nom + ' fini');
+			}
+		});
+	}
+
+	function lancerScriptQuestions(nom, liste1, liste2){
+		console.log(nom + " : Script lancé");
+		path = "../ScriptPython/".concat(nom);
+		let options = {args: [liste1, liste2]};
 		PythonShell.run(path, options, function (err) {
 			if (err) {
 				console.log(err)

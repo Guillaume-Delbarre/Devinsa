@@ -1,3 +1,5 @@
+var socket = io.connect('http://127.0.0.1:8080');
+
 var svg = d3.select('#zoneGraph')
 
 const widthTotal = +svg.attr('width');
@@ -83,7 +85,15 @@ function valider_cluster(){
     console.log("Selection de cluster")
     console.log(selection)
     console.log(selection2[0].Cluster)
-    afficherTableauListe([2,5,1]);
+    socket.emit('ecrirequestiondiff', ({liste1: selection, liste2: selection2[0].Cluster}));
+      d3.csv("differences.csv", function(data) {
+        //console.log(data)
+        var t = $('#listQusetion').DataTable();
+        t.clear().draw();
+        for(let i = 0; i<data.length; i++){
+          t.row.add([data[i].questions, data[i].coef]).draw(false);
+        }
+    })
   }
 }
 
@@ -107,13 +117,25 @@ function valider_select(){
     console.log(nomSel)
     console.log(nomSel2)
     //retourTableau = fontionListe();
-    afficherTableauListe([1,2,1,5]);
+    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: nomSel2}));
+    d3.csv("differences.csv", function(data) {
+      //console.log(data)
+      var t = $('#listQusetion').DataTable();
+      t.clear().draw();
+      for(let i = 0; i<data.length; i++){
+        t.row.add([data[i].questions, data[i].coef]).draw(false);
+	    }
+    })
   }
 }
 
 $(document).ready( function () {
     $('#listQusetion').DataTable();
 } );
+
+function afficherTableauListe( liste ){
+
+}
 
 function return_selection(){
   ret = [];
