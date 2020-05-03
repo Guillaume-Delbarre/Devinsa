@@ -16,7 +16,7 @@ const fastcsv = require("fast-csv");
 
 // CHARGEMENT DE SOCKET.IO
 var io = require('socket.io')(server);
-console.log("Serveur lancé");	
+console.log("Serveur lancé");
 
 //Dialogue Base
 var mysql = require('mysql');
@@ -29,7 +29,7 @@ const connection = mysql.createConnection({
   database: "devinsa"
 });
 
-// On lance la connexion 
+// On lance la connexion
 connection.connect(function(err) {
 	if (err) throw err;
 });
@@ -41,36 +41,36 @@ var path = require('path');
 // On importe le fichier chemins.js qui permet de router les demandes clients
 var Chemins = require('./Chemins');
 app.use('/', Chemins);
-	
+
 io.sockets.on('connection', function (socket) {
 	//Remplir les tableaux de question et de personnages
 	getallques();
 	getallpers();
-	
+
 	// EVENEMENT REQUETE SQL
 	socket.on('message', ({message}) => {
 		console.log(message);
 	});
-	
+
 	//AVOIR DES PARAMETRES DE REPONSES
 	socket.on('getvaleursreponse', ({qname, name}) => {
 		getvaleursreponses(qname, name);
 	});
-	
+
 	socket.on('getallpersreponses', ({qname, names}) =>  {
 		getvaleursreponsespers(qname, names);
 	});
 
-	
+
 	// EVENEMENT UPDATE SQL
 	socket.on('updatesql', ({name,qname,value,param}) => {
 		update(name,qname,value,param);
 	});
-		
+
 	socket.on('creerarbre', ({profondeur}) => {
 		creerarbre(profondeur,["apptree.py"]);
 	});
-	
+
 	// LANCER SCRIPTS
 	socket.on('ecrirevecteursql', function() {
 		demande(["MiseEnPage.py"], []);
@@ -82,7 +82,7 @@ io.sockets.on('connection', function (socket) {
 		//console.log(liste2)
 		lancerScriptQuestions(["differences.py"], liste1, liste2);
 	});
-	
+
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
 			demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
@@ -90,7 +90,7 @@ io.sockets.on('connection', function (socket) {
 			socket.emit("message", "paramètres incorrects");
 		}
 	});
-	
+
 	socket.on('lancerdeuxièmepartie', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
 			lancercalculs(nbcluster, nbquestions);
@@ -98,7 +98,7 @@ io.sockets.on('connection', function (socket) {
 			socket.emit("message", "paramètres incorrects");
 		}
 	});
-	
+
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
 	function update(name,question,value,param){
@@ -115,7 +115,7 @@ io.sockets.on('connection', function (socket) {
 			}
 			connection.query(rqt,[value,question,name],function (err,result) {
 				if (err) throw err;
-				if (result.affectedRows != 0){ 
+				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
@@ -136,7 +136,7 @@ io.sockets.on('connection', function (socket) {
 			socket.emit("message","parametres incorrects");
 		}
 	}
-	
+
 	function fileattente(tab, optionsligne){
 		route = "../ScriptPython/";
 		chemin = route.concat(tab[0]);
@@ -192,7 +192,7 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	}
-	
+
 	function creerarbre(profondeur, callback){
 		const as = fs.createWriteStream("../Donnees/Arbre.csv");
 	// ON DEMANDE L'ARBRE A LA BASE
@@ -205,7 +205,7 @@ io.sockets.on('connection', function (socket) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
 			// ECRITURE FICHIER
-			var a = 
+			var a =
 			fastcsv.write(jsonData, { headers: true }).pipe(as);
 			a.on('finish', function () {
 				socket.emit("message","Arbre écrit");
@@ -216,7 +216,7 @@ io.sockets.on('connection', function (socket) {
 			});
 		});
 	}
-	
+
 	function getvaleursreponses(title,name){
 		let rqt = "select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where title = ?) and item_id in (select id from app_item where name = ?);"
 		connection.query(rqt,[title, name],function (err,result) {
@@ -228,7 +228,7 @@ io.sockets.on('connection', function (socket) {
 			}
 		});
 	}
-	
+
 	function getvaleursreponsespers(title,names){
 		let donnees = "("
 		for(let i = 0; i<names.length; i++){
@@ -250,10 +250,10 @@ io.sockets.on('connection', function (socket) {
 							tabreponse.push({nom: names[j], y: result[g].yes_count, n: result[g].no_count, p: result[g].pass_count});
 							pushed = 1;
 						}
-					}						
+					}
 					if (pushed == 0){
 						tabreponse.push({nom: names[j], y: 0, n: 0, p: 0});
-					}			
+					}
 				}
 			}else{
 				for(let v = 0; v <names.length; v++){
@@ -263,7 +263,7 @@ io.sockets.on('connection', function (socket) {
 			socket.emit("getallparamreponse", tabreponse);
 		});
 	}
-	
+
 	function getallpers(){
 		let rqt = "select name from app_item where id in (select item_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
 		connection.query(rqt, function (err,result) {
@@ -279,7 +279,7 @@ io.sockets.on('connection', function (socket) {
 			}
 		});
 	}
-	
+
 	function getallques(){
 		let rqt = "select title from app_question where id in (select question_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
 		connection.query(rqt, function (err,result) {
@@ -295,7 +295,7 @@ io.sockets.on('connection', function (socket) {
 			}
 		});
 	}
-	
+
 	function lancerscript(nom, optionsligne){
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
@@ -336,5 +336,6 @@ io.sockets.on('connection', function (socket) {
 		}
 		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
 		//console.log("fini")});
+		});
 	}
-});
+}
