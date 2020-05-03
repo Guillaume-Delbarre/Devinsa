@@ -8,8 +8,8 @@ var app = express();
 app.use(helmet());
 var server = require('http').createServer(app);
 server.listen(8080, "10.133.33.20", function(){
-	console.log("listening at port : 8080");}
-);
+	console.log("listening at port : 8080");
+});
 //Ecriture fichier
 var fs = require('fs');
 const fastcsv = require("fast-csv");
@@ -334,8 +334,8 @@ io.sockets.on('connection', function (socket) {
 			//console.log("Fichiers non écrits");
 			return 0;
 		}
-		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
-		console.log("fini")});
-		});
+		//fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
+			//console.log("fini")});
+		//});
 	}
 }
