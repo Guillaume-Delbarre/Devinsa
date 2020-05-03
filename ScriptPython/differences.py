@@ -38,7 +38,7 @@ def differences2Selection(L1,L2):
     S2 = S2/countS2
     res = np.subtract(S1,S2)
     res.abs().sort_values(by= [0], axis = 'columns', inplace=True, ascending = False )
-    print(res)
+    return res
 
 def differencesSelectionCluster(L1,L2):
     global df
@@ -54,7 +54,7 @@ def differencesSelectionCluster(L1,L2):
     S = S/countS
     res = np.subtract(S,C)
     res.abs().sort_values(by= [0], axis = 'columns', inplace=True, ascending = False )
-    print(res)
+    return res
 
 
 
