@@ -84,13 +84,13 @@ function valider_cluster(){
     console.log(selection)
     console.log(selection2[0].Cluster)
     $.ajax({
-      type: "get",
+      type: "POST",
       url: "differences.py",
       data: {param: nomSel, nomSel2}
       }).done(function(o){
         console.log(o);
     });
-  } 
+  }
 }
 
 function comp_selection_select(){
