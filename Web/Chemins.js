@@ -57,11 +57,11 @@ router.get('/infoClusters.csv', function(request, response) {
 	}
 });
 
-router.get('/differences.py', function(request, response) {
+router.get('/differences.csv', function(request, response) {
 	if (request.session.loggedin) {
 		// Chargement du fichier acceuil.html affiché au client
-		response.sendFile(path.join(__dirname + '/../ScriptPython/differences.py'));
-	} 
+		response.sendFile(path.join(__dirname + '/../Donnees/differences.csv'));
+	}
 });
 
 router.post('/Arbre', function(request, response) {
