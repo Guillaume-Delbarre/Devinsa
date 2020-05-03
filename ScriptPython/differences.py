@@ -68,8 +68,8 @@ def differencesSelectionCluster(L1,L2):
 if __name__ == '__main__':
     if (len(sys.argv) == 3):
         print('ytyi')
-        L1=int(sys.argv[1])
-        L2=int(sys.argv[2])
+        L1=sys.argv[1]
+        L2=sys.argv[2]
         regex = re.compile("Groupe (.)")
         r1 = regex.search(L1)
         r2 = regex.search(L2)
