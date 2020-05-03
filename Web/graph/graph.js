@@ -87,9 +87,10 @@ function valider_cluster(){
       type: "get",
       url: "differences.py",
       data: {param: nomSel, nomSel2}
-    }).done(function(o){
-      console.log(o);
-  });
+      }).done(function(o){
+        console.log(o);
+    });
+  } 
 }
 
 function comp_selection_select(){
