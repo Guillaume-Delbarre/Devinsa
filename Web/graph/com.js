@@ -74,7 +74,7 @@ $('#updatesql').click(function () {
 	}
 	var val = document.getElementById('Valeur');
 	if (val != null && val.value != ""){
-		rqtv = int(val.value);
+		rqtv = parseInt(val.value);
 	}
 	if(questiontitle != "" && rqtv != null){
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
