@@ -7,7 +7,7 @@ body { background: #fff; }
 .Treant > .node {  }
 .Treant > p { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: bold; font-size: 12px; }
 .node-name { font-weight: bold;
-             text-align: center;    
+             text-align: center;
             }
 .node-desc{
     text-align : center;
@@ -54,4 +54,9 @@ body { background: #fff; }
 
 .red {
     background-color : #b90606;
+}
+
+header{
+  background-color: #AFBFFE;
+  margin: 0 0 0 0;
 }

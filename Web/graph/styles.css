@@ -51,11 +51,9 @@ div.tooltip {
     border-radius: 8px;
     pointer-events: none;
 }
-.conteneurBoutons{
-  width:45%
-}
+
 .b{
-  width:33%;
+  min-width: 100px
   float:left;
   display:inline;
 }
@@ -63,7 +61,7 @@ div.tooltip {
 .modifBase{
   background-color: #f0f8ff;
   width:40%;
-  min-width:450px;
+  min-width:550px;
 }
 
 
@@ -77,5 +75,13 @@ header{
 }
 
 table{
-  padding: 2px;
+  padding: 5px;
+}
+
+#comp{
+  background-color: #f0f8ff;
+  width:40%;
+  min-width:550px;
+  height: 100%;
+  min-height: 310px
 }

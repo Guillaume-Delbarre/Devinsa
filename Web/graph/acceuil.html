@@ -25,15 +25,16 @@
       </table>
     </header>
 
-		    <p><input type="button" value="Creer l'arbre" id="creerarbre" /></p>
+
 
     <div class="ActuDonnees">
-      <p><b>Actualisation des données </b><img src="help_icon.png" title="L'actualisation complète comprend l'extraction des données et leur traitement" /></p>
-      <div class="conteneurBoutons">
-    		<p><input type="button" value="Extraction des données" id="vctsql" class="b" title="Extraction des données - Environ 1min"/></p>
-    		<p><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Traitement des données - Environ 30sec" /></p>
-        <p><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Actualisation complète - Environ 1min30"/></p>
-      </div>
+      <p><b>Actualisation des données </b><img src="help_icon.png" title="L'actualisation complète comprend l'extraction des données et leur traitement. (Ne comprend pas l'actualisation de l'arbre)" /></p>
+      <table class="conteneurBoutons">
+    		<th><input type="button" value="Extraction des données" id="vctsql" class="b" title="Extraction des données - Environ 1min"/></th>
+    		<th><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Traitement des données - Environ 30sec" /></th>
+        <th><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Actualisation complète - Environ 1min30"/></th>
+        <th><input type="button" value="Actualisation de l'arbre" id="creerarbre" classe="b" title = "Actualisation de l'arbre - Environ 1min" /></th>
+      </table>
     </div>
     <br>
 	<br>
@@ -55,7 +56,7 @@
 						<p><input type="button" value="Mettre à jour les paramètres" id="updatesql" /></p>
 						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
 							<div class="container" >
-							  <table id="personnages" class="display" style="width:100%">
+							  <table id="personnages" class="display" style="width:98%">
 								  <thead>
 									  <tr>
 										  <th>Nom</th>
@@ -71,9 +72,9 @@
 					  </div>
 				</td>
 				<td>
-					<div class="container">
-            <p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons comparer." /></p>
-						<table id="listQusetion" class="display" style="width:125%">
+					<div class="container" id="comp">
+            <p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons à droite du graphique pour commencer la comparaison." /></p>
+						<table id="listQusetion" class="display" style="width:98%">
 							<thead>
 								<tr>
 									<th>Question</th>
