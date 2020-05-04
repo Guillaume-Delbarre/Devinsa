@@ -77,9 +77,6 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		//console.log("lancement demande questions")
-		//console.log(liste1)
-		//console.log(liste2)
 		lancerScriptQuestions(["differences.py"], liste1, liste2);
 	});
 
@@ -334,8 +331,6 @@ io.sockets.on('connection', function (socket) {
 			//console.log("Fichiers non écrits");
 			return 0;
 		}
-		//fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions], function(){
-			//console.log("fini")});
-		//});
+		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
 	}
 });
