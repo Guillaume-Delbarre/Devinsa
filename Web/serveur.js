@@ -64,6 +64,7 @@ io.sockets.on('connection', function (socket) {
 
 	// EVENEMENT UPDATE SQL
 	socket.on('updatesql', ({name,qname,value,param}) => {
+		console.log(param);
 		update(name,qname,value,param);
 	});
 
