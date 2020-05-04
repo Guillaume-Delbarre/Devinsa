@@ -48,7 +48,7 @@ $('#increment').click(function () {
 	var rqtp = "";
 	var param = null;
 	alert('ici');
-	var ele = document.getElementsByName('parametre');
+	var ele = document.getElementsByName('Parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
 			rqtp = ele[i].name;
