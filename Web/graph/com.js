@@ -1,3 +1,4 @@
+
 var socket = io.connect('http://127.0.0.1:8080');
 
 var tabp = [];
@@ -109,11 +110,6 @@ $('#increment').click(function () {
 		}
 
 	}
-
-	alert(parametre);
-
-	alert(rqtp);
-
 	if(rqtp != "" && parametre != null){
 
 		for (let i = 0; i<table.rows().data().length; i++){
@@ -157,10 +153,6 @@ $('#updatesql').click(function () {
 		rqtv = parseInt(val.value);
 
 	}
-
-	alert(rqtv);
-
-	alert(rqtp);
 
 	if(questiontitle != "" && rqtv != null){
 
