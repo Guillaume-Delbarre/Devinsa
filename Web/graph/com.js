@@ -68,7 +68,7 @@ $('#increment').click(function () {
 $('#updatesql').click(function () {
 	var rqtp = "";
 	var rqtv = null;
-	var ele = document.getElementsByName('Parametre')
+	var ele = document.getElementsByName('Parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
 			rqtp = ele[i].value;
