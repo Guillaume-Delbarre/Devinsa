@@ -138,10 +138,8 @@ $('#updatesql').click(function () {
 
 	var rqtv = null;
 
-	var ele = document.getElementsByName('parametre')
-
-	for(i = 0; i < ele.length; i++) { 
-
+	var ele = document.getElementsByName('Parametre');
+	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
 
 			rqtp = ele[i].value
