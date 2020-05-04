@@ -205,6 +205,7 @@ io.sockets.on('connection', function (socket) {
 		let rqt = "";
 
 		let insert = "";
+		console.log(param);
 
 		if (name != null && question != null && value != null && param != null){
 
