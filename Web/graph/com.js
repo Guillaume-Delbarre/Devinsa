@@ -118,7 +118,7 @@ $('#increment').click(function () {
 
 		for (let i = 0; i<table.rows().data().length; i++){
 
-			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre], param: rqtp}));
+			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre]+1, param: rqtp}));
 
 		}
 
@@ -139,10 +139,12 @@ $('#updatesql').click(function () {
 	var rqtv = null;
 
 	var ele = document.getElementsByName('Parametre');
-	for(i = 0; i < ele.length; i++) { 
+
+	for(i = 0; i < ele.length; i++) { 
+
 		if(ele[i].checked){
 
-			rqtp = ele[i].value
+			rqtp = ele[i].value;
 
 		}
 

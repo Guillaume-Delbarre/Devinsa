@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('updatesql', ({name,qname,value,param}) => {
 
-		console.log(param);
+		//console.log(param);
 
 		update(name,qname,value,param);
 
@@ -202,6 +202,8 @@ io.sockets.on('connection', function (socket) {
 
 	function update(name,question,value,param){
 
+		value = parseInt(value);
+
 		//console.log(name,question,value,param);
 
 		let rqt = "";
@@ -214,19 +216,19 @@ io.sockets.on('connection', function (socket) {
 
 				rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
 
-				insert = "INSERT INTO app_answer (question_id, item_id, yes_count,  no_count, pass_count, yes_tfidf, no_tfidf) VALUES ( ?, ?, ?, 0, 0, 0, 0)";
+				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
 
 			}else if(param == "no_count"){
 
 				rqt = "UPDATE app_answer SET no_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
 
-				insert = "INSERT INTO app_answer (question_id, item_id, yes_count,  no_count, pass_count, yes_tfidf, no_tfidf) VALUES ( ?, ?, 0, ?, 0, 0, 0)";
+				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, ?, 0, 0, 0)";
 
 			}else if(param == "pass_count"){
 
 				rqt = "UPDATE app_answer SET pass_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
 
-				insert = "INSERT INTO app_answer (question_id, item_id, yes_count,  no_count, pass_count, yes_tfidf, no_tfidf) VALUES ( ?, ?, 0, 0, ?, 0, 0)";
+				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, 0, ?, 0, 0)";
 
 			}else{
 
@@ -252,9 +254,11 @@ io.sockets.on('connection', function (socket) {
 
 						if (error) throw error;
 
-						let questionid = res[0].id;
+						let questionid = parseInt(res[0].id);
 
-						let itemid = res[1].id;
+						let itemid = parseInt(res[1].id);
+
+						//console.log(questionid, itemid)
 
 						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
 
