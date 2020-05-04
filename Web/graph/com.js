@@ -54,11 +54,9 @@ $('#increment').click(function () {
 			parametre = i+1
 		}
 	}
-	alert(parametre);
-	alert(rqtp);
 	if(rqtp != "" && parametre != null){
 		for (let i = 0; i<table.rows().data().length; i++){
-			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre], param: rqtp}));
+			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre]+1, param: rqtp}));
 		}
 	}
 });
@@ -78,8 +76,6 @@ $('#updatesql').click(function () {
 	if (val != null && val.value != ""){
 		rqtv = parseInt(val.value);
 	}
-	alert(rqtv);
-	alert(rqtp);
 	if(questiontitle != "" && rqtv != null){
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
