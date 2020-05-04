@@ -46,17 +46,17 @@ $('#lancer2emepartie').click(function () {
 
 $('#increment').click(function () {
 	var rqtp = "";
-	var param = null;
+	var parametre = null;
 	var ele = document.getElementsByName('Parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
 			rqtp = ele[i].value;
-			param = i+1
+			parametre = i+1
 		}
 	}
-	if(rqtp != "" && param != null){
+	if(rqtp != "" && parametre != null){
 		for (let i = 0; i<table.rows().data().length; i++){
-			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][param], param: rqtp}));
+			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre], param: rqtp}));
 		}
 	}
 });
