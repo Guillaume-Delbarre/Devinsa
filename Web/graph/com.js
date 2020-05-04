@@ -56,7 +56,7 @@ $('#increment').click(function () {
 	}
 	if(rqtp != "" && param != null){
 		for (let i = 0; i<table.rows().data().length; i++){
-			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows().data()[i][param], param: rqtp}));
+			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][param], param: rqtp}));
 		}
 	}
 });
