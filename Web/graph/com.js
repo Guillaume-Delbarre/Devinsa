@@ -47,6 +47,7 @@ $('#lancer2emepartie').click(function () {
 $('#increment').click(function () {
 	var rqtp = "";
 	var param = null;
+	alert('ici');
 	var ele = document.getElementsByName('parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
