@@ -129,7 +129,11 @@ io.sockets.on('connection', function (socket) {
 	// EVENEMENT UPDATE SQL
 
 	socket.on('updatesql', ({name,qname,value,param}) => {
+<<<<<<< HEAD
 
+=======
+		console.log(param);
+>>>>>>> 835c25c339ed856b3d64ad74c1cacb0855256ca5
 		update(name,qname,value,param);
 
 	});
