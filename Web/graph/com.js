@@ -44,10 +44,39 @@ $('#lancer2emepartie').click(function () {
 	socket.emit('lancerdeuxièmepartie', ({nbcluster: nbcluster, nbquestions: nbquestions}));
 });
 
+$('#increment').click(function () {
+	var rqtp = "";
+	var param = null;
+	var ele = document.getElementsByName('parametre');
+	for(i = 0; i < ele.length; i++) { 
+		if(ele[i].checked){
+			rqtp = ele[i].name;
+			param = i+1
+		}
+	}
+	if(rqtp != "" && param != null){
+		for (let i = 0; i<table.rows().data().length; i++){
+			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows().data()[i][param], param: rqtp}));
+		}
+	}
+});
+
+
+
 $('#updatesql').click(function () {
-	var rqtp = parseInt(prompt('Paramètre à changer ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
-	var rqtv = parseInt(prompt('Valeur à mettre ?')); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
-	if(questiontitle != ""){
+	var rqtp = "";
+	var rqtv = null;
+	var ele = document.getElementsByName('parametre')
+	for(i = 0; i < ele.length; i++) { 
+		if(ele[i].checked){
+			rqtp = ele[i].name
+		}
+	}
+	var val = document.getElementById('Valeur');
+	if (val != null && val.value != ""){
+		rqtv = int(val.value);
+	}
+	if(questiontitle != "" && rqtv != null){
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
 		}
