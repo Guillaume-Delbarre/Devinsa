@@ -113,4 +113,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac(4)    
+        printQuestionCarac(4)
