@@ -38,18 +38,46 @@ svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var selection = [];
+var selection1 = [];
 var selection2 = [];
 var nomSelectionne =[];
 
-function tabulatePerso(array){
-  for(var i = 0; i < array.length; i++){
-    var newRow = table.insertRow(-1);
-    for(var j = 0; j < array[i].length; j++){
-      var newCell = newRow.insertCell(j);
-      let newText = document.createTextNode(array[i][j]);
-      newCell.appendChild(newText)
+function attr_select1(){
+  selection1 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection1.push(d.Name);
     }
-  }
+  });
+}
+
+function attr_select2(){
+  selection2 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection2.push(d.Name);
+    }
+  });
+}
+
+function aff_select1(){
+  node.classed('selected', function (d) {
+    if (d.Name in selection1){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
+}
+
+function aff_select2(){
+  node.classed('selected', function (d) {
+    if (d.Name in selection2){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
 }
 
 function selection_to_nom(objSelect){
