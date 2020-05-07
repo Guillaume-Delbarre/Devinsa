@@ -61,10 +61,8 @@ function attr_select2(){
 }
 
 function aff_select1(){
-  console.log("kjsflkdf")
   node.classed('selected', function (d) {
     if (selection1.includes(d.Name)){
-      console.log(d);
       return d.selected = true;
     } else {
       return d.selected = false;
@@ -74,12 +72,51 @@ function aff_select1(){
 
 function aff_select2(){
   node.classed('selected', function (d) {
-    if (d.Name in selection2){
+    if (selection2.includes(d.Name)){
       return d.selected = true;
     } else {
       return d.selected = false;
     }
   })
+}
+
+var clust;
+
+function attr_clust_select1(){
+  var i = 0;
+  node.each(function(d) {
+    if (d.selected) {
+       i += 1;
+       clust = d.Cluster;
+    }
+  });
+  if (i<2) {
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection1.push(d.Name);
+      }
+    });
+    aff_select1();
+  }
+}
+
+function attr_clust_select2(){
+  var i = 0;
+  node.each(function(d) {
+    if (d.selected) {
+       i += 1;
+       clust = d.Cluster;
+    }
+  });
+  if (i<2) {
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection2.push(d.Name);
+      }
+    });
+    aff_select2();
+  }
+
 }
 
 function selection_to_nom(objSelect){
