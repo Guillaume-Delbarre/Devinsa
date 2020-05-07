@@ -63,7 +63,7 @@ function attr_select2(){
 function aff_select1(){
   console.log("kjsflkdf")
   node.classed('selected', function (d) {
-    if (d.Name in selection1){
+    if (selection1.includes(d.Name)){
       console.log(d);
       return d.selected = true;
     } else {
