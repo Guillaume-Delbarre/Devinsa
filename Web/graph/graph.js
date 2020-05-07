@@ -123,11 +123,13 @@ function attr_clust_select2(){
 }
 
 function aff_nom_select1(){
-  window.alert(selection1)
+  //window.alert(selection1)
+  console.log(selection1)
 }
 
 function aff_nom_select2(){
-  window.alert(selection2)
+  //window.alert(selection2)
+  console.log(selection2)
 }
 
 function selection_to_nom(objSelect){
