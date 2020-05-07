@@ -61,6 +61,7 @@ function attr_select2(){
 }
 
 function aff_select1(){
+  console.log("kjsflkdf")
   node.classed('selected', function (d) {
     console.log(d);
     if (d.Name in selection1){
