@@ -97,6 +97,8 @@ function attr_clust_select1(){
       }
     });
     aff_select1();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
 }
 
@@ -115,8 +117,17 @@ function attr_clust_select2(){
       }
     });
     aff_select2();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
+}
 
+function aff_nom_select1(){
+  window.alert(selection1)
+}
+
+function aff_nom_select2(){
+  window.alert(selection2)
 }
 
 function selection_to_nom(objSelect){
