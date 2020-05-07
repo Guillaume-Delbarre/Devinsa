@@ -67,6 +67,7 @@ function aff_select1(){
     } else {
       return d.selected = false;
     }
+    console.log(d);
   })
 }
 
