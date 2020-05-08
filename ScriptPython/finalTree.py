@@ -31,7 +31,7 @@ def vector(cursor):
 def extrait_app_tree(cursor,profondeur):
     res = []
     cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth <"+profondeur)
-    for (a,b,c,d,e) in curseur:
+    for (a,b,c,d,e) in cursor:
         res.append([a,b,c,d,e])
     return res
 
