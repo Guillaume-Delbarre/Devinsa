@@ -136,7 +136,7 @@ function aff_nom_select2(){
 function affiche_nom(){
   var x = document.getElementsByClassName("titrePerso");
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "inline";
   } else {
     x.style.display = "none";
   }
