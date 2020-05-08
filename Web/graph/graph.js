@@ -301,7 +301,7 @@ d3.csv("resPCA.csv", function(error, data) {
     node.attr("cx", function(d) { return x(d.Axe_X); })
       .attr("cy", function(d) { return y(d.Axe_Y); });
     nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return x(d.Axe_Y); });
+      .attr('y', function(d) { return y(d.Axe_Y); });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -348,6 +348,7 @@ d3.csv("resPCA.csv", function(error, data) {
     .enter().append('text')
       .attr('class', 'titrePerso')
       .attr('id', 'cicleTitle')
+      .attr('stroke-width', '0.5px')
       .attr('x', function(d) { return x(d.Axe_X); })
       .attr('y', function(d) { return y(d.Axe_Y); })
       .text(function(d) { return d.Name })
