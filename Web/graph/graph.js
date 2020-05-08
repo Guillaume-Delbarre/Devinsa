@@ -300,8 +300,8 @@ d3.csv("resPCA.csv", function(error, data) {
     }
     node.attr("cx", function(d) { return x(d.Axe_X); })
       .attr("cy", function(d) { return y(d.Axe_Y); });
-    //nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
-    //  .attr('y', function(d) { return x(d.Axe_Y); });
+    nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return x(d.Axe_Y); });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -343,13 +343,13 @@ d3.csv("resPCA.csv", function(error, data) {
           .style("opacity", 0);
     });
 
-  node = svg.selectAll(".titrePerso")
+  nomsTitre = svg.selectAll(".titrePerso")
     .data(data)
     .enter().append('text')
       .attr('class', 'titrePerso')
       .attr('id', 'cicleTitle')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return x(d.Axe_Y) + 15; })
+      .attr('y', function(d) { return x(d.Axe_Y); })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
