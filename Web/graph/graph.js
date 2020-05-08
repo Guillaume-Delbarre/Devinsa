@@ -349,7 +349,7 @@ d3.csv("resPCA.csv", function(error, data) {
       .attr('class', 'titrePerso')
       .attr('id', 'cicleTitle')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return x(d.Axe_Y); })
+      .attr('y', function(d) { return y(d.Axe_Y); })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
