@@ -135,14 +135,11 @@ function aff_nom_select2(){
 
 var nomAfficher = false;
 function affiche_nom(){
-  console.log('test')
   if(nomAfficher){
-    console.log('false')
     nomAfficher = false;
     d3.selectAll('.titrePerso')
       .attr('opacity', '0')
   } else {
-    console.log('afficher')
     nomAfficher = true;
     d3.selectAll('.titrePerso')
       .attr('opacity', '0.5')
@@ -314,7 +311,7 @@ d3.csv("resPCA.csv", function(error, data) {
     node.attr("cx", function(d) { return x(d.Axe_X); })
       .attr("cy", function(d) { return y(d.Axe_Y); });
     nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return y(d.Axe_Y) + 7; });
+      .attr('y', function(d) { return y(d.Axe_Y) + 11; });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -366,7 +363,7 @@ d3.csv("resPCA.csv", function(error, data) {
       .attr('text-anchor', 'middle')
       .attr('opacity', '0')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return (y(d.Axe_Y) + 7); })
+      .attr('y', function(d) { return (y(d.Axe_Y) + 11); })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
