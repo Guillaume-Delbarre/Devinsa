@@ -132,6 +132,16 @@ function aff_nom_select2(){
   console.log(selection2)
 }
 
+
+function affiche_nom(){
+  var x = document.getElementById("circleTitle");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 function selection_to_nom(objSelect){
   var ret = [];
   for(var i=0;i<objSelect.length;i++){
@@ -213,10 +223,6 @@ function valider_select(){
 $(document).ready( function () {
     $('#listQusetion').DataTable();
 } );
-
-function afficherTableauListe( liste ){
-
-}
 
 function return_selection(){
   ret = [];
@@ -347,7 +353,7 @@ d3.csv("resPCA.csv", function(error, data) {
     .data(data)
     .enter().append('text')
       .attr('class', 'titrePerso')
-      .attr('id', 'cicleTitle')
+      .attr('id', 'circleTitle')
       .attr('x', function(d) { return x(d.Axe_X); })
       .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
       .text(function(d) { return d.Name })
