@@ -348,9 +348,9 @@ d3.csv("resPCA.csv", function(error, data) {
     .enter().append('text')
       .attr('class', 'titrePerso')
       .attr('id', 'cicleTitle')
-      .attr('stroke-width', '0.5px')
+      .attr('text-align', 'center')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return y(d.Axe_Y); })
+      .attr('y', function(d) { return y(d.Axe_Y) - 15; })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
