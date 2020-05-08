@@ -342,15 +342,16 @@ d3.csv("resPCA.csv", function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
-
+  
+  svg.attr('text-align', 'center');
+  
   nomsTitre = svg.selectAll(".titrePerso")
     .data(data)
     .enter().append('text')
       .attr('class', 'titrePerso')
       .attr('id', 'cicleTitle')
-      .attr('text-align', 'center')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return y(d.Axe_Y) - 15; })
+      .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
