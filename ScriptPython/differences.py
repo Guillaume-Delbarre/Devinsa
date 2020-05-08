@@ -80,6 +80,7 @@ def differences(L1,L2):
     data["dif"]=dif
     res = data.reindex(data["dif"].abs().sort_values(ascending = False).index)
     res.columns = ["Selection 1","Selection 2","dif"]
+    res = res.round(2)
     res.to_csv("../Donnees/differences.csv", mode='w', index=True)
 
 
