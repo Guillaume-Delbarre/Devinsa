@@ -54,11 +54,11 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
     else:
         divise = -1
     liste_rapport = []
-    for num,den in count[:,rangQuestion],count[:,(rangQuestion+divise)]:
+    for tfidf in range(count.shape[1]):
         if den == 0:
             liste_rapport.append(1)
         else:
-            liste_rapport.append(num/den)
+            liste_rapport.append(count[:,rangQuestion][i]/count[:,(rangQuestion+divise)][i])
     index_remove = []
     for i in range(len(liste_rapport)):
         if liste_rapport[i]<0.75:
