@@ -354,6 +354,8 @@ d3.csv("resPCA.csv", function(error, data) {
     .enter().append('text')
       .attr('class', 'titrePerso')
       .attr('id', 'circleTitle')
+      .attr('font-size', '3px')
+      .attr('text-anchor', 'middle')
       .attr('x', function(d) { return x(d.Axe_X); })
       .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
       .text(function(d) { return d.Name })
