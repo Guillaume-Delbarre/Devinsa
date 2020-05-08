@@ -259,8 +259,11 @@ def ecritureData(profondeur):
     ecriture.close
 
 if __name__ == '__main__':
-    print(sys.argv)
-    print(type(sys.argv[0]))
+    if (len(sys.argv) == 2):
+        print(sys.argv[1])
+        print(type(sys.argv[1]))
+    else:
+        print("Error")
     print("end")
 
     
