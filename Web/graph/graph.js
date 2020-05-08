@@ -314,7 +314,7 @@ d3.csv("resPCA.csv", function(error, data) {
     node.attr("cx", function(d) { return x(d.Axe_X); })
       .attr("cy", function(d) { return y(d.Axe_Y); });
     nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return y(d.Axe_Y) - 15; });
+      .attr('y', function(d) { return y(d.Axe_Y) + 7; });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -360,12 +360,13 @@ d3.csv("resPCA.csv", function(error, data) {
     .data(data)
     .enter().append('text')
       .attr('class', 'titrePerso')
+      .attr('pointer-events', 'none')
       .attr('font-size', '12px')
       .attr('stroke-width', '1px')
       .attr('text-anchor', 'middle')
       .attr('opacity', '0')
       .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
+      .attr('y', function(d) { return (y(d.Axe_Y) + 7); })
       .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
