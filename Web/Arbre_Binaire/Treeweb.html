@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style/Treestyle.css">
 
 </head>
-<body>
+<body onload = "loadFunction()">
     <nav>
       <ul class="menu">
         <li><a href="../graph/index.html">Graph</a></li>
@@ -20,14 +20,26 @@
 		</form>		
       </ul>
     </nav>
-    <div class="chart" id="tree"></div>
+    <div class = "text" id="modif">
+        <li class="deroulant">Choisir le nombre de profondeur à extraire &ensp;
+            <ul class="sous">
+                <li><a href="#">Cours HTML et CSS</a></li>
+                <li><a href="#">Cours JavaScript</a></li>
+                <li><a href="#">Cours PHP et MySQL</a></li>
+            </ul>
+        </li>
+    </div>
+    <div class="chart" id="tree" ></div>
     <script src="vendor/raphael.js"></script>
     <script src="script/Treant.js"></script>
 
     <script src="script/data.js"></script>
 
     <script>
-        new Treant(chart_config);
+        function loadFunction() {
+            new Treant(chart_config);
+
+        }
     </script>
 
         <!-- include this files if "fancy" is set -->
