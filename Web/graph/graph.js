@@ -298,9 +298,10 @@ d3.csv("resPCA.csv", function(error, data) {
       console.log('zoom shiftKey');
       return;
     }
-    console.log('zoom');
     node.attr("cx", function(d) { return x(d.Axe_X); })
-    .attr("cy", function(d) { return y(d.Axe_Y); });
+      .attr("cy", function(d) { return y(d.Axe_Y); });
+    nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return x(d.Axe_Y) + 15; });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
