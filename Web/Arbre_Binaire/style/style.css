@@ -1,0 +1,116 @@
+.titre {
+    padding: 0px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+}
+
+.center {
+    margin: auto;
+}
+
+.dot {
+    stroke: none;
+    fill-opacity: 0.5;
+}
+
+.dot.selected {
+    stroke: #000000;
+    stroke-width: 2px;
+    fill-opacity: 0.8;
+}
+
+.graph {
+    stroke: black;
+    text-align: center;
+}
+/*
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    stroke: none;
+    fill-opacity: 0.5;
+}
+
+.dot.selected {
+    stroke: #000000;
+    stroke-width: 2px;
+    fill-opacity: 0.8;
+}
+
+a {
+    color: #5BBEAA;
+}
+
+.graph{
+    stroke: #000000;
+}
+
+.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
+}
+
+.axis text {
+    display: none;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 80px;
+    height: 35px;
+    padding: 2px;
+    font: 11px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.b{
+  min-width: 100px
+  float:left;
+  display:inline;
+}
+
+.modifBase{
+  background-color: #f0f8ff;
+  width:40%;
+  min-width:550px;
+}
+
+
+.tableauInfo{
+  background-color: #f0f8ff;
+}
+
+header{
+  background-color: #AFBFFE;
+  margin: 0 0 0 0;
+}
+
+table{
+  padding: 5px;
+}
+
+#comp{
+  background-color: #f0f8ff;
+  width:40%;
+  min-width:550px;
+  height: 100%;
+  min-height: 310px
+}
+*/
