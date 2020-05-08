@@ -64,39 +64,40 @@
 			  <tr>
 				  <td>
 					<table>
-						<tr>
-							<td style="vertical-align: middle;">
-								<div height=225>
-									clear
-								</div>
+						<tr style = "text-align: center;">
+							<td>
+								<input type="button" onclick="clear_selection();" value="Deselectionner tous les personnages">
 							</td>
 						</tr>
-						<tr>
-							<td style="vertical-align: middle;">
-								<div height=225>
-									modif
-								</div>
+						<tr style = "text-align: center;">
+							<td>
+								Afficher les noms
+							</td>
+						</tr>
+						<tr style = "text-align: center;">
+							<td>
+								<input type="button" onclick="get_selection();" value="Modifier la selection">
 							</td>
 						</tr>
 					</table>
 				  </td>
 				  <td colspan="2">
-					<svg id="zoneGraph" class="graph" width=800 height=450></svg>
+					<svg id="zoneGraph" class="graph" width=900 height=500></svg>
 				  </td>
 				  <td>
 					<table>
 						<tr>
 							<td>
-								<div style="height:225px;">
-									<p style="vertical-align: middle;">selection 1</p>
-								</div>
+								<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
+								<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
+								<br>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<div style="height:225px;vertical-align:center;">
-									selection 2
-								</div>
+								<br>
+								<input type="button" onclick="attr_select2();" value="Attribuer la selection 1">
+								<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 1">
 							</td>
 						</tr>
 					</table>

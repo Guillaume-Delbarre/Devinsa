@@ -342,6 +342,15 @@ d3.csv("resPCA.csv", function(error, data) {
           .style("opacity", 0);
     });
 
+    nomsTitre = svg.selectAll(".titrePerso")
+      .data(data)
+      .enter().append('text')
+        .attr('class', 'titrePerso')
+        .attr('id', 'cicleTitle')
+        .attr('x', function(d) { return x(d.Axe_X); })
+        .attr('y', function(d) { return x(d.Axe_Y) + 15; })
+        .text(function(d) { return d.Name })
+
   node.classed('selected', function (d) {return d.selected;})
 
   var legend = svg.selectAll(".legend")
