@@ -1,5 +1,6 @@
 import mysql.connector
 import numpy as np
+import sys
 
 #APP_TREE
 #[id,parent_id,choice,question_id,title]
@@ -94,11 +95,11 @@ def HTMLclass(choice):
 def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     #S'il ne reste aucun personnage
     if(len(itemOrder)==0):        
-        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
+        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true"
         return ecrire
     #Si c'est la première question : cas spécifique
     elif(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
         listeperso = proxi(tfidf)
@@ -111,7 +112,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         html = HTMLclass(question[2])
         
         #On rajoute les données
-        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : ["
     #On cherche les children de la question
     questionsFilles = getfils(question[0],app_tree)
     #Si aucun enfant
@@ -229,12 +230,12 @@ def tfidf_and_count(vecteur,question,item):
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
 
-if __name__ == '__main__':
+def ecritureData(profondeur):
     #On se connecte à la base de données
     base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
     curseur = base.cursor()
     #On extrait chaque tables, les details sont en haut
-    app_tree = extrait_app_tree(curseur)
+    app_tree = extrait_app_tree(curseur,profondeur)
     vecteur = vector(curseur)
     #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
@@ -256,5 +257,13 @@ if __name__ == '__main__':
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")
+
+if __name__ == '__main__':
+    if (len(sys.argv) == 1):
+        print(sys.argv)
+        print(type(sys.argv[0]))
+    else:
+        print("Error")
+    print("end")
+
     
