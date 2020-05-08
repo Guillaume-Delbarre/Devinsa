@@ -132,16 +132,6 @@ function aff_nom_select2(){
   console.log(selection2)
 }
 
-
-function affiche_nom(){
-  var x = document.getElementsByClassName("titrePerso");
-  if (x.style.display === "none") {
-    x.style.display = "inline";
-  } else {
-    x.style.display = "none";
-  }
-}
-
 function selection_to_nom(objSelect){
   var ret = [];
   for(var i=0;i<objSelect.length;i++){
@@ -261,6 +251,8 @@ d3.csv("resPCA.csv", function(error, data) {
     d.Medoid = +d.Medoid;
   });
 
+  var nomAfficher = false;
+
   x.domain(d3.extent(data, function(d) { return d.Axe_X; })).nice();
   y.domain(d3.extent(data, function(d) { return d.Axe_Y; })).nice();
 
@@ -306,8 +298,10 @@ d3.csv("resPCA.csv", function(error, data) {
     }
     node.attr("cx", function(d) { return x(d.Axe_X); })
       .attr("cy", function(d) { return y(d.Axe_Y); });
-    nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return y(d.Axe_Y) - 15; });
+    if(nomAfficher){
+      nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
+        .attr('y', function(d) { return y(d.Axe_Y) - 15; });
+    }
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -348,18 +342,25 @@ d3.csv("resPCA.csv", function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
-  
-  nomsTitre = svg.selectAll(".titrePerso")
-    .data(data)
-    .enter().append('text')
-      .attr('class', 'titrePerso')
-      .attr('font-size', '12px')
-      .attr('stroke-width', '1px')
-      .attr('text-anchor', 'middle')
-      .attr('x', function(d) { return x(d.Axe_X); })
-      .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
-      .text(function(d) { return d.Name })
 
+  function affiche_nom(){
+    if(nomAfficher){
+      nomsTitre.remove();
+    } else {
+      nomsTitre = svg.selectAll(".titrePerso")
+      .data(data)
+      .enter().append('text')
+        .attr('class', 'titrePerso')
+        .attr('font-size', '12px')
+        .attr('stroke-width', '1px')
+        .attr('text-anchor', 'middle')
+        .attr('x', function(d) { return x(d.Axe_X); })
+        .attr('y', function(d) { return (y(d.Axe_Y) - 15); })
+        .text(function(d) { return d.Name })
+    }
+    
+  }
+  
   node.classed('selected', function (d) {return d.selected;})
 
   var legend = svg.selectAll(".legend")
