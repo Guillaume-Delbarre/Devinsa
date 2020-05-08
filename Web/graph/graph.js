@@ -134,7 +134,7 @@ function aff_nom_select2(){
 
 
 function affiche_nom(){
-  var x = document.getElementById("circleTitle");
+  var x = document.getElementsByClassName("titrePerso");
   if (x.style.display === "none") {
     x.style.display = "block";
   } else {
@@ -353,8 +353,7 @@ d3.csv("resPCA.csv", function(error, data) {
     .data(data)
     .enter().append('text')
       .attr('class', 'titrePerso')
-      .attr('id', 'circleTitle')
-      .attr('font-size', '8px')
+      .attr('font-size', '12px')
       .attr('stroke-width', '1px')
       .attr('text-anchor', 'middle')
       .attr('x', function(d) { return x(d.Axe_X); })
