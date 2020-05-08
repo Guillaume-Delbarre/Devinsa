@@ -28,9 +28,9 @@ def vector(cursor):
 
 #Requête SQL pour extraire les données de l'arbre
 #On retire les choix "Je ne sais pas" car pas important
-def extrait_app_tree(cursor):
+def extrait_app_tree(cursor,profondeur):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth <"+profondeur)
     for (a,b,c,d,e) in curseur:
         res.append([a,b,c,d,e])
     return res
@@ -260,8 +260,7 @@ def ecritureData(profondeur):
 
 if __name__ == '__main__':
     if (len(sys.argv) == 2):
-        print(sys.argv[1])
-        print(type(sys.argv[1]))
+        ecritureData(sys.argv[1])
     else:
         print("Error")
     print("end")
