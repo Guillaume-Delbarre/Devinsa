@@ -225,13 +225,18 @@ function valider_select(){
 }
 
 $(document).ready( function () {
-	var table = $('#listQusetion').DataTable();
-	table.on( 'select', function ( e, dt, type, indexes ) {
+	var tables = $('#listQusetion').DataTable();
+	tables.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
-			var a = table.rows(indexes).data();
-			alert(a[0][0]);
+			var a = tables.rows(indexes).data();
+			/*if (nomSelectionne.length != 0){
+
+				socket.emit("getallpersreponses", {qname: a[0][0], names: nomSelectionne});
+
+			}
+			alert(a[0][0]);*/
 		}
-		table.rows('.selected').deselect();
+		tables.rows('.selected').deselect();
 	});
 });
 
