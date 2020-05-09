@@ -111,8 +111,8 @@ $( function() {
 		},
 		select : function(event, ui){
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
-			if (nomSelectionne.length != 0){
-				socket.emit("getallpersreponses", {qname: questiontitle, names: nomSelectionne});
+			if (selection1.length != 0){
+				socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
 			}
 		}
 	});
