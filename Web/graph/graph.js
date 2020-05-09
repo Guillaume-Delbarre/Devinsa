@@ -205,23 +205,20 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
-  selection2 = return_selection();
-  if(selection2.length > 1){
-    nomSel = selection_to_nom(selection);
-    nomSel2 = selection_to_nom(selection2);
-    console.log(nomSel)
-    console.log(nomSel2)
-    //retourTableau = fontionListe();
-    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: nomSel2}));
-    d3.csv("differences.csv", function(data) {
-      //console.log(data)
-      var t = $('#listQusetion').DataTable();
-      t.clear().draw();
-      for(let i = 0; i<data.length; i++){
-        t.row.add([data[i].Question, data[i].Différences]).draw(false);
-	    }
-    })
-  }
+  nomSel = selection_to_nom(selection);
+  nomSel2 = selection_to_nom(selection2);
+  //console.log(nomSel)
+  //console.log(nomSel2)
+  //retourTableau = fontionListe();
+  socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: nomSel2}));
+  d3.csv("differences.csv", function(data) {
+    //console.log(data)
+    var t = $('#listQusetion').DataTable();
+    t.clear().draw();
+    for(let i = 0; i<data.length; i++){
+      t.row.add([data[i].Question, data[i].Différences]).draw(false);
+	  }
+  })
 }
 
 $(document).ready( function () {

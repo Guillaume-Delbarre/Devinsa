@@ -91,16 +91,36 @@
   					<table>
   						<tr>
   							<td>
-  								<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
-  								<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
-  								<br>
+								  <table>
+									  <tr>
+										  <td>
+											<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
+										  </td>
+										  <td>
+											<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
+										  </td>
+										  <td>
+											  <br>
+										  </td>
+									  </tr>
+								  </table>
   							</td>
   						</tr>
   						<tr>
   							<td>
-  								<br>
-  								<input type="button" onclick="attr_select2();" value="Attribuer la selection 1">
-  								<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 1">
+								<table>
+									<tr>
+										<td>
+										  <br>
+										</td>
+										<td>
+											<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 2">
+										</td>
+										<td>
+											<input type="button" onclick="attr_select2();" value="Attribuer la selection 2">
+										</td>
+									</tr>
+								</table>
   							</td>
   						</tr>
   					</table>
@@ -148,7 +168,8 @@
   				</td>
   				<td>
   					<div class="container" id="comp">
-              <p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons à droite du graphique pour commencer la comparaison." /></p>
+			  			<p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons à droite du graphique pour commencer la comparaison." /></p>
+						<input type="button" onclick="valider_select();" value="Comparer les deux sélection">
   						<table id="listQusetion" class="display" style="width:100%">
   							<thead>
   								<tr>
