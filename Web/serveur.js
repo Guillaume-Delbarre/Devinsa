@@ -7,6 +7,7 @@ const helmet = require('helmet');
 var app = express();
 app.use(helmet());
 var server = require('http').createServer(app);
+var scripting = 0;
 server.listen(8080, "10.133.33.20", function(){
 	console.log("listening at port : 8080");
 });
@@ -69,21 +70,33 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('creerarbre', ({profondeur}) => {
-		creerarbre(profondeur,["apptree.py"]);
+		if (scripting == 0){
+			scripting = 1;
+			creerarbre(profondeur,["apptree.py"]);
+		}
 	});
 
 	// LANCER SCRIPTS
 	socket.on('ecrirevecteursql', function() {
-		demande(["MiseEnPage.py"], []);
+		if (scripting == 0){
+			scripting = 1;
+			demande(["MiseEnPage.py"], []);
+		}
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		lancerScriptQuestions(["differences.py"], liste1, liste2);
+		if (scripting == 0){
+			scripting = 1;
+			lancerScriptQuestions(["differences.py"], liste1, liste2);
+		}
 	});
 
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
-			demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
+			if (scripting == 0){
+				scripting = 1;
+				demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
+			}
 		}else{
 			socket.emit("message", "paramètres incorrects");
 		}
@@ -91,7 +104,10 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('lancerdeuxièmepartie', ({nbcluster, nbquestions}) => {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
-			lancercalculs(nbcluster, nbquestions);
+			if (scripting == 0){
+				scripting = 1;
+				lancercalculs(nbcluster, nbquestions);
+			}
 		}else{
 			socket.emit("message", "paramètres incorrects");
 		}
@@ -162,8 +178,9 @@ io.sockets.on('connection', function (socket) {
 				if(tab.length == 1){
 					socket.emit("message", "Scripts finis");
 					console.log("Scripts finis");
+					scripting = 0;
 				}
-			}, 2000);
+			}, 1000);
 		});
 	}
 	// Fonction Lecture Base / Ecriture fichier
@@ -312,6 +329,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(nom + " : Echec de l'execution");
 			}else{
 				//console.log(nom + ' fini');
+				scripting = 0;
 			}
 		});
 	}
@@ -326,6 +344,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(nom + " : Echec de l'execution");
 			}else{
 				console.log(nom + ' fini');
+				scripting = 0;
 			}
 		});
 	}
