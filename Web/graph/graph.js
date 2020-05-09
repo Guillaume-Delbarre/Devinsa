@@ -231,7 +231,7 @@ $(document).ready( function () {
 		if ( type === 'row' ) {
 			var a = tables.rows(indexes).data();
 			if (nomSelectionne.length != 0){
-				socket.emit("getallpersreponses", {qname: a[0][0], names: nomSelectionne});
+				socket.emit("getallpersreponses", {qname: a[0][0], names: selection1});
 				alert(a[0][0]);
 			}
 			
