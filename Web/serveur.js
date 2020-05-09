@@ -126,7 +126,7 @@ io.sockets.on('connection', function (socket) {
 				}else{
 					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[question,name],function (error,res) {
 						if (error) throw error
-						let questionid = parseInt(res[].id);
+						let questionid = parseInt(res[0].id);
 						let itemid = parseInt(res[1].id;
 						//console.log(questionid, itemid
 						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
