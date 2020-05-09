@@ -216,7 +216,7 @@ function valider_select(){
     var t = $('#listQusetion').DataTable();
     t.clear().draw();
     for(let i = 0; i<data.length; i++){
-      t.row.add([data[i].Question, data[i].Différences]).draw(false);
+      t.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].diff]).draw(false);
 	  }
   })
 }
