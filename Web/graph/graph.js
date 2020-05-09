@@ -218,6 +218,17 @@ function valider_select(){
   d3.csv("differences.csv", function(data) {
     //console.log(data)
     var t = $('#listQusetion').DataTable();
+	t.on('select', function ( e, dt, type, indexes ) {
+		if (type === 'row') {
+			var a = t.rows(indexes).data();
+			alert("ici");
+			if (selection1.length != 0){
+				socket.emit("getallpersreponses", {qname: a[0][0], names: selection1});
+				alert(a[0][0]);
+			}
+		}
+		t.rows('.selected').deselect();
+	});
     t.clear().draw();
     for(let i = 0; i<data.length; i++){
       t.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
@@ -227,8 +238,8 @@ function valider_select(){
 
 $(document).ready( function () {
 	var tables = $('#listQusetion').DataTable();
-	tables.on( 'select', function ( e, dt, type, indexes ) {
-		if ( type === 'row' ) {
+	tables.on('select', function ( e, dt, type, indexes ) {
+		if (type === 'row') {
 			var a = tables.rows(indexes).data();
 			alert("ici");
 			if (selection1.length != 0){
