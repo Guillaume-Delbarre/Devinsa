@@ -1,8 +1,8 @@
-/home-reseau/nlemaire/DevinsaTest/Web/serveur.js:339
-	}
-	^
+/home-reseau/nlemaire/DevinsaTest/Web/serveur.js:340
+		});
+		 ^
 
-SyntaxError: missing ) after argument list
+SyntaxError: Unexpected token )
     at createScript (vm.js:80:10)
     at Object.runInThisContext (vm.js:139:10)
     at Module._compile (module.js:616:28)
