@@ -82,7 +82,6 @@ def differences(L1,L2):
     res= res.reset_index()
     res.columns = ["Question","Selection1","Selection2","dif"]
     res = res.round(2)
-    print(res)
     res.to_csv("../Donnees/differences.csv", mode='w', index=True)
 
 
