@@ -49,6 +49,7 @@ function attr_select1(){
        selection1.push(d.Name);
     }
   });
+  clear_selection();
 }
 
 function attr_select2(){
@@ -58,6 +59,7 @@ function attr_select2(){
        selection2.push(d.Name);
     }
   });
+  clear_selection();
 }
 
 function aff_select1(){
@@ -96,7 +98,7 @@ function attr_clust_select1(){
          selection1.push(d.Name);
       }
     });
-    aff_select1();
+    attr_select1();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
@@ -116,7 +118,7 @@ function attr_clust_select2(){
          selection2.push(d.Name);
       }
     });
-    aff_select2();
+    attr_select2();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
@@ -228,9 +230,7 @@ $(document).ready( function () {
 	tables.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			var a = tables.rows(indexes).data();
-			alert("ici");
-			}
-			if (selection1.length != 0){
+			if (nomSelectionne.length != 0){
 				socket.emit("getallpersreponses", {qname: a[0][0], names: selection1});
 				alert(a[0][0]);
 			}
