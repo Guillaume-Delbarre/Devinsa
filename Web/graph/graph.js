@@ -229,12 +229,11 @@ $(document).ready( function () {
 	tables.on( 'select', function ( e, dt, type, indexes ) {
 		if ( type === 'row' ) {
 			var a = tables.rows(indexes).data();
-			/*if (nomSelectionne.length != 0){
-
+			if (nomSelectionne.length != 0){
 				socket.emit("getallpersreponses", {qname: a[0][0], names: nomSelectionne});
-
+				alert(a[0][0]);
 			}
-			alert(a[0][0]);*/
+			
 		}
 		tables.rows('.selected').deselect();
 	});
