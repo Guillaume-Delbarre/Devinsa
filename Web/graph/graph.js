@@ -205,7 +205,7 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
-  nomSel = selection_to_nom(selection);
+  nomSel = selection_to_nom(selection1);
   nomSel2 = selection_to_nom(selection2);
   //console.log(nomSel)
   //console.log(nomSel2)
