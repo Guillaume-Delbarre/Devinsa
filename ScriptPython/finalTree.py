@@ -1,5 +1,6 @@
 import mysql.connector
 import numpy as np
+import sys
 
 #APP_TREE
 #[id,parent_id,choice,question_id,title]
@@ -27,10 +28,10 @@ def vector(cursor):
 
 #Requête SQL pour extraire les données de l'arbre
 #On retire les choix "Je ne sais pas" car pas important
-def extrait_app_tree(cursor):
+def extrait_app_tree(cursor,profondeur):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
-    for (a,b,c,d,e) in curseur:
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth <"+profondeur)
+    for (a,b,c,d,e) in cursor:
         res.append([a,b,c,d,e])
     return res
 
@@ -53,9 +54,14 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
         divise = 1
     else:
         divise = -1
-    liste_rapport = (count[:,rangQuestion])/(count[:,(rangQuestion+divise)]+1)
+    liste_rapport = []
+    for i in range(count.shape[0]):
+        if count[i,(rangQuestion+divise)] == 0:
+            liste_rapport.append(1)
+        else:
+            liste_rapport.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
     index_remove = []
-    for i in range(liste_rapport.shape[0]):
+    for i in range(len(liste_rapport)):
         if liste_rapport[i]<0.75:
             index_remove.append(i)
     return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
@@ -89,11 +95,11 @@ def HTMLclass(choice):
 def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
     #S'il ne reste aucun personnage
     if(len(itemOrder)==0):        
-        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true\n"
+        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true"
         return ecrire
     #Si c'est la première question : cas spécifique
     elif(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
         listeperso = proxi(tfidf)
@@ -106,7 +112,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         html = HTMLclass(question[2])
         
         #On rajoute les données
-        ecrire += "\ntext: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : [\n"
+        ecrire += "text: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : ["
     #On cherche les children de la question
     questionsFilles = getfils(question[0],app_tree)
     #Si aucun enfant
@@ -224,12 +230,12 @@ def tfidf_and_count(vecteur,question,item):
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
 
-if __name__ == '__main__':
+def ecritureData(profondeur):
     #On se connecte à la base de données
     base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
     curseur = base.cursor()
     #On extrait chaque tables, les details sont en haut
-    app_tree = extrait_app_tree(curseur)
+    app_tree = extrait_app_tree(curseur,profondeur)
     vecteur = vector(curseur)
     #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
@@ -251,5 +257,12 @@ if __name__ == '__main__':
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
     ecriture.close
-    print("end\n")
+
+if __name__ == '__main__':
+    if (len(sys.argv) == 2):
+        ecritureData(sys.argv[1])
+    else:
+        print("Error")
+    print("end")
+
     

@@ -51,7 +51,7 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
                     quest.append(str(ind))
-                    score.append(round(row[i]/count, 3))
+                    score.append(round(row[i]/count, 2))
                     j+=1
                 elif(k<(nbQuestion/2) and row[i]<0):
                     ind=index.replace("\n","")
@@ -113,4 +113,4 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac(4)    
+        printQuestionCarac(4)

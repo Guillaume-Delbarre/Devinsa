@@ -1,30 +1,180 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Accueil outil administration Devinsa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="styles.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script src="https://d3js.org/d3.v3.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
-    <header>
-      <table height=1>
-        <th>
-          <p><a class="menu_item" href="http://devinsa.insa-rennes.fr"><img src="imgdevinsa.jpg" title='Cliquez pour jouer' /></a>
-        </th>
-        <th>
-          <form action="Arbre" method="POST">
-      			<input class="menu_item" type="submit" value="Arbre des questions" title="Cliquez pour accéder à la page" target="_blank">
-      		</form>
-        </th>
+	  <div class = "titre">
+		  <table class = "center">
+			  <tr>
+  				<td class = center>
+  					<p>Outils d'administration Devinsa</p>
+  				</td>
+			  </tr>
+			  <tr>
+  				<td class = center>
+  					<a href="http://devinsa.insa-rennes.fr"><img src="imgdevinsa.jpg" title='Cliquez pour jouer' /></a>
+  				</td>
+			  </tr>
+		  </table>
+	  </div>
+	  <div>
+  		<form action="Arbre" method="POST" style = "text-align: center;">
+  			<input style = "margin:auto;" type="submit" value="Voir l'arbre des questions" title="Cliquez pour accéder à la page" target="_blank">
+  		</form>
+	  </div>
+	  <div>
+  		<p style="text-align: center;"><b>Actualisation des données</b><img src="help_icon.png" title="L'actualisation complète comprend l'extraction des données et leur traitement. (Ne comprend pas l'actualisation de l'arbre)" /></p>
+  		<table class="center">
+        <tr>
+    			<th><input type="button" value="Extraction des données" id="vctsql" class="b" title="Extraction des données : requête sql et mise en page des données à l'aide d'un script python - Environ 1min"/></th>
+    			<th><input type="button" value="Traitement des données" id="lancer2emepartie" class="b" title="Traitement des données : scripts python (classification hiérarchique ascendante, script formant le tableau information sur les groupes et algorithme t-SNE) - Environ 30sec" /></th>
+    		  <th><input type="button" value="Actualisation complète" id="toutlancer" class="b" title="Actualisation complète (extraction et traitement des données) - Environ 1min30"/></th>
+    		  <th><input type="button" value="Actualisation de l'arbre" id="creerarbre" classe="b" title = "Actualisation de l'arbre (extraction et traitement des données relatives à l'arbre des questions) - Environ 1min" /></th>
+        </tr>
       </table>
-    </header>
-
+	  </div>
+	  <br>
+	  <div class="center">
+		  <table class="center">
+			  <tr style = "text-align: center;">
+				  <td>
+    			  <input type="button" onclick="aff_select1();" value="Afficher la selection 1">
+				  </td>
+				  <td>
+					  <input type="button" onclick="aff_select2();" value="Afficher la selection 2">
+				  </td>
+			  </tr>
+			  <tr>
+				  <td>
+  					<input type="button" onclick="aff_nom_select1();" value="Afficher les noms de la selection 1">
+				  </td>
+				  <td>
+  					<input type="button" onclick="aff_nom_select2();" value="Afficher les noms de la selection 2">
+				  </td>
+			  </tr>
+		  </table>
+		  <table class='center'>
+			  <tr>
+				  <td>
+  					<table>
+  						<tr style = "text-align: center;">
+  							<td>
+  								<input type="button" onclick="clear_selection();" value="Deselectionner tous les personnages">
+  							</td>
+  						</tr>
+  						<tr style = "text-align: center;">
+  							<td>
+  								<input type="button" onclick="affiche_nom();" value="Afficher/Cacher Les noms">
+  							</td>
+  						</tr>
+  						<tr style = "text-align: center;">
+  							<td>
+  								<input type="button" onclick="get_selection();" value="Modifier la selection">
+  							</td>
+  						</tr>
+  					</table>
+				  </td>
+				  <td colspan="2">
+  					<svg id="zoneGraph" class="graph" width=900 height=500></svg>
+				  </td>
+				  <td>
+  					<table>
+  						<tr>
+  							<td>
+  								<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
+  								<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
+  								<br>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td>
+  								<br>
+  								<input type="button" onclick="attr_select2();" value="Attribuer la selection 1">
+  								<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 1">
+  							</td>
+  						</tr>
+  					</table>
+				  </td>
+			  </tr>
+		  </table>
+	  </div>
+	  <table id="tableauAffichagePersonnage" style="margin:auto;">
+  		<tbody>
+  			<tr>
+  				<td style="margin:auto;">
+  					<div class="modifBase">
+  						<p><b>Modification de la base  </b><img src="help_icon.png" title='Veuillez entrez une question et un personnage ou bien utilisez la sélection sur le graphique' /></p>
+  						<div class="ui-widget">
+  							<label for="tags1">Question : </label>
+  							<input id="tags1">
+  						</div>
+  						<div class="ui-widget">
+  							<label for="tags">Personnage : </label>
+  							<input id="tags" value="">
+  						</div>
+  						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
+  						<div class="container" >
+  							<table id="personnages" class="display" style="width:100%">
+  								<thead>
+  									<tr>
+  										<th>Nom</th>
+  										<th>Yes_count</th>
+  										<th>No_count</th>
+  										<th>Pass_count</th>
+  									</tr>
+  								</thead>
+  							</table>
+  						</div>
+  						<p><B>Paramètres: </B><br>
+  							<input type="radio" name="Parametre" value="yes_count">Yes_count
+  							<input type="radio" name="Parametre" value="no_count">No_count
+  							<input type="radio" name="Parametre" value="pass_count">Pass_count<br>
+  							<label for="Valeur"><B>Valeur du paramètre:</B></label><br>
+  							<input type="text" id="Valeur" name="valeur" value=""><br>
+  							<input type="button" value="Modifier les paramètres dans la base" id="updatesql"><br>
+  							<input type="button" value="Incrémenter" id="increment">
+  						<p>
+  					</div>
+  				</td>
+  				<td>
+  					<div class="container" id="comp">
+              <p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons à droite du graphique pour commencer la comparaison." /></p>
+  						<table id="listQusetion" class="display" style="width:100%">
+  							<thead>
+  								<tr>
+  									<th>Question</th>
+  									<th>Score Sélection 1</th>
+  									<th>Score Sélection 2</th>
+  									<th>Différence</th>
+  								</tr>
+  							</thead>
+  						</table>
+  					</div>
+  				</td>
+  			</tr>
+  		</tbody>
+  	</table>
+  	<script src="graph.js"></script>
+  	<script src="tableCluster.js"></script>
+  	<div class="tableauInfo">
+  		<p><b>Informations sur les groupes  </b><i>Nombre de personnages, médoïdes et questions caractéristiques</i></p>
+  		<div id="tableResult"></div>
+  	</div>
+		<script src="table.js"></script>
+		<script src="com.js"></script>
+  </body>
+</html>
+	  <!--
 
 
     <div class="ActuDonnees">
@@ -69,7 +219,7 @@
 							</div>
 							<p><B>Paramètres: </B></br>
 								<input type="radio" name="Parametre" value="yes_count">Yes_count
-								<input type="radio" name="Parametre" value="no_count">No_count 
+								<input type="radio" name="Parametre" value="no_count">No_count
 								<input type="radio" name="Parametre" value="pass_count">Pass_count</br>
 								<label for="Valeur"><B>Valeur du paramètre:</B></label></br>
 								<input type="text" id="Valeur" name="valeur" value=""></br>
@@ -119,17 +269,23 @@
 											<tbody id='tabButton'>
 												<tr>
 													<td>
-														<input type="button" onclick="get_selection();" value="Appliquer la selection">
+														<input type="button" onclick="get_selection();" value="Modifier la selection">
 													</td>
 												</tr>
 												<tr>
 													<td>
-														<input type="button" onclick="comp_selection_clust();" value="Comparer la sélection à un groupe">
+														<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
+														<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
+														<input type="button" onclick="aff_select1();" value="Afficher la selection 1">
+														<input type="button" onclick="aff_nom_select1();" value="Afficher les noms de la selection 1">
 													</td>
 												</tr>
 												<tr>
 													<td>
-														<input type="button" onclick="comp_selection_select();" value="Comparer la sélection à une autre sélection">
+														<input type="button" onclick="attr_select2();" value="Attribuer la selection 2">
+														<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 2">
+														<input type="button" onclick="aff_select2();" value="Afficher la selection 2">
+														<input type="button" onclick="aff_nom_select2();" value="Afficher les noms de la selection 2">
 													</td>
 												</tr>
 											</tbody>
@@ -149,10 +305,10 @@
     <p><b>Informations sur les groupes  </b><i>Nombre de personnages, médoïdes et questions caractéristiques</i></p>
 	  <div id="tableResult"></div>
   </div>
-    <!--<script src="cluster.js"></script>-->
     <script src="table.js"></script>
     <script src="com.js"></script>
 
   </body>
 
 </html>
+-->

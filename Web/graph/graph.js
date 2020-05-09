@@ -38,17 +38,111 @@ svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var selection = [];
+var selection1 = [];
 var selection2 = [];
 var nomSelectionne =[];
 
-function tabulatePerso(array){
-  for(var i = 0; i < array.length; i++){
-    var newRow = table.insertRow(-1);
-    for(var j = 0; j < array[i].length; j++){
-      var newCell = newRow.insertCell(j);
-      let newText = document.createTextNode(array[i][j]);
-      newCell.appendChild(newText)
+function attr_select1(){
+  selection1 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection1.push(d.Name);
     }
+  });
+}
+
+function attr_select2(){
+  selection2 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection2.push(d.Name);
+    }
+  });
+}
+
+function aff_select1(){
+  node.classed('selected', function (d) {
+    if (selection1.includes(d.Name)){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
+}
+
+function aff_select2(){
+  node.classed('selected', function (d) {
+    if (selection2.includes(d.Name)){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
+}
+
+var clust;
+
+function attr_clust_select1(){
+  var i = 0;
+  node.each(function(d) {
+    if (d.selected) {
+       i += 1;
+       clust = d.Cluster;
+    }
+  });
+  if (i<2) {
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection1.push(d.Name);
+      }
+    });
+    aff_select1();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
+  }
+}
+
+function attr_clust_select2(){
+  var i = 0;
+  node.each(function(d) {
+    if (d.selected) {
+       i += 1;
+       clust = d.Cluster;
+    }
+  });
+  if (i<2) {
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection2.push(d.Name);
+      }
+    });
+    aff_select2();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
+  }
+}
+
+function aff_nom_select1(){
+  //window.alert(selection1)
+  console.log(selection1)
+}
+
+function aff_nom_select2(){
+  //window.alert(selection2)
+  console.log(selection2)
+}
+
+
+var nomAfficher = false;
+function affiche_nom(){
+  if(nomAfficher){
+    nomAfficher = false;
+    d3.selectAll('.titrePerso')
+      .attr('opacity', '0')
+  } else {
+    nomAfficher = true;
+    d3.selectAll('.titrePerso')
+      .attr('opacity', '0.5')
   }
 }
 
@@ -134,10 +228,6 @@ $(document).ready( function () {
     $('#listQusetion').DataTable();
 } );
 
-function afficherTableauListe( liste ){
-
-}
-
 function return_selection(){
   ret = [];
   node.each(function(d) {
@@ -218,9 +308,10 @@ d3.csv("resPCA.csv", function(error, data) {
       console.log('zoom shiftKey');
       return;
     }
-    console.log('zoom');
     node.attr("cx", function(d) { return x(d.Axe_X); })
-    .attr("cy", function(d) { return y(d.Axe_Y); });
+      .attr("cy", function(d) { return y(d.Axe_Y); });
+    nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return y(d.Axe_Y) + 11; });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -261,6 +352,19 @@ d3.csv("resPCA.csv", function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
+  
+  nomsTitre = svg.selectAll(".titrePerso")
+    .data(data)
+    .enter().append('text')
+      .attr('class', 'titrePerso')
+      .attr('pointer-events', 'none')
+      .attr('font-size', '12px')
+      .attr('stroke-width', '1px')
+      .attr('text-anchor', 'middle')
+      .attr('opacity', '0')
+      .attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return (y(d.Axe_Y) + 11); })
+      .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
 

@@ -1,36 +1,29 @@
 .titre {
-  padding: 0px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 30px;
+    padding: 0px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
 }
 
 .center {
-  margin: auto;
+    margin: auto;
 }
 
 .dot {
-  stroke: none;
-  fill-opacity: 0.5;
+    stroke: none;
+    fill-opacity: 0.5;
 }
 
 .dot.selected {
-  stroke: #000000;
-  stroke-width: 2px;
-  fill-opacity: 0.8;
+    stroke: #000000;
+    stroke-width: 2px;
+    fill-opacity: 0.8;
 }
 
 .graph {
-  stroke: black;
-  text-align: center;
-}
-
-#tags1{
-  min-width: 300px;
-}
-#tags{
-  min-width: 277px;
+    stroke: black;
+    text-align: center;
 }
 /*
 .overlay {
