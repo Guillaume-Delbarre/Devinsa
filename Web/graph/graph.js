@@ -225,8 +225,15 @@ function valider_select(){
 }
 
 $(document).ready( function () {
-    $('#listQusetion').DataTable();
-} );
+	var table = $('#listQusetion').DataTable();
+	table.on( 'select', function ( e, dt, type, indexes ) {
+		if ( type === 'row' ) {
+			var a = table.rows(indexes).data();
+			alert(a[0][0]);
+		}
+		table.rows('.selected').deselect();
+	});
+});
 
 function return_selection(){
   ret = [];
