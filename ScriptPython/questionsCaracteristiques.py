@@ -5,6 +5,7 @@ import numpy as np
 import os
 import sys
 from sklearn.metrics import pairwise_distances
+import math
 
 
 medoids = None
@@ -13,8 +14,6 @@ df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, enco
 
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
-    if(nbQuestion % 2)!=0:
-        raise ValueError("Veuillez entrer un nombre de questions pair")
     dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
     dfFile.to_csv("../Donnees/infoClusters.csv", mode='w', index=False)
 
@@ -39,31 +38,36 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
         aggTrie = agg.reindex(agg[i].abs().sort_values(ascending=False).index)
         j=0
         k=0
-        quest=[]
-        score=[]
+        questpos=[]
+        scorepos=[]
+        questneg=[]
+        scoreneg=[]
         medoid=persoExtremes(i,medoid=True,nbPerso=nbMedoid)
         for l in range(int(nbMedoid/2)):
-            quest.append(medoid[2*l])
-            score.append(medoid[2*l+1])
+            questpos.append(medoid[2*l])
+            scorepos.append(medoid[2*l+1])
         while((j+k)<nbQuestion):
             for index,row in aggTrie.iterrows():
-                if(j<(nbQuestion/2) and row[i]>=0):
+                if(j<math.ceil(nbQuestion/2) and row[i]>=0):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
-                    quest.append(str(ind))
-                    score.append(round(row[i]/count, 2))
+                    questpos.append(str(ind))
+                    scorepos.append(round(row[i]/count, 2))
                     j+=1
-                elif(k<(nbQuestion/2) and row[i]<0):
+                elif(k<int(nbQuestion/2) and row[i]<0):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
-                    quest.append(str(ind))
-                    score.append(round(row[i]/count, 3))
+                    questneg.append(str(ind))
+                    scoreneg.append(round(row[i]/count, 3))
                     k+=1
+        quest=questpos+questneg
+        score=scorepos+scoreneg
         dfFile.loc["Groupe "+str(i)]=quest
         dfFile.loc[str(count)+" personnages"]=score
     idex = [i for i in range(2*nbCluster)]   
     dfFile = dfFile.set_index([pd.Index(idex),pd.Index(idx)]) 
-    dfFile=dfFile.T   
+    dfFile=dfFile.T  
+    print(dfFile) 
     return dfFile
 
 
@@ -113,4 +117,5 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac(4)
+        #printQuestionCarac(4)
+        tableQuest(4,13)
