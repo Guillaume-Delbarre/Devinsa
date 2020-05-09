@@ -218,7 +218,7 @@ function valider_select(){
   d3.csv("differences.csv", function(data) {
     //console.log(data)
     var t = $('#listQusetion').DataTable();
-	t.on('select', function ( e, dt, type, indexes ) {
+	t.on( 'select.dt', function ( e, dt, type, indexes ) {
 		if (type === 'row') {
 			var a = t.rows(indexes).data();
 			alert("ici");
@@ -238,7 +238,7 @@ function valider_select(){
 
 $(document).ready( function () {
 	var tables = $('#listQusetion').DataTable();
-	tables.on('select', function ( e, dt, type, indexes ) {
+	tables.on( 'select.dt', function ( e, dt, type, indexes ) {
 		if (type === 'row') {
 			var a = tables.rows(indexes).data();
 			alert("ici");
