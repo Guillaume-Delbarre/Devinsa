@@ -205,12 +205,12 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
-  nomSel = selection_to_nom(selection1);
-  nomSel2 = selection_to_nom(selection2);
+  //nomSel = selection_to_nom(selection1);
+  //nomSel2 = selection_to_nom(selection2);
   //console.log(nomSel)
   //console.log(nomSel2)
   //retourTableau = fontionListe();
-  socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: nomSel2}));
+  socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
   d3.csv("differences.csv", function(data) {
     //console.log(data)
     var t = $('#listQusetion').DataTable();
