@@ -181,6 +181,7 @@ function valider_cluster(){
     console.log(nomSel)
     console.log(selection2[0].Cluster)
     socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: selection2[0].Cluster}));
+    setTimeout(function(){ 
       d3.csv("differences.csv", function(data) {
         //console.log(data)
         var t = $('#listQusetion').DataTable();
@@ -188,7 +189,8 @@ function valider_cluster(){
         for(let i = 0; i<data.length; i++){
           t.row.add([data[i].Question, data[i].Différences]).draw(false);
         }
-    })
+      })
+    }, 3000);
   }
 }
 
@@ -216,7 +218,7 @@ function valider_select(){
     var t = $('#listQusetion').DataTable();
     t.clear().draw();
     for(let i = 0; i<data.length; i++){
-      t.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].diff]).draw(false);
+      t.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
 	  }
   })
 }
