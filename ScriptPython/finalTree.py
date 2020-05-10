@@ -155,11 +155,8 @@ def distScalaire(perso,moyen):
     return dist
 
 def exemples(perso):
-    remove = np.full(perso.shape[1],0)
-    print(remove.shape)
-    print(perso.shape)
-    perso = np.delete(perso,remove,axis = 0)
-    print(perso.shape)
+    """remove = np.full(perso.shape[1],0)
+    perso = np.delete(perso,remove,axis = 0)"""
     moyen = np.mean(perso,0)
     dist = distScalaire(perso,moyen)
     taille = dist.shape[0]
