@@ -152,8 +152,6 @@ def distEuclidienne(tfidf,moyen):
 
 def distScalaire(tfidf,moyen):
     dist = np.dot(tfidf[:,:],moyen)
-    print(dist.shape[0])
-    print(typeof(dist))
     return dist
 
 def exemples(tfidf):
@@ -253,8 +251,7 @@ def ecritureData(profondeur):
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = tfidf_and_count(vecteur,question,item)
-    exemples(tfidf)
-    """"#On elague larbre ternaire en arbre binaire
+    #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
@@ -266,7 +263,7 @@ def ecritureData(profondeur):
     
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
-    ecriture.close"""
+    ecriture.close
 
 if __name__ == '__main__':
     if (len(sys.argv) == 2):
