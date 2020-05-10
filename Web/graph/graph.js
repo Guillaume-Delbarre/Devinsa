@@ -224,6 +224,7 @@ function valider_select(){
 }
 
 $(document).ready( function () {
+	alert("ici");
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
@@ -237,7 +238,7 @@ $(document).ready( function () {
 				alert(a[0][0]);
 			}
 		}
-		ta.rows('.selected').deselect();
+		//ta.rows('.selected').deselect();
 	});
 });
 
