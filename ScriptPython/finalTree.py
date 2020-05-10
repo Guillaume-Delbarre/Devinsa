@@ -164,6 +164,8 @@ def supprPersoInutile(count,tfidf):
 
 def exemples(count,tfidf):
     tfidf = supprPersoInutile(count,tfidf)
+    if tfidf.shape[0]==0:
+        return ["Aucun personnage n'ayant plus du nombre de parties requises jouées"]
     moyen = np.mean(tfidf,0)
     dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
