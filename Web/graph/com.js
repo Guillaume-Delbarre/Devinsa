@@ -7,6 +7,7 @@ var table;
 
 $(document).ready(function() {
     table = $('#personnages').DataTable();
+	// La ligne de la table est selectionnée on click
 	$('#personnages').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
     });
@@ -47,6 +48,7 @@ $('#lancer2emepartie').click(function () {
 $('#increment').click(function () {
 	var rqtp = "";
 	var parametre = null;
+	//On stock le parametre choisi par l'utilisateur
 	var ele = document.getElementsByName('Parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
@@ -54,6 +56,7 @@ $('#increment').click(function () {
 			parametre = i+1
 		}
 	}
+	//On incrémente chaque ligne présente dans la table
 	if(rqtp != "" && parametre != null){
 		for (let i = 0; i<table.rows().data().length; i++){
 			socket.emit('updatesql', ({name: table.rows().data()[i][0], qname: questiontitle, value: table.rows().data()[i][parametre]+1, param: rqtp}));
@@ -64,16 +67,19 @@ $('#increment').click(function () {
 $('#updatesql').click(function () {
 	var rqtp = "";
 	var rqtv = null;
+	//On garde le parametre choisi du bouton Parametre 
 	var ele = document.getElementsByName('Parametre');
 	for(i = 0; i < ele.length; i++) { 
 		if(ele[i].checked){
 			rqtp = ele[i].value;
 		}
 	}
+	//On garde la valeur du bouton Valeur
 	var val = document.getElementById('Valeur');
 	if (val != null && val.value != ""){
 		rqtv = parseInt(val.value);
 	}
+	//On emet une requete update pour chaque ligne selectionnée aux parametres stockés precedemment dans la fonction
 	if(questiontitle != "" && rqtv != null){
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
@@ -125,5 +131,6 @@ socket.on('message', function(message) {
 socket.on('valeursreponses', ({y, n, p}) => {
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
+	//On ajoute à la table les lignes de valeurs
 	t.row.add([namepers,y,n,p]).draw(false);
 });
