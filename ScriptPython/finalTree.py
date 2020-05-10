@@ -164,7 +164,7 @@ def supprPersoInutile(count,tfidf):
 
 def exemples(count,tfidf):
     print(tfidf.shape)
-    tfidf = supprPersoInutile(count)
+    tfidf = supprPersoInutile(count,tfidf)
     print(tfidf.shape)
     moyen = np.mean(tfidf,0)
     dist = distScalaire(tfidf,moyen)
