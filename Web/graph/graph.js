@@ -226,19 +226,11 @@ function valider_select(){
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion').on('click', 'tr', function () {
-		$(this).toggleClass('selected');
-    });
-	ta.on('click', function ( e, dt, type, indexes ) {
-		alert("ici");
-		if (type === 'row') {
-			var a = ta.rows(indexes).data();
-			if (selection1.length != 0){
-				socket.emit("getallpersreponses", {qname: a[0][0], names: selection1});
-				alert(a[0][0]);
-			}
+		var name = table.row(this).data()[0];
+		if (selection1.length != 0){
+			socket.emit("getallpersreponses", {qname: name, names: selection1});
 		}
-		ta.rows('.selected').deselect();
-	});
+    });
 });
 
 function return_selection(){
