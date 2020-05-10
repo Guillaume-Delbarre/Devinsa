@@ -154,11 +154,20 @@ def distScalaire(perso,moyen):
     dist = np.dot(perso-moyen,moyen)
     return dist
 
-def exemples(perso):
-    """remove = np.full(perso.shape[1],0)
-    perso = np.delete(perso,remove,axis = 0)"""
-    moyen = np.mean(perso,0)
-    dist = distScalaire(perso,moyen)
+def supprPersoInutile(count,tfidf):
+    nbJoue = np.sum(count,1)
+    index_remove = []
+    for i in range(nbJoue):
+        if nbJoue[i]<40:
+            index_remove.append(i)
+    return np.delete(tfidf,index_remove,0)
+
+def exemples(count,tfidf):
+    print(tfidf.shape)
+    tfidf = supprPersoInutile(count)
+    print(tfidf.shape)
+    moyen = np.mean(tfidf,0)
+    dist = distScalaire(tfidf,moyen)
     taille = dist.shape[0]
     if taille == 1:
         return [0]
