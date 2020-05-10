@@ -156,7 +156,7 @@ def distScalaire(perso,moyen):
 
 def exemples(perso):
     moyen = np.mean(perso,0)
-    dist = distEuclidienne(perso,moyen)
+    dist = distScalaire(perso,moyen)
     taille = dist.shape[0]
     if taille == 1:
         return [0]
