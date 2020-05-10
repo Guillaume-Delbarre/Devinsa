@@ -107,7 +107,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         perso_median = ""
         #On met en forme pour le JS/JSON
         if listeperso == [-1]:
-            perso_median = "perso : 'Aucun personnage avec suffisamment de parties jouées',"
+            perso_median = "perso1 : 'Aucun personnage avec suffisamment de parties jouées',"
         else:
             for i in range(len(listeperso)):
                     perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
@@ -161,7 +161,7 @@ def supprPersoInutile(count,tfidf):
     nbJoue = np.sum(count,1)
     index_remove = []
     for i in range(nbJoue.shape[0]):
-        if nbJoue[i]<42:
+        if nbJoue[i]<101:
             index_remove.append(i)
     return np.delete(tfidf,index_remove,0)
 
