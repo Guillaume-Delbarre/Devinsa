@@ -217,13 +217,15 @@ io.sockets.on('connection', function (socket) {
 	}
 
 	function creerarbre(profondeur, callback){
-		const as = fs.createWriteStream("../Donnees/Arbre.csv");
+		//const as = fs.createWriteStream("../Donnees/Arbre.csv");
 	// ON DEMANDE L'ARBRE A LA BASE
 		if (!Number.isInteger(profondeur) || profondeur < 0 || profondeur >20){
 			socket.emit("message","Paramètre non valable");
 			return 0;
 		}
-		var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
+
+		lancerscript("finalTree.py",profondeur);
+		/***var rqt = "Select title, choice, app_tree.id, parent_id, depth from app_tree inner join app_question on question_id = app_question.id where depth < ? order by depth ;";
 		connection.query(rqt, [profondeur], function(error, data, fields) {
 			if (error) throw error
 			const jsonData = JSON.parse(JSON.stringify(data));
@@ -237,7 +239,7 @@ io.sockets.on('connection', function (socket) {
 				fileattente(fonctions);
 				}
 			});
-		});
+		});***/
 	}
 
 	function getvaleursreponses(title,name){
