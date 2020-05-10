@@ -224,12 +224,11 @@ function valider_select(){
 }
 
 $(document).ready( function () {
-	alert("ici");
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
     });
-	$('#listQusetion').on('select.dt', function ( e, dt, type, indexes ) {
+	ta.off('select', function ( e, dt, type, indexes ) {
 		alert("ici");
 		if (type === 'row') {
 			var a = ta.rows(indexes).data();
@@ -238,7 +237,7 @@ $(document).ready( function () {
 				alert(a[0][0]);
 			}
 		}
-		//ta.rows('.selected').deselect();
+		ta.rows('.selected').deselect();
 	});
 });
 
