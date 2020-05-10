@@ -50,6 +50,7 @@ function attr_select1(){
     }
   });
   clear_selection();
+  nombrePersoSelect1();
 }
 
 function attr_select2(){
@@ -60,6 +61,7 @@ function attr_select2(){
     }
   });
   clear_selection();
+  nombrePersoSelect2();
 }
 
 function aff_select1(){
@@ -124,6 +126,14 @@ function attr_clust_select2(){
   }
 }
 
+function nombrePersoSelect1() {
+  document.getElementById('nombrePersoSelect1') = "salut mec"
+}
+
+function nombrePersoSelect2() {
+  document.getElementById('nombrePersoSelect2') = "salut mec"
+}
+
 function aff_nom_select1(){
   //window.alert(selection1)
   console.log(selection1)
@@ -148,31 +158,6 @@ function affiche_nom(){
   }
 }
 
-function selection_to_nom(objSelect){
-  var ret = [];
-  for(var i=0;i<objSelect.length;i++){
-    ret.push(objSelect[i].Name)
-  }
-  return ret;
-}
-
-function annuler_selection(){
-  console.log('annuler')
-  clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"get_selection();\" value=\"Appliquer la selection\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_clust();\" value=\"Comparer la sélection à un groupe\">"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_select();\" value=\"Comparer la sélection à une autre sélection\">"
-}
-
-function comp_selection_clust(){
-  selection = return_selection();
-  clear_selection();
-  console.log('select clust')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un personnage pour connaitre son cluster <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_cluster();\" value=\"Valider\">"
-}
-
 function valider_cluster(){
   selection2 = return_selection();
   if(selection2.length != 1){
@@ -194,15 +179,6 @@ function valider_cluster(){
       })
     }, 3000);
   }
-}
-
-function comp_selection_select(){
-  selection = return_selection();
-  clear_selection();
-  console.log('select select')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Faites une autre sélection <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_select();\" value=\"Valider\">"
 }
 
 var nomSel = [];
