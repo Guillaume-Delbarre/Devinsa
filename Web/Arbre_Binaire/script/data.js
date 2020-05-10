@@ -204,7 +204,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
  {text: { name: '377 personnage(s)',perso1 : 'Aleister Crowley ',perso2 : 'alphonse Marçay',perso3 : 'Amadou Toumani Touré ', desc : 'Ton personnage a-t-il plus de 50 ans ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text: { name: '323 personnage(s)',perso1 : 'Aleister Crowley ',perso2 : 'Amadou Toumani Touré ',perso3 : 'Aissa Mandi	 ', desc : 'Ton personnage a-t-il un prénom hors du commun ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '303 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-green',collapsed : true, children : [
-{text: { name: '298 personnage(s)',perso : 'Aucun personnage n'ayant joué suffisamment de parties', desc : 'Ton personnage vit-il dans un monde imaginaire ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
+{text: { name: '298 personnage(s)',perso : 'Aucun personnage avec de parties jouées', desc : 'Ton personnage vit-il dans un monde imaginaire ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
  {text: { name: '302 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol', desc : 'Ton personnage vit-il dans un monde imaginaire ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
  } 
@@ -381,7 +381,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
 }, 
  {text: { name: '319 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'Abel ',perso3 : 'Aissa Mandi	 ', desc : 'Ton personnage a-t-il un prénom hors du commun ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text: { name: '306 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol', desc : 'Ton personnage a-t-il plus de 50 ans ?'},HTMLclass :'light-green',collapsed : true, children : [
-{text: { name: '300 personnage(s)',perso : 'Aucun personnage n'ayant joué suffisamment de parties', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
+{text: { name: '300 personnage(s)',perso : 'Aucun personnage avec de parties jouées', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
  {text: { name: '302 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol', desc : 'Votre personnage a -t-il la peau noire ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
  } 
@@ -491,7 +491,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
 ]
 }, 
  {text: { name: '311 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'Ada Lovelace (comtesse brittanique programmeuse)',perso3 : 'Aissa Mandi	 ', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-red',collapsed : true, children : [
-{text: { name: '296 personnage(s)',perso : 'Aucun personnage n'ayant joué suffisamment de parties', desc : 'Ton personnage vit-il dans un monde imaginaire ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
+{text: { name: '296 personnage(s)',perso : 'Aucun personnage avec de parties jouées', desc : 'Ton personnage vit-il dans un monde imaginaire ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
  {text: { name: '310 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'Ada Lovelace (comtesse brittanique programmeuse)',perso3 : 'Aissa Mandi	 ', desc : 'Ton personnage est-il un intellectuel de son temps ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
  } 
@@ -900,7 +900,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
 {text: { name: '309 personnage(s)',perso1 : ' Samir Loussif ', desc : 'Ton personnage a-t-il un prénom hors du commun ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '304 personnage(s)',perso1 : ' Samir Loussif ', desc : 'Ton personnage est-il devenu connu grâce à Internet ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
- {text: { name: '299 personnage(s)',perso : 'Aucun personnage n'ayant joué suffisamment de parties', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
+ {text: { name: '299 personnage(s)',perso : 'Aucun personnage avec de parties jouées', desc : 'Ton personnage est-il un tueur ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
  } 
 ]
 }, 
