@@ -127,11 +127,11 @@ function attr_clust_select2(){
 }
 
 function nombrePersoSelect1() {
-  document.getElementById('nombrePersoSelect1').innerHTML = selection1.length();
+  document.getElementById('nombrePersoSelect1').innerHTML = selection1.length;
 }
 
 function nombrePersoSelect2() {
-  document.getElementById('nombrePersoSelect2').innerHTML = selection2.length();
+  document.getElementById('nombrePersoSelect2').innerHTML = selection2.length;
 }
 
 function aff_nom_select1(){
