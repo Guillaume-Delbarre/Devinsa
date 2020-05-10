@@ -156,8 +156,9 @@ def distScalaire(perso,moyen):
 
 def supprPersoInutile(count,tfidf):
     nbJoue = np.sum(count,1)
+    print(nbJoue.shape)
     index_remove = []
-    for i in range(nbJoue):
+    for i in range(nbJoue.shape[0]):
         if nbJoue[i]<40:
             index_remove.append(i)
     return np.delete(tfidf,index_remove,0)
@@ -169,24 +170,17 @@ def exemples(count,tfidf):
     moyen = np.mean(tfidf,0)
     dist = distScalaire(tfidf,moyen)
     taille = dist.shape[0]
-    if taille == 1:
-        return [0]
-    elif taille == 2:
-        return[0,1]
-    elif taille == 3:
-        return [0,1,2]
-    else:
-        res = []
-        for compteur in range(3):
-            minimum = np.amin(dist)
-            for i in range(taille):
-                if dist[i]==minimum:
-                    res.append(i)
-                    dist[i] = np.amax(dist)
-                #Limite si trop de distance minimale égale
-                if len(res)==3:
-                    return res
-        return res
+    res = []
+    for compteur in range(3):
+        minimum = np.amin(dist)
+        for i in range(taille):
+            if dist[i]==minimum:
+                res.append(i)
+                dist[i] = np.amax(dist)
+            #Limite si trop de distance minimale égale
+            if len(res)==3:
+                return res
+    return res
             
 
 #Fonction permettant de créer l'arbre binaire
