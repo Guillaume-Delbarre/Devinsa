@@ -158,7 +158,8 @@ def exemples(perso):
     remove = np.full(perso.shape[1],0)
     print(remove.shape)
     print(perso.shape)
-    perso = np.delete(perso,index_remove)
+    perso = np.delete(perso,np.where(perso == remove))
+    print(perso.shape)
     moyen = np.mean(perso,0)
     dist = distScalaire(perso,moyen)
     taille = dist.shape[0]
