@@ -151,7 +151,7 @@ def distEuclidienne(perso,moyen):
     return dist
 
 def distScalaire(perso,moyen):
-    dist = np.dot(perso[:,:],moyen)
+    dist = np.dot(perso-moyen,moyen)
     return dist
 
 def exemples(perso):
