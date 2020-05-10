@@ -156,7 +156,9 @@ def distScalaire(perso,moyen):
 
 def exemples(perso):
     remove = np.full(perso.shape[1],0)
+    print(remove)
     index_remove = np.argwhere(perso==remove)
+    print(index_remove)
     print(perso.shape[0])
     perso = np.delete(perso,index_remove)
     print(perso.shape[0])
