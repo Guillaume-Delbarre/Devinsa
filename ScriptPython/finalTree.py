@@ -102,7 +102,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = proxi(tfidf)
+        listeperso = exemples(tfidf)
         listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
@@ -145,10 +145,17 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "\n } \n]"
         return ecrire
 
-def proxi(tfidf):
-    moyen = np.mean(tfidf,0)
+def distEuclidienne(tfidf,moyen):
     dist = (tfidf-moyen)**2
     dist = np.sum(dist,1)
+    return dist
+
+def distScalaire(tfidf,moyen):
+    print(np.dot(tfidf[1,:],moyen))
+
+def exemples(tfidf):
+    moyen = np.mean(tfidf,0)
+    dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
     if taille == 1:
         return [0]
@@ -243,8 +250,8 @@ def ecritureData(profondeur):
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = tfidf_and_count(vecteur,question,item)
-    proxi(tfidf)
-    #On elague larbre ternaire en arbre binaire
+    exemples(tfidf)
+    """"#On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
     ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
@@ -256,7 +263,7 @@ def ecritureData(profondeur):
     
     ecriture.write(ecrireFinal)
     ecriture.write(" } \n };")
-    ecriture.close
+    ecriture.close"""
 
 if __name__ == '__main__':
     if (len(sys.argv) == 2):
