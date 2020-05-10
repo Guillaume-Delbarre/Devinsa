@@ -220,17 +220,15 @@ function valider_select(){
     for(let i = 0; i<data.length; i++){
       ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
 	}
-	  	$('#listQusetion tbody').on('click', 'tr', function () {
-		var name = table.row(this).data()[0];
-		if (selection1.length != 0){
-			socket.emit("getallpersreponses", {qname: name, names: selection1});
-		}
-    });
   })
 }
 
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
+	$('#listQusetion tbody').on('click', 'tr', function () {
+        var data = ta.row( this ).data();
+        alert( 'You clicked on '+data[0]+'\'s row' );
+    });
 });
 
 function return_selection(){
