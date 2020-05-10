@@ -151,7 +151,10 @@ def distEuclidienne(tfidf,moyen):
     return dist
 
 def distScalaire(tfidf,moyen):
-    print(np.dot(tfidf[:,:],moyen))
+    dist = np.dot(tfidf[:,:],moyen))
+    print(dist.shape[0])
+    print(typeof(dist))
+    return dist
 
 def exemples(tfidf):
     moyen = np.mean(tfidf,0)
