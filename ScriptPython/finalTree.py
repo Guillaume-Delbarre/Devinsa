@@ -107,7 +107,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         perso_median = ""
         #On met en forme pour le JS/JSON
         if listeperso == [-1]:
-            perso_median = "perso : 'Aucun personnage n'ayant joué suffisamment de parties',"
+            perso_median = "perso : 'Aucun personnage n\'ayant joué suffisamment de parties',"
         else:
             for i in range(len(listeperso)):
                     perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
