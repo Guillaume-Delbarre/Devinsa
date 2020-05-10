@@ -225,7 +225,7 @@ function valider_select(){
 
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
-	$('#listQusetion').on('click', 'tr', function () {
+	$('#listQusetion tbody').on('click', 'tr', function () {
 		var name = table.row(this).data()[0];
 		if (selection1.length != 0){
 			socket.emit("getallpersreponses", {qname: name, names: selection1});
