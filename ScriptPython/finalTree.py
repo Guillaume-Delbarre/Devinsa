@@ -106,8 +106,11 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
-        for i in range(len(listeperso)):
-                perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
+        if listeperso == [-1]:
+            perso_median = "perso : 'Aucun personnage n'ayant joué suffisamment de parties',"
+        else:
+            for i in range(len(listeperso)):
+                    perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
         
@@ -165,7 +168,7 @@ def supprPersoInutile(count,tfidf):
 def exemples(count,tfidf):
     tfidf = supprPersoInutile(count,tfidf)
     if tfidf.shape[0]==0:
-        return ["Aucun personnage n'ayant plus du nombre de parties requises jouées"]
+        return [-1]
     moyen = np.mean(tfidf,0)
     dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
