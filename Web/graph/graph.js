@@ -226,8 +226,10 @@ function valider_select(){
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion tbody').on('click', 'tr', function () {
-        var data = ta.row( this ).data();
-        alert( 'You clicked on '+data[0]+'\'s row' );
+        var name = ta.row( this ).data()[0];
+		if (selection1 != []){
+			socket.emit("getallpersreponses", {qname: name, names: selection1});
+		}
     });
 });
 
