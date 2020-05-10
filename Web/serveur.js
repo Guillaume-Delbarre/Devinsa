@@ -35,7 +35,7 @@ connection.connect(function(err) {
 	if (err) throw err;
 });
 
-//Jsp truc bizarre
+//Autres
 var bodyParser = require('body-parser');
 var path = require('path');
 
