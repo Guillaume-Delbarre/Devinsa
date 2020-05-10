@@ -156,10 +156,9 @@ def distScalaire(perso,moyen):
 
 def supprPersoInutile(count,tfidf):
     nbJoue = np.sum(count,1)
-    print(nbJoue.shape)
     index_remove = []
     for i in range(nbJoue.shape[0]):
-        if nbJoue[i]<40:
+        if nbJoue[i]<20:
             index_remove.append(i)
     return np.delete(tfidf,index_remove,0)
 
