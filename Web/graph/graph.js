@@ -228,7 +228,7 @@ $(document).ready( function () {
 	$('#listQusetion').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
     });
-	ta.off('select', function ( e, dt, type, indexes ) {
+	ta.off("select").on('select', function ( e, dt, type, indexes ) {
 		alert("ici");
 		if (type === 'row') {
 			var a = ta.rows(indexes).data();
