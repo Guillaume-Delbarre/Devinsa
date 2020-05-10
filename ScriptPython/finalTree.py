@@ -262,7 +262,7 @@ def ecritureData(profondeur):
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = tfidf_and_count(vecteur,question,item)
-    exemples(tfidf)
+    exemples(count,tfidf)
     #On elague larbre ternaire en arbre binaire
     """app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -274,7 +274,7 @@ def ecritureData(profondeur):
                         "nodeStructure : {")
     
     ecriture.write(ecrireFinal)
-    ecriture.write(" } \n };")
+    ecriture.write(" }};")
     ecriture.close"""
 
 if __name__ == '__main__':
