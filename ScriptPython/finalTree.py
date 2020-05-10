@@ -155,7 +155,7 @@ def distScalaire(tfidf,moyen):
 
 def exemples(tfidf):
     moyen = np.mean(tfidf,0)
-    dist = distEuclidienne(tfidf,moyen)
+    dist = distScalaire(tfidf,moyen)
     taille = dist.shape[0]
     if taille == 1:
         return [0]
@@ -269,7 +269,7 @@ if __name__ == '__main__':
     if (len(sys.argv) == 2):
         ecritureData(sys.argv[1])
     else:
-        print("Error")
+        print("Erreur : Aucune profondeur précisée")
     print("end")
 
     
