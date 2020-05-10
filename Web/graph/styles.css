@@ -21,6 +21,19 @@
   fill-opacity: 0.8;
 }
 
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  height: 35px;
+  padding: 2px;
+  font: 11px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
 .graph {
   stroke: black;
   text-align: center;
