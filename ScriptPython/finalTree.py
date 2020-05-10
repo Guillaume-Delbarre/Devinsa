@@ -102,7 +102,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = exemples(tfidf)
+        listeperso = exemples(count)
         listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
@@ -145,18 +145,18 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "\n } \n]"
         return ecrire
 
-def distEuclidienne(tfidf,moyen):
-    dist = (tfidf-moyen)**2
+def distEuclidienne(perso,moyen):
+    dist = (perso-moyen)**2
     dist = np.sum(dist,1)
     return dist
 
-def distScalaire(tfidf,moyen):
-    dist = np.dot(tfidf[:,:],moyen)
+def distScalaire(perso,moyen):
+    dist = np.dot(perso[:,:],moyen)
     return dist
 
-def exemples(tfidf):
-    moyen = np.mean(tfidf,0)
-    dist = distScalaire(tfidf,moyen)
+def exemples(perso):
+    moyen = np.mean(perso,0)
+    dist = distScalaire(perso,moyen)
     taille = dist.shape[0]
     if taille == 1:
         return [0]
