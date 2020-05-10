@@ -228,10 +228,10 @@ $(document).ready( function () {
 	$('#listQusetion').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
     });
-	ta.on( 'select', function ( e, dt, type, indexes ) {
+	ta.on('select', function ( e, dt, type, indexes ) {
+		alert("ici");
 		if (type === 'row') {
 			var a = ta.rows(indexes).data();
-			alert("ici");
 			if (selection1.length != 0){
 				socket.emit("getallpersreponses", {qname: a[0][0], names: selection1});
 				alert(a[0][0]);
