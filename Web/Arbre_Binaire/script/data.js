@@ -3,7 +3,7 @@ connectors: { type: 'step' },
  node: { HTMLclass: 'nodeExample1' },
  animation: { nodeAnimation: "easeOutBounce", nodeSpeed: 700,connectorsAnimation: "bounce", connectorsSpeed: 700 }},
 nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : true, children : [
-{text: { name: '1078 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abdülhamid II (sultan ottoman)', desc : 'Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
+{text: { name: '1078 personnage(s)',perso1 : 'Abigail Marston ',perso2 : ' Samir Loussif ',perso3 : 'A rien lol', desc : 'Ton personnage est-il français ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '737 personnage(s)',perso1 : 'Abigail Marston ',perso2 : ' Samir Loussif ',perso3 : 'A rien lol', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '411 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il un écrivain ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '348 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage a-t-il un prénom hors du commun ?'},HTMLclass :'light-green',collapsed : true, children : [
@@ -41,7 +41,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
  } 
 ]
 }, 
- {text: { name: '665 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abdülhamid II (sultan ottoman)', desc : 'Ton personnage est-il américain ?'},HTMLclass :'light-red',collapsed : true, children : [
+ {text: { name: '665 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il américain ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text: { name: '458 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il acteur/actrice ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '383 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage a-t-il plus de 35 ans ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '374 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
@@ -59,7 +59,7 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
  } 
 ]
 }, 
- {text: { name: '549 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abdülhamid II (sultan ottoman)', desc : 'Ton personnage est-il anglais ?'},HTMLclass :'light-red',collapsed : true, children : [
+ {text: { name: '549 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il anglais ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text: { name: '391 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il acteur/actrice ?'},HTMLclass :'light-green',collapsed : true, children : [
 {text: { name: '340 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
@@ -67,10 +67,10 @@ nodeStructure : {text: { name: 'Ton personnage est-il réel ?' }, collapsed : tr
  } 
 ]
 }, 
- {text: { name: '500 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abdülhamid II (sultan ottoman)', desc : 'La célébrité de ton personnage est-elle en rapport avec le monde du football ?'},HTMLclass :'light-red',collapsed : true, children : [
+ {text: { name: '500 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'La célébrité de ton personnage est-elle en rapport avec le monde du football ?'},HTMLclass :'light-red',collapsed : true, children : [
 {text: { name: '432 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-green',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
 }, 
- {text: { name: '487 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abdülhamid II (sultan ottoman)', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
+ {text: { name: '487 personnage(s)',perso1 : ' Samir Loussif ',perso2 : 'A rien lol',perso3 : 'Abigail Marston ', desc : 'Ton personnage est-il décédé ?'},HTMLclass :'light-red',collapsed : true, children : [{text : {name : 'Fin'}, collapsed: true}]
  } 
 ]
  } 
