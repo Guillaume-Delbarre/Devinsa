@@ -127,11 +127,11 @@ function attr_clust_select2(){
 }
 
 function nombrePersoSelect1() {
-  document.getElementById('nombrePersoSelect1') = "salut mec"
+  document.getElementById('nombrePersoSelect1').innerHTML = "salut mec"
 }
 
 function nombrePersoSelect2() {
-  document.getElementById('nombrePersoSelect2') = "salut mec"
+  document.getElementById('nombrePersoSelect2').innerHTML = "salut mec"
 }
 
 function aff_nom_select1(){
@@ -158,29 +158,6 @@ function affiche_nom(){
   }
 }
 
-function valider_cluster(){
-  selection2 = return_selection();
-  if(selection2.length != 1){
-    document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un unique personnage <p>"
-  } else {
-    console.log("Selection de cluster")
-    nomSel = selection_to_nom(selection);
-    console.log(nomSel)
-    console.log(selection2[0].Cluster)
-    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: selection2[0].Cluster}));
-    setTimeout(function(){ 
-      d3.csv("differences.csv", function(data) {
-        //console.log(data)
-        var t = $('#listQusetion').DataTable();
-        t.clear().draw();
-        for(let i = 0; i<data.length; i++){
-          t.row.add([data[i].Question, data[i].Différences]).draw(false);
-        }
-      })
-    }, 3000);
-  }
-}
-
 var nomSel = [];
 var nomSel2 = [];
 
@@ -191,12 +168,14 @@ function valider_select(){
   //console.log(nomSel2)
   //retourTableau = fontionListe();
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
-  d3.csv("differences.csv", function(data) {
-    ta.clear().draw();
-    for(let i = 0; i<data.length; i++){
-      ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
-	}
-  })
+  setTimeout(function(){ 
+    d3.csv("differences.csv", function(data) {
+      ta.clear().draw();
+      for(let i = 0; i<data.length; i++){
+        ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
+      }
+    })
+  }, 3000);
 }
 
 $(document).ready( function () {
