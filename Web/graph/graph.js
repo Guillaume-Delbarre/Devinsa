@@ -141,9 +141,7 @@ function nombrePersoSelect2() {
 function ecrireSelection(liste) {
   ret = "Le nom des personnages séléctionnés : \n";
   console.log(liste)
-  for (var per in liste) {
-    ret = ret.concat("-",per,"\n");
-  }
+  liste.forEach(element => ret = ret.concat("-",element,"\n"));
   return ret;
 }
 
