@@ -185,6 +185,8 @@ $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion tbody').on('click', 'tr', function () {
         var name = ta.row( this ).data()[0];
+		question = getElementById("tags1");
+		question.value = name;
 		questiontitle = name;
 		if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: name, names: selection1});
