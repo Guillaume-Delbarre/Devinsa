@@ -127,11 +127,11 @@ function attr_clust_select2(){
 }
 
 function nombrePersoSelect1() {
-  document.getElementById('nombrePersoSelect1').innerHTML = "longueur de la sélection 1 : " + selection1.length;
+  document.getElementById('nombrePersoSelect1').innerHTML = "Nombre de personnages : " + selection1.length;
 }
 
 function nombrePersoSelect2() {
-  document.getElementById('nombrePersoSelect2').innerHTML = "longueur de la sélection 2 : " + selection2.length;
+  document.getElementById('nombrePersoSelect2').innerHTML = "Nombre de personnages : " + selection2.length;
 }
 
 function aff_nom_select1(){
@@ -168,7 +168,7 @@ function valider_select(){
   //console.log(nomSel2)
   //retourTableau = fontionListe();
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
-  setTimeout(function(){ 
+  setTimeout(function(){
     d3.csv("differences.csv", function(data) {
       ta.clear().draw();
       for(let i = 0; i<data.length; i++){
@@ -313,7 +313,7 @@ d3.csv("resPCA.csv", function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
-  
+
   nomsTitre = svg.selectAll(".titrePerso")
     .data(data)
     .enter().append('text')
