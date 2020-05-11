@@ -101,6 +101,7 @@ function attr_clust_select1(){
          selection1.push(d.Name);
       }
     });
+    nombrePersoSelect1();
     clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
@@ -122,6 +123,7 @@ function attr_clust_select2(){
          selection2.push(d.Name);
       }
     });
+    nombrePersoSelect2();
     clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
