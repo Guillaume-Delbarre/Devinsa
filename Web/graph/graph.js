@@ -178,7 +178,7 @@ function valider_select(){
         ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
       }
     })
-  }, 1500);
+  }, 2000);
 }
 
 $(document).ready( function () {
