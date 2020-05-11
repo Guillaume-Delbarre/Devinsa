@@ -95,12 +95,13 @@ function attr_clust_select1(){
     }
   });
   if (i<2) {
+    selection1 = [];
     node.each(function(d) {
       if (d.Cluster == clust) {
          selection1.push(d.Name);
       }
     });
-    attr_select1();
+    clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
@@ -115,12 +116,13 @@ function attr_clust_select2(){
     }
   });
   if (i<2) {
+    selection2 = [];
     node.each(function(d) {
       if (d.Cluster == clust) {
          selection2.push(d.Name);
       }
     });
-    attr_select2();
+    clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
