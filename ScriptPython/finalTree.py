@@ -102,12 +102,15 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = proxi(tfidf)
+        listeperso = exemples(count,tfidf)
         listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
-        for i in range(len(listeperso)):
-                perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
+        if listeperso == [-1]:
+            perso_median = "perso1 : 'Aucun personnage avec suffisamment de parties jouées',"
+        else:
+            for i in range(len(listeperso)):
+                    perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
         
@@ -145,29 +148,41 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         ecrire += "\n } \n]"
         return ecrire
 
-def proxi(tfidf):
-    moyen = np.mean(tfidf,0)
-    dist = (tfidf-moyen)**2
+def distEuclidienne(perso,moyen):
+    dist = (perso-moyen)**2
     dist = np.sum(dist,1)
+    return dist
+
+def distScalaire(perso,moyen):
+    dist = np.dot(perso-moyen,moyen)
+    return dist
+
+def supprPersoInutile(count,tfidf):
+    nbJoue = np.sum(count,1)
+    index_remove = []
+    for i in range(nbJoue.shape[0]):
+        if nbJoue[i]<101:
+            index_remove.append(i)
+    return np.delete(tfidf,index_remove,0)
+
+def exemples(count,tfidf):
+    tfidf = supprPersoInutile(count,tfidf)
+    if tfidf.shape[0]==0:
+        return [-1]
+    moyen = np.mean(tfidf,0)
+    dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
-    if taille == 1:
-        return [0]
-    elif taille == 2:
-        return[0,1]
-    elif taille == 3:
-        return [0,1,2]
-    else:
-        res = []
-        for compteur in range(3):
-            minimum = np.amin(dist)
-            for i in range(taille):
-                if dist[i]==minimum:
-                    res.append(i)
-                    dist[i] = np.amax(dist)
-                #Limite si trop de distance minimale égale
-                if len(res)==3:
-                    return res
-        return res
+    res = []
+    for compteur in range(3):
+        minimum = np.amin(dist)
+        for i in range(taille):
+            if dist[i]==minimum:
+                res.append(i)
+                dist[i] = np.amax(dist)
+            #Limite si trop de distance minimale égale
+            if len(res)==3:
+                return res
+    return res
             
 
 #Fonction permettant de créer l'arbre binaire
@@ -243,7 +258,6 @@ def ecritureData(profondeur):
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = tfidf_and_count(vecteur,question,item)
-    proxi(tfidf)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
@@ -255,14 +269,14 @@ def ecritureData(profondeur):
                         "nodeStructure : {")
     
     ecriture.write(ecrireFinal)
-    ecriture.write(" } \n };")
+    ecriture.write(" }};")
     ecriture.close
 
 if __name__ == '__main__':
     if (len(sys.argv) == 2):
         ecritureData(sys.argv[1])
     else:
-        print("Error")
+        print("Erreur : Aucune profondeur précisée")
     print("end")
 
     

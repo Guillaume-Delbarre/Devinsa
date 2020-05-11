@@ -50,6 +50,7 @@ function attr_select1(){
     }
   });
   clear_selection();
+  nombrePersoSelect1();
 }
 
 function attr_select2(){
@@ -60,6 +61,7 @@ function attr_select2(){
     }
   });
   clear_selection();
+  nombrePersoSelect2();
 }
 
 function aff_select1(){
@@ -93,12 +95,14 @@ function attr_clust_select1(){
     }
   });
   if (i<2) {
+    selection1 = [];
     node.each(function(d) {
       if (d.Cluster == clust) {
          selection1.push(d.Name);
       }
     });
-    attr_select1();
+    nombrePersoSelect1();
+    clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
@@ -113,25 +117,39 @@ function attr_clust_select2(){
     }
   });
   if (i<2) {
+    selection2 = [];
     node.each(function(d) {
       if (d.Cluster == clust) {
          selection2.push(d.Name);
       }
     });
-    attr_select2();
+    nombrePersoSelect2();
+    clear_selection();
   } else {
     window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
 }
 
+function nombrePersoSelect1() {
+  document.getElementById('nombrePersoSelect1').innerHTML = "Nombre de personnages : " + selection1.length;
+}
+
+function nombrePersoSelect2() {
+  document.getElementById('nombrePersoSelect2').innerHTML = "Nombre de personnages : " + selection2.length;
+}
+
+function ecrireSelection(liste) {
+  ret = "Le nom des personnages séléctionnés : \n";
+  liste.forEach(element => ret = ret.concat("-",element,"\n"));
+  return ret;
+}
+
 function aff_nom_select1(){
-  //window.alert(selection1)
-  console.log(selection1)
+  window.alert(ecrireSelection(selection1))
 }
 
 function aff_nom_select2(){
-  //window.alert(selection2)
-  console.log(selection2)
+  window.alert(ecrireSelection(selection2))
 }
 
 
@@ -148,85 +166,27 @@ function affiche_nom(){
   }
 }
 
-function selection_to_nom(objSelect){
-  var ret = [];
-  for(var i=0;i<objSelect.length;i++){
-    ret.push(objSelect[i].Name)
-  }
-  return ret;
-}
-
-function annuler_selection(){
-  console.log('annuler')
-  clear_selection();
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"get_selection();\" value=\"Appliquer la selection\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_clust();\" value=\"Comparer la sélection à un groupe\">"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"comp_selection_select();\" value=\"Comparer la sélection à une autre sélection\">"
-}
-
-function comp_selection_clust(){
-  selection = return_selection();
-  clear_selection();
-  console.log('select clust')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un personnage pour connaitre son cluster <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_cluster();\" value=\"Valider\">"
-}
-
-function valider_cluster(){
-  selection2 = return_selection();
-  if(selection2.length != 1){
-    document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Sélectionnez un unique personnage <p>"
-  } else {
-    console.log("Selection de cluster")
-    nomSel = selection_to_nom(selection);
-    console.log(nomSel)
-    console.log(selection2[0].Cluster)
-    socket.emit('ecrirequestiondiff', ({liste1: nomSel, liste2: selection2[0].Cluster}));
-    setTimeout(function(){ 
-      d3.csv("differences.csv", function(data) {
-        //console.log(data)
-        var t = $('#listQusetion').DataTable();
-        t.clear().draw();
-        for(let i = 0; i<data.length; i++){
-          t.row.add([data[i].Question, data[i].Différences]).draw(false);
-        }
-      })
-    }, 3000);
-  }
-}
-
-function comp_selection_select(){
-  selection = return_selection();
-  clear_selection();
-  console.log('select select')
-  document.getElementById("tabButton").rows[0].cells[0].innerHTML = "<input type=\"button\" onclick=\"annuler_selection();\" value=\"Annuler\">"
-  document.getElementById("tabButton").rows[1].cells[0].innerHTML = "<p> Faites une autre sélection <p>"
-  document.getElementById("tabButton").rows[2].cells[0].innerHTML = "<input type=\"button\" onclick=\"valider_select();\" value=\"Valider\">"
-}
-
 var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
-  //nomSel = selection_to_nom(selection1);
-  //nomSel2 = selection_to_nom(selection2);
-  //console.log(nomSel)
-  //console.log(nomSel2)
-  //retourTableau = fontionListe();
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
-  d3.csv("differences.csv", function(data) {
-    ta.clear().draw();
-    for(let i = 0; i<data.length; i++){
-      ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
-	}
-  })
+  setTimeout(function(){
+    d3.csv("differences.csv", function(data) {
+      ta.clear().draw();
+      for(let i = 0; i<data.length; i++){
+        ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
+      }
+    })
+  }, 2000);
 }
 
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
 	$('#listQusetion tbody').on('click', 'tr', function () {
         var name = ta.row( this ).data()[0];
+		question = getElementById("tags1");
+		question.value = name;
 		questiontitle = name;
 		if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: name, names: selection1});
@@ -337,13 +297,7 @@ d3.csv("resPCA.csv", function(error, data) {
     .attr("cy", function(d) { return y(d.Axe_Y); })
     .style("fill", function(d) { return color(d.Cluster); })
     .on("mousedown", function(d) {
-      if (shiftKey) {
         d3.select(this).classed("selected", d.selected = !d.selected);
-      } else {
-        node.classed("selected", function(p) {
-          return p.selected = d === p;
-        });
-      }
     })
     .on("mouseover", function(d) {
       div.transition()
@@ -358,7 +312,7 @@ d3.csv("resPCA.csv", function(error, data) {
           .duration(500)
           .style("opacity", 0);
     });
-  
+
   nomsTitre = svg.selectAll(".titrePerso")
     .data(data)
     .enter().append('text')

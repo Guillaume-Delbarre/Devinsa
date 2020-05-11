@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
   <body>
-    <header>
+    <div class="titre">
       <table height=1>
         <th>
           <p><a class="menu_item" href="http://devinsa.insa-rennes.fr"><img src="imgdevinsa.jpg" title='Cliquez pour jouer' /></a>
@@ -21,19 +21,10 @@
           </form>
 
         </th>
-        <th>
-            <div class="ui-widget">
-                <label for="tag1">Entrez le nombre de profondeur à extraire de l'arbre</label>
-                <input id="tag1">
-                <input type="button" value="Valider" id="actualiserarbre" classe="b" title="Actualisation de l'arbre - Environ 1 minute" onclick="getValue()">
-            </div>
-        </th>
-
       </table>
-    </header>
+    </div>
 
     <div class="chart" id="tree"></div>
-    <script src="script/arbre.js"></script>
     <script src="vendor/raphael.js"></script>
     <script src="script/Treant.js"></script>
 

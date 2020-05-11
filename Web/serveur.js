@@ -35,7 +35,7 @@ connection.connect(function(err) {
 	if (err) throw err;
 });
 
-//Jsp truc bizarre
+//Autres
 var bodyParser = require('body-parser');
 var path = require('path');
 
@@ -87,7 +87,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
 		if (scripting == 0){
 			scripting = 1;
-			lancerScriptQuestions(["differences.py"], liste1, liste2);
+			lancerscript(["differences.py"], [liste1, liste2]);
 		}
 	});
 
@@ -329,21 +329,6 @@ io.sockets.on('connection', function (socket) {
 				console.log(nom + " : Echec de l'execution");
 			}else{
 				//console.log(nom + ' fini');
-				scripting = 0;
-			}
-		});
-	}
-
-	function lancerScriptQuestions(nom, liste1, liste2){
-		console.log(nom + " : Script lancé");
-		path = "../ScriptPython/".concat(nom);
-		let options = {args: [liste1, liste2]};
-		PythonShell.run(path, options, function (err) {
-			if (err) {
-				console.log(err)
-				console.log(nom + " : Echec de l'execution");
-			}else{
-				console.log(nom + ' fini');
 				scripting = 0;
 			}
 		});
