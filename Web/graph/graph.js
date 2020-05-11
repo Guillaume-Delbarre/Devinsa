@@ -138,14 +138,22 @@ function nombrePersoSelect2() {
   document.getElementById('nombrePersoSelect2').innerHTML = "Nombre de personnages : " + selection2.length;
 }
 
+function ecrireSelection(liste) {
+  ret = "Le nom des personnages séléctionnés : \n";
+  for (var per in liste) {
+    ret = ret.concat("-",per,"\n");
+  }
+  return ret;
+}
+
 function aff_nom_select1(){
-  //window.alert(selection1)
-  console.log(selection1)
+  window.alert(ecrireSelection(selection1))
+  //console.log(selection1)
 }
 
 function aff_nom_select2(){
-  //window.alert(selection2)
-  console.log(selection2)
+  window.alert(ecrireSelection(selection2))
+  //console.log(selection2)
 }
 
 
@@ -166,11 +174,6 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
-  //nomSel = selection_to_nom(selection1);
-  //nomSel2 = selection_to_nom(selection2);
-  //console.log(nomSel)
-  //console.log(nomSel2)
-  //retourTableau = fontionListe();
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
   setTimeout(function(){
     d3.csv("differences.csv", function(data) {
@@ -179,7 +182,7 @@ function valider_select(){
         ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
       }
     })
-  }, 3000);
+  }, 1500);
 }
 
 $(document).ready( function () {
@@ -296,13 +299,7 @@ d3.csv("resPCA.csv", function(error, data) {
     .attr("cy", function(d) { return y(d.Axe_Y); })
     .style("fill", function(d) { return color(d.Cluster); })
     .on("mousedown", function(d) {
-      if (shiftKey) {
         d3.select(this).classed("selected", d.selected = !d.selected);
-      } else {
-        node.classed("selected", function(p) {
-          return p.selected = d === p;
-        });
-      }
     })
     .on("mouseover", function(d) {
       div.transition()
