@@ -140,19 +140,16 @@ function nombrePersoSelect2() {
 
 function ecrireSelection(liste) {
   ret = "Le nom des personnages séléctionnés : \n";
-  console.log(liste)
   liste.forEach(element => ret = ret.concat("-",element,"\n"));
   return ret;
 }
 
 function aff_nom_select1(){
   window.alert(ecrireSelection(selection1))
-  //console.log(selection1)
 }
 
 function aff_nom_select2(){
   window.alert(ecrireSelection(selection2))
-  //console.log(selection2)
 }
 
 
