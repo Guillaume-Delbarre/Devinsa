@@ -1,21 +1,21 @@
 ,Question,Selection1,Selection2,dif
-0,Ton personnage fait-il de la politique ?,4.04,-2.86,-6.9
-1,Ton personnage a-t-il un rapport avec le milieu du sport ?,-5.06,0.64,5.7
-2,Ton personnage est-il dans le domaine de la musique ?,-5.72,-0.17,5.54
-3,Ton personnage est-il anglais ?,-4.5,-0.2,4.3
-4,Ton personnage vit-il dans un monde imaginaire ?,-5.9,-1.69,4.21
-5,As-tu déjà vécu avec ton personnage ?,-4.04,0.0,4.04
-6,Ton personnage est-il célèbre  ?,4.2,0.21,-4.0
-7,Est-ce que ton personnage a une apparence animale ?,-3.8,-0.19,3.61
-8,Ton personnage est-il portugais ?,-3.45,0.0,3.45
-9,Ton personnage a-t-il des cheveux ?,3.56,0.21,-3.35
-10,Ton personnage est-il un réalisateur de films ?,-3.22,0.0,3.22
-11,Ton personnage est-il américain ?,-3.35,-0.2,3.15
-12,Ton personnage est-il un garçon ?,3.34,0.2,-3.13
-13,Ton personnage a-t-il joué dans Stargate ?,-3.1,0.0,3.1
-14,Ton personnage a-t-il découvert une loi de la physique ?,-3.09,0.0,3.09
-15,Ton personnage est-il ridicule ?,-3.08,0.0,3.08
-16,Ton personnage est-il un personnage de western ?,-3.06,0.0,3.06
-17,Votre personnage a -t-il la peau noire ?,-3.05,0.0,3.05
-18,Ton personnage possède-t-il des armes ?,2.95,0.0,-2.95
-19,Ton personnage est-il réel ?,6.74,3.82,-2.92
+0,Ton personnage est-il célèbre  ?,-4.92,4.92,9.84
+1,Ton personnage est-il français ?,-4.0,5.56,9.56
+2,Ton personnage est-il dans le domaine de la musique ?,-4.18,5.02,9.21
+3,Ton personnage est-il un garçon ?,-3.03,4.85,7.88
+4,Ton personnage a-t-il plus de 35 ans ?,-5.17,0.0,5.17
+5,Ton personnage a-t-il été roi ?,0.0,-5.03,-5.03
+6,Ton personnage est-il un tueur ?,-4.94,0.0,4.94
+7,Est-ce que ton personnage est un animal ?,4.24,0.0,-4.24
+8,Ton personnage a-t-il des yeux ?,4.16,0.0,-4.16
+9,Ton personnage est-il américain ?,-4.02,0.0,4.02
+10,Ton personnage voyage-t-il beaucoup ?,0.0,3.69,3.69
+11,Ton personnage est-il ridicule ?,-3.49,0.0,3.49
+12,Ton personnage porte-t-il des chaussures ?,-3.15,0.0,3.15
+13,Ton personnage possède-t-il des armes ?,0.0,-3.02,-3.02
+14,Ton personnage est-il devenu connu grâce à Internet ?,0.0,-3.01,-3.01
+15,Ton personnage est-il un homme (ou une femme) politique ?,-2.84,0.0,2.84
+16,Ton personnage est-il une fille ?,-2.82,0.0,2.82
+17,Ton personnage est-il japonais ?,0.0,-2.77,-2.77
+18,La célébrité de ton personnage est-elle en rapport avec le monde du football ?,-2.76,0.0,2.76
+19,Ton personnage est-il masculin ?,0.0,2.74,2.74
