@@ -100,18 +100,18 @@
 				  </td>
 				  <td>
             <p><b>Sélections </b></p>
-            <i>Réaliser votre sélection sur le graphique avant de l'attribuer sur l'un des boutons ci-dessous</i>
+            <i>Réaliser votre sélection sur le graphique avant de l'attribuer en cliquant sur l'un des boutons ci-dessous</i>
             <br>
             <p>Sélection 1 :</p>
-  					<input type="button" onclick="attr_select1();" value="Liste de personnages">
+  					<input type="button" onclick="attr_select1();" value="Liste de personnages" title="Attribuer les personnages sélectionnés à la sélection 1">
   					<br>
-  					<input type="button" onclick="attr_clust_select1();" value="Cluster">
+  					<input type="button" onclick="attr_clust_select1();" value="Cluster" title="Attribuer le cluster du personnage sélectionné à la sélection 1">
   					<br>
   					<br>
             <p>Sélection 2 :</p>
-            <input type="button" onclick="attr_select2();" value="Liste de personnages">
+            <input type="button" onclick="attr_select2();" value="Liste de personnages" title="Attribuer les personnages sélectionnés à la sélection 2">
   					<br>
-  					<input type="button" onclick="attr_clust_select2();" value="Cluster">
+  					<input type="button" onclick="attr_clust_select2();" value="Cluster" title="Attribuer le cluster du personnage sélectionné à la sélection 2">
 				  </td>
 			  </tr>
 		  </table>
@@ -130,7 +130,7 @@
   							<label for="tags">Personnage : </label>
   							<input id="tags" value="">
   						</div>
-  						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de cliquer sur "Mettre à jour les paramètres"' /></p>
+  						<p>Sélection graphique  <img src="help_icon.png" title='Pour utiliser la sélection graphique, maintenez la touche shift enfoncé, sélectionnez des points et cliquez sur "appliquer la sélection". Ensuite, choisissez une question puis sélectionnez les personnages dans la liste ci-dessous avant de mettre à jour ou incrémenter le paramètre souhaité' /></p>
   						<div class="container" >
   							<table id="personnages" class="display" style="width:100%">
   								<thead>
@@ -156,8 +156,8 @@
   				</td>
   				<td style="margin:auto;">
   					<div class="container" id="comp">
-			  			<p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez sélectionner des personnages sur le graphique à l'aide de la touche shift et cliquer sur un des boutons à droite du graphique pour commencer la comparaison." /></p>
-						<input type="button" onclick="valider_select();" value="Comparer les deux sélection">
+			  			<p><b>Outil de comparaison  </b><img src="help_icon.png" title="Veuillez attribuer deux sélections de personnages en utilisant les boutons à droite du graphique avant commencer la comparaison." /></p>
+						<input type="button" onclick="valider_select();" value="Comparer les deux sélections">
   						<table id="listQusetion" class="display" style="width:100%">
   							<thead>
   								<tr>
