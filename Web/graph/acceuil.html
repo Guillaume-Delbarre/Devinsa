@@ -44,30 +44,33 @@
       </table>
 	  </div>
 	  <br>
+    <br>
 	  <div class="center">
 		  <table class="center">
 			  <tr style = "text-align: center;">
 				  <td>
-    			  	<input type="button" onclick="aff_select1();" value="Afficher la selection 1">
+              <p>Sélection 1 :</p>
+    			  	<input type="button" onclick="aff_select1();" value="Visualiser sur le graphique">
 				  </td>
 				  <td>
-					  <input type="button" onclick="aff_select2();" value="Afficher la selection 2">
-				  </td>
-			  </tr>
-			  <tr style = "text-align: center;">
-				  <td>
-  					<input type="button" onclick="aff_nom_select1();" value="Afficher les noms de la selection 1">
-				  </td>
-				  <td>
-  					<input type="button" onclick="aff_nom_select2();" value="Afficher les noms de la selection 2">
+            <p>Sélection 2 :</p>
+					  <input type="button" onclick="aff_select2();" value="Visualiser sur le graphique">
 				  </td>
 			  </tr>
 			  <tr style = "text-align: center;">
 				  <td>
-					<p id="nombrePersoSelect1">longueur de la sélection 1 : 0</p>
+  					<input type="button" onclick="aff_nom_select1();" value="Afficher les noms">
 				  </td>
 				  <td>
-					<p id="nombrePersoSelect2">longueur de la sélection 2 : 0</p>
+  					<input type="button" onclick="aff_nom_select2();" value="Afficher les noms">
+				  </td>
+			  </tr>
+			  <tr style = "text-align: center;">
+				  <td>
+					<p id="nombrePersoSelect1">Nombre de personnages : 0</p>
+				  </td>
+				  <td>
+					<p id="nombrePersoSelect2">Nombre de personnages : 0</p>
 				  </td>
 			  </tr>
 		  </table>
@@ -77,17 +80,17 @@
   					<table>
   						<tr style = "text-align: center;">
   							<td>
-  								<input type="button" onclick="clear_selection();" value="Deselectionner tous les personnages">
+  								<input type="button" onclick="clear_selection();" value="Désélectionner tous les personnages">
   							</td>
   						</tr>
   						<tr style = "text-align: center;">
   							<td>
-  								<input type="button" onclick="affiche_nom();" value="Afficher/Cacher Les noms">
+  								<input type="button" onclick="affiche_nom();" value="Afficher/Cacher les noms">
   							</td>
   						</tr>
   						<tr style = "text-align: center;">
   							<td>
-  								<input type="button" onclick="get_selection();" value="Modifier la selection">
+  								<input type="button" onclick="get_selection();" value="Appliquer la selection">
   							</td>
   						</tr>
   					</table>
@@ -96,14 +99,19 @@
   					<svg id="zoneGraph" class="graph" width=900 height=500></svg>
 				  </td>
 				  <td>
-					<input type="button" onclick="attr_select1();" value="Attribuer la selection 1">
-					<br>
-					<input type="button" onclick="attr_clust_select1();" value="Attribuer le cluster à la selection 1">
-					<br>
-					<br>
-					<input type="button" onclick="attr_clust_select2();" value="Attribuer le cluster à la selection 2">
-					<br>
-					<input type="button" onclick="attr_select2();" value="Attribuer la selection 2">
+            <p><b>Sélections </b></p>
+            <i>Réaliser votre sélection sur le graphique avant de l'attribuer sur l'un des boutons ci-dessous</i>
+            <br>
+            <p>Sélection 1 :</p>
+  					<input type="button" onclick="attr_select1();" value="Liste de personnages">
+  					<br>
+  					<input type="button" onclick="attr_clust_select1();" value="Cluster">
+  					<br>
+  					<br>
+            <p>Sélection 2 :</p>
+            <input type="button" onclick="attr_select2();" value="Liste de personnages">
+  					<br>
+  					<input type="button" onclick="attr_clust_select2();" value="Cluster">
 				  </td>
 			  </tr>
 		  </table>
