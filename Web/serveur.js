@@ -322,10 +322,8 @@ io.sockets.on('connection', function (socket) {
 			if (err) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
-				scripting = 0;
 			}else{
 				//console.log(nom + ' fini');
-				scripting = 0;
 			}
 		});
 	}
