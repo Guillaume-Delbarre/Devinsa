@@ -161,7 +161,7 @@ def supprPersoInutile(count,tfidf):
     nbJoue = np.sum(count,1)
     index_remove = []
     for i in range(nbJoue.shape[0]):
-        if nbJoue[i]<101:
+        if nbJoue[i]<43:
             index_remove.append(i)
     return np.delete(tfidf,index_remove,0)
 
