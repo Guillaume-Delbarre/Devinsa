@@ -169,6 +169,7 @@ io.sockets.on('connection', function (socket) {
 				if (err) {
 					console.log(err);
 					console.log(tab[0] + " : Echec de l'execution");
+					scripting = 0;
 				}else{
 					console.log(tab[0] + ' fini');
 					if (tab.length > 1){
@@ -327,6 +328,7 @@ io.sockets.on('connection', function (socket) {
 			if (err) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
+				scripting = 0;
 			}else{
 				//console.log(nom + ' fini');
 				scripting = 0;
@@ -342,6 +344,7 @@ io.sockets.on('connection', function (socket) {
 		if(fileSizeInBytes1 < 1000 || fileSizeInBytes2 < 1000){
 			socket.emit("message","Fichiers de base non créés, veuillez lancer la première partie");
 			//console.log("Fichiers non écrits");
+			scripting = 0;
 			return 0;
 		}
 		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
