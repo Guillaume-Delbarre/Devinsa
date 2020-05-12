@@ -70,10 +70,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('creerarbre', ({profondeur}) => {
-		if (scripting == 0){
-			scripting = 1;
-			creerarbre(profondeur,["apptree.py"]);
-		}
+		creerarbre(profondeur,["apptree.py"]);
 	});
 
 	// LANCER SCRIPTS
@@ -85,10 +82,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		if (scripting == 0){
-			scripting = 1;
-			lancerscript(["differences.py"], [liste1, liste2]);
-		}
+		lancerscript(["differences.py"], [liste1, liste2]);
 	});
 
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
@@ -181,7 +175,7 @@ io.sockets.on('connection', function (socket) {
 					console.log("Scripts finis");
 					scripting = 0;
 				}
-			}, 1000);
+			}, 0000);
 		});
 	}
 	// Fonction Lecture Base / Ecriture fichier
