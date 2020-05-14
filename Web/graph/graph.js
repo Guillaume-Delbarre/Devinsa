@@ -194,32 +194,6 @@ $(document).ready( function () {
     });
 });
 
-function return_selection(){
-  ret = [];
-  node.each(function(d) {
-    if (d.selected) {
-       ret.push(d);
-    }
-  });
-  return ret;
-}
-
-function get_selection(){
-  selection = [];
-  node.each(function(d) {
-    if (d.selected) {
-       selection.push(d);
-    }
-  });
-  var nomsPerso = []
-  nomSelectionne = []
-  for(i=0;i<selection.length;i++){
-    nomsPerso.push([selection[i].Name,selection[i].Cluster])
-    nomSelectionne.push(selection[i].Name)
-  }
-  console.log(nomSelectionne)
-}
-
 function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
 }
