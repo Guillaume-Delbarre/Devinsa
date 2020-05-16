@@ -170,16 +170,17 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
+  ta.clear().draw();
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
-  setTimeout(function(){
-    d3.csv("differences.csv", function(data) {
-      ta.clear().draw();
-      for(let i = 0; i<data.length; i++){
-        ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
-      }
-    })
-  }, 2000);
 }
+
+socket.on('finComparaison', function() {
+  d3.csv("differences.csv", function(data) {
+    for(let i = 0; i<data.length; i++){
+      ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
+    }
+  })
+})
 
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();

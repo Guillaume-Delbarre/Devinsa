@@ -82,7 +82,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		lancerscript(["differences.py"], [liste1, liste2]);
+		let ret = lancerscript(["differences.py"], [liste1, liste2]);
 	});
 
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
@@ -314,7 +314,22 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 
-	function lancerscript(nom, optionsligne){
+	//lancerscript(["differences.py"], [liste1, liste2]);
+
+	function lancerscript(nom,optionsligne){
+		let options = {
+			args: optionsligne
+		};
+		path = "../ScriptPython/".concat(nom);
+
+		PythonShell.run(path,options, function (err, results) {
+			if (err) {
+				console.log(err)
+			}
+			socket.emit('finComparaison');
+		})
+	}
+	/*function lancerscript(nom, optionsligne){
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
 		let options = {args: optionsligne};
@@ -326,7 +341,7 @@ io.sockets.on('connection', function (socket) {
 				//console.log(nom + ' fini');
 			}
 		});
-	}
+	}*/
 
 	function lancercalculs(nbcluster, nbquestions){
 		var stats1 = fs.statSync("../Donnees/Vecteur.csv");
