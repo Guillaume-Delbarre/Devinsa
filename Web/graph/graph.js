@@ -171,10 +171,13 @@ var nomSel2 = [];
 
 function valider_select(){
   ta.clear().draw();
+  console.log("avant emit");
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
+  console.log("apres emit");
 }
 
 socket.on('finComparaison', function() {
+  console.log('recup socket');
   d3.csv("differences.csv", function(data) {
     for(let i = 0; i<data.length; i++){
       ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);

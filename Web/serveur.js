@@ -321,6 +321,8 @@ io.sockets.on('connection', function (socket) {
 			args: optionsligne
 		};
 		path = "../ScriptPython/".concat(nom);
+		
+		console.log("lancement script")
 
 		PythonShell.run(path,options, function (err, results) {
 			if (err) {
