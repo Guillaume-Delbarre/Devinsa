@@ -315,7 +315,7 @@ io.sockets.on('connection', function (socket) {
 	}
 
 	//lancerscript(["differences.py"], [liste1, liste2]);
-
+/*
 	function lancerscript(nom,optionsligne){
 		let options = {
 			args: optionsligne
@@ -331,7 +331,8 @@ io.sockets.on('connection', function (socket) {
 			socket.emit('finComparaison');
 		})
 	}
-	/*function lancerscript(nom, optionsligne){
+	*/
+	function lancerscript(nom, optionsligne){
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
 		let options = {args: optionsligne};
@@ -341,9 +342,10 @@ io.sockets.on('connection', function (socket) {
 				console.log(nom + " : Echec de l'execution");
 			}else{
 				//console.log(nom + ' fini');
+				socket.emit('finComparaison');
 			}
 		});
-	}*/
+	}
 
 	function lancercalculs(nbcluster, nbquestions){
 		var stats1 = fs.statSync("../Donnees/Vecteur.csv");
