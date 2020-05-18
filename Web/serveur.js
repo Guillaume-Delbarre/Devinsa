@@ -344,6 +344,7 @@ io.sockets.on('connection', function (socket) {
 			}else{
 				console.log(nom + ' fini');
 				socket.emit('finComparaison');
+				console.log("ici");
 			}
 		});
 	}
