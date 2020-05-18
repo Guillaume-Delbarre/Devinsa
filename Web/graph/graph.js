@@ -178,7 +178,7 @@ function valider_select(){
 
 socket.on('finComparaison', function() {
   console.log('recup socket');
-  d3.csv("differences.csv", function(data) {
+  d3.csv("../Donnees/differences.csv", function(data) {
     for(let i = 0; i<data.length; i++){
       ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
     }
