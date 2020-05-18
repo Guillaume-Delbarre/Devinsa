@@ -18,7 +18,7 @@ def miseEnPage():
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
     listeQ = file_question.readlines()
     file_question.close()
-    for q in listeQ :
+    for q in listeQ[1:] :
         q = q.replace('\n',"")
         q = q.replace('"',"")
         listeQuestions.append(q)

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+var socket = io.connect('http://127.0.0.1:8080');
+var ta;
+>>>>>>> bf060f1ee1fe0f8cb38215305e3026fd1a2a816a
 var svg = d3.select('#zoneGraph')
 
 const widthTotal = +svg.attr('width');
@@ -25,56 +30,182 @@ var yAxis = d3.svg.axis()
 
 var shiftKey;
 
-var rect, 
+var rect,
 node;
 
-var div = d3.select("body").append("div")	
-  .attr("class", "tooltip")				
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
   .style("opacity", 0);
 
 svg = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var selection = [];
+var selection1 = [];
+var selection2 = [];
 var nomSelectionne =[];
 
-function tabulatePerso(array){
-  //table = document.getElementById("tableSelect");
-  for(var i = 0; i < array.length; i++){
-    var newRow = table.insertRow(-1);
-    for(var j = 0; j < array[i].length; j++){
-      var newCell = newRow.insertCell(j);
-      let newText = document.createTextNode(array[i][j]);
-      newCell.appendChild(newText)
+function attr_select1(){
+  selection1 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection1.push(d.Name);
     }
+  });
+  clear_selection();
+  nombrePersoSelect1();
+}
+
+function attr_select2(){
+  selection2 = [];
+  node.each(function(d) {
+    if (d.selected) {
+       selection2.push(d.Name);
+    }
+  });
+  clear_selection();
+  nombrePersoSelect2();
+}
+
+function aff_select1(){
+  node.classed('selected', function (d) {
+    if (selection1.includes(d.Name)){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
+}
+
+function aff_select2(){
+  node.classed('selected', function (d) {
+    if (selection2.includes(d.Name)){
+      return d.selected = true;
+    } else {
+      return d.selected = false;
+    }
+  })
+}
+
+var clust;
+
+function attr_clust_select1(){
+  var i = 0;
+  node.each(function(d) {
+    if (d.selected) {
+       i += 1;
+       clust = d.Cluster;
+    }
+  });
+  if (i<2) {
+    selection1 = [];
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection1.push(d.Name);
+      }
+    });
+    nombrePersoSelect1();
+    clear_selection();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
 }
 
-function get_selection(){
-  selection = [];
+function attr_clust_select2(){
+  var i = 0;
   node.each(function(d) {
     if (d.selected) {
-       selection.push(d);
+       i += 1;
+       clust = d.Cluster;
     }
   });
-  console.log(selection);
-  var nomsPerso = []
-  nomSelectionne = []
-  //var tabletemp = document.getElementById("tableSelect");
-  //tabletemp.innerHTML = "<thead><tr><th>Personnage sélectionné</th><th>Cluster</th></tr></thead>";
-  for(i=0;i<selection.length;i++){
-    nomsPerso.push([selection[i].Name,selection[i].Cluster])
-    nomSelectionne.push(selection[i].Name)
+  if (i<2) {
+    selection2 = [];
+    node.each(function(d) {
+      if (d.Cluster == clust) {
+         selection2.push(d.Name);
+      }
+    });
+    nombrePersoSelect2();
+    clear_selection();
+  } else {
+    window.alert("La sélection n'a pas marchée, veuillez ne sélectionner qu'un seul cluster");
   }
-  console.log(nomSelectionne)
-  //tabulatePerso(nomsPerso)
 }
+
+function nombrePersoSelect1() {
+  document.getElementById('nombrePersoSelect1').innerHTML = "Nombre de personnages : " + selection1.length;
+}
+
+function nombrePersoSelect2() {
+  document.getElementById('nombrePersoSelect2').innerHTML = "Nombre de personnages : " + selection2.length;
+}
+
+function ecrireSelection(liste) {
+  ret = "Le nom des personnages séléctionnés : \n";
+  liste.forEach(element => ret = ret.concat("-",element,"\n"));
+  return ret;
+}
+
+function aff_nom_select1(){
+  window.alert(ecrireSelection(selection1))
+}
+
+function aff_nom_select2(){
+  window.alert(ecrireSelection(selection2))
+}
+
+
+var nomAfficher = false;
+function affiche_nom(){
+  if(nomAfficher){
+    nomAfficher = false;
+    d3.selectAll('.titrePerso')
+      .attr('opacity', '0')
+  } else {
+    nomAfficher = true;
+    d3.selectAll('.titrePerso')
+      .attr('opacity', '0.5')
+  }
+}
+
+var nomSel = [];
+var nomSel2 = [];
+
+function valider_select(){
+  ta.clear().draw();
+  console.log("avant emit");
+  socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
+  console.log("apres emit");
+}
+
+socket.on('finComparaison', function() {
+  console.log('recup socket');
+  d3.csv("differences.csv", function(data) {
+    for(let i = 0; i<data.length; i++){
+      ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
+    }
+  })
+})
+
+$(document).ready( function () {
+	ta = $('#listQusetion').DataTable();
+	$('#listQusetion tbody').on('click', 'tr', function () {
+        var name = ta.row( this ).data()[0];
+		question = document.getElementById("tags1");
+		question.value = name;
+		questiontitle = name;
+		if (selection1 != []){
+			socket.emit("getallpersreponses", {qname: name, names: selection1});
+		}
+    });
+});
 
 function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
 }
 
-d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/resPCA.csv", function(error, data) {
+d3.csv("resPCA.csv", function(error, data) {
   data.forEach(function(d) {
     d.Axe_X = +d.Axe_X;
     d.Axe_Y = +d.Axe_Y;
@@ -94,7 +225,6 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       .y(d3.scale.identity().domain([0, height]))
       .on("brushstart", function(d) {
         svg = svg.call(d3.behavior.zoom().on("zoom", null));
-        //console.log('brushstart');
         node.each(function(d) { d.previouslySelected = shiftKey && d.selected; });
         if (!shiftKey) {
           d3.event.target.clear();
@@ -103,9 +233,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       })
       .on("brush", function() {
         if (shiftKey) {
-          //console.log('shiftKey', shiftKey);
           var extent = d3.event.target.extent();
-          //console.log(extent)
           node.classed("selected", function(d) {
             return d.selected = d.previouslySelected ^
             (extent[0][0] <= x(d.Axe_X) && x(d.Axe_X) < extent[1][0]
@@ -123,13 +251,14 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
       }));
 
   function zoom() {
-    if (shiftKey) { 
+    if (shiftKey) {
       console.log('zoom shiftKey');
       return;
     }
-    console.log('zoom');
     node.attr("cx", function(d) { return x(d.Axe_X); })
-    .attr("cy", function(d) { return y(d.Axe_Y); });
+      .attr("cy", function(d) { return y(d.Axe_Y); });
+    nomsTitre.attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return y(d.Axe_Y) + 11; });
     d3.select('.x.axis').call(xAxis);
     d3.select('.y.axis').call(yAxis);
   }
@@ -149,27 +278,34 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .attr("cy", function(d) { return y(d.Axe_Y); })
     .style("fill", function(d) { return color(d.Cluster); })
     .on("mousedown", function(d) {
-      if (shiftKey) {
         d3.select(this).classed("selected", d.selected = !d.selected);
-      } else {
-        node.classed("selected", function(p) {
-          return p.selected = d === p;
-        });
-      }
     })
-    .on("mouseover", function(d) {		
-      div.transition()		
-          .duration(200)		
-          .style("opacity", .9);		
-      div	.html(d.Name)	
-          .style("left", (d3.event.pageX) + "px")		
-          .style("top", (d3.event.pageY - 21) + "px");	
-      })					
-    .on("mouseout", function(d) {		
-      div.transition()		
-          .duration(500)		
-          .style("opacity", 0);	
+    .on("mouseover", function(d) {
+      div.transition()
+          .duration(200)
+          .style("opacity", .9);
+      div	.html(d.Name)
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 21) + "px");
+      })
+    .on("mouseout", function(d) {
+      div.transition()
+          .duration(500)
+          .style("opacity", 0);
     });
+
+  nomsTitre = svg.selectAll(".titrePerso")
+    .data(data)
+    .enter().append('text')
+      .attr('class', 'titrePerso')
+      .attr('pointer-events', 'none')
+      .attr('font-size', '12px')
+      .attr('stroke-width', '1px')
+      .attr('text-anchor', 'middle')
+      .attr('opacity', '0')
+      .attr('x', function(d) { return x(d.Axe_X); })
+      .attr('y', function(d) { return (y(d.Axe_Y) + 11); })
+      .text(function(d) { return d.Name })
 
   node.classed('selected', function (d) {return d.selected;})
 
@@ -191,8 +327,8 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
     .attr("dy", ".35em")
     .style("text-anchor", "end")
     .text(function(d) { return d; });
-  
-  
+
+
     d3.select(window).on("keydown", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -201,7 +337,7 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
     d3.select(window).on("keyup", function() {
       shiftKey = d3.event.shiftKey;
       if (shiftKey) {
@@ -210,5 +346,5 @@ d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donn
         rect = rect.attr('pointer-events', 'all');
       }
     });
-  
+
 });

@@ -2,12 +2,12 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 
 body { background: #fff; }
 /* optional Container STYLES */
-.chart { height: 700px; width: 1200px; margin: 15px auto; border: 5px solid #DDD; border-radius: 5px;
+.chart { height: 600px; width: 1200px; margin: 15px auto; border: 5px solid #DDD; border-radius: 5px;
 }
 .Treant > .node {  }
 .Treant > p { font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: bold; font-size: 12px; }
 .node-name { font-weight: bold;
-             text-align: center;    
+             text-align: center;
             }
 .node-desc{
     text-align : center;
@@ -56,6 +56,7 @@ body { background: #fff; }
     background-color : #b90606;
 }
 
+<<<<<<< HEAD
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
@@ -69,3 +70,9 @@ body { background: #fff; }
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+=======
+header{
+  background-color: #AFBFFE;
+  margin: 0 0 0 0;
+}
+>>>>>>> bf060f1ee1fe0f8cb38215305e3026fd1a2a816a
