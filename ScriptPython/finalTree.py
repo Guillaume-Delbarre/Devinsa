@@ -62,7 +62,7 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
             liste_rapport.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
     index_remove = []
     for i in range(len(liste_rapport)):
-        if liste_rapport[i]<0.75:
+        if liste_rapport[i]<1:
             index_remove.append(i)
     return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
             
@@ -161,7 +161,7 @@ def supprPersoInutile(count,tfidf):
     nbJoue = np.sum(count,1)
     index_remove = []
     for i in range(nbJoue.shape[0]):
-        if nbJoue[i]<101:
+        if nbJoue[i]<43:
             index_remove.append(i)
     return np.delete(tfidf,index_remove,0)
 

@@ -70,10 +70,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('creerarbre', ({profondeur}) => {
-		if (scripting == 0){
-			scripting = 1;
-			creerarbre(profondeur,["apptree.py"]);
-		}
+		creerarbre(profondeur,["apptree.py"]);
 	});
 
 	// LANCER SCRIPTS
@@ -85,10 +82,8 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		if (scripting == 0){
-			scripting = 1;
-			lancerscript(["differences.py"], [liste1, liste2]);
-		}
+		console.log("socket on");
+		lancerscript(["differences.py"], [liste1, liste2]);
 	});
 
 	socket.on('toutlancer', ({nbcluster, nbquestions}) => {
@@ -169,6 +164,7 @@ io.sockets.on('connection', function (socket) {
 				if (err) {
 					console.log(err);
 					console.log(tab[0] + " : Echec de l'execution");
+					scripting = 0;
 				}else{
 					console.log(tab[0] + ' fini');
 					if (tab.length > 1){
@@ -180,7 +176,7 @@ io.sockets.on('connection', function (socket) {
 					console.log("Scripts finis");
 					scripting = 0;
 				}
-			}, 1000);
+			}, 0000);
 		});
 	}
 	// Fonction Lecture Base / Ecriture fichier
@@ -319,6 +315,24 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 
+	//lancerscript(["differences.py"], [liste1, liste2]);
+/*
+	function lancerscript(nom,optionsligne){
+		let options = {
+			args: optionsligne
+		};
+		path = "../ScriptPython/".concat(nom);
+		
+		console.log("lancement script")
+
+		PythonShell.run(path,options, function (err) {
+			if (err) {
+				console.log(err)
+			}
+			socket.emit('finComparaison');
+		})
+	}
+	*/
 	function lancerscript(nom, optionsligne){
 		console.log(nom + " : Script lancé");
 		path = "../ScriptPython/".concat(nom);
@@ -329,7 +343,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(nom + " : Echec de l'execution");
 			}else{
 				//console.log(nom + ' fini');
-				scripting = 0;
+				socket.emit('finComparaison');
 			}
 		});
 	}
@@ -342,6 +356,7 @@ io.sockets.on('connection', function (socket) {
 		if(fileSizeInBytes1 < 1000 || fileSizeInBytes2 < 1000){
 			socket.emit("message","Fichiers de base non créés, veuillez lancer la première partie");
 			//console.log("Fichiers non écrits");
+			scripting = 0;
 			return 0;
 		}
 		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);

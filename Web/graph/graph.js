@@ -170,16 +170,20 @@ var nomSel = [];
 var nomSel2 = [];
 
 function valider_select(){
+  ta.clear().draw();
+  console.log("avant emit");
   socket.emit('ecrirequestiondiff', ({liste1: selection1, liste2: selection2}));
-  setTimeout(function(){
-    d3.csv("differences.csv", function(data) {
-      ta.clear().draw();
-      for(let i = 0; i<data.length; i++){
-        ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
-      }
-    })
-  }, 2000);
+  console.log("apres emit");
 }
+
+socket.on('finComparaison', function() {
+  console.log('recup socket');
+  d3.csv("differences.csv", function(data) {
+    for(let i = 0; i<data.length; i++){
+      ta.row.add([data[i].Question, data[i].Selection1, data[i].Selection2, data[i].dif]).draw(false);
+    }
+  })
+})
 
 $(document).ready( function () {
 	ta = $('#listQusetion').DataTable();
@@ -193,32 +197,6 @@ $(document).ready( function () {
 		}
     });
 });
-
-function return_selection(){
-  ret = [];
-  node.each(function(d) {
-    if (d.selected) {
-       ret.push(d);
-    }
-  });
-  return ret;
-}
-
-function get_selection(){
-  selection = [];
-  node.each(function(d) {
-    if (d.selected) {
-       selection.push(d);
-    }
-  });
-  var nomsPerso = []
-  nomSelectionne = []
-  for(i=0;i<selection.length;i++){
-    nomsPerso.push([selection[i].Name,selection[i].Cluster])
-    nomSelectionne.push(selection[i].Name)
-  }
-  console.log(nomSelectionne)
-}
 
 function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
