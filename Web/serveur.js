@@ -342,8 +342,9 @@ io.sockets.on('connection', function (socket) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
 			}else{
-				//console.log(nom + ' fini');
+				console.log(nom + ' fini');
 				socket.emit('finComparaison');
+				console.log("ici");
 			}
 		});
 	}
