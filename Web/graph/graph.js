@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 var socket = io.connect('http://127.0.0.1:8080');
 var ta;
->>>>>>> bf060f1ee1fe0f8cb38215305e3026fd1a2a816a
 var svg = d3.select('#zoneGraph')
 
 const widthTotal = +svg.attr('width');

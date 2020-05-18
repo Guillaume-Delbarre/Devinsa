@@ -138,14 +138,14 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
-        ecrire += "{"
+        ecrire += "\n{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
             ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,"")
-        ecrire += "},{"
+        ecrire += "\n}, \n {"
         if (choixNon!=[]):
             ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,"")
-        ecrire += "}]"
+        ecrire += "\n } \n]"
         return ecrire
 
 def distEuclidienne(perso,moyen):
@@ -264,8 +264,8 @@ def ecritureData(profondeur):
     ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native',connectors: { type: 'step' },node: { HTMLclass: 'nodeExample1' },"+
-                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},"+
+    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
+                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
                         "nodeStructure : {")
     
     ecriture.write(ecrireFinal)

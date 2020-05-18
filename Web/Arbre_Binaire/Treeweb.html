@@ -9,29 +9,6 @@
     <link rel="stylesheet" href="style/Treestyle.css">
     <link rel="stylesheet" href="style/style.css">
 </head>
-<<<<<<< HEAD
-<body onload = "loadFunction()">
-    <nav>
-      <ul class="menu">
-        <li><a href="../graph/index.html">Graph</a></li>
-        <li><a href="Treeweb.html">Arbre</a></li>
-        <li><a href="../dialogueServeur.html">Dialogue Serveur</a></li>
-		<form action="acceuil" method="POST">
-			<input type="submit" value="Aller à l'acceuil">
-		</form>		
-      </ul>
-    </nav>
-    <div class = "text" id="modif">
-        <li class="deroulant">Choisir le nombre de profondeur à extraire &ensp;
-            <ul class="sous">
-                <li><a href="#">Cours HTML et CSS</a></li>
-                <li><a href="#">Cours JavaScript</a></li>
-                <li><a href="#">Cours PHP et MySQL</a></li>
-            </ul>
-        </li>
-    </div>
-    <div class="chart" id="tree" ></div>
-=======
   <body>
     <div class="titre">
       <table height=1>
@@ -48,17 +25,13 @@
     </div>
 
     <div class="chart" id="tree"></div>
->>>>>>> bf060f1ee1fe0f8cb38215305e3026fd1a2a816a
     <script src="vendor/raphael.js"></script>
     <script src="script/Treant.js"></script>
 
     <script src="script/data.js"></script>
 
     <script>
-        function loadFunction() {
-            new Treant(chart_config);
-
-        }
+        new Treant(chart_config);
     </script>
 
         <!-- include this files if "fancy" is set -->
