@@ -111,17 +111,16 @@ def HTMLclass(choice):
     return 'None'
 
 #Fonction principal qui créé le JS/JSON
-def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,tfidf_exemple,count_exemple,itemOrder_exemple,ecrire):
+def elagagePerso(question,app_tree,questionOrder,tfidf,count,itemOrder,tfidf_exemple,count_exemple,itemOrder_exemple,ecrire):
     #S'il ne reste aucun personnage
     #Si c'est la première question : cas spécifique
     if(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"', desc :'"str(len(itemOrder))" personnages' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
         if len(itemOrder_exemple)!=0:
             listeperso = exemples(tfidf_exemple)
             listeperso = list(set(listeperso))
-
         perso_median = ""
         #On met en forme pour le JS/JSON
         if len(itemOrder_exemple)==0:
@@ -131,7 +130,6 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,tfidf_exe
                     perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
-        
         #On rajoute les données
         ecrire += "text: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : ["
     #On cherche les children de la question
@@ -161,10 +159,10 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,tfidf_exe
         ecrire += "\n{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
-            ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,tfidf_yes_exemple,count_yes_exemple,itemOrder_yes_exemple,"")
+            ecrire += elagagePerso(choixOui,app_tree,questionOrder,tfidf_yes,count_yes,itemOrder_yes,tfidf_yes_exemple,count_yes_exemple,itemOrder_yes_exemple,"")
         ecrire += "\n}, \n {"
         if (choixNon!=[]):
-            ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,tfidf_no_exemple,count_no_exemple,itemOrder_no_exemple,"")
+            ecrire += elagagePerso(choixNon,app_tree,questionOrder,tfidf_no,count_no,itemOrder_no,tfidf_no_exemple,count_no_exemple,itemOrder_no_exemple,"")
         ecrire += "\n } \n]"
         return ecrire
 
@@ -270,7 +268,7 @@ def ecritureData(profondeur):
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,tfidf,count,question,"")
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,question,tfidf,count,item,tfidf,count,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
