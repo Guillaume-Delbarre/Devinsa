@@ -157,7 +157,7 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,tfidf_exe
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
         count_yes_exemple, tfidf_yes_exemple, itemOrder_yes_exemple = compterPerso_exemple(rangQuestion * 2, count_exemple, tfidf_exemple, itemOrder_exemple)
-        count_no_exemple, tfidf_no_exemple, itemOrder_no_exemple = compterPerso((rangQuestion * 2) + 1, count_exemple, tfidf_exemple, itemOrder_exemple)
+        count_no_exemple, tfidf_no_exemple, itemOrder_no_exemple = compterPerso_exemple((rangQuestion * 2) + 1, count_exemple, tfidf_exemple, itemOrder_exemple)
         ecrire += "\n{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
