@@ -82,7 +82,6 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('ecrirequestiondiff', ({liste1, liste2}) => {
-		console.log("socket on");
 		lancerscript(["differences.py"], [liste1, liste2]);
 	});
 
@@ -342,9 +341,7 @@ io.sockets.on('connection', function (socket) {
 				console.log(err)
 				console.log(nom + " : Echec de l'execution");
 			}else{
-				console.log(nom + ' fini');
 				socket.emit('finComparaison');
-				console.log("ici");
 			}
 		});
 	}
