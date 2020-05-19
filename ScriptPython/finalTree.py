@@ -115,7 +115,7 @@ def elagagePerso(question,app_tree,questionOrder,tfidf,count,itemOrder,tfidf_exe
     #S'il ne reste aucun personnage
     #Si c'est la première question : cas spécifique
     if(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"', desc :'"str(len(itemOrder))" personnages' }, collapsed : true, children : ["
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"', desc :'"+str(len(itemOrder))+" personnages' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
         if len(itemOrder_exemple)!=0:
