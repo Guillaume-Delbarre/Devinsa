@@ -73,7 +73,7 @@ def compterPerso_exemple(rangQuestion,count,tfidf,itemByOrder):
         divise = -1
     liste_rapport_exemple = []
     for i in range(count.shape[0]):
-        if count[i,(rangQuestion+divise)] == 0 && count[i,(rangQuestion)] == 0:
+        if (count[i,(rangQuestion+divise)] == 0) and (count[i,(rangQuestion)] == 0):
             liste_rapport_exemple.append(0)
         elif count[i,(rangQuestion+divise)] == 0:
             liste_rapport_exemple.append(1)
