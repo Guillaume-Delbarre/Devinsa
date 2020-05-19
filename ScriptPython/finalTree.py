@@ -127,7 +127,7 @@ def elagagePerso(question,app_tree,questionOrder,tfidf,count,itemOrder,tfidf_exe
             perso_median = "perso1 : 'Aucun personnage avec suffisamment de parties jouées',"
         else:
             for i in range(len(listeperso)):
-                    perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
+                    perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder_exemple[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
         #On rajoute les données
