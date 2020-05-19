@@ -80,9 +80,9 @@ def differences(L1,L2):
     data["dif"]=dif
     for i in range(data.shape[0]) :
         if(data.iloc[i,0]*data.iloc[i,1] < 0):
-            data.iloc[i,3] += 10
+            data.iloc[i,2] += 10
         elif (abs(data.iloc[i,0]) < 0.75 ) :
-            data.iloc[i,3] += 5
+            data.iloc[i,2] += 5
     res = data.reindex(data["dif"].abs().sort_values(ascending = False).index)
     res= res.reset_index()
     res.columns = ["Question","Selection1","Selection2","dif"]
