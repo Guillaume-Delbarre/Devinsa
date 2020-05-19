@@ -54,18 +54,37 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
         divise = 1
     else:
         divise = -1
-    liste_rapport = []
+    liste_rapport_perso = []
     for i in range(count.shape[0]):
         if count[i,(rangQuestion+divise)] == 0:
-            liste_rapport.append(1)
+            liste_rapport_perso.append(1)
         else:
-            liste_rapport.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
-    index_remove = []
-    for i in range(len(liste_rapport)):
-        if liste_rapport[i]<1:
-            index_remove.append(i)
-    return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
-            
+            liste_rapport_perso.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
+    index_remove_perso = []
+    for i in range(len(liste_rapport_perso)):
+        if liste_rapport_perso[i]<1:
+            index_remove_perso.append(i)
+    return np.delete(count,index_remove_perso,0),np.delete(tfidf,index_remove_perso,0),np.delete(itemByOrder,index_remove_perso,0)
+
+def compterPerso_exemple(rangQuestion,count,tfidf,itemByOrder):
+    if rangQuestion%2==0:
+        divise = 1
+    else:
+        divise = -1
+    liste_rapport_exemple = []
+    for i in range(count.shape[0]):
+        if count[i,(rangQuestion+divise)] == 0 && count[i,(rangQuestion)] == 0:
+            liste_rapport_exemple.append(0)
+        elif count[i,(rangQuestion+divise)] == 0:
+            liste_rapport_exemple.append(1)
+        else:
+            liste_rapport_exemple.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
+    index_remove_exemple = []
+    for i in range(len(liste_rapport_exemple)):
+        if liste_rapport_exemple[i]<0.75:
+            index_remove_exemple.append(i)
+    return np.delete(count,index_remove_exemple,0),np.delete(tfidf,index_remove_exemple,0),np.delete(itemByOrder,index_remove_exemple,0)
+
             
 #Fonction simple permettant d'éviter les erreurs à l'écriture dans le JS/JSON
 def miseEnFormeText(text):
@@ -92,21 +111,20 @@ def HTMLclass(choice):
     return 'None'
 
 #Fonction principal qui créé le JS/JSON
-def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
+def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,tfidf_exemple,count_exemple,itemOrder_exemple,ecrire):
     #S'il ne reste aucun personnage
-    if(len(itemOrder)==0):        
-        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true"
-        return ecrire
     #Si c'est la première question : cas spécifique
-    elif(question[0]==1):
+    if(question[0]==1):
         ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = exemples(count,tfidf)
-        listeperso = list(set(listeperso))
+        if len(itemOrder_exemple)!=0:
+            listeperso = exemples(tfidf_exemple)
+            listeperso = list(set(listeperso))
+
         perso_median = ""
         #On met en forme pour le JS/JSON
-        if listeperso == [-1]:
+        if len(itemOrder_exemple)==0:
             perso_median = "perso1 : 'Aucun personnage avec suffisamment de parties jouées',"
         else:
             for i in range(len(listeperso)):
@@ -138,13 +156,15 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
+        count_yes_exemple, tfidf_yes_exemple, itemOrder_yes_exemple = compterPerso_exemple(rangQuestion * 2, count_exemple, tfidf_exemple, itemOrder_exemple)
+        count_no_exemple, tfidf_no_exemple, itemOrder_no_exemple = compterPerso((rangQuestion * 2) + 1, count_exemple, tfidf_exemple, itemOrder_exemple)
         ecrire += "\n{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
-            ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,"")
+            ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,tfidf_yes_exemple,count_yes_exemple,itemOrder_yes_exemple,"")
         ecrire += "\n}, \n {"
         if (choixNon!=[]):
-            ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,"")
+            ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,tfidf_no_exemple,count_no_exemple,itemOrder_no_exemple,"")
         ecrire += "\n } \n]"
         return ecrire
 
@@ -157,18 +177,7 @@ def distScalaire(perso,moyen):
     dist = np.dot(perso-moyen,moyen)
     return dist
 
-def supprPersoInutile(count,tfidf):
-    nbJoue = np.sum(count,1)
-    index_remove = []
-    for i in range(nbJoue.shape[0]):
-        if nbJoue[i]<43:
-            index_remove.append(i)
-    return np.delete(tfidf,index_remove,0)
-
-def exemples(count,tfidf):
-    tfidf = supprPersoInutile(count,tfidf)
-    if tfidf.shape[0]==0:
-        return [-1]
+def exemples(tfidf):
     moyen = np.mean(tfidf,0)
     dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
@@ -261,7 +270,7 @@ def ecritureData(profondeur):
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,tfidf,count,question"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
     ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
