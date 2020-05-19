@@ -81,7 +81,7 @@ def differences(L1,L2):
     for i in range(data.shape[0]) :
         if(data.iloc[i,0]*data.iloc[i,1] < 0):
             data.iloc[i,2] += 10
-        elif (abs(data.iloc[i,0]) < 0.75 ) :
+        elif (abs(data.iloc[i,0]) < 0.10 ) :
             data.iloc[i,2] += 5
     res = data.reindex(data["dif"].abs().sort_values(ascending = False).index)
     res= res.reset_index()
