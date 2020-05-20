@@ -109,9 +109,11 @@ io.sockets.on('connection', function (socket) {
 
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
-	function update(name,question,value,param){
+	function update(persname,questionname,value,param){
 		value = parseInt(value);
-		value.replace("'", "''");
+		let question = questionname.replace("'", "''");
+		let name = persname.replace("'", "''");
+		
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
