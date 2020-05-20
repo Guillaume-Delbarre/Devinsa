@@ -146,7 +146,7 @@ io.sockets.on('connection', function (socket) {
 								//console.log("Résultat inséré");
 							});
 						}else{
-							console.log("Personnage: " + name + " ou " + "Question: " + title + "Non present dans la base");
+							console.log("Personnage: " + name + " ou " + "Question: " + question + "Non present dans la base");
 						}
 					});
 				}
