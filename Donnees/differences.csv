@@ -1,61 +1,61 @@
 ,Question,Selection1,Selection2,dif
-0,Ton personnage est-il décédé ?,-4.16,6.14,10.31
-1,Ton personnage a-t-il été roi ?,-3.92,5.96,9.88
-2,Ton personnage est-il acteur/actrice ?,3.94,-4.07,-8.0
-3,Ton personnage est-il américain ?,1.55,-4.82,-6.38
-4,Ton personnage est-il dans le domaine de la musique ?,-0.29,-5.75,-5.47
-5,Ton personnage a-t-il un rapport avec le milieu du sport ?,-0.36,-5.49,-5.13
-6,Ton personnage a-t-il des cheveux ?,0.33,5.24,4.91
-7,Ton personnage est-il français ?,-3.72,0.56,4.27
-8,Ton personnage est-il célèbre  ?,0.93,4.92,3.99
-9,Ton personnage est-il un inventeur ?,-0.46,-4.37,-3.9
-10,Ton personnage fait-il de la politique ?,-0.36,3.52,3.88
-11,Ton personnage est-il un écrivain ?,-0.12,-3.92,-3.8
-12,Ton personnage a-t-il été empereur ?,-0.11,3.67,3.79
-13,Ton personnage est-il portugais ?,-0.61,-4.27,-3.66
-14,Est-il un personnage médiéval ?,-0.27,3.38,3.64
-15,Ton personnage est-il policier ou détective ?,-0.26,-3.75,-3.5
-16,Ton personnage est-il une fille ?,-1.03,-4.51,-3.49
-17,Ton personnage est-il un réalisateur de films ?,-0.6,-3.94,-3.34
-18,Ton personnage est-il ridicule ?,-0.71,-3.93,-3.22
-19,Ton personnage a-t-il joué dans Stargate ?,-0.97,-4.18,-3.21
-20,Ton personnage vit-il dans un pays oriental ? ,-0.11,-3.28,-3.17
-21,Ton personnage possède-t-il des armes ?,-0.14,3.02,3.16
-22,Ton personnage a-t-il des yeux ?,0.63,3.7,3.07
-23,Ton personnage est-il un dieu du panthéon scandinave ?,-0.11,-3.15,-3.04
-24,Est-ce que ton personnage est un animal ?,-0.81,-3.77,-2.96
-25,Ton personnage est-il un garçon ?,2.1,5.05,2.96
-26,Ton personnage est-il un ninja ?,-0.33,-3.23,-2.9
-27,Ton personnage fait-il des combats ?,-0.54,2.34,2.87
-28,Ton personnage habite-t-il en France ?,-0.33,2.46,2.79
-29,Ton personnage mange-t-il ?,0.31,3.07,2.76
-30,Connais-tu ton personnage depuis tout petit ?,0.12,-2.62,-2.74
-31,"""Est-ce un homme d'affaires ?""",-0.42,2.31,2.73
-32,Ton personnage est-il masculin ?,0.12,2.74,2.62
-33,Ton personnage est-il super musclé ?,0.25,-2.35,-2.59
-34,Est-ce que ton personnage a une apparence animale ?,-0.26,-2.85,-2.59
-35,Ton personnage a-t-il un surnom connu ?,0.11,-2.36,-2.47
-36,Ton personnage a-t-il vécu pendant une guerre ? ,0.0,2.41,2.41
-37,Ton personnage porte-t-il souvent des lunettes de soleil ?,0.0,-2.39,-2.39
-38,Ton personnage est-il un intellectuel de son temps ?,-0.24,-2.62,-2.39
-39,Ton personnage est-il anglais ?,-0.69,-3.02,-2.33
-40,La langue maternelle de ton personnage est-elle le français ?,-0.23,-2.55,-2.32
-41,As-tu déjà vécu avec ton personnage ?,-0.23,-2.53,-2.3
-42,Vôtre personnage possède t-il une baguette magique ?,-0.11,-2.39,-2.28
-43,Ton personnage est-il bleu ?,-0.11,-2.37,-2.26
-44,Ton personnage a-t-il plus de 50 ans ?,2.81,5.04,2.24
-45,Ton personnage a-t-il un rapport avec la musique metal ?,-0.11,-2.34,-2.23
-46,Est-ce un canard ?,0.0,-2.23,-2.23
-47,Ton personnage est-il un grand cuisinier ?,-0.11,-2.33,-2.23
-48,Ton personnage porte-t-il une armure ?,-0.22,-2.44,-2.22
-49,Ton personnage est-il joyeux ?,-0.1,-2.28,-2.18
-50,Ton personnage est-il un tennisman ?,-0.34,-2.52,-2.17
-51,Ton personnage porte-t-il des chaussures ?,1.0,3.15,2.15
-52,Ton personnage est-il un dieu ou une déesse ?,-0.34,-2.47,-2.14
-53,Ton personnage se déguise-t-il ?,-0.1,-2.22,-2.11
-54,Ton personnage est-il un chanteur ?,0.0,-2.09,-2.09
-55,Ton personnage a-t-il un lien avec la bande dessinée ?,-0.21,-2.28,-2.07
-56,Ton personnage est-il plus grand que toi ?,0.33,2.39,2.06
-57,Ton personnage a-t-il joué dans des westerns ?,-0.61,-2.67,-2.06
-58,Ton personnage est-il un compositeur?,-0.1,-2.15,-2.05
-59,Ton personnage est-il un gaulois ?,-0.32,-2.36,-2.04
+0,Ton personnage est-il célèbre  ?,-0.86,2.42,13.28
+1,Est-il un personnage historique ?,0.6,-0.54,8.86
+2,"""Ton personnage est-il un prof de l'INSA ? """,0.59,-0.61,8.8
+3,Ton personnage a-t-il des yeux ?,0.0,1.74,6.74
+4,Ton personnage est-il réel ?,0.38,6.28,5.89
+5,Ton personnage a-t-il connu ses parents ?,0.0,0.57,5.57
+6,Ton personnage a-t-il des mains ?,0.0,0.56,5.56
+7,Ton personnage est-il généralement nommé par un prénom et un nom de famille ?,0.0,0.53,5.53
+8,Ton personnage est-il un être vivant ?,0.2,0.69,5.49
+9,Est-ce un pokemon ?,0.0,-0.55,4.45
+10,Ton personnage est-il une sorte de démon ?,0.0,-0.58,4.42
+11,Ton personnage est-il russe ?,0.0,-0.64,4.36
+12,Ton personnage est-il un super-héro ?,0.0,-0.66,4.34
+13,Ton personnage a-t-il un rapport avec la religion ?,0.0,-0.67,4.33
+14,Ton personnage fait-il peur ?,0.0,-0.68,4.32
+15,Ton personnage est-il un personnage de western ?,0.0,-0.74,4.26
+16,Est-il un personnage de film ?,0.0,-0.75,4.25
+17,Ton personnage a-t-il les pieds palmés ?,0.0,-0.78,4.22
+18,Ton personnage est-il un rugbyman ?,0.0,-0.8,4.2
+19,As-tu un rapport familial avec ton personnage ?,0.0,-0.82,4.18
+20,Ton personnage a-t-il découvert une loi de la physique ?,0.0,-0.83,4.17
+21,Ton personnage est-il prince ?,0.0,-0.85,4.15
+22,Ton personnage est-il belge ?,0.0,-0.91,4.09
+23,As-tu déjà vécu avec ton personnage ?,0.0,-0.92,4.08
+24,Ton personnage est-il un prince ou une princesse ?,0.0,-0.92,4.08
+25,Est-ce un volleyeur ?,0.0,-0.92,4.08
+26,Ton personnage a-t-il souvent eu des roles comiques ?,0.0,-0.93,4.07
+27,Est-ce que ton personnage est un sayan ?,0.0,-0.93,4.07
+28,Ton personnage pratique-t-il les arts martiaux ?,0.0,-0.94,4.06
+29,Ton personnage joue-t-il dans un dessin-animé de Walt Disney ?,0.0,-0.96,4.04
+30,Ton personnage est-il un footballeur ?,0.0,-1.07,3.93
+31,Ton personnage est-il une fille ?,0.0,-1.18,3.82
+32,Ton personnage vit-il dans un monde imaginaire ?,-1.29,-4.69,-3.39
+33,Ton personnage a-t-il été roi ?,-2.35,-4.62,-2.28
+34,Ton personnage est-il dans le domaine de la musique ?,-1.46,-3.36,-1.9
+35,As-tu déjà vu ton personnage à la télé  ?,-1.2,0.5,1.7
+36,Ton personnage est-il décédé ?,-1.61,-3.25,-1.64
+37,Ton personnage a-t-il plus de 35 ans ?,0.74,2.36,1.62
+38,Ton personnage est-il un tueur ?,-2.47,-4.05,-1.58
+39,Ton personnage est-il devenu connu grâce à Internet ?,-1.42,-2.84,-1.42
+40,Ton personnage est-il un personnage de jeu vidéo ?,-2.26,-0.93,1.33
+41,Ton personnage est-il méchant ? ,-2.47,-1.17,1.3
+42,Ton personnage a-t-il un prénom hors du commun ?,-0.09,-3.79,1.29
+43,La langue maternelle de ton personnage est-elle le français ?,-0.42,0.71,1.14
+44,"""Est-il directeur d'une école?""",0.53,-0.41,-0.94
+45,Ton personnage a-t-il la peau blanche ?,-0.41,0.51,0.92
+46,Ton personnage est-il anglais ?,-1.13,-2.05,-0.92
+47,Ton personnage est-il portugais ?,-0.67,-1.57,-0.91
+48,Ton personnage est-il originaire du Maghreb ?,0.2,-0.68,-0.89
+49,Ton personnage est-il policier ou détective ?,-1.88,-1.0,0.88
+50,Ton personnage vit il hors de son pays ?,-1.09,-0.21,0.88
+51,Ton personnage est-il un réalisateur de films ?,-0.66,-1.52,-0.86
+52,Ton personnage possède-t-il des armes ?,-1.51,-0.66,0.85
+53,Ton personnage a-t-il la peau verte ?,-1.05,-0.22,0.83
+54,Est-il un pirate?,-1.07,-0.26,0.81
+55,Ton personnage te connait-il personnellement ?,0.55,-0.26,-0.81
+56,Ton personnage a-t-il plus de 50 ans ?,-0.53,0.22,0.75
+57,Votre personnage a -t-il la peau noire ?,-1.28,-0.54,0.74
+58,Ton personnage est-il un scientifique ?,0.56,-0.17,-0.73
+59,Ton personnage joue-t-il dans Harry Potter ?,-1.1,-0.38,0.72

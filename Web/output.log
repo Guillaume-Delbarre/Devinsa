@@ -1,15 +1,33 @@
-/home-reseau/nlemaire/DevinsaTest/Web/serveur.js:340
-		});
-		 ^
+Serveur lancé
+events.js:183
+      throwConnection depuis l'adresse : 10.4.1.36
+differences.py : Script lancé
+Connection depuis l'adresse : 10.4.1.36
+differences.py : Script lancé
+differences.py : Script lancé
+differences.py : Script lancé
+CHA.py lancé
+CHA.py fini
+questionsCaracteristiques.py lancé
+questionsCaracteristiques.py fini
+PCA.py lancé
+PCA.py fini
+Scripts finis
+differences.py : Script lancé
+differences.py : Script lancé
+differences.py : Script lancé
+/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:437
+      throw err; // Rethrow non-MySQL errors
+      ^
 
-SyntaxError: Unexpected token )
-    at createScript (vm.js:80:10)
-    at Object.runInThisContext (vm.js:139:10)
-    at Module._compile (module.js:616:28)
-    at Object.Module._extensions..js (module.js:663:10)
-    at Module.load (module.js:565:32)
-    at tryModuleLoad (module.js:505:12)
-    at Function.Module._load (module.js:497:3)
-    at Function.Module.runMain (module.js:693:10)
-    at startup (bootstrap_node.js:188:16)
-    at bootstrap_node.js:609:3
+TypeError: Cannot read property 'id' of undefined
+    at Query.<anonymous> (/home-reseau/zpesleux/gitHub/Web/serveur.js:140:36)
+    at Query.<anonymous> (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/Connection.js:526:10)
+    at Query._callback (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/Connection.js:488:16)
+    at Query.Sequence.end (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Sequence.js:83:24)
+    at Query._handleFinalResultPacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Query.js:149:8)
+    at Query.EofPacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Query.js:133:8)
+    at Protocol._parsePacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Protocol.js:38:16)
