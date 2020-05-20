@@ -73,8 +73,14 @@ io.sockets.on('connection', function (socket) {
 	socket.on('creerarbre', ({profondeur}) => {
 		if (scriptingtree == 0){
 			scriptingtree = 1;
+			console.log("Finaltree lancé");
 			PythonShell.run("../ScriptPython/Finaltree.py", [profondeur], function (err) {
-				console.log("Finaltree lancé");
+				if (err) {
+					console.log("Finaltree.py erreur");
+					console.log(err);
+				}else{
+					console.log("Finaltree fini");
+				}
 				scriptingtree = 0;
 			});
 		}
