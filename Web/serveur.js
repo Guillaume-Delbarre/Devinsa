@@ -136,14 +136,18 @@ io.sockets.on('connection', function (socket) {
 				}else{
 					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[question,name],function (error,res) {
 						if (error) throw error
-						let questionid = parseInt(res[0].id);
-						let itemid = parseInt(res[1].id);
-						//console.log(questionid, itemid
-						connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
-							if (errors) throw errors;
-							//socket.emit("message","Resultat inséré ");
-							//console.log("Résultat inséré");
-						});
+						if (res.length == 2){				
+							let questionid = parseInt(res[0].id);
+							let itemid = parseInt(res[1].id);
+							//console.log(questionid, itemid
+							connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
+								if (errors) throw errors;
+								//socket.emit("message","Resultat inséré ");
+								//console.log("Résultat inséré");
+							});
+						}else{
+							console.log("Personnage: " + name + " ou " + "Question: " + title + "Non present dans la base");
+						}
 					});
 				}
 			});
