@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\guigu\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "python.pythonPath": "/usr/bin/python3",
     "maven.view": "hierarchical"
 }
