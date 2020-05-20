@@ -74,7 +74,8 @@ io.sockets.on('connection', function (socket) {
 		if (scriptingtree == 0){
 			scriptingtree = 1;
 			console.log("Finaltree lancé");
-			PythonShell.run("../ScriptPython/finalTree.py", [profondeur], function (err) {
+			let options = {args: [profondeur], pythonPath: 'python3'};
+				PythonShell.run("../ScriptPython/finalTree.py", options, function (err) {
 				if (err) {
 					console.log("Finaltree.py erreur");
 					console.log(err);
