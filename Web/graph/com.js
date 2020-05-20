@@ -5,6 +5,8 @@ var questiontitle = "";
 var namepers = "";
 var table;
 
+
+
 $(document).ready(function() {
     table = $('#personnages').DataTable( {
 		buttons: [
@@ -30,6 +32,10 @@ socket.on('getallpersreponse', function(pers) {
 
 socket.on('getallquesreponse', function(ques) {
 	tabq = ques;
+});
+
+socket.on("refresh", function() {
+	location.reload(true);
 });
 
 socket.on('getallparamreponse', function(tabreponse) {
