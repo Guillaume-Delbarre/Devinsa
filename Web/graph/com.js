@@ -9,6 +9,7 @@ var table;
 
 $(document).ready(function() {
     table = $('#personnages').DataTable( {
+		dom: 'Bfrtip',
 		buttons: [
 			'selectAll',
 			'selectNone'
@@ -63,7 +64,6 @@ $('#lancer2emepartie').click(function () {
 });
 
 $('#increment').click(function () {
-	alert("a");
 	var rqtp = "";
 	var parametre = null;
 	//On stock le parametre choisi par l'utilisateur
@@ -76,6 +76,7 @@ $('#increment').click(function () {
 	}
 	//On incrémente chaque ligne présente dans la table
 	if(rqtp != "" && parametre != null){
+		alert(questiontitle);
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
 		}
