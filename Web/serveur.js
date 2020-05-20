@@ -74,6 +74,7 @@ io.sockets.on('connection', function (socket) {
 		if (scriptingtree == 0){
 			scriptingtree = 1;
 			PythonShell.run("../ScriptPython/Finaltree.py", [profondeur], function (err) {
+				console.log("Finaltree lancé");
 				scriptingtree = 0;
 			});
 		}
