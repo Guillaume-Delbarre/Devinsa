@@ -111,6 +111,7 @@ io.sockets.on('connection', function (socket) {
 
 	function update(name,question,value,param){
 		value = parseInt(value);
+		value.replace("'", "''");
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
