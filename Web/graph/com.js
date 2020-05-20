@@ -6,7 +6,18 @@ var namepers = "";
 var table;
 
 $(document).ready(function() {
-    table = $('#personnages').DataTable();
+    table = $('#personnages').DataTable( {
+		buttons: [
+			'selectAll',
+			'selectNone'
+		],
+		language: {
+			buttons: {
+				selectAll: "Select all items",
+				selectNone: "Select none"
+			}
+		}
+	});
 	// La ligne de la table est selectionnée on click
 	$('#personnages').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
@@ -46,6 +57,7 @@ $('#lancer2emepartie').click(function () {
 });
 
 $('#increment').click(function () {
+	alert("a");
 	var rqtp = "";
 	var parametre = null;
 	//On stock le parametre choisi par l'utilisateur
@@ -54,7 +66,7 @@ $('#increment').click(function () {
 		if(ele[i].checked){
 			rqtp = ele[i].value;
 			parametre = i+1
-		}
+		}	
 	}
 	//On incrémente chaque ligne présente dans la table
 	if(rqtp != "" && parametre != null){
@@ -88,6 +100,7 @@ $('#updatesql').click(function () {
 });
 
 $('#Selectall').click(function () {
+	alert("a");
 	table.rows().select();
 });
 
@@ -133,8 +146,7 @@ socket.on('message', function(message) {
 });
 
 socket.on('valeursreponses', ({y, n, p}) => {
-	var t = $('#personnages').DataTable();
-	t.clear().draw();
+	table.clear().draw();
 	//On ajoute à la table les lignes de valeurs
-	t.row.add([namepers,y,n,p]).draw(false);
+	table.row.add([namepers,y,n,p]).draw(false);
 });

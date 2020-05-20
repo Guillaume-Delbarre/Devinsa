@@ -179,6 +179,10 @@ io.sockets.on('connection', function (socket) {
 					console.log("Scripts finis");
 					scripting = 0;
 				}
+				if (request.session.loggedin) {
+					// Chargement du fichier acceuil.html affiché au client
+					response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
+				}
 			}, 0000);
 		});
 	}
