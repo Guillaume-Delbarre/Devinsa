@@ -87,6 +87,10 @@ $('#updatesql').click(function () {
 	}
 });
 
+$('#Selectall').click(function () {
+	table.rows().select();
+});
+
 $('#creerarbre').click(function () {
 	var prof = parseInt(prompt("Profondeur de l'arbre ?")); //ICI ON PROMPT LES PARAM DU CHANGEMENT A FAIRE
 	socket.emit('creerarbre', {profondeur :prof}); // ON ENVOIE L'EVENT AU SERVEUR
