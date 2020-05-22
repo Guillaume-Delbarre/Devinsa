@@ -142,7 +142,7 @@ io.sockets.on('connection', function (socket) {
 				socket.emit("message","mauvais inséré ");
 				return 0;
 			}
-			connection.query(rqt,[value,question,persname],function (err,result) {
+			connection.query(rqt,[value,questionname,persname],function (err,result) {
 				if (err) throw err;
 				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
@@ -160,7 +160,7 @@ io.sockets.on('connection', function (socket) {
 								//console.log("Résultat inséré");
 							});
 						}else{
-							console.log("Personnage: " + name + " ou " + "Question: " + question + "Non present dans la base");
+							console.log("Personnage: " + questionname + " ou " + "Question: " + questionname + "Non present dans la base");
 						}
 					});
 				}
