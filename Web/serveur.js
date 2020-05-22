@@ -124,7 +124,9 @@ io.sockets.on('connection', function (socket) {
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
 	function update(persname,questionname,value,param){
-		value = parseInt(value);		
+		if (!Number.isInteger(value)){
+			return 0;
+		}
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
@@ -160,7 +162,7 @@ io.sockets.on('connection', function (socket) {
 								//console.log("Résultat inséré");
 							});
 						}else{
-							console.log("Personnage: " + questionname + " ou " + "Question: " + questionname + "Non present dans la base");
+							//console.log("Personnage: " + questionname + " ou " + "Question: " + questionname + "Non present dans la base");
 						}
 					});
 				}
