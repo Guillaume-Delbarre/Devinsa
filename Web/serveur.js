@@ -128,7 +128,7 @@ io.sockets.on('connection', function (socket) {
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
-		if (persname != null && question != null && value != null && param != null){
+		if (persname != null && questionname != null && value != null && param != null){
 			if (param == "yes_count"){
 				rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
