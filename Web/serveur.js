@@ -128,7 +128,7 @@ io.sockets.on('connection', function (socket) {
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
-		if (name != null && question != null && value != null && param != null){
+		if (persname != null && question != null && value != null && param != null){
 			if (param == "yes_count"){
 				rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
@@ -142,13 +142,13 @@ io.sockets.on('connection', function (socket) {
 				socket.emit("message","mauvais inséré ");
 				return 0;
 			}
-			connection.query(rqt,[value,question,name],function (err,result) {
+			connection.query(rqt,[value,question,persname],function (err,result) {
 				if (err) throw err;
 				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
-					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[question,name],function (error,res) {
+					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[questionname,persname],function (error,res) {
 						if (error) throw error
 						if (res.length == 2){				
 							let questionid = parseInt(res[0].id);
