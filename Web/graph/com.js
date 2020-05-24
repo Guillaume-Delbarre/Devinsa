@@ -5,8 +5,6 @@ var questiontitle = "";
 var namepers = "";
 var table;
 
-
-
 $(document).ready(function() {
     table = $('#personnages').DataTable( {
 		dom: 'Bfrtip',
@@ -88,6 +86,9 @@ $('#increment').click(function () {
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
 		}
 	}
+	if (selection1 != []){
+			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
+	}
 });
 
 $('#updatesql').click(function () {
@@ -111,6 +112,9 @@ $('#updatesql').click(function () {
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
 		}
+	}
+	if (selection1 != []){
+			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
 	}
 });
 
