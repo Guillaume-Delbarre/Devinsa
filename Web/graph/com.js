@@ -21,6 +21,13 @@ $(document).ready(function() {
 			}
 		}
 	});
+	$(".selectAll").on( "click", function(e) {
+    if ($(this).is(":checked" )) {
+        table.rows().select();        
+    } else {
+        table.rows().deselect(); 
+    }
+	});
 	// La ligne de la table est selectionnée on click
 	$('#personnages').on('click', 'tr', function () {
 		$(this).toggleClass('selected');
@@ -84,6 +91,7 @@ $('#increment').click(function () {
 });
 
 $('#updatesql').click(function () {
+	alert("ici");
 	var rqtp = "";
 	var rqtv = null;
 	//On garde le parametre choisi du bouton Parametre 
@@ -107,7 +115,6 @@ $('#updatesql').click(function () {
 });
 
 $('#Selectall').click(function () {
-	//alert("a");
 	table.rows().select();
 });
 
