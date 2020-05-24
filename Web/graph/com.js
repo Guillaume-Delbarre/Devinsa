@@ -88,7 +88,7 @@ $('#increment').click(function () {
 	}
 	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
-	}}, 500);
+	}}, 1000);
 
 });
 
