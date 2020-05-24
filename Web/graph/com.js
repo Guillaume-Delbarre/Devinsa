@@ -88,7 +88,7 @@ $('#increment').click(function () {
 	}
 	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
-	}}, 1000);
+	}}, 500);
 
 });
 
@@ -114,9 +114,9 @@ $('#updatesql').click(function () {
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
 		}
 	}
-	if (selection1 != []){
+	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
-	}
+	}}, 500);
 });
 
 $('#Selectall').click(function () {
