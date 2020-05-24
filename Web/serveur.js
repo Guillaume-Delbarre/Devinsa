@@ -250,8 +250,7 @@ io.sockets.on('connection', function (socket) {
 	function getvaleursreponsespers(title,names){
 		let donnees = "("
 		for(let i = 0; i<names.length; i++){
-			/*.replace(/"/g, "")*/
-			donnees = donnees + '"' + names[i].replace("'", "\'").replace('"', '\"'); + '"';
+			donnees = donnees + '"' + names[i].replace(/'/g, "\'").replace(/"/g, '\"') + '"';
 			if (i != (names.length - 1)){
 				donnees = donnees + ",";
 			}
