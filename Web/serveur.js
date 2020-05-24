@@ -123,10 +123,12 @@ io.sockets.on('connection', function (socket) {
 
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
-	function update(persname,questionname,value,param){
+	function update(name,qname,value,param){
 		if (!Number.isInteger(value)){
 			return 0;
 		}
+		let persname = name.replace("'", "\'").replace('"', '\"');
+		let questionname = qname.replace("'", "\'").replace('"', '\"'); 
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let insert = "";
@@ -232,7 +234,8 @@ io.sockets.on('connection', function (socket) {
 		});
 	}
 
-	function getvaleursreponses(title,name){
+	function getvaleursreponses(title,pname){
+		let name = pname.replace("'", "\'").replace('"', '\"');
 		let rqt = "select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where title = ?) and item_id in (select id from app_item where name = ?);"
 		connection.query(rqt,[title, name],function (err,result) {
 		if (err) console.log(err);
@@ -247,7 +250,8 @@ io.sockets.on('connection', function (socket) {
 	function getvaleursreponsespers(title,names){
 		let donnees = "("
 		for(let i = 0; i<names.length; i++){
-			donnees = donnees + '"' + names[i].replace(/"/g, "") + '"';
+			/*.replace(/"/g, "")*/
+			donnees = donnees + '"' + names[i].replace("'", "\'").replace('"', '\"'); + '"';
 			if (i != (names.length - 1)){
 				donnees = donnees + ",";
 			}
