@@ -86,9 +86,10 @@ $('#increment').click(function () {
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
 		}
 	}
-	if (selection1 != []){
+	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
-	}
+	}}, 500);
+
 });
 
 $('#updatesql').click(function () {
