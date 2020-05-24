@@ -256,6 +256,7 @@ io.sockets.on('connection', function (socket) {
 			}
 		}
 		donnees = donnees + ")";
+		console.log(donnees);
 		let rqt = "select name, yes_count, no_count, pass_count from app_answer inner join app_item on app_item.id = app_answer.item_id and question_id in (select id from app_question where title = ?) and name in " + donnees +";"
 		connection.query(rqt,[title],function (err,result) {
 			let tabreponse = []
