@@ -85,15 +85,14 @@ $('#increment').click(function () {
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
 			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
 		}
-	}
+	}/*
 	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
 	}}, 500);
-
+	*/
 });
 
 $('#updatesql').click(function () {
-	alert("ici");
 	var rqtp = "";
 	var rqtv = null;
 	//On garde le parametre choisi du bouton Parametre 
@@ -117,10 +116,6 @@ $('#updatesql').click(function () {
 	setTimeout(() => {if (selection1 != []){
 			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
 	}}, 500);
-});
-
-$('#Selectall').click(function () {
-	table.rows().select();
 });
 
 $('#creerarbre').click(function () {

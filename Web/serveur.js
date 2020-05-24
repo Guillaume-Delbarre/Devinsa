@@ -145,19 +145,19 @@ io.sockets.on('connection', function (socket) {
 				return 0;
 			}
 			connection.query(rqt,[value,questionname,persname],function (err,result) {
-				if (err) throw err;
+				if (err) console.log(err);
 				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
 					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[questionname,persname],function (error,res) {
-						if (error) throw error
+						if (error) console.log(error);
 						if (res.length == 2){				
 							let questionid = parseInt(res[0].id);
 							let itemid = parseInt(res[1].id);
 							//console.log(questionid, itemid
 							connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
-								if (errors) throw errors;
+								if (errors) console.log(errors);
 								//socket.emit("message","Resultat inséré ");
 								//console.log("Résultat inséré");
 							});
@@ -208,14 +208,14 @@ io.sockets.on('connection', function (socket) {
 		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		const start = Date.now();
 		connection.query(rqt, function(error, data, fields) {
-			if (error) throw error
+			if (error) console.log(error);
 			const jsonData = JSON.parse(JSON.stringify(data));
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				const zs = fs.createWriteStream("../Donnees/QuestionsLigne.txt");
 				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer) order by title"
 				connection.query(rqt1, function(error, rows) {
-					if (error) throw error
+					if (error) console.log(error);
 					const jsonData1 = JSON.parse(JSON.stringify(rows));
 					var b = fastcsv.write(jsonData1, { headers: true }).pipe(zs);
 					b.on('finish', function () {
@@ -235,7 +235,7 @@ io.sockets.on('connection', function (socket) {
 	function getvaleursreponses(title,name){
 		let rqt = "select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where title = ?) and item_id in (select id from app_item where name = ?);"
 		connection.query(rqt,[title, name],function (err,result) {
-		if (err) throw err;
+		if (err) console.log(err);
 			if (result.length != 0){
 				socket.emit("valeursreponses", {y: result[0].yes_count, n: result[0].no_count, p: result[0].pass_count});
 			}else{
@@ -256,7 +256,7 @@ io.sockets.on('connection', function (socket) {
 		let rqt = "select name, yes_count, no_count, pass_count from app_answer inner join app_item on app_item.id = app_answer.item_id and question_id in (select id from app_question where title = ?) and name in " + donnees +";"
 		connection.query(rqt,[title],function (err,result) {
 			let tabreponse = []
-			if (err) throw err;
+			if (err) console.log(err);
 			if (result.length != 0){
 				for(let j = 0; j <names.length; j++){
 					let pushed = 0;
@@ -282,15 +282,13 @@ io.sockets.on('connection', function (socket) {
 	function getallpers(){
 		let rqt = "select name from app_item where id in (select item_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
 		connection.query(rqt, function (err,result) {
-		if (err) throw err;
+		if (err) console.log(err);
 			if (result.length != 0){
 				let pers = []
 				for (let i = 0; i < result.length; i++) {
 					pers.push(result[i].name);
 				}
 				socket.emit("getallpersreponse", pers);
-			}else{
-				throw err;
 			}
 		});
 	}
@@ -298,15 +296,13 @@ io.sockets.on('connection', function (socket) {
 	function getallques(){
 		let rqt = "select title from app_question where id in (select question_id from app_answer where yes_count > 0 or pass_count > 0 or no_count > 0);"
 		connection.query(rqt, function (err,result) {
-		if (err) throw err;
+			if (err) console.log(err);
 			if (result.length != 0){
 				let ques = []
 				for (let i = 0; i < result.length; i++) {
 					ques.push(result[i].title);
 				}
 				socket.emit("getallquesreponse", ques);
-			}else{
-				throw err;
 			}
 		});
 	}
