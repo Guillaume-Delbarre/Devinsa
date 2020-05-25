@@ -268,6 +268,7 @@ io.sockets.on('connection', function (socket) {
 					}else{
 						rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';	
 					}
+			}
 		}else{
 			rqtq = 'title = \'' + title + '\'' 
 		}
