@@ -158,13 +158,13 @@ io.sockets.on('connection', function (socket) {
 		}
 		if (name != null && qname != null && value != null && param != null){
 			if (param == "yes_count"){
-				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" AND question_id in (select id from app_question where" + rqtq;
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where" + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
 			}else if(param == "no_count"){
-				rqt = "UPDATE app_answer SET no_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" AND question_id in (select id from app_question where" + rqtq;
+				rqt = "UPDATE app_answer SET no_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where" + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, ?, 0, 0, 0)";
 			}else if(param == "pass_count"){
-				rqt = "UPDATE app_answer SET pass_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" AND question_id in (select id from app_question where" + rqtq;
+				rqt = "UPDATE app_answer SET pass_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where" + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, 0, ?, 0, 0)";
 			}else{
 				socket.emit("message","mauvais inséré ");
