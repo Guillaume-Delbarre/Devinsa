@@ -131,28 +131,56 @@ io.sockets.on('connection', function (socket) {
 		let questionname = qname.replace("'", "\'").replace('"', '\"'); 
 		//console.log(name,question,value,param);
 		let rqt = "";
+		let rqtn = "";
+		let rqtq = "";
 		let insert = "";
+		let name ="directeur de l'insa"
+		let qname ="aa\"aa"
+		let tab = qname.split(/[\"\']/);
+			let tab1 = name.split(/[\"\']/);
+			if (qname.includes("'") || qname.includes('"')){
+				for (let i = 0; i<tab.length ; i++){
+					if (i == 0){
+						rqtq = "title LIKE '" + tab[0] + "%' ";
+					}else{
+					rqtq = rqtq + "AND title LIKE '%" + tab[i] + "%' ";
+			}
+		  }
+			}else{
+				rqtq = "question_id = (select id from app_question where title = " + qname + ")" 
+			}
+			if (name.includes("'") || name.includes('"')){
+				for (let j = 0; j<tab.length ; j++){
+					if (j == 0){
+						rqtn = "name LIKE '" + tab1[0] + "%' ";
+					}else{
+					rqtn = rqtn + "AND name LIKE '%" + tab1[j] + "%' ";
+					}
+				}
+			}else{
+				rqtn = "item_id = (select id from app_item where name = " + name + ")"
+			}
 		if (persname != null && questionname != null && value != null && param != null){
 			if (param == "yes_count"){
-				rqt = "UPDATE app_answer SET yes_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
 			}else if(param == "no_count"){
-				rqt = "UPDATE app_answer SET no_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+				rqt = "UPDATE app_answer SET no_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, ?, 0, 0, 0)";
 			}else if(param == "pass_count"){
-				rqt = "UPDATE app_answer SET pass_count = ? WHERE question_id = (select id from app_question where title = ?) AND item_id = (select id from app_item where name = ?)";
+				rqt = "UPDATE app_answer SET pass_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, 0, ?, 0, 0)";
 			}else{
 				socket.emit("message","mauvais inséré ");
 				return 0;
 			}
-			connection.query(rqt,[value,questionname,persname],function (err,result) {
+			connection.query(rqt,[value],function (err,result) {
 				if (err) console.log(err);
 				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
-					connection.query("select id from app_question where title = ? UNION select id from app_item where name = ?",[questionname,persname],function (error,res) {
+					connection.query("select id from app_question where "+ rqtq + " UNION select id from app_item where "+ rqtn + "\"",[questionname,persname],function (error,res) {
 						if (error) console.log(error);
 						if (res.length == 2){				
 							let questionid = parseInt(res[0].id);
