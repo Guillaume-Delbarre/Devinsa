@@ -176,7 +176,8 @@ io.sockets.on('connection', function (socket) {
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
-					connection.query("select id from app_question where "+ rqtq + " UNION select id from app_item where "+ rqtn + "\"",[qname,name],function (error,res) {
+					let requete = 'select id from app_question where '+ rqtq + ' UNION select id from app_item where '+ rqtn;
+					connection.query(requete,function (error,res) {
 						if (error) console.log(error);
 						if (res.length == 2){				
 							let questionid = parseInt(res[0].id);
