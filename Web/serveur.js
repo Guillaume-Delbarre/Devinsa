@@ -127,39 +127,35 @@ io.sockets.on('connection', function (socket) {
 		if (!Number.isInteger(value)){
 			return 0;
 		}
-		let persname = name.replace("'", "\'").replace('"', '\"');
-		let questionname = qname.replace("'", "\'").replace('"', '\"'); 
 		//console.log(name,question,value,param);
 		let rqt = "";
 		let rqtn = "";
 		let rqtq = "";
 		let insert = "";
-		let name ="directeur de l'insa"
-		let qname ="aa\"aa"
 		let tab = qname.split(/[\"\']/);
-			let tab1 = name.split(/[\"\']/);
-			if (qname.includes("'") || qname.includes('"')){
-				for (let i = 0; i<tab.length ; i++){
-					if (i == 0){
-						rqtq = "title LIKE '" + tab[0] + "%' ";
-					}else{
-					rqtq = rqtq + "AND title LIKE '%" + tab[i] + "%' ";
-			}
-		  }
-			}else{
-				rqtq = "question_id = (select id from app_question where title = " + qname + ")" 
-			}
-			if (name.includes("'") || name.includes('"')){
-				for (let j = 0; j<tab.length ; j++){
-					if (j == 0){
-						rqtn = "name LIKE '" + tab1[0] + "%' ";
-					}else{
-					rqtn = rqtn + "AND name LIKE '%" + tab1[j] + "%' ";
-					}
+		let tab1 = name.split(/[\"\']/);
+		if (qname.includes("'") || qname.includes('"')){
+			for (let i = 0; i<tab.length ; i++){
+				if (i == 0){
+					rqtq = "title LIKE '" + tab[0] + "%' ";
+				}else{
+				rqtq = rqtq + "AND title LIKE '%" + tab[i] + "%' ";
 				}
-			}else{
-				rqtn = "item_id = (select id from app_item where name = " + name + ")"
+			}	
+		}else{
+			rqtq = "question_id = (select id from app_question where title = " + qname + ")" 
+		}
+		if (name.includes("'") || name.includes('"')){
+			for (let j = 0; j<tab.length ; j++){
+				if (j == 0){
+					rqtn = "name LIKE '" + tab1[0] + "%' ";
+				}else{
+				rqtn = rqtn + "AND name LIKE '%" + tab1[j] + "%' ";
+				}
 			}
+		}else{
+			rqtn = "item_id = (select id from app_item where name = " + name + ")"
+		}
 		if (persname != null && questionname != null && value != null && param != null){
 			if (param == "yes_count"){
 				rqt = "UPDATE app_answer SET yes_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
