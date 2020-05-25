@@ -158,19 +158,19 @@ io.sockets.on('connection', function (socket) {
 		}
 		if (name != null && qname != null && value != null && param != null){
 			if (param == "yes_count"){
-				rqt = "UPDATE app_answer SET yes_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE "+ rqtn +" AND " + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
 			}else if(param == "no_count"){
-				rqt = "UPDATE app_answer SET no_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
+				rqt = "UPDATE app_answer SET no_count = ? WHERE "+ rqtn +" AND " + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, ?, 0, 0, 0)";
 			}else if(param == "pass_count"){
-				rqt = "UPDATE app_answer SET pass_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
+				rqt = "UPDATE app_answer SET pass_count = ? WHERE "+ rqtn +" AND " + rqtq;
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, 0, ?, 0, 0)";
 			}else{
 				socket.emit("message","mauvais inséré ");
 				return 0;
 			}
-			connection.query(rqt,[value],function (err,result) {
+			connection.query(rqt,[param, value],function (err,result) {
 				if (err) console.log(err);
 				if (result.affectedRows != 0){
 					//console.log(result.affectedRows + " record(s) updated");
