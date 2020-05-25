@@ -137,12 +137,11 @@ io.sockets.on('connection', function (socket) {
 		console.log(qname);
 		if (qname.includes("'") || qname.includes('"')){
 			for (let i = 0; i<tab.length ; i++){
-				if (i == 0){
-					rqtq = 'title LIKE \'' + tab[0] + '%\' ';
-				}else{
-				rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';
-				}
-			}	
+					if (i == 0){
+						rqtq = 'title LIKE \'' + tab[0] + '%\' ';
+					}else{
+							rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';	
+					}
 		}else{
 			rqtq = 'title = \'' + qname + '\'' 
 		}
@@ -261,9 +260,19 @@ io.sockets.on('connection', function (socket) {
 	}
 
 	function getvaleursreponses(title,pname){
-		let name = pname.replace("'", "\'").replace('"', '\"');
-		let rqt = "select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where title = ?) and item_id in (select id from app_item where name = ?);"
-		connection.query(rqt,[title, name],function (err,result) {
+		let tab = title.split(/[\"\']/);
+		if (title.includes("'") || title.includes('"')){
+			for (let i = 0; i<tab.length ; i++){
+					if (i == 0){
+						rqtq = 'title LIKE \'' + tab[0] + '%\' ';
+					}else{
+						rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';	
+					}
+		}else{
+			rqtq = 'title = \'' + title + '\'' 
+		}
+		let rqt = 'select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where' + rqtq + ') and item_id in (select id from app_item where name = ?);'
+		connection.query(rqt,[name],function (err,result) {
 		if (err) console.log(err);
 			if (result.length != 0){
 				socket.emit("valeursreponses", {y: result[0].yes_count, n: result[0].no_count, p: result[0].pass_count});
