@@ -134,6 +134,7 @@ io.sockets.on('connection', function (socket) {
 		let insert = '';
 		let tab = qname.split(/[\"\']/);
 		let tab1 = name.split(/[\"\']/);
+		console.log(qname);
 		if (qname.includes("'") || qname.includes('"')){
 			for (let i = 0; i<tab.length ; i++){
 				if (i == 0){
