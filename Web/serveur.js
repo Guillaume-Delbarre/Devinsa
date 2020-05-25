@@ -143,10 +143,10 @@ io.sockets.on('connection', function (socket) {
 				}
 			}	
 		}else{
-			rqtq = "question_id = (select id from app_question where title = " + qname + ")" 
+			rqtq = "question_id = (select id from app_question where title = '" + qname + "')" 
 		}
 		if (name.includes("'") || name.includes('"')){
-			for (let j = 0; j<tab.length ; j++){
+			for (let j = 0; j<tab1.length ; j++){
 				if (j == 0){
 					rqtn = "name LIKE '" + tab1[0] + "%' ";
 				}else{
@@ -154,7 +154,7 @@ io.sockets.on('connection', function (socket) {
 				}
 			}
 		}else{
-			rqtn = "item_id = (select id from app_item where name = " + name + ")"
+			rqtn = "item_id = (select id from app_item where name = '" + name + "')"
 		}
 		if (name != null && qname != null && value != null && param != null){
 			if (param == "yes_count"){
