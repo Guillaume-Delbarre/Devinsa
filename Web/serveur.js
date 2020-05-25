@@ -156,7 +156,7 @@ io.sockets.on('connection', function (socket) {
 		}else{
 			rqtn = "item_id = (select id from app_item where name = " + name + ")"
 		}
-		if (persname != null && questionname != null && value != null && param != null){
+		if (name != null && qname != null && value != null && param != null){
 			if (param == "yes_count"){
 				rqt = "UPDATE app_answer SET yes_count = ? WHERE "+ rqtn +" AND " + rqtq + "\"";
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
