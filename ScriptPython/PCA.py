@@ -44,11 +44,11 @@ def to2D():
     pca = TSNE(n_components=2)
     x_r = pca.fit_transform(x)
     
-    file_zero = open("../Donnees/resPCA.csv","w",encoding='utf-8')
+    file_zero = open("../Donnees/resVisualisation.csv","w",encoding='utf-8')
     file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
     file_zero.close()
     
-    file = open("../Donnees/resPCA.csv","a",encoding="utf-8")
+    file = open("../Donnees/resVisualisation.csv","a",encoding="utf-8")
     
     
     for i in range(len(x_r)) :

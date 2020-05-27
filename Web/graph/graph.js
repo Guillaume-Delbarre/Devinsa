@@ -197,7 +197,7 @@ function clear_selection() {
   node.classed('selected', function (d) { return d.selected = false; })
 }
 
-d3.csv("resPCA.csv", function(error, data) {
+d3.csv("resVisualisation.csv", function(error, data) {
   data.forEach(function(d) {
     d.Axe_X = +d.Axe_X;
     d.Axe_Y = +d.Axe_Y;
@@ -338,5 +338,3 @@ d3.csv("resPCA.csv", function(error, data) {
       }
     });
 });
-
-

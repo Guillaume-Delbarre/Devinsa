@@ -43,10 +43,10 @@ router.get('/home', function(request, response) {
 	}
 });
 
-router.get('/resPCA.csv', function(request, response) {
+router.get('/resVisualisation.csv', function(request, response) {
 	if (request.session.loggedin) {
-		// Chargement du fichier resPCA.csv affiché au client
-		response.sendFile(path.join(__dirname + '/../Donnees/resPCA.csv'));
+		// Chargement du fichier resVisualisation.csv affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/resVisualisation.csv'));
 	}
 });
 
