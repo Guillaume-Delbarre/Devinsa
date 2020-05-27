@@ -71,7 +71,7 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
     return dfFile
 
 
-def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,902) des moyennes par question
+def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,nbQuestion) des moyennes par question
     global df
     somme = df.sort_values(by='Clusters')
     #On fait la somme des TF-IDF pour chaque question par cluster 
