@@ -103,7 +103,7 @@ io.sockets.on('connection', function (socket) {
 		if (Number.isInteger(nbcluster) && Number.isInteger(nbquestions)){
 			if (scripting == 0){
 				scripting = 1;
-				demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
+				demande(["MiseEnPage.py", "CHA.py", "questionsCaracteristiques.py", "visualisation.py"], [nbcluster, nbquestions]);
 			}
 		}else{
 			socket.emit("message", "paramètres incorrects");
@@ -140,11 +140,11 @@ io.sockets.on('connection', function (socket) {
 					if (i == 0){
 						rqtq = 'title LIKE \'' + tab[0] + '%\' ';
 					}else{
-							rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';	
+							rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';
 					}
 			}
 		}else{
-			rqtq = 'title = \'' + qname + '\'' 
+			rqtq = 'title = \'' + qname + '\''
 		}
 		if (name.includes("'") || name.includes('"')){
 			for (let j = 0; j<tab1.length ; j++){
@@ -180,7 +180,7 @@ io.sockets.on('connection', function (socket) {
 					let requete = 'select id from app_question where '+ rqtq + ' UNION select id from app_item where '+ rqtn;
 					connection.query(requete,function (error,res) {
 						if (error) console.log(error);
-						if (res.length == 2){				
+						if (res.length == 2){
 							let questionid = parseInt(res[0].id);
 							let itemid = parseInt(res[1].id);
 							//console.log(questionid, itemid
@@ -267,11 +267,11 @@ io.sockets.on('connection', function (socket) {
 					if (i == 0){
 						rqtq = 'title LIKE \'' + tab[0] + '%\' ';
 					}else{
-						rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';	
+						rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';
 					}
 			}
 		}else{
-			rqtq = 'title = \'' + title + '\'' 
+			rqtq = 'title = \'' + title + '\''
 		}
 		let rqt = 'select yes_count, no_count, pass_count from app_answer where question_id in (select id from app_question where' + rqtq + ') and item_id in (select id from app_item where name = ?);'
 		connection.query(rqt,[name],function (err,result) {
@@ -355,7 +355,7 @@ io.sockets.on('connection', function (socket) {
 			args: optionsligne
 		};
 		path = "../ScriptPython/".concat(nom);
-		
+
 		console.log("lancement script")
 
 		PythonShell.run(path,options, function (err) {
@@ -391,6 +391,6 @@ io.sockets.on('connection', function (socket) {
 			scripting = 0;
 			return 0;
 		}
-		fileattente(["CHA.py", "questionsCaracteristiques.py", "PCA.py"], [nbcluster, nbquestions]);
+		fileattente(["CHA.py", "questionsCaracteristiques.py", "visualisation.py"], [nbcluster, nbquestions]);
 	}
 });
