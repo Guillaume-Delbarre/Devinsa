@@ -20,7 +20,7 @@ def couleur_alea() :
 
 def to2D():
     #Prendre les titres des questions
-    file_question = open("../Donnees/kmeans.csv","r",encoding='utf-8')
+    file_question = open("../Donnees/classif.csv","r",encoding='utf-8')
     first = file_question.readline()
     file_question.close()
     
@@ -31,7 +31,7 @@ def to2D():
     
     
     #Charge le dataFrame avec toutes les infos du fichier
-    df = pd.read_csv("../Donnees/kmeans.csv", sep = ';' , header = 0, encoding='utf-8')
+    df = pd.read_csv("../Donnees/classif.csv", sep = ';' , header = 0, encoding='utf-8')
     
     
     y = df.loc[:,'Noms'].values

@@ -30,7 +30,7 @@ def trouveroptimal():
 def ecritcluster(listMedoid):
     global y_kmeans10
     fileentree = open("../Donnees/Personnages.csv","r",encoding='utf-8')
-    filesortie = open("../Donnees/kmeans.csv","w",encoding='utf-8')
+    filesortie = open("../Donnees/classif.csv","w",encoding='utf-8')
     i=-1
     j=0
     for line in fileentree:

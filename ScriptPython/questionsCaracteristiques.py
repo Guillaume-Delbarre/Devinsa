@@ -9,7 +9,7 @@ import math
 
 
 medoids = None
-df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):

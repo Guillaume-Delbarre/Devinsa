@@ -8,7 +8,7 @@ from sklearn.metrics import pairwise_distances
 import re
 from questionsCaracteristiques import sommesClusters
 
-df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
 question = file_question.readlines()
 question = [w.replace('\n',"") for w in question]

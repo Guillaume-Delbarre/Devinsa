@@ -30,7 +30,7 @@ def classHierarchique(n=0):
 
 def ecritcluster(tabCluster):
     fileentree = open("../Donnees/Personnages.csv","r",encoding='utf-8')
-    filesortie = open("../Donnees/kmeans.csv","w",encoding='utf-8')
+    filesortie = open("../Donnees/classif.csv","w",encoding='utf-8')
     taille = len(tabCluster)
     i=-1
     for line in fileentree:
