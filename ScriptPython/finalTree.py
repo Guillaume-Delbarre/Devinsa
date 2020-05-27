@@ -35,6 +35,7 @@ def extrait_app_tree(cursor,profondeur):
         res.append([a,b,c,d,e])
     return res
 
+#Renvoit les questions fils d'une question parent
 def getfils(parent_id,app_tree):
     res = []
     for question in app_tree:
@@ -66,6 +67,9 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
             index_remove_perso.append(i)
     return np.delete(count,index_remove_perso,0),np.delete(tfidf,index_remove_perso,0),np.delete(itemByOrder,index_remove_perso,0)
 
+#Même fonctionnement que compterPerso
+#Nécessaire pour avoir deux matrices parallèles
+#Une pour compter les persos et une pour les exemples
 def compterPerso_exemple(rangQuestion,count,tfidf,itemByOrder):
     if rangQuestion%2==0:
         divise = 1
@@ -175,6 +179,9 @@ def distScalaire(perso,moyen):
     dist = np.dot(perso-moyen,moyen)
     return dist
 
+#Fonction renvoyant les exemples pour chaque noeud
+#Elle prend les plus proches de la moyenne
+#Elle renvoit maximum 3 personnages
 def exemples(tfidf):
     moyen = np.mean(tfidf,0)
     dist = distEuclidienne(tfidf,moyen)
@@ -279,6 +286,8 @@ def ecritureData(profondeur):
     ecriture.write(" }};")
     ecriture.close
 
+#On lance le script avec un paramètre correspondant
+#à la profondeur voulu à extraire
 if __name__ == '__main__':
     if (len(sys.argv) == 2):
         ecritureData(sys.argv[1])
