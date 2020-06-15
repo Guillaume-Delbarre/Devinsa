@@ -123,7 +123,7 @@ io.sockets.on('connection', function (socket) {
 
 	// FONCTION UPDATE BASE : param = 0 no_count || param = 1 yes_count
 
-	function update(name,qname,value,param){
+	function update(nameid,questionid,value,param){
 		if (!Number.isInteger(value)){
 			return 0;
 		}
@@ -132,40 +132,15 @@ io.sockets.on('connection', function (socket) {
 		let rqtn = '';
 		let rqtq = '';
 		let insert = '';
-		let tab = qname.split(/[\"\']/);
-		let tab1 = name.split(/[\"\']/);
-		console.log(qname);
-		if (qname.includes("'") || qname.includes('"')){
-			for (let i = 0; i<tab.length ; i++){
-					if (i == 0){
-						rqtq = 'title LIKE \'' + tab[0] + '%\' ';
-					}else{
-							rqtq = rqtq + 'AND title LIKE \'%' + tab[i] + '%\' ';
-					}
-			}
-		}else{
-			rqtq = 'title = \'' + qname + '\''
-		}
-		if (name.includes("'") || name.includes('"')){
-			for (let j = 0; j<tab1.length ; j++){
-				if (j == 0){
-					rqtn = 'name LIKE \'' + tab1[0] + '%\' ';
-				}else{
-				rqtn = rqtn + 'AND name LIKE \'%' + tab1[j] + '%\' ';
-				}
-			}
-		}else{
-			rqtn = 'name = \'' + name + '\''
-		}
-		if (name != null && qname != null && value != null && param != null){
+		if (nameid != null && questionid != null && value != null && param != null){
 			if (param == "yes_count"){
-				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where " + rqtq + ")";
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id = ? AND question_id = ?;"
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, ?, 0, 0, 0, 0)";
 			}else if(param == "no_count"){
-				rqt = "UPDATE app_answer SET no_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where " + rqtq + ")";
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id = ? AND question_id = ?;"
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, ?, 0, 0, 0)";
 			}else if(param == "pass_count"){
-				rqt = "UPDATE app_answer SET pass_count = ? WHERE item_id in (select id from app_item where "+ rqtn +" ) AND question_id in (select id from app_question where " + rqtq + ")";
+				rqt = "UPDATE app_answer SET yes_count = ? WHERE item_id = ? AND question_id = ?;"
 				insert = "INSERT INTO app_answer (id, question_id, item_id, yes_count, no_count, pass_count, yes_tfidf, no_tfidf) VALUES(0, ?, ?, 0, 0, ?, 0, 0)";
 			}else{
 				socket.emit("message","mauvais inséré ");
@@ -177,25 +152,22 @@ io.sockets.on('connection', function (socket) {
 					//console.log(result.affectedRows + " record(s) updated");
 					//socket.emit("message","Update Done " + result.affectedRows);
 				}else{
-					let requete = 'select id from app_question where '+ rqtq + ' UNION select id from app_item where '+ rqtn;
+					let requete = "select id from app_question where id = ? UNION select id from app_item where id = ?"
 					connection.query(requete,function (error,res) {
 						if (error) console.log(error);
 						if (res.length == 2){
-							let questionid = parseInt(res[0].id);
+							let qid = parseInt(res[0].id);
 							let itemid = parseInt(res[1].id);
-							//console.log(questionid, itemid
-							connection.query(insert,[questionid,itemid,value],function (errors,resultats) {
+							connection.query(insert,[qid,itemid,value],function (errors,resultats) {
 								if (errors) console.log(errors);
 								//socket.emit("message","Resultat inséré ");
 								//console.log("Résultat inséré");
 							});
-						}else{
-							//console.log("Personnage: " + questionname + " ou " + "Question: " + questionname + "Non present dans la base");
+						}else{	
 						}
 					});
 				}
 			});
-			//console.log("Nom : ",name," Titre de la question : ",question," Valeur actuelle : ",value," Paramètre changé : ",param);
 		}else{
 			socket.emit("message","parametres incorrects");
 		}
@@ -233,7 +205,7 @@ io.sockets.on('connection', function (socket) {
 		const ws = fs.createWriteStream("../Donnees/Vecteur.csv");
 		console.log("Extraction des données");
 	// ON DEMANDE LES DONNEES A LA BASE
-		var rqt = "SELECT name,yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
+		var rqt = "SELECT name,idq, yes_tfidf,no_tfidf FROM ( SELECT name,title,id,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.id=a.question_id AND t1.idg=a.item_id ORDER BY name,title";
 		const start = Date.now();
 		connection.query(rqt, function(error, data, fields) {
 			if (error) console.log(error);
@@ -241,7 +213,7 @@ io.sockets.on('connection', function (socket) {
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				const zs = fs.createWriteStream("../Donnees/QuestionsLigne.txt");
-				var rqt1 = "Select title from app_question where id in (select distinct question_id from app_answer) order by title"
+				var rqt1 = "Select id from app_question where id in (select distinct question_id from app_answer) order by title"
 				connection.query(rqt1, function(error, rows) {
 					if (error) console.log(error);
 					const jsonData1 = JSON.parse(JSON.stringify(rows));

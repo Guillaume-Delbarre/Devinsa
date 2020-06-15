@@ -26,8 +26,8 @@ def miseEnPage():
 
     #construction de la 1ere ligne du fichier, dans listetitre
     for i in range(len(listeQuestions)) :
-        listetitre.append("Oui " + listeQuestions[i])
-        listetitre.append("Non " + listeQuestions[i])
+        listetitre.append("Oui- " + listeQuestions[i])
+        listetitre.append("Non-" + listeQuestions[i])
     #ecriture de listetitre dans fichier csv
     ecritStringFichier(listetitre)
     
@@ -106,7 +106,7 @@ def manip(s) :
             #print(listeParNom)
 
 if __name__ == '__main__':
-    miseEnPage()       
-
+    #miseEnPage()       
+    print(regroupList(["a", "b", "1"]))
         
 
