@@ -106,7 +106,6 @@ def manip(s) :
             #print(listeParNom)
 
 if __name__ == '__main__':
-    #miseEnPage()       
-    print(regroupList(["a", "b", "1"]))
+    miseEnPage()       
         
 
