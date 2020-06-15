@@ -150,7 +150,7 @@ $( function() {
 		select : function(event, ui){
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
 			if (selection1.length != 0){
-				socket.emit("getallpersreponses", {qid: questionid, names: selection1});
+				socket.emit("getallpersreponses", {qid: questionid, ids: selection1});
 			}
 		}
 	});

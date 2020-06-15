@@ -230,7 +230,7 @@ io.sockets.on('connection', function (socket) {
 	}
 
 	function getvaleursreponses(titleid,nameid){
-		let rqt = 'select name, yes_count, no_count, pass_count from app_answer inner join app_item on question_id = ? and item_id = ?;'
+		let rqt = "select name, yes_count, no_count, pass_count from app_answer inner join app_item on question_id = ? and item_id = ?;"
 		connection.query(rqt,[titleid, nameid],function (err,result) {
 		if (err) console.log(err);
 			if (result.length != 0){
@@ -238,7 +238,7 @@ io.sockets.on('connection', function (socket) {
 			}else{
 				connection.query("select name from app_item where id = ?",[nameid], function (err,result) {
 					socket.emit("valeursreponses", {id: nameid, n: result[0].name, y: 0, n: 0, p: 0});
-				}
+				});
 			}
 		});
 	}
