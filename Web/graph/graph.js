@@ -38,6 +38,7 @@ svg = svg.append("g")
 
 var selection = [];
 var selection1 = [];
+var selection1Id = []
 var selection2 = [];
 var nomSelectionne =[];
 
@@ -45,7 +46,9 @@ function attr_select1(){
   selection1 = [];
   node.each(function(d) {
     if (d.selected) {
-       selection1.push(d.Name);
+		selection1Id.push(d.id)
+    	selection1.push(d.Name);
+
     }
   });
   clear_selection();
@@ -95,9 +98,11 @@ function attr_clust_select1(){
   });
   if (i<2) {
     selection1 = [];
+	selection1Id = [];
     node.each(function(d) {
       if (d.Cluster == clust) {
-         selection1.push(d.Name);
+		selection1.push(d.Name);
+		selection1Id.push(d.id)
       }
     });
     nombrePersoSelect1();
@@ -199,6 +204,7 @@ function clear_selection() {
 
 d3.csv("resVisualisation.csv", function(error, data) {
   data.forEach(function(d) {
+	d.id = +d.id;
     d.Axe_X = +d.Axe_X;
     d.Axe_Y = +d.Axe_Y;
     d.Medoid = +d.Medoid;
