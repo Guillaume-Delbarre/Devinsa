@@ -12,7 +12,7 @@ def miseEnPage():
     global listeNoms
     listeQuestions = []
     listeQ =[]
-    listetitre = ["Noms"]
+    listetitre = ["id;Noms"]
     
     #Mettre les questions du fichier dans listeQuestions
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
@@ -61,15 +61,16 @@ def manip(s) :
         new = s.split(',')
         nb = len(new)
         
-        if (nb > 3) :
+        if (nb > 4) :
             dernier = new[nb-1]
             penultieme = new[nb-2]
-            premier = ""
+            premier = new[0]
+            deuxieme = ""
             for i in range(0,nb-2):
-                premier = premier + new[i]
-            new = [premier,penultieme,dernier]
+                deuxieme = deuxieme + new[i]
+            new = [premier,deuxieme,penultieme,dernier]
 
-        if(not (new[0] in listeNoms)) :
+        if(not (new[1] in listeNoms)) :
             
             if (len(listeNoms) > 0) :
                 #print(listeParNom)
@@ -78,14 +79,15 @@ def manip(s) :
                 
             listeParNom = []
                 
-            listeNoms.append(new[0])
+            listeNoms.append(new[1])
             listeParNom.append(new[0])
-
-            if(new[1] == ""):
-                new[1] = "0"
             listeParNom.append(new[1])
+
+            if(new[2] == ""):
+                new[2] = "0"
+            listeParNom.append(new[2])
             
-            clean = new[2].replace('\n','')
+            clean = new[3].replace('\n','')
             if(clean == ""):
                 clean = "0"
             listeParNom.append(clean)
@@ -94,11 +96,11 @@ def manip(s) :
             
         else :
             
-            if(new[1] == ""):
-                new[1] = "0"
-            listeParNom.append(new[1])
+            if(new[2] == ""):
+                new[2] = "0"
+            listeParNom.append(new[2])
             
-            clean = new[2].replace('\n','')
+            clean = new[3].replace('\n','')
             if(clean == ""):
                 clean = "0"
             listeParNom.append(clean)

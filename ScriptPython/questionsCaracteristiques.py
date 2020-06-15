@@ -10,6 +10,7 @@ import math
 
 medoids = None
 df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+del df['id']
 
 
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):

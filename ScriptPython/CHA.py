@@ -9,7 +9,9 @@ from sklearn.cluster import AgglomerativeClustering
 
 def classHierarchique(n=0):
     if os.path.isfile('../Donnees/Personnages.csv'):
-        df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+        df = pd.read_csv("../Donnees/Personnages.csv", sep = ";", header=0, index_col=1, encoding = 'utf-8')
+        #On enlève la colonne des ids pour la Classification
+        del df['id']
     #print(df)
 
     #plus la distance threshold est faible, plus le nombre de cluster est élevé
@@ -17,12 +19,7 @@ def classHierarchique(n=0):
         clt = AgglomerativeClustering(n_clusters=None,distance_threshold=100,compute_full_tree=True).fit(df)
     else:
         clt = AgglomerativeClustering(n_clusters=n,compute_full_tree=True).fit(df)
-    '''
-    file = open("../Donnees/testCAH.txt","w")
-    for s in clt.labels_ :
-        file.write(str(s) + '\n')
-    file.close
-    '''
+
     #print(clt.labels_)
     ecritcluster(clt.labels_)
   
