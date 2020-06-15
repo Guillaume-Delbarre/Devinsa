@@ -44,6 +44,7 @@ var nomSelectionne =[];
 
 function attr_select1(){
   selection1 = [];
+  selection1Id = [];
   node.each(function(d) {
     if (d.selected) {
 		selection1Id.push(d.id)
