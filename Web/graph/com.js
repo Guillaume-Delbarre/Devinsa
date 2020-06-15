@@ -1,9 +1,10 @@
 var socket = io.connect('http://127.0.0.1:8080');
 var tabp = [];
 var tabq = [];
-var questiontitle = "";
+var questionid = "";
 var namepers = "";
 var table;
+var questiontitle = "";
 
 $(document).ready(function() {
     table = $('#personnages').DataTable( {
@@ -48,7 +49,7 @@ socket.on('getallparamreponse', function(tabreponse) {
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
 	for(let i = 0; i<tabreponse.length; i++){
-		t.row.add([tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
+		t.row.add([tabreponse[i].id, [tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
 	}
 });
 
@@ -83,7 +84,7 @@ $('#increment').click(function () {
 	if(rqtp != "" && parametre != null){
 		//alert(questiontitle);
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
-			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
+			socket.emit('updatesql', ({nameid: table.rows('.selected').data()[i][0], qid: questionid, value: table.rows('.selected').data()[i][parametre]+1, param: rqtp}));
 		}
 	}/*
 	setTimeout(() => {if (selection1 != []){
@@ -110,11 +111,11 @@ $('#updatesql').click(function () {
 	//On emet une requete update pour chaque ligne selectionnée aux parametres stockés precedemment dans la fonction
 	if(questiontitle != "" && rqtv != null){
 		for (let i = 0; i<table.rows('.selected').data().length; i++){
-			socket.emit('updatesql', ({name: table.rows('.selected').data()[i][0], qname: questiontitle, value: rqtv, param: rqtp}));
+			socket.emit('updatesql', ({nameid: table.rows('.selected').data()[i][0], qid: questiontitle, value: rqtv, param: rqtp}));
 		}
 	}
 	setTimeout(() => {if (selection1 != []){
-			socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
+			socket.emit("getallpersreponses", {qid: questionid, ids: selection1});
 	}}, 500);
 });
 
@@ -149,7 +150,7 @@ $( function() {
 		select : function(event, ui){
 			questiontitle = ui.item.value ; // On stock la valeur dans le param
 			if (selection1.length != 0){
-				socket.emit("getallpersreponses", {qname: questiontitle, names: selection1});
+				socket.emit("getallpersreponses", {qid: questionid, names: selection1});
 			}
 		}
 	});
