@@ -220,9 +220,20 @@ io.sockets.on('connection', function (socket) {
 						//console.log("Ecriture faite");
 						const millis = Date.now() - start;
 						//console.log("Temps écriture fichier : ", millis/1000, " secondes");
-						if (script != []){
-							fileattente(script, options);
-						}
+							connection.query("select name,item_id as id from (select distinct item_id,name from app_answer inner join app_item on app_answer.item_id = app_item.id order by name) as t1" , function(error, rows) {
+								if (error) console.log(error);
+								const jsonData2 = JSON.parse(JSON.stringify(rows));
+								var c = fastcsv.write(jsonData2, { headers: true }).pipe(fs.createWriteStream("../Donnees/name.csv"));
+								c.on('finish', function () {
+									//socket.emit("message","Fichiers écrits");
+									//console.log("Ecriture faite");
+									const millis = Date.now() - start;
+									//console.log("Temps écriture fichier : ", millis/1000, " secondes");
+									if (script != []){
+										fileattente(script, options);
+									}
+							});
+						});
 					});
 				});
 			});
