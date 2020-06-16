@@ -9,11 +9,10 @@ import math
 
 
 medoids = None
+df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
-    df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
-    del df['id']
     dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
     dfFile.to_csv("../Donnees/infoClusters.csv", mode='w', index=False)
 
@@ -21,8 +20,6 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
 
 def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
     global df
-    df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
-    del df['id']
     agg = sommesClusters(6)
     agg = agg.T
     col=[i for i in range(nbQuestion+int(nbMedoid/2))]
@@ -75,8 +72,6 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
 
 def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,nbQuestion) des moyennes par question
     global df
-    df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
-    del df['id']
     somme = df.sort_values(by='Clusters')
     #On fait la somme des TF-IDF pour chaque question par cluster 
     somme = pd.DataFrame(somme.groupby(['Clusters'],as_index=False).sum())
