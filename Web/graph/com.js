@@ -49,7 +49,7 @@ socket.on('getallparamreponse', function(tabreponse) {
 	var t = $('#personnages').DataTable();
 	t.clear().draw();
 	for(let i = 0; i<tabreponse.length; i++){
-		t.row.add([tabreponse[i].id, [tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
+		t.row.add([tabreponse[i].id, tabreponse[i].nom, tabreponse[i].y, tabreponse[i].n, tabreponse[i].p]).draw(false);
 	}
 });
 
