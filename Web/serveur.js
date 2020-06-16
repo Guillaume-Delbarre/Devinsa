@@ -268,7 +268,7 @@ io.sockets.on('connection', function (socket) {
 					connection.query("select name from app_item where id = ?", ids[j], function (err,result) {
 						if (err) console.log(err);
 						tabreponse.push({id: ids[j], nom: result[0].name, y: 0, n: 0, p: 0});
-					}
+					});
 				}
 			}
 			socket.emit("getallparamreponse", tabreponse);
