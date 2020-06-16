@@ -21,15 +21,18 @@ def to2D():
     file_question.close()
     
     listTitres = first.split(';')
+    
     listTitres[len(listTitres)-1] = listTitres[len(listTitres)-1].replace("\n","")
+    
     del listTitres[0] #Suppr de l'id
-    del listTitres[1] #Suppr du nom
+    
+    del listTitres[0] #Suppr du nom
+    print(listTitres)
     del listTitres[len(listTitres)-1] #Suppr du cluster
     
     
     #Charge le dataFrame avec toutes les infos du fichier
     df = pd.read_csv("../Donnees/classif.csv", sep = ';' , header = 0, encoding='utf-8')
-    
     
     y = df.loc[:,'Noms'].values
     x = df.loc[:, listTitres].values
@@ -38,7 +41,7 @@ def to2D():
     cluster = df.loc[:,'Clusters'].values
     #med = df.loc[:,'Medoid'].values
     
-    
+    print(x)
     pca = TSNE(n_components=2)
     x_r = pca.fit_transform(x)
     
