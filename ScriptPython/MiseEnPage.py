@@ -21,6 +21,7 @@ def miseEnPage():
     for q in listeQ[1:] :
         q = q.replace('\n',"")
         q = q.replace('"',"")
+        q = q.replace("'","")
         listeQuestions.append(q)
     #print(listeQuestions)
 
