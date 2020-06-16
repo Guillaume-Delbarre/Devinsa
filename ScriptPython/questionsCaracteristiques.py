@@ -94,7 +94,7 @@ def persoExtremes(numCluster, metric='cosine', medoid=True, nbPerso=4): # Retour
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
     persoCluster = df[df['Clusters']==numCluster].copy()
-    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 1:len(moy.columns)], metric))
+    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[1:len(persoCluster.index), 1:len(moy.columns)], metric))
     if medoid:
         res.sort_values(by=0,axis=1, inplace=True)
     else :
