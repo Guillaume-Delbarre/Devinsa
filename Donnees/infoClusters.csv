@@ -1,9 +1,18 @@
-0,1,2,3,4,5,6,7,8,9
-Groupe 0,645 personnages,Groupe 1,421 personnages,Groupe 2,47 personnages,Groupe 3,340 personnages,Groupe 4,83 personnages
-Michel Blanc (acteur français),Mike Oldfield,Gandalf,Han Solo (star wars),Tintin (personnage de BD),Barack Obama,Ant-man ,Anne Hidalgo ,Ivan Leplumey (enseignant INSA Rennes),Bernard-Henry Lévy (philosophe imposteur)
-Carlos Ghosn,Brigitte Macron,Adibou,Hubert Bonnisseur de la Bath,Mario Bros (perso jeux vidéo),François Hollande,Aquarius ,Général Shepard (Mass Effect),Nicolas Sarkozy,Jacques Chirac
-Ton personnage est-il réel ?,4.06,Ton personnage a-t-il un prénom hors du commun ?,1.43,Ton personnage a-t-il des cheveux ?,3.43,Ton personnage vit-il dans un monde imaginaire ?,0.02,Ton personnage est-il réel ?,6.28
-Ton personnage est-il un garçon ?,1.0,Ton personnage porte-t-il des chaussures ?,1.43,Ton personnage est-il célèbre  ?,3.19,Ton personnage a-t-il un prénom hors du commun ?,0.01,Ton personnage est-il célèbre  ?,2.42
-Ton personnage est-il célèbre  ?,0.78,Ton personnage a-t-il des cheveux ?,1.3,Ton personnage porte-t-il des chaussures ?,3.14,Ton personnage a-t-il plus de 50 ans ?,0.01,Ton personnage a-t-il plus de 35 ans ?,2.36
-Ton personnage a-t-il été roi ?,-2.378,Ton personnage est-il réel ?,-4.083,Ton personnage a-t-il été roi ?,-4.908,Ton personnage est-il portugais ?,-0.047,Ton personnage vit-il dans un monde imaginaire ?,-4.686
-Ton personnage vit-il dans un monde imaginaire ?,-1.977,Ton personnage a-t-il été roi ?,-1.649,Ton personnage est-il un tueur ?,-4.376,Ton personnage a-t-il joué dans Stargate ?,-0.046,Ton personnage a-t-il été roi ?,-4.623
+0,1,2,3,4,5,6,7
+Groupe 0,130 personnages,Groupe 1,421 personnages,Groupe 2,645 personnages,Groupe 3,340 personnages
+6541,7353,6461,7497,6826,6584,3227,105
+6378,6714,6422,7002,7201,6812,60,4234
+235,3.14,22372,1.43,235,4.06,39353,0.02
+317,2.7,259,1.43,255,1.0,22372,0.01
+410,2.5,410,1.3,317,0.78,37986,0.01
+259,2.25,294,0.58,363,0.57,2129,0.01
+255,2.08,39353,0.49,259,0.3,696,0.0
+294,2.08,335,0.4,294,0.29,3034,0.0
+363,1.64,547,0.34,410,0.26,2433,0.0
+19831,-4.726,235,-4.083,19831,-2.378,1647,-0.047
+52872,-4.169,19831,-1.649,39353,-1.977,19295,-0.046
+352,-3.346,514,-1.614,22372,-1.804,18687,-0.039
+39353,-3.043,37986,-1.249,52872,-1.475,51216,-0.03
+1129,-2.637,52872,-1.245,685,-1.433,814,-0.029
+685,-2.49,148568,-1.157,379,-1.284,528,-0.025
+365,-2.355,520,-0.945,352,-1.165,14090,-0.023
