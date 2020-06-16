@@ -210,7 +210,7 @@ io.sockets.on('connection', function (socket) {
 			var a = fastcsv.write(jsonData, { headers: true }).pipe(ws);
 			a.on('finish', function () {
 				const zs = fs.createWriteStream("../Donnees/QuestionsLigne.txt");
-				var rqt1 = `select question_id from (select distinct question_id,title from app_answer inner join app_question on app_answer.question_id = app_question.id order by title) as t1`
+				var rqt1 = `select question_id as id from (select distinct question_id,title from app_answer inner join app_question on app_answer.question_id = app_question.id order by title) as t1`
 				connection.query(rqt1, function(error, rows) {
 					if (error) console.log(error);
 					const jsonData1 = JSON.parse(JSON.stringify(rows));
