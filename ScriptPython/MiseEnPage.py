@@ -12,7 +12,7 @@ def miseEnPage():
     global listeNoms
     listeQuestions = []
     listeQ =[]
-    listetitre = ["id;Noms"]
+    listetitre = ["Noms"]
     
     #Mettre les questions du fichier dans listeQuestions
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
@@ -21,7 +21,6 @@ def miseEnPage():
     for q in listeQ[1:] :
         q = q.replace('\n',"")
         q = q.replace('"',"")
-        q = q.replace("'","")
         listeQuestions.append(q)
     #print(listeQuestions)
 
@@ -62,16 +61,15 @@ def manip(s) :
         new = s.split(',')
         nb = len(new)
         
-        if (nb > 4) :
+        if (nb > 3) :
             dernier = new[nb-1]
             penultieme = new[nb-2]
-            premier = new[0]
-            deuxieme = ""
+            premier = ""
             for i in range(0,nb-2):
-                deuxieme = deuxieme + new[i]
-            new = [premier,deuxieme,penultieme,dernier]
+                premier = premier + new[i]
+            new = [premier,penultieme,dernier]
 
-        if(not (new[1] in listeNoms)) :
+        if(not (new[0] in listeNoms)) :
             
             if (len(listeNoms) > 0) :
                 #print(listeParNom)
@@ -80,15 +78,14 @@ def manip(s) :
                 
             listeParNom = []
                 
-            listeNoms.append(new[1])
+            listeNoms.append(new[0])
             listeParNom.append(new[0])
-            listeParNom.append(new[1])
 
-            if(new[2] == ""):
-                new[2] = "0"
-            listeParNom.append(new[2])
+            if(new[1] == ""):
+                new[1] = "0"
+            listeParNom.append(new[1])
             
-            clean = new[3].replace('\n','')
+            clean = new[2].replace('\n','')
             if(clean == ""):
                 clean = "0"
             listeParNom.append(clean)
@@ -97,11 +94,11 @@ def manip(s) :
             
         else :
             
-            if(new[2] == ""):
-                new[2] = "0"
-            listeParNom.append(new[2])
+            if(new[1] == ""):
+                new[1] = "0"
+            listeParNom.append(new[1])
             
-            clean = new[3].replace('\n','')
+            clean = new[2].replace('\n','')
             if(clean == ""):
                 clean = "0"
             listeParNom.append(clean)
@@ -109,6 +106,4 @@ def manip(s) :
             #print(listeParNom)
 
 if __name__ == '__main__':
-    miseEnPage()       
-        
-
+    miseEnPage()
