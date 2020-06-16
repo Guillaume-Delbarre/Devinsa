@@ -11,6 +11,7 @@ import math
 medoids = None
 df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
+
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
     dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
@@ -94,7 +95,7 @@ def persoExtremes(numCluster, metric='cosine', medoid=True, nbPerso=4): # Retour
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
     persoCluster = df[df['Clusters']==numCluster].copy()
-    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[1:len(persoCluster.index), 1:(len(moy.columns)+1)], metric))
+    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:len(moy.columns)], metric))
     if medoid:
         res.sort_values(by=0,axis=1, inplace=True)
     else :
@@ -116,5 +117,5 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac(4)
-        #tableQuest(4,13)
+        #printQuestionCarac(4)
+        tableQuest(4,13)
