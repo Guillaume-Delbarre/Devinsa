@@ -23,9 +23,7 @@ def to2D():
     listTitres = first.split(';')
     
     listTitres[len(listTitres)-1] = listTitres[len(listTitres)-1].replace("\n","")
-    
     del listTitres[0] #Suppr de l'id
-    
     del listTitres[0] #Suppr du nom
     print(listTitres)
     del listTitres[len(listTitres)-1] #Suppr du cluster
