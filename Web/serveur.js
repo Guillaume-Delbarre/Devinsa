@@ -202,7 +202,7 @@ io.sockets.on('connection', function (socket) {
 		const ws = fs.createWriteStream("../Donnees/Vecteur.csv");
 		console.log("Extraction des données");
 	// ON DEMANDE LES DONNEES A LA BASE
-		var rqt = `SELECT name, yes_tfidf,no_tfidf FROM ( SELECT name,title,idq,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id as idq,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.idq=a.question_id AND t1.idg=a.item_id ORDER BY name,title`;
+		var rqt = `SELECT idg as id, yes_tfidf,no_tfidf FROM ( SELECT name,title,idq,idg FROM ( SELECT id AS idg, name FROM app_item where id in (Select distinct item_id from app_answer)) AS item CROSS JOIN (select distinct id as idq,title from app_question where id IN (select distinct question_id from app_answer)) as t0 ) AS t1 LEFT JOIN (select item_id,question_id,yes_tfidf,no_tfidf from app_answer) as a ON t1.idq=a.question_id AND t1.idg=a.item_id ORDER BY name,title`;
 		const start = Date.now();
 		connection.query(rqt, function(error, data, fields) {
 			if (error) console.log(error);
