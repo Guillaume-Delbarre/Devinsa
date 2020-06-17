@@ -9,6 +9,7 @@ from kmeans import kmeansAlgo
 from CHA import classHierarchique
 from visualisation import to2D
 from questionsCaracteristiques import printQuestionCarac
+from attrID import attr
 
 import time
 import sys
@@ -29,7 +30,9 @@ def main():
     print("Temps print question carac : %s secondes ---" % (time.time() - temps))
     to2D()
     print("Temps to 2 D : %s secondes ---" % (time.time() - temps))
-        
+    attr()
+    print("Temps ajout noms : %s secondes ---" % (time.time() - temps))
+
 if __name__ == '__main__':
     main()
             

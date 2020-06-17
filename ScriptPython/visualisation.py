@@ -13,9 +13,6 @@ from sklearn.manifold import TSNE
 #from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from random import *
 
-def couleur_alea() :
-    noms = ["Groupe 1","Groupe 2","Groupe 3","Groupe 4","Groupe 5","Groupe 6","Groupe 7","Groupe 8","Groupe 9","Groupe 10"]
-    return noms[randint(0,9)]
 
 def to2D():
     #Prendre les titres des questions
@@ -33,7 +30,7 @@ def to2D():
     df = pd.read_csv("../Donnees/classif.csv", sep = ';' , header = 0, encoding='utf-8')
     
     
-    y = df.loc[:,'Noms'].values
+    y = df.loc[:,'id'].values
     x = df.loc[:, listTitres].values
     
     cluster = df.loc[:,'Clusters'].values
@@ -44,7 +41,7 @@ def to2D():
     x_r = pca.fit_transform(x)
     
     file_zero = open("../Donnees/resVisualisation.csv","w",encoding='utf-8')
-    file_zero.write("Axe_X,Axe_Y,Name,Cluster\n")
+    file_zero.write("Axe_X,Axe_Y,id,Cluster\n")
     file_zero.close()
     
     file = open("../Donnees/resVisualisation.csv","a",encoding="utf-8")

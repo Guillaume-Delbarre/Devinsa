@@ -12,7 +12,7 @@ def miseEnPage():
     global listeNoms
     listeQuestions = []
     listeQ =[]
-    listetitre = ["Noms"]
+    listetitre = ["id"]
     
     #Mettre les questions du fichier dans listeQuestions
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
