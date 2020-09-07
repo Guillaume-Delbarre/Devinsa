@@ -1,53 +1,40 @@
-.overlay {
-    fill: none;
-    pointer-events: all;
+.titre {
+  padding: 0px;
+  text-align: center;
+  background: #6CC3E8;
+  color: white;
+  font-size: 30px;
 }
-  
-.axis path,
-.axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
+
+.center {
+  margin: auto;
 }
-  
+
 .dot {
-    stroke: none;
-    fill-opacity: 0.5;
+  stroke: none;
+  fill-opacity: 0.5;
 }
-  
+
 .dot.selected {
-    stroke: #000000;
-    stroke-width: 2px;
-    fill-opacity: 0.8;
-}
-  
-a {
-    color: #5BBEAA;
+  stroke: #000000;
+  stroke-width: 2px;
+  fill-opacity: 0.8;
 }
 
-.graph{
-    stroke: #000000;
-}
-  
-.extent {
-    fill: #000;
-    fill-opacity: .125;
-    stroke: #fff;
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  height: 35px;
+  padding: 2px;
+  font: 11px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
-.axis text { 
-    display: none; 
-}
-
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 80px;					
-    height: 35px;					
-    padding: 2px;				
-    font: 11px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
+.graph {
+  stroke: black;
+  text-align: center;
 }

@@ -5,16 +5,15 @@ import numpy as np
 import os
 import sys
 from sklearn.metrics import pairwise_distances
+import math
 
 
 medoids = None
-df = pd.read_csv("../Donnees/kmeans.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
+df = pd.read_csv("../Donnees/classif.csv", sep = ";", header=0, index_col=0, encoding = 'utf-8')
 
 
 def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
     global df
-    if(nbQuestion % 2)!=0:
-        raise ValueError("Veuillez entrer un nombre pair de questions")
     dfFile = pd.DataFrame(tableQuest(nbCluster=nbCluster,nbQuestion=nbQuestion, nbMedoid=nbMedoid))
     dfFile.to_csv("../Donnees/infoClusters.csv", mode='w', index=False)
 
@@ -22,7 +21,7 @@ def printQuestionCarac(nbCluster=6,nbQuestion=14, nbMedoid=4):
 
 def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
     global df
-    agg = sommesClusters()
+    agg = sommesClusters(6)
     agg = agg.T
     col=[i for i in range(nbQuestion+int(nbMedoid/2))]
     idx=[]
@@ -39,41 +38,42 @@ def tableQuest(nbCluster=6, nbQuestion=14, nbMedoid=4):
         aggTrie = agg.reindex(agg[i].abs().sort_values(ascending=False).index)
         j=0
         k=0
-        quest=[]
-        score=[]
+        questpos=[]
+        scorepos=[]
+        questneg=[]
+        scoreneg=[]
         medoid=persoExtremes(i,medoid=True,nbPerso=nbMedoid)
         for l in range(int(nbMedoid/2)):
-            quest.append(medoid[2*l])
-            score.append(medoid[2*l+1])
+            questpos.append(medoid[2*l])
+            scorepos.append(medoid[2*l+1])
         while((j+k)<nbQuestion):
             for index,row in aggTrie.iterrows():
-                if(j<(nbQuestion/2) and row[i]>=0):
+                if(j<math.ceil(nbQuestion/2) and row[i]>=0):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
-                    quest.append(str(ind))
-                    score.append(round(row[i]/count, 3))
+                    questpos.append(str(ind))
+                    scorepos.append(round(row[i]/count, 2))
                     j+=1
-                elif(k<(nbQuestion/2) and row[i]<0):
+                elif(k<int(nbQuestion/2) and row[i]<0):
                     ind=index.replace("\n","")
                     ind=ind.replace('"','')
-                    quest.append(str(ind))
-                    score.append(round(row[i]/count, 3))
+                    questneg.append(str(ind))
+                    scoreneg.append(round(row[i]/count, 3))
                     k+=1
+        quest=questpos+questneg
+        score=scorepos+scoreneg
         dfFile.loc["Groupe "+str(i)]=quest
         dfFile.loc[str(count)+" personnages"]=score
     idex = [i for i in range(2*nbCluster)]   
     dfFile = dfFile.set_index([pd.Index(idex),pd.Index(idx)]) 
-    dfFile=dfFile.T   
+    dfFile=dfFile.T  
+    print(dfFile) 
     return dfFile
 
 
-def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,902) des moyennes par question
+def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbCluster,nbQuestion) des moyennes par question
     global df
     somme = df.sort_values(by='Clusters')
-    #del somme['Medoid']
-    #Au lieu d'aller de 0 à 5, les clusters iront de 1 à 6
-    #for k in range(nbCluster,0,-1):
-    #   somme['Clusters'].replace(k-1,k, inplace=True)
     #On fait la somme des TF-IDF pour chaque question par cluster 
     somme = pd.DataFrame(somme.groupby(['Clusters'],as_index=False).sum())
     del somme["Clusters"]
@@ -82,20 +82,20 @@ def sommesClusters(nbCluster=6, versionConcat=True): #retourne un tableau (nbClu
     file_question = open("../Donnees/QuestionsLigne.txt","r", encoding='utf-8')
     question = file_question.readlines()
     file_question.close()
-    som = pd.DataFrame(index=somme.index,columns=question) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
-    for i in range(len(question)):
+    som = pd.DataFrame(index=somme.index,columns=question[1:]) # som (nbCluster x nbQuestion) = +reponseOui - reponseNon
+    for i in range(len(question)-1):
         som.iloc[:,i] = somme.iloc[:,2*i]
-        som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1]
-    #print(som)
+        som.iloc[:,i] = som.iloc[:,i] - somme.iloc[:,2*i+1] 
     return som
 
 
 def persoExtremes(numCluster, metric='cosine', medoid=True, nbPerso=4): # Retourne la liste des personnage du cluster dans l'ordre des plus distants
+    
     moy = sommesClusters(versionConcat=False)
     moy.fillna(0, inplace=True)
     moy = moy[moy.index==numCluster]
     persoCluster = df[df['Clusters']==numCluster].copy()
-    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:902], metric))
+    res = pd.DataFrame(pairwise_distances(moy,persoCluster.iloc[0:len(persoCluster.index), 0:len(moy.columns)], metric))
     if medoid:
         res.sort_values(by=0,axis=1, inplace=True)
     else :
@@ -117,5 +117,5 @@ if __name__ == '__main__':
         nbQuestion=int(sys.argv[2])
         printQuestionCarac(numberOfClusters, nbQuestion)
     else:
-        printQuestionCarac()
-    
+        #printQuestionCarac(4)
+        tableQuest(4,13)

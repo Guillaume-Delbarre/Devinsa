@@ -5,8 +5,6 @@ function tabulate(donnee,columns){
   thead = table.append("thead");
   tbody = table.append('tbody');
 
-  console.log('test');
-
   thead.append("tr")
       .selectAll("th")
       .data(columns)
@@ -55,9 +53,8 @@ function miseEnPage(data) {
   return tab;
 }
 
-d3.csv("https://raw.githubusercontent.com/Guillaume-Delbarre/Devinsa/master/Donnees/infoClusters.csv", function(data) {
+d3.csv("infoClusters.csv", function(data) {
     //console.log(Object.values(data[0]))
     tableau = miseEnPage(data)
-    console.log(tableau)
     tabulate(tableau,tableau[0])
 })

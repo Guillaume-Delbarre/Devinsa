@@ -9,8 +9,8 @@ var mysql = require('mysql');
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "etudespratiques",
-  database: "animal"
+  password: "devinsa!",
+  database: "devinsa"
 });
 
 router.use(session({
@@ -43,9 +43,38 @@ router.get('/home', function(request, response) {
 	}
 });
 
+router.get('/resVisualisation.csv', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier resVisualisation.csv affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/resVisualisation.csv'));
+	}
+});
+
+router.get('/infoClusters.csv', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/infoClusters.csv'));
+	}
+});
+
+router.get('/differences.csv', function(request, response) {
+	if (request.session.loggedin) {
+		// Chargement du fichier acceuil.html affiché au client
+		response.sendFile(path.join(__dirname + '/../Donnees/differences.csv'));
+	}
+});
+
 router.post('/Arbre', function(request, response) {
 	if (request.session.loggedin){
 		response.sendFile(path.join(__dirname + '/Arbre_Binaire/Treeweb.html'));
+	}else{
+		response.sendFile(path.join(__dirname + '/login.html'));
+	}
+});
+
+router.post('/acceuil', function(request, response) {
+	if (request.session.loggedin){
+		response.sendFile(path.join(__dirname + '/graph/acceuil.html'));
 	}else{
 		response.sendFile(path.join(__dirname + '/login.html'));
 	}
@@ -64,7 +93,7 @@ router.post('/auth', function(request, response) {
 	var password = request.body.password;
 	// On confirme les informations
 	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		connection.query('SELECT * FROM accounts WHERE login = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
@@ -72,7 +101,7 @@ router.post('/auth', function(request, response) {
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
-			}			
+			}
 			response.end();
 		});
 	} else {

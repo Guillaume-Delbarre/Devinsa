@@ -1,5 +1,6 @@
 import mysql.connector
 import numpy as np
+import sys
 
 #APP_TREE
 #[id,parent_id,choice,question_id,title]
@@ -27,13 +28,14 @@ def vector(cursor):
 
 #Requête SQL pour extraire les données de l'arbre
 #On retire les choix "Je ne sais pas" car pas important
-def extrait_app_tree(cursor):
+def extrait_app_tree(cursor,profondeur):
     res = []
-    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p'")
-    for (a,b,c,d,e) in curseur:
+    cursor.execute("SELECT app_tree.id,parent_id,choice,question_id,title FROM app_tree,app_question WHERE app_tree.question_id = app_question.id and choice<>'p' and depth <"+profondeur)
+    for (a,b,c,d,e) in cursor:
         res.append([a,b,c,d,e])
     return res
 
+#Renvoit les questions fils d'une question parent
 def getfils(parent_id,app_tree):
     res = []
     for question in app_tree:
@@ -53,13 +55,40 @@ def compterPerso(rangQuestion,count,tfidf,itemByOrder):
         divise = 1
     else:
         divise = -1
-    liste_rapport = (count[:,rangQuestion])/(count[:,(rangQuestion+divise)]+1)
-    index_remove = []
-    for i in range(liste_rapport.shape[0]):
-        if liste_rapport[i]<0.75:
-            index_remove.append(i)
-    return np.delete(count,index_remove,0),np.delete(tfidf,index_remove,0),np.delete(itemByOrder,index_remove,0)
-            
+    liste_rapport_perso = []
+    for i in range(count.shape[0]):
+        if count[i,(rangQuestion+divise)] == 0:
+            liste_rapport_perso.append(1)
+        else:
+            liste_rapport_perso.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
+    index_remove_perso = []
+    for i in range(len(liste_rapport_perso)):
+        if liste_rapport_perso[i]<1:
+            index_remove_perso.append(i)
+    return np.delete(count,index_remove_perso,0),np.delete(tfidf,index_remove_perso,0),np.delete(itemByOrder,index_remove_perso,0)
+
+#Même fonctionnement que compterPerso
+#Nécessaire pour avoir deux matrices parallèles
+#Une pour compter les persos et une pour les exemples
+def compterPerso_exemple(rangQuestion,count,tfidf,itemByOrder):
+    if rangQuestion%2==0:
+        divise = 1
+    else:
+        divise = -1
+    liste_rapport_exemple = []
+    for i in range(count.shape[0]):
+        if (count[i,(rangQuestion+divise)] == 0) and (count[i,(rangQuestion)] == 0):
+            liste_rapport_exemple.append(0)
+        elif count[i,(rangQuestion+divise)] == 0:
+            liste_rapport_exemple.append(1)
+        else:
+            liste_rapport_exemple.append(count[i,rangQuestion]/count[i,(rangQuestion+divise)])
+    index_remove_exemple = []
+    for i in range(len(liste_rapport_exemple)):
+        if liste_rapport_exemple[i]<0.75:
+            index_remove_exemple.append(i)
+    return np.delete(count,index_remove_exemple,0),np.delete(tfidf,index_remove_exemple,0),np.delete(itemByOrder,index_remove_exemple,0)
+
             
 #Fonction simple permettant d'éviter les erreurs à l'écriture dans le JS/JSON
 def miseEnFormeText(text):
@@ -86,25 +115,25 @@ def HTMLclass(choice):
     return 'None'
 
 #Fonction principal qui créé le JS/JSON
-def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
+def elagagePerso(question,app_tree,questionOrder,tfidf,count,itemOrder,tfidf_exemple,count_exemple,itemOrder_exemple,ecrire):
     #S'il ne reste aucun personnage
-    if(len(itemOrder)==0):        
-        ecrire += "\ntext: { name: ' Aucun personnage '}, collapsed : true"
-        return ecrire
     #Si c'est la première question : cas spécifique
-    elif(question[0]==1):
-        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"' }, collapsed : true, children : ["
+    if(question[0]==1):
+        ecrire += "text: { name: '"+miseEnFormeText(app_tree[0][4])+"', desc :'"+str(len(itemOrder))+" personnages' }, collapsed : true, children : ["
     else:
         #On identifie les personnages les plus proches du perso médian
-        listeperso = proxi(tfidf)
-        listeperso = list(set(listeperso))
+        if len(itemOrder_exemple)!=0:
+            listeperso = exemples(tfidf_exemple)
+            listeperso = list(set(listeperso))
         perso_median = ""
         #On met en forme pour le JS/JSON
-        for i in range(len(listeperso)):
-                perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder[listeperso[i]][1])+"',"
+        if len(itemOrder_exemple)==0:
+            perso_median = "perso1 : 'Aucun personnage avec suffisamment de parties jouées',"
+        else:
+            for i in range(len(listeperso)):
+                    perso_median += "perso"+str(i+1)+" : '"+miseEnFormeText(itemOrder_exemple[listeperso[i]][1])+"',"
         perso_median = perso_median[:len(perso_median)-1]
         html = HTMLclass(question[2])
-        
         #On rajoute les données
         ecrire += "text: { name: '"+str(len(itemOrder))+" personnage(s)',"+perso_median+", desc : '"+miseEnFormeText(question[4])+"'},HTMLclass :'"+html+"',collapsed : true, children : ["
     #On cherche les children de la question
@@ -129,39 +158,45 @@ def elagagePerso(question,app_tree,tfidf,count,questionOrder,itemOrder,ecrire):
         rangQuestion = avoirRangQuestion(question[3],questionOrder)
         count_yes,tfidf_yes,itemOrder_yes = compterPerso(rangQuestion*2,count,tfidf,itemOrder)
         count_no,tfidf_no,itemOrder_no = compterPerso((rangQuestion*2)+1,count,tfidf,itemOrder)
-        ecrire += "{"
+        count_yes_exemple, tfidf_yes_exemple, itemOrder_yes_exemple = compterPerso_exemple(rangQuestion * 2, count_exemple, tfidf_exemple, itemOrder_exemple)
+        count_no_exemple, tfidf_no_exemple, itemOrder_no_exemple = compterPerso_exemple((rangQuestion * 2) + 1, count_exemple, tfidf_exemple, itemOrder_exemple)
+        ecrire += "\n{"
         #Puis on relance notre fonction avec les questions enfants
         if (choixOui!=[]):
-            ecrire += elagagePerso(choixOui,app_tree,tfidf_yes,count_yes,questionOrder,itemOrder_yes,"")
-        ecrire += "},{"
+            ecrire += elagagePerso(choixOui,app_tree,questionOrder,tfidf_yes,count_yes,itemOrder_yes,tfidf_yes_exemple,count_yes_exemple,itemOrder_yes_exemple,"")
+        ecrire += "\n}, \n {"
         if (choixNon!=[]):
-            ecrire += elagagePerso(choixNon,app_tree,tfidf_no,count_no,questionOrder,itemOrder_no,"")
-        ecrire += "}]"
+            ecrire += elagagePerso(choixNon,app_tree,questionOrder,tfidf_no,count_no,itemOrder_no,tfidf_no_exemple,count_no_exemple,itemOrder_no_exemple,"")
+        ecrire += "\n } \n]"
         return ecrire
 
-def proxi(tfidf):
-    moyen = np.mean(tfidf,0)
-    dist = (tfidf-moyen)**2
+def distEuclidienne(perso,moyen):
+    dist = (perso-moyen)**2
     dist = np.sum(dist,1)
+    return dist
+
+def distScalaire(perso,moyen):
+    dist = np.dot(perso-moyen,moyen)
+    return dist
+
+#Fonction renvoyant les exemples pour chaque noeud
+#Elle prend les plus proches de la moyenne
+#Elle renvoit maximum 3 personnages
+def exemples(tfidf):
+    moyen = np.mean(tfidf,0)
+    dist = distEuclidienne(tfidf,moyen)
     taille = dist.shape[0]
-    if taille == 1:
-        return [0]
-    elif taille == 2:
-        return[0,1]
-    elif taille == 3:
-        return [0,1,2]
-    else:
-        res = []
-        for compteur in range(3):
-            minimum = np.amin(dist)
-            for i in range(taille):
-                if dist[i]==minimum:
-                    res.append(i)
-                    dist[i] = np.amax(dist)
-                #Limite si trop de distance minimale égale
-                if len(res)==3:
-                    return res
-        return res
+    res = []
+    for compteur in range(3):
+        minimum = np.amin(dist)
+        for i in range(taille):
+            if dist[i]==minimum:
+                res.append(i)
+                dist[i] = np.amax(dist)
+            #Limite si trop de distance minimale égale
+            if len(res)==3:
+                return res
+    return res
             
 
 #Fonction permettant de créer l'arbre binaire
@@ -224,12 +259,12 @@ def tfidf_and_count(vecteur,question,item):
     count = np.array(count).reshape(len(item),2*len(question))
     return tfidf,count
 
-if __name__ == '__main__':
+def ecritureData(profondeur):
     #On se connecte à la base de données
     base = mysql.connector.connect(host='localhost',database='devinsa',user='root',password='devinsa!')
     curseur = base.cursor()
     #On extrait chaque tables, les details sont en haut
-    app_tree = extrait_app_tree(curseur)
+    app_tree = extrait_app_tree(curseur,profondeur)
     vecteur = vector(curseur)
     #Question contient l'ordre des colonnes des questions de la matrice sous la forme [ID, Title]
     question = questionByOrder(vecteur)
@@ -237,19 +272,27 @@ if __name__ == '__main__':
     item = itemByOrder(vecteur)
     #TFIDF/COUNT sont deux matrices content les TFIDF/COUNT de chaque personnage sous la forme : M[PERSO/QUESTION] = YES, M[PERSO/QUESTION + 1] = NO
     tfidf,count = tfidf_and_count(vecteur,question,item)
-    proxi(tfidf)
     #On elague larbre ternaire en arbre binaire
     app_tree = createBinarytree(app_tree)
     #Preparation de liste_questions pour creer une matrice tfidf_oui,non pour chaque (perso,question)
-    ecrireFinal = elagagePerso(app_tree[0],app_tree,tfidf,count,question,item,"")
+    ecrireFinal = elagagePerso(app_tree[0],app_tree,question,tfidf,count,item,tfidf,count,item,"")
     file = "../Web/Arbre_Binaire/script/data.js"
     ecriture = open(file,"w",encoding="utf-8")
-    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native',connectors: { type: 'step' },node: { HTMLclass: 'nodeExample1' },"+
-                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},"+
+    ecriture.write("chart_config = { chart : {container: '#tree', scrollbar: 'native', \nconnectors: { type: 'step' },\n node: { HTMLclass: 'nodeExample1' },\n "+
+                        "animation: { nodeAnimation: "+'"'+"easeOutBounce"+'"'+", nodeSpeed: 700,connectorsAnimation: "+'"'+"bounce"+'"'+", connectorsSpeed: 700 }},\n"+
                         "nodeStructure : {")
     
     ecriture.write(ecrireFinal)
-    ecriture.write(" } \n };")
+    ecriture.write(" }};")
     ecriture.close
-    print("end\n")
+
+#On lance le script avec un paramètre correspondant
+#à la profondeur voulu à extraire
+if __name__ == '__main__':
+    if (len(sys.argv) == 2):
+        ecritureData(sys.argv[1])
+    else:
+        print("Erreur : Aucune profondeur précisée")
+    print("end")
+
     

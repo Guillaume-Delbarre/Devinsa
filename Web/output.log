@@ -1,0 +1,33 @@
+Serveur lancé
+events.js:183
+      throwConnection depuis l'adresse : 10.4.1.36
+differences.py : Script lancé
+Connection depuis l'adresse : 10.4.1.36
+differences.py : Script lancé
+differences.py : Script lancé
+differences.py : Script lancé
+CHA.py lancé
+CHA.py fini
+questionsCaracteristiques.py lancé
+questionsCaracteristiques.py fini
+PCA.py lancé
+PCA.py fini
+Scripts finis
+differences.py : Script lancé
+differences.py : Script lancé
+differences.py : Script lancé
+/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:437
+      throw err; // Rethrow non-MySQL errors
+      ^
+
+TypeError: Cannot read property 'id' of undefined
+    at Query.<anonymous> (/home-reseau/zpesleux/gitHub/Web/serveur.js:140:36)
+    at Query.<anonymous> (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/Connection.js:526:10)
+    at Query._callback (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/Connection.js:488:16)
+    at Query.Sequence.end (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Sequence.js:83:24)
+    at Query._handleFinalResultPacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Query.js:149:8)
+    at Query.EofPacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/sequences/Query.js:133:8)
+    at Protocol._parsePacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+    at Parser._parsePacket (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:433:10)
+    at Parser.write (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Parser.js:43:10)
+    at Protocol.write (/home-reseau/zpesleux/gitHub/node_modules/mysql/lib/protocol/Protocol.js:38:16)

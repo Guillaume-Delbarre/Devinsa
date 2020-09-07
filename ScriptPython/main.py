@@ -7,8 +7,7 @@ Created on Sun Feb  9 19:27:27 2020
 from MiseEnPage import miseEnPage
 from kmeans import kmeansAlgo
 from CHA import classHierarchique
-from PCA import to2D
-from ScriptPCA import PCA
+from visualisation import to2D
 from questionsCaracteristiques import printQuestionCarac
 
 import time
